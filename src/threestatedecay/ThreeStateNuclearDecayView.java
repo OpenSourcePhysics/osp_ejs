@@ -5,21 +5,8 @@
 
 package threestatedecay;
 
-import org.colos.ejs.library._EjsConstants;
-
-// Imports suggested by Model Elements:
-// End of imports from Model Elements
-
-import javax.swing.event.*;
-import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.*;
 
-import org.colos.ejs.library.View;
 
 class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private ThreeStateNuclearDecaySimulation _simulation=null;
@@ -735,6 +722,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("location","646,23")
       .setProperty("size","300,300")
       .getObject();
+    if(ThreeStateNuclearDecay.debugging) {
     dataTable = (org.opensourcephysics.display.DataPanel)
       addElement(new org.colos.ejs.library.control.swing.ControlDataTable(),"dataTable")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
@@ -749,6 +737,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("columnFormat","0,0.0##,0,0,0,0,0")
       .setProperty("background","WHITE")
       .getObject();
+    }
     tableControlPanel = (javax.swing.JPanel)
       addElement(new org.colos.ejs.library.control.swing.ControlPanel(),"tableControlPanel")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
@@ -1109,6 +1098,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("text","table");
     getElement("tableDialog")
       .setProperty("title","Three-State Decay Table");
+    if(ThreeStateNuclearDecay.debugging) {
     getElement("dataTable")
       .setProperty("maxPoints","1000")
       .setProperty("norepeat","true")
@@ -1116,6 +1106,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("columnNames","row#,t,N1,N2,N3,$\\Delta$N1,$\\Delta$N2")
       .setProperty("columnFormat","0,0.0##,0,0,0,0,0")
       .setProperty("background","WHITE");
+    }
     getElement("tableControlPanel");
     getElement("clearTabel")
       .setProperty("image","/org/opensourcephysics/resources/controls/images/erase.gif")

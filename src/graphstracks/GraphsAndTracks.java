@@ -450,7 +450,7 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
       dy[i]=0;  // > Initialization.Initialize:8
       st[i]=dx;  // > Initialization.Initialize:9
       theta[i]=0;  // > Initialization.Initialize:10
-      labels[i]=Character.toString(label);  // > Initialization.Initialize:11
+      labels[i]="A"; //Character.toString(label);  // > Initialization.Initialize:11  WC:  Bug in JS.  Character.toString not implemented
       label++;  // > Initialization.Initialize:12
       xi+=dx;  // > Initialization.Initialize:13
     }  // > Initialization.Initialize:14

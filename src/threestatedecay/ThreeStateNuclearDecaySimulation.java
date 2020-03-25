@@ -5,7 +5,7 @@
 
 package threestatedecay;
 
-import org.colos.ejs.library._EjsConstants;
+
 
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
@@ -129,9 +129,11 @@ class ThreeStateNuclearDecaySimulation extends org.colos.ejs.library.Simulation 
     mMainView.getConfigurableElement("tableDialog")
       .setProperty("title","Three-State Decay Table")
       .setProperty("size","300,300");
+    if(ThreeStateNuclearDecay.debugging) {
     mMainView.getConfigurableElement("dataTable")
       .setProperty("columnNames","row#,t,N1,N2,N3,$\\Delta$N1,$\\Delta$N2")
       .setProperty("columnFormat","0,0.0##,0,0,0,0,0");
+    }
     mMainView.getConfigurableElement("tableControlPanel");
     mMainView.getConfigurableElement("clearTabel")
       .setProperty("image","/org/opensourcephysics/resources/controls/images/erase.gif")

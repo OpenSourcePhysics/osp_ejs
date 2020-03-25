@@ -5,20 +5,14 @@
 
 package threestatedecay;
 
-import org.colos.ejs.library._EjsConstants;
-
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-import javax.swing.event.*;
-import javax.swing.*;
-import java.awt.event.*;
 import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
 
 public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
+	
+	static boolean debugging=false;
 
   static {
     __translatorUtil = new org.colos.ejs.library.utils.TranslatorUtil();
@@ -83,6 +77,7 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
 
   static public java.util.Set<String> _getEjsResources() {
     java.util.Set<String> list = new java.util.HashSet<String>();
+    if(true) return list; // WC: Debugging
     list.add("/testing/ThreeStateNuclearDecay/ThreeStateDecayTheory.html");
     list.add("/testing/ThreeStateNuclearDecay/ThreeStateSample.gif");
     list.add("/testing/ThreeStateNuclearDecay/ThreeStateNuclearDecay.html");
