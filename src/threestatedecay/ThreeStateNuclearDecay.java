@@ -12,7 +12,7 @@ import java.awt.*;
 
 public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
 	
-	static boolean debugging=false;
+	static boolean debugging=true;
 
   static {
     __translatorUtil = new org.colos.ejs.library.utils.TranslatorUtil();
