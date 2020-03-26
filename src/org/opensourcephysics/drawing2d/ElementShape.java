@@ -60,7 +60,7 @@ public class ElementShape extends Element {
   public final static int WHEEL            = 4;
   public final static int CIRCLE           = 5; // BH 2020.03.25
 
-  public /*final*/ static int DEFAULT = ELLIPSE;
+  public /*final*/ static int DEFAULT = CIRCLE;//ELLIPSE;
 
   // Configuration variables
   protected int shapeType = -1;  // Make sure a shape is created
