@@ -5,7 +5,7 @@
 
 package threestatedecay;
 
-
+import org.opensourcephysics.display.OSPRuntime;
 
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
@@ -24,7 +24,10 @@ class ThreeStateNuclearDecaySimulation extends org.colos.ejs.library.Simulation 
     mMainView = _model._view = new ThreeStateNuclearDecayView(this,_replaceName, _replaceOwnerFrame);
     setView (_model._view);
     if (_model._isApplet()) _model._getApplet().captureWindow (_model,"mainFrame");
-    setFPS(20);
+    if (OSPRuntime.isJS)
+    	setDelay(5);
+    else
+        setFPS(20);
     setStepsPerDisplay(_model._getPreferredStepsPerDisplay()); 
     if (_allowAutoplay) { setAutoplay(false); reset(); }
     else { reset(); setAutoplay(false); }

@@ -11,6 +11,7 @@ import java.util.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Paint;
+import java.awt.geom.AffineTransform;
 
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
@@ -30,13 +31,25 @@ public class Group extends Element implements Data {
 //  private ArrayList<Element> elementReversedList = new ArrayList<Element>();
   private int elementInteracted = -1;
   
+  private boolean allCircles = true;
+  
+  public Group() {
+	  super();
+  }
+  
   // Special cases
+  
   
   /**
    * Clears all data in child elements of type Trail
    */
   public void clear() {
-    for (Element el : getElements()) if (el instanceof ElementTrail) ((ElementTrail) el).clear();
+	  List<Element> elems = getElements();
+	  for (int i = 0, n = elems.size(); i < n; i++) {
+		  Element el = elems.get(i);
+		  if (el instanceof ElementTrail)
+			  ((ElementTrail) el).clear();
+	  }
   }
   
   /**
@@ -56,11 +69,15 @@ public class Group extends Element implements Data {
    * @see Element
    */
   public void addElement(Element element) {
-    if (!elementList.contains(element)) {
-      elementList.add(element);
-//      elementReversedList.add(0,element);
-    }
-    element.setGroup(this);
+	  addElementAtIndex(Integer.MAX_VALUE, element);
+//    if (!elementList.contains(element)) {
+//      elementList.add(element);
+//      if (allCircles  && (!(element instanceof ElementShape) || ((ElementShape)element).getShapeType() != ElementShape.CIRCLE)) {
+//    	  allCircles = false;
+//      }
+////      elementReversedList.add(0,element);
+//    }
+//    element.setGroup(this);
   }
 
   /**
@@ -71,8 +88,11 @@ public class Group extends Element implements Data {
    */
   public void addElementAtIndex(int index, Element element) {
     if (!elementList.contains(element)) {
-      index = Math.max(index, elementList.size()-1);
-      elementList.add(index, element);
+//      index = Math.max(index, elementList.size()-1); // BH 2020.03.25 I think this is an error. Why add it just BEFORE the last element?
+      elementList.add(Math.min(index, elementList.size()), element);
+      if (allCircles  && (!(element instanceof ElementShape) || ((ElementShape)element).getShapeType() != ElementShape.CIRCLE)) {
+    	  allCircles = false;
+      }
 //      elementReversedList.add(elementReversedList.size()-index,element);
     }
     element.setGroup(this);
@@ -191,24 +211,49 @@ public class Group extends Element implements Data {
     return false;
   }
 
-  @Override
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
-    for (Element el : getElements()) el.draw(_panel,_g);
-  }
+  private AffineTransform tr = new AffineTransform();
+  private AffineTransform tr1 = new AffineTransform();
+  
+	@Override
+	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+		if (!isVisible() || !isReallyVisible())
+			return;
+		List<Element> elems = getElements();
+		if (allCircles) {
+			tr.setToIdentity();
+			_panel.getPixelTransform(tr).concatenate(getTotalTransform());
+			for (int i = 0, n = elems.size(); i < n; i++) {
+				tr1.setTransform(tr);
+				((ElementShape) elems.get(i)).drawCircle(_g, tr1);
+			}
+		} else {
+			for (int i = 0, n = elems.size(); i < n; i++) {
+				elems.get(i).draw(_panel, _g);
+			}
+		}
+	}
 
   @Override
   public void setNeedToProject(boolean _need) {
-    for (Element el : getElements()) el.setNeedToProject(_need);
+	  List<Element> elems = getElements();
+	  for (int i = 0, n = elems.size(); i < n; i++) {
+		  Element el = elems.get(i);
+el.setNeedToProject(_need);
+	  }
   }
 
-  @Override
-  public boolean isMeasured() { // required by Measurable (in Interactive)
-    if (!super.isMeasured()) return false;
-    for (Element el : getElements()) {
-      if (el.isMeasured()) return true;
-    }
-    return false;
-  }
+	@Override
+	public boolean isMeasured() { // required by Measurable (in Interactive)
+		if (!super.isMeasured())
+			return false;
+		List<Element> elems = getElements();
+		for (int i = 0, n = elems.size(); i < n; i++) {
+			Element el = elems.get(i);
+			if (el.isMeasured())
+				return true;
+		}
+		return false;
+	}
 
   @Override
   protected void updateExtrema() {

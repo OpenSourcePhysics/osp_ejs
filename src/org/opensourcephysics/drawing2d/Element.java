@@ -73,6 +73,9 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
   protected final InteractionTarget targetPosition  = new InteractionTarget(this, TARGET_POSITION);
   protected final InteractionTarget targetSize      = new InteractionTarget(this, TARGET_SIZE);
 
+  public Element() {
+	  
+  }
   /**
    * A place holder for data objects
    * To be used internally by ControlElements
@@ -538,26 +541,30 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    */
   final protected AffineTransform getTheTransformation() { return this.transformation; }
   
+  private AffineTransform trEl = new AffineTransform();
   /**
    * Returns the total transformation, taking into account the position, size, and transformation
    * of the element and that of its group (and supergroups), if any.
    * @return
    */
   final protected AffineTransform getTotalTransform () {
-    if (elementChanged) {
-      totalTransformation = AffineTransform.getTranslateInstance(this.x,this.y);
-      totalTransformation.concatenate(transformation);
-      totalTransformation.scale(this.sizeX,this.sizeY);
-      elementChanged = false;
-      setNeedToProject(true);
-    }
+	checkTransform();
     if (group==null) return totalTransformation;
-    AffineTransform tr = new AffineTransform(group.getTotalTransform());
-    tr.concatenate(totalTransformation);
-    return tr;
+    trEl.setTransform(group.getTotalTransform());
+    trEl.concatenate(totalTransformation);
+    return trEl;
   }
 
-  /**
+  private void checkTransform() {
+	    if (elementChanged) {
+	        totalTransformation = AffineTransform.getTranslateInstance(this.x,this.y);
+	        totalTransformation.concatenate(transformation);
+	        totalTransformation.scale(sizeX,sizeY);
+	        elementChanged = false;
+	        setNeedToProject(true);
+	      }
+  }
+/**
    * Returns the total transformation combined with that of its panel's
    * @param _panel
    * @return
@@ -567,6 +574,14 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
     transform.concatenate(getTotalTransform());
     return transform;
   }
+  
+  protected AffineTransform getPixelTransform(AffineTransform tr) {
+		checkTransform();
+		tr.concatenate(totalTransformation);
+		return tr;
+	}
+
+
 
   /**
    * This method transforms a double[] vector from the body's frame to
