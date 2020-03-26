@@ -66,7 +66,7 @@ public class ControlShape2D extends ControlElement2D {
 
   public void setDefaultValue (int _index) {
     switch (_index) {
-      case 0 : shape.setShapeType(ElementShape.ELLIPSE); break;
+      case 0 : shape.setShapeType(ElementShape.DEFAULT); break;
       case 1 : shape.setPixelSize(false); break;
       case 2 : shape.getStyle().setRelativePosition(Style.CENTERED); break; 
       default: super.setDefaultValue(_index-PROPERTIES_ADDED); break;

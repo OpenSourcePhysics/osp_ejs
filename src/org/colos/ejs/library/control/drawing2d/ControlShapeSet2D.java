@@ -52,13 +52,17 @@ public class ControlShapeSet2D extends ControlSet2D {
     return super.getPropertyInfo(_property);
   }
 
+  public final static int VALUE_SHAPE_TYPE = 0;
+  public final static int VALUE_PIXEL_SIZE = 1;
+  public final static int VALUE_RELATIVE_POSITION = 2;
+  
   //------------------------------------------------
   //Set and Get the values of the properties
   //------------------------------------------------
 
   public void setValue (int _index, Value _value) {
     switch (_index) {
-      case 0 : 
+      case VALUE_SHAPE_TYPE : 
         if (_value.getObject() instanceof int[]) {
           int[] val = (int[]) _value.getObject();
           for (int i=0, n=Math.min(elements.length,val.length); i<n; i++) ((ElementShape)elements[i]).setShapeType(val[i]);
@@ -68,7 +72,7 @@ public class ControlShapeSet2D extends ControlSet2D {
           for (int i=0; i<elements.length; i++) ((ElementShape)elements[i]).setShapeType(val);
         }
         break;
-      case 1 : 
+      case VALUE_PIXEL_SIZE : 
         if (_value.getObject() instanceof boolean[]) {
           boolean[] val = (boolean[]) _value.getObject();
           for (int i=0, n=Math.min(elements.length,val.length); i<n; i++) ((ElementShape)elements[i]).setPixelSize(val[i]);
@@ -78,7 +82,7 @@ public class ControlShapeSet2D extends ControlSet2D {
           for (int i=0; i<elements.length; i++) ((ElementShape)elements[i]).setPixelSize(val);
         }
         break;
-      case 2 : 
+      case VALUE_RELATIVE_POSITION : 
         if (_value.getObject() instanceof int[]) {
           int[] val = (int[]) _value.getObject();
           for (int i=0, n=Math.min(elements.length,val.length); i<n; i++) elements[i].getStyle().setRelativePosition(val[i]);
@@ -94,7 +98,7 @@ public class ControlShapeSet2D extends ControlSet2D {
 
   public void setDefaultValue (int _index) {
     switch (_index) {
-      case 0 : for (int i=0; i<elements.length; i++) ((ElementShape)elements[i]).setShapeType(ElementShape.ELLIPSE); break;
+      case 0 : for (int i=0; i<elements.length; i++) ((ElementShape)elements[i]).setShapeType(ElementShape.DEFAULT); break;
       case 1 : for (int i=0; i<elements.length; i++) ((ElementShape)elements[i]).setPixelSize(false); break;
       case 2 : for (int i=0; i<elements.length; i++) elements[i].getStyle().setRelativePosition(Style.CENTERED); break; 
       default: super.setDefaultValue(_index-PROPERTIES_ADDED); break;

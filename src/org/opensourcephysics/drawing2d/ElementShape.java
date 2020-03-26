@@ -7,8 +7,17 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  * <p>Title: ElementShape</p>
@@ -18,11 +27,40 @@ import java.awt.geom.*;
  * @version 1.1 December 2008
  */
 public class ElementShape extends Element {
+
+	/**
+	 * Very simple circle shape - no need to render as line segments;
+	 * Graphics2D can take care of that.
+	 * 
+	 * @author hansonr
+	 *
+	 */
+	public static class CircleShape extends Ellipse2D.Double {
+
+		public CircleShape(double x1, double y1, double d) {			
+			super(x1, y1, d, d);
+		}
+		
+		public void draw(Graphics g, double dx, double dy, double scale) {
+			int w = (int) (width * scale);
+			g.drawOval((int) (x + dx), (int) (y + dy), w, w);			
+		}
+
+		public void fill(Graphics g, double dx, double dy, double scale) {
+			int w = (int) (width * scale);
+			g.fillOval((int) (x + dx), (int) (y + dy), w, w);			
+		}
+
+	}
+
   public final static int NONE             = 0;
   public final static int ELLIPSE          = 1;
   public final static int RECTANGLE        = 2;
   public final static int ROUND_RECTANGLE  = 3;
   public final static int WHEEL            = 4;
+  public final static int CIRCLE           = 5; // BH 2020.03.25
+
+  public /*final*/ static int DEFAULT = CIRCLE;//ELLIPSE;
 
   // Configuration variables
   protected int shapeType = -1;  // Make sure a shape is created
@@ -36,10 +74,13 @@ public class ElementShape extends Element {
   private Line2D line1, line2;
   private AffineTransform trueSizeTransform=new AffineTransform(); // additional transformation for trueSize
 
-  {
-    setSize (new double[]{0.1,0.1});
-    setShapeType(ELLIPSE);
-  }
+  private final static double[] unitxy = new double[] { 0.1, 0.1 };
+
+  public ElementShape() {
+		super();
+		setSize(unitxy);
+		setShapeType(DEFAULT);
+	}
   
   // -------------------------------------
   // New configuration methods
@@ -115,6 +156,36 @@ public class ElementShape extends Element {
   // Drawing
   // -------------------------------------
 
+	public void drawCircle(Graphics _g, AffineTransform tr) {
+// already checked	    if (!isReallyVisible()) return;
+
+		getPixelTransform(tr);
+		if (trueSize) {
+			if (hasChanged() || needsToProject())
+				projectPoints();
+			tr.concatenate(trueSizeTransform);
+		}
+		double scale = tr.getScaleX();
+		double dx = tr.getTranslateX();
+		double dy = tr.getTranslateY();
+
+		Style style = getStyle();
+		Color color;
+		Paint fill;
+		Graphics2D g2 = (Graphics2D) _g;
+		if (style.isDrawingFill() && (fill = style.getFillColor()) != null) { // First fill the inside
+			g2.setPaint(fill);
+			((CircleShape) shape).fill(g2, dx, dy, scale);
+		}
+		if (style.isDrawingLines() && (color = style.getLineColor()) != null) {
+			g2.setStroke(style.getLineStroke());
+			g2.setColor(color);
+			((CircleShape) shape).draw(g2, dx, dy, scale);
+		}
+	}
+
+  private AffineTransform trES = new AffineTransform();
+
   @Override
   public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
     if (!isReallyVisible()) return;
@@ -131,14 +202,12 @@ public class ElementShape extends Element {
       return;
     }
     Paint fill = getStyle().getFillColor();
-    AffineTransform tr;
+    trES.setTransform(getPixelTransform(_panel));
     if (trueSize) {
       if (hasChanged() || needsToProject()) projectPoints();
-      tr = new AffineTransform (trueSizeTransform);
-      tr.preConcatenate(getPixelTransform(_panel));
+      trES.concatenate(trueSizeTransform);
     }
-    else tr = getPixelTransform(_panel);
-    Shape trShape = tr.createTransformedShape(shape);
+    Shape trShape = trES.createTransformedShape(shape);
     if (fill!=null && getStyle().isDrawingFill()) { // First fill the inside
       g2.setPaint(fill);
       g2.fill(trShape);
@@ -146,8 +215,8 @@ public class ElementShape extends Element {
     if (color!=null && getStyle().isDrawingLines()) {
       g2.setColor(color);
       if (shapeType==WHEEL) {
-        g2.draw(tr.createTransformedShape(line1));
-        g2.draw(tr.createTransformedShape(line2));
+        g2.draw(trES.createTransformedShape(line1));
+        g2.draw(trES.createTransformedShape(line2));
       }
       g2.draw(trShape);
     }
@@ -215,9 +284,12 @@ public class ElementShape extends Element {
       case ELLIPSE         : shape = new Ellipse2D.Double(x1,y1,1.0,1.0); break;
       case RECTANGLE       : shape = new Rectangle2D.Double(x1,y1,1.0,1.0); break;
       case ROUND_RECTANGLE : shape = new RoundRectangle2D.Double(x1,y1,1.0,1.0,0.3,0.3); break;
+      case CIRCLE          : shape = new CircleShape(x1,y1,1.0); break;
     }
     setElementChanged();
   }
+  
+ // final static int DEFAULT = CIRCLE;
 
   private void projectPoints() {
     coordinates[0] = 0.0; 
@@ -230,7 +302,7 @@ public class ElementShape extends Element {
     }
     setNeedToProject(false);
   }
-  
+
 }
 
 /*

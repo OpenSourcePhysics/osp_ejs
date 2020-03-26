@@ -245,36 +245,42 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	private final static int STATE_DONE = 2;
 	
 	public boolean stateLoop() {
-		//System.err.println("State Loop");
+		// System.err.println("State Loop");
 		while (animationThread != null && !animationThread.isInterrupted() && stateHelper.isAlive()) {
 			switch (stateHelper.getState()) {
 			default:
 			case STATE_INIT:
-				//System.err.println("Starting");
+				// System.err.println("Starting");
 				stateHelper.setState(STATE_LOOP);
 				stateHelper.sleep(10);
 				return true;
 			case STATE_LOOP:
-				long t1=(/**@j2sNative performance.now() || */System.currentTimeMillis());
-        step();
-        for (Model slave : slaveList) slave._getSimulation().step();
-        if (applyVariablesWhenIdle() || checkMethodsInvokedByView()) {
-          model._automaticResetSolvers();
-          update();
-        }
-        else if (mustUpdateWhenIdle) update();
-				long t2=(/**@j2sNative performance.now() || */System.currentTimeMillis());
-				int myDelay=(int)( delay-(t2-t1));
-				myDelay=Math.max(myDelay, 10);
-				//System.err.println("JS Running delay="+myDelay);
+				long t1 = (/** @j2sNative performance.now() || */
+				System.currentTimeMillis());
+				step();
+				for (Model slave : slaveList)
+					slave._getSimulation().step();
+				if (applyVariablesWhenIdle() || checkMethodsInvokedByView()) {
+					model._automaticResetSolvers();
+					update();
+				} else if (mustUpdateWhenIdle) {
+					update();
+				}
+				long t2 = (/** @j2sNative performance.now() || */
+				System.currentTimeMillis());
+				/** @j2sNative document.title = "Animation: " + (t2 - t1) + " ms"; */
+				int myDelay = (int) (delay - (t2 - t1));
+				myDelay = Math.max(myDelay, 10);
+				// System.err.println("JS Running delay="+myDelay);
 				stateHelper.sleep(myDelay);
 				return true;
 			case STATE_DONE:
 				System.err.println("Ending");
-		    if (applyVariablesWhenIdle() || checkMethodsInvokedByView()) {
-		       model._automaticResetSolvers();
-		       update();
-		    } else if (mustUpdateWhenIdle) update();
+				if (applyVariablesWhenIdle() || checkMethodsInvokedByView()) {
+					model._automaticResetSolvers();
+					update();
+				} else if (mustUpdateWhenIdle)
+					update();
 				return false;
 			}
 		}

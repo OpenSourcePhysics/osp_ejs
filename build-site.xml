@@ -53,7 +53,7 @@
       </classpath>
     </taskdef>
 
-	<!-- unzip all libjs zip files into site
+	<!-- unzip all libjs zip files into j2s
 	
 	   all zip files placed in libjs will be processed
 	   
@@ -64,7 +64,7 @@
   	    <fileset dir="${libjs.dir}" includes="*.zip"/>
   	  </path>
   	  <sequential>
-  	  	 	<unzip src="@{file.zip}" dest="${site.dir}" overwrite="true"/>  	
+  	  	 	<unzip src="@{file.zip}" dest="${j2s.dir}" overwrite="true"/>  	
   	  </sequential>
   	</for>
 
