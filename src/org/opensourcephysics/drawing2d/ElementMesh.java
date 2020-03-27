@@ -8,6 +8,7 @@
 package org.opensourcephysics.drawing2d;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.DrawingPanel;
@@ -342,7 +343,7 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
   }
   
   private void projectPoints(org.opensourcephysics.display.DrawingPanel _panel) {
-    java.awt.geom.AffineTransform tr = getPixelTransform(_panel);
+    //java.awt.geom.AffineTransform tr = getPixelTransform(_panel);
     { // Project the points
       double[] point = new double[2];
       int nPoints = mPoints.length;
@@ -350,6 +351,7 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
         mA = new int[nPoints];
         mB = new int[nPoints];
       }
+	  AffineTransform tr = getPixelTransform(_panel);
       for (int i=0; i<nPoints; i++) {
         System.arraycopy(mPoints[i],0,point,0,2);
         tr.transform(point,0,point,0,1);

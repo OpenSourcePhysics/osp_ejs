@@ -8,6 +8,7 @@
 package org.colos.ejs.library.control.drawing2d;
 
 import java.awt.*;
+import java.util.List;
 
 import org.opensourcephysics.display2d.VectorColorMapper;
 import org.opensourcephysics.drawing2d.*;
@@ -178,42 +179,90 @@ public class ControlVectorField2D extends ControlElement2D {
       default : super.setValue(_index-VECTORFIELD_ADDED,_value); break;
       case MY_LINE_WIDTH :
         float newLineWidth = (float) _value.getDouble();
-        for (Element element : field.getElements()) element.getStyle().setLineWidth(newLineWidth);
+		List<Element> list = field.getElementsRaw();
+		for (int i = list.size(); --i >= 0;)
+			list.get(i).getStyle().setLineWidth(newLineWidth);
         break;
     }
   }
 
-  public void setDefaultValue (int _index) {
-      switch (_index) {
-        case 0 : field.setMinimumX(Double.NaN); break;
-        case 1 : field.setMaximumX(Double.NaN); break;
-        case 2 : field.setMinimumY(Double.NaN); break;
-        case 3 : field.setMaximumY(Double.NaN); break;
-        
-        case 4 : field.setVectorSizeX(1); break;
-        case 5 : field.setVectorSizeY(1);  break;
-        case 6 : field.setConstantLength(Double.NaN); break;
-        case 7 : field.setVectorAngle(Double.NaN); break;
+	public void setDefaultValue(int _index) {
+		switch (_index) {
+		case 0:
+			field.setMinimumX(Double.NaN);
+			break;
+		case 1:
+			field.setMaximumX(Double.NaN);
+			break;
+		case 2:
+			field.setMinimumY(Double.NaN);
+			break;
+		case 3:
+			field.setMaximumY(Double.NaN);
+			break;
 
-        case 8 : field.setAutoscaleMagnitude(true); break;
-        case 9 : field.setMagnitudeExtrema(0.0, field.getMagnitudeMaximum()); break;
-        case 10 : field.setMagnitudeExtrema(field.getMagnitudeMinimum(),1.0); break;
-        case 11 : field.setMagnitude(Double.NaN); break;
-        case 12 : field.setNumberOfLevels(16);  break;
-        case 13 : field.setInvisibleLevel(-1); break;
-        case 14 : field.setMinColor (Color.BLUE); break;
-        case 15 : field.setMaxColor (Color.RED); break;
+		case 4:
+			field.setVectorSizeX(1);
+			break;
+		case 5:
+			field.setVectorSizeY(1);
+			break;
+		case 6:
+			field.setConstantLength(Double.NaN);
+			break;
+		case 7:
+			field.setVectorAngle(Double.NaN);
+			break;
 
-        case 16 : field.setArrowType(ElementArrow.ARROW); break; 
-        case 17 : field.setRelativePosition(Style.NORTH_EAST); break;
+		case 8:
+			field.setAutoscaleMagnitude(true);
+			break;
+		case 9:
+			field.setMagnitudeExtrema(0.0, field.getMagnitudeMaximum());
+			break;
+		case 10:
+			field.setMagnitudeExtrema(field.getMagnitudeMinimum(), 1.0);
+			break;
+		case 11:
+			field.setMagnitude(Double.NaN);
+			break;
+		case 12:
+			field.setNumberOfLevels(16);
+			break;
+		case 13:
+			field.setInvisibleLevel(-1);
+			break;
+		case 14:
+			field.setMinColor(Color.BLUE);
+			break;
+		case 15:
+			field.setMaxColor(Color.RED);
+			break;
 
-        case 18 : field.setUseColorMapper(false); break;
-        case 19 : field.setShowLegend(false); break;
-        
-        default: super.setDefaultValue(_index-VECTORFIELD_ADDED); break;
-        case MY_LINE_WIDTH : for (Element element : field.getElements()) element.getStyle().setLineWidth(1); break;
-      }
-  }
+		case 16:
+			field.setArrowType(ElementArrow.ARROW);
+			break;
+		case 17:
+			field.setRelativePosition(Style.NORTH_EAST);
+			break;
+
+		case 18:
+			field.setUseColorMapper(false);
+			break;
+		case 19:
+			field.setShowLegend(false);
+			break;
+
+		default:
+			super.setDefaultValue(_index - VECTORFIELD_ADDED);
+			break;
+		case MY_LINE_WIDTH:
+			List<Element> list = field.getElementsRaw();
+			for (int i = list.size(); --i >= 0;)
+				list.get(i).getStyle().setLineWidth(1);
+			break;
+		}
+	}
 
   public String getDefaultValueString (int _index) {
     switch (_index) {

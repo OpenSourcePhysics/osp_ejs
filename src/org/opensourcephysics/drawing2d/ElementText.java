@@ -10,6 +10,8 @@ package org.opensourcephysics.drawing2d;
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.AffineTransform;
+
+import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.TextLine;
 
 /**
@@ -149,59 +151,77 @@ public class ElementText extends Element {
     return 4;
   }
 
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
-    if (!isReallyVisible() || text==null || text.length()<=0) return;
-    //if (hasChanged() || needsToProject()) projectPoints();
-    Graphics2D g2 = (Graphics2D) _g;
+  AffineTransform trET = new AffineTransform();
+  AffineTransform trETinv = new AffineTransform();
+  
+	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+		if (!isReallyVisible() || text == null || text.length() <= 0)
+			return;
+		// if (hasChanged() || needsToProject()) projectPoints();
+		Graphics2D g2 = (Graphics2D) _g;
 
-    Color color = getStyle().getLineColor();
-    Paint fill = getStyle().getFillColor();
-    g2.setStroke(getStyle().getLineStroke());
-    
-    if (trueSize) {
-      if (hasChanged() || needsToProject()) projectPoints();
-      textLine.setColor(color);
-      AffineTransform originalTransform = g2.getTransform();
-      try {
-        AffineTransform tr = new AffineTransform(originalTransform);
-        tr.concatenate(AffineTransform.getTranslateInstance(pixel[0], pixel[1]));  
-        tr.concatenate(((AffineTransform)getTransformation()).createInverse());
-        tr.concatenate(AffineTransform.getTranslateInstance(-pixel[0], -pixel[1]));
-        g2.setTransform(tr);
-      } catch (Exception exc) {}
-      int a1 = (int) pixel[0], b1 = (int) pixel[1]; 
-      int leny = textLine.getHeight(_g)/2;
-      switch (getStyle().getRelativePosition()) {
-        case Style.CENTERED:   
-        case Style.EAST:       
-        case Style.WEST:       
-          b1+=leny/2.0; break;
-        case Style.NORTH:      
-        case Style.NORTH_EAST: 
-        case Style.NORTH_WEST: 
-          b1+=leny;     break;
-        default : break;
-      }
-      textLine.drawText(g2, a1, b1);
-      g2.setTransform(originalTransform);
-    }
-    else {
-      TextLayout tl = new TextLayout(text, font, g2.getFontRenderContext());
-      java.awt.geom.Rectangle2D rect = tl.getBounds();
-      AffineTransform tr = new AffineTransform(translation);
-      tr.scale(1.0/rect.getWidth(), -1.0/rect.getHeight());
-      tr.translate(-rect.getX(),-rect.getMaxY());
-      Shape shape = getPixelTransform(_panel).createTransformedShape(tl.getOutline(tr));
-      if (fill!=null && getStyle().isDrawingFill()) { // First fill the inside
-        g2.setPaint(fill);
-        g2.fill(shape);
-      }
-      if (color!=null && getStyle().isDrawingLines()) {
-        g2.setColor(color);
-        g2.draw(shape);
-      }
-    }
-  }
+		Color color = getStyle().getLineColor();
+		Paint fill = getStyle().getFillColor();
+		g2.setStroke(getStyle().getLineStroke());
+
+		if (!trueSize && !OSPRuntime.isJS) {
+			TextLayout tl = new TextLayout(text, font, g2.getFontRenderContext());
+			java.awt.geom.Rectangle2D rect = tl.getBounds();
+		    AffineTransform tr = new AffineTransform(translation);
+			tr.scale(1.0 / rect.getWidth(), -1.0 / rect.getHeight());
+			tr.translate(-rect.getX(), -rect.getMaxY());
+			Shape shape = transformShape(_panel, tl.getOutline(tr));
+			if (fill != null && getStyle().isDrawingFill()) { // First fill the inside
+				g2.setPaint(fill);
+				g2.fill(shape);
+			}
+			if (color != null && getStyle().isDrawingLines()) {
+				g2.setColor(color);
+				g2.draw(shape);
+			}
+		} else {
+		    AffineTransform originalTransform = g2.getTransform();
+			textLine.setColor(color);
+			int a1 = 0, b1 = 0, leny = 0;
+			if (trueSize) {
+				 a1 = (int) pixel[0];
+				 b1 = (int) pixel[1];
+				if (hasChanged() || needsToProject())
+					projectPoints();
+				try {
+					trET.setTransform(originalTransform);
+					trET.translate(pixel[0], pixel[1]);
+					trET.concatenate(trETinv);
+					trET.translate(-pixel[0], -pixel[1]);
+					g2.setTransform(trET);
+				} catch (Exception exc) {
+				}
+				leny = textLine.getHeight(_g) / 2;
+			} else {
+				// JavaScript??
+				FontMetrics fm = g2.getFontMetrics(font);
+				int w = fm.stringWidth(text);
+				int h = fm.getHeight();
+				leny = h/2;
+			}
+			switch (getStyle().getRelativePosition()) {
+			case Style.CENTERED:
+			case Style.EAST:
+			case Style.WEST:
+				b1 += leny / 2.0;
+				break;
+			case Style.NORTH:
+			case Style.NORTH_EAST:
+			case Style.NORTH_WEST:
+				b1 += leny;
+				break;
+			default:
+				break;
+			}
+			textLine.drawText(g2, a1, b1);
+			g2.setTransform(originalTransform);
+		}
+	}
 
   // -------------------------------------
   // Interaction

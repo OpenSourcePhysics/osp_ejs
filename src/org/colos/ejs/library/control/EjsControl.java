@@ -708,21 +708,25 @@ public class EjsControl {
     for (NeedsUpdate nu : updateList) nu.update();
   }
 
- /**
-  * Refresh all elements
-  */
-  public void update() {
+	/**
+	 * Refresh all elements
+	 */
+	public void update() {
 //    System.out.println ("Calling update");
-    if (javax.swing.SwingUtilities.isEventDispatchThread()) propagateValues();
-    else try {
-      javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-        public synchronized void run() { propagateValues(); }
-      });
-    } 
-    catch (InterruptedException exc) {}
-    catch (java.lang.reflect.InvocationTargetException exc2) {}
-    doTheUpdate();
-  }
+		if (javax.swing.SwingUtilities.isEventDispatchThread())
+			propagateValues();
+		else
+			try {
+				javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
+					public synchronized void run() {
+						propagateValues();
+					}
+				});
+			} catch (InterruptedException exc) {
+			} catch (java.lang.reflect.InvocationTargetException exc2) {
+			}
+		doTheUpdate();
+	}
 
   /**
    * Update elements that collect data, but do no graphic work at all

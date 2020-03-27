@@ -32,23 +32,47 @@ public class Set extends Group {
 
   @Override
   public java.util.List<Data> getDataList() { return null; }
+
   
-  public double[][] getData2D() {
-    List<Element> list = getElements();
-    double[][] data = new double[2][list.size()];
-    int index = 0;
-    for (Element el : list) {
-      data[0][index] = el.getX();
-      data[1][index] = el.getY();
-      index++;
-    }
-    return data; 
-  }
+    private double[][] aadata;
+    /**
+     * Return the list data as an array[x[],y[]].
+     * Note that this array is maintained as a field in Set.
+     * It is not a clone.
+     * 
+     */
+	public double[][] getData2D() {
+		List<Element> list = elementList;
+		int n = list.size();
+		if (aadata == null || aadata[0].length != n) {
+			aadata = new double[2][n];
+		}
+		int index = 0;
+		for (Element el : list) {
+			aadata[0][index] = el.getX();
+			aadata[1][index] = el.getY();
+			index++;
+		}
+		return aadata;
+	}
+
+	public int getElementCount() {
+		return elementList.size();
+	}
+	
+  private String[] defaultColNames = new String[2];
 
   public String[] getColumnNames() {
-    for (Element el : getElements()) if (el instanceof Data) return ((Data) el).getColumnNames();
-    return new String[] {xLabel, yLabel}; 
-  }
+		List<Element> list = elementList;
+		for (int i = 0, n = list.size(); i < n; i++) {
+			Element el = list.get(i);
+			if (el instanceof Data)
+				return ((Data) el).getColumnNames();
+		}
+		defaultColNames[0] = xLabel;
+		defaultColNames[1] = yLabel;
+		return defaultColNames;
+	}
   
   public java.util.ArrayList<Dataset>  getDatasets() { return null; } 
 

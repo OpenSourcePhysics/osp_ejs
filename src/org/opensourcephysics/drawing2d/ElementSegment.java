@@ -53,17 +53,18 @@ public class ElementSegment extends Element {
   }
 
 
-  // -------------------------------------
-  // Abstract part of Element or Parent methods overwritten
-  // -------------------------------------
+	// -------------------------------------
+	// Abstract part of Element or Parent methods overwritten
+	// -------------------------------------
 
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
-    if (!isReallyVisible()) return;
-    Graphics2D g2 = (Graphics2D) _g;
-    g2.setStroke(getStyle().getLineStroke());
-    g2.setColor(getStyle().getLineColor());
-    g2.draw(getPixelTransform(_panel).createTransformedShape(line));
-  }
+	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+		if (!isReallyVisible())
+			return;
+		Graphics2D g2 = (Graphics2D) _g;
+		g2.setStroke(getStyle().getLineStroke());
+		g2.setColor(getStyle().getLineColor());
+		g2.draw(transformShape(_panel, line));
+	}
 
   // -------------------------------------
   // Interaction

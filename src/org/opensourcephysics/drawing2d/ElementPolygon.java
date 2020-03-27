@@ -9,6 +9,8 @@ package org.opensourcephysics.drawing2d;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
 import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
@@ -254,8 +256,7 @@ public class ElementPolygon extends Element implements Data {
           double[] thePoint = point.clone();
           thePoint[0] -= gr.getX();
           thePoint[1] -= gr.getY();
-          try { gr.getTheTransformation().inverseTransform(thePoint,0,thePoint,0,1); } 
-          catch (Exception exc) {};
+          gr.getInverseTransform().transform(thePoint,0,thePoint,0,1); 
           double[] origin = new double[] {coordinates[k][0], coordinates[k][1]};
           elementDirectTransformations(origin);
           // If any of the dimensions is zero, a division by zero would occur.
@@ -275,8 +276,7 @@ public class ElementPolygon extends Element implements Data {
           groupInverseTransformations(thePoint);
           thePoint[0] -= this.getX();
           thePoint[1] -= this.getY();
-          try { this.getTheTransformation().inverseTransform(thePoint,0,thePoint,0,1); } 
-          catch (Exception exc) {};
+          getInverseTransform().transform(thePoint,0,thePoint,0,1); 
           coordinates[k][0] = thePoint[0];
           coordinates[k][1] = thePoint[1];
           this.setNeedToProject(true);
@@ -321,10 +321,10 @@ public class ElementPolygon extends Element implements Data {
   // -------------------------------------
   // Private methods
   // -------------------------------------
+  private double[] point = new double[2];
   
   private void projectPoints(org.opensourcephysics.display.DrawingPanel _panel) {
-    java.awt.geom.AffineTransform tr = getPixelTransform(_panel);
-    double[] point = new double[2];
+    AffineTransform tr = getPixelTransform(_panel);
     for(int k = 0, n = coordinates.length;k<n;k++) {
       System.arraycopy(coordinates[k], 0, point, 0, 2);
       tr.transform(point,0,point,0,1);

@@ -7,9 +7,16 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.util.*;
+import java.awt.Shape;
 import java.awt.geom.AffineTransform;
-import org.opensourcephysics.drawing2d.interaction.*;
+import java.awt.geom.GeneralPath;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.opensourcephysics.drawing2d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing2d.interaction.InteractionListener;
+import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
 
 /**
  * <p>Title: Element</p>
@@ -49,6 +56,20 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
   private Group group = null;
   private Object dataObject=null;
   private AffineTransform transformation=new AffineTransform();
+  private AffineTransform inverseTransform = new AffineTransform();
+  private boolean haveInverse;
+  
+  public AffineTransform getInverseTransform() {
+	  if (!haveInverse) {
+		  inverseTransform.setTransform(transformation);
+		  try {
+			inverseTransform.invert();
+		} catch (Exception e) {
+			System.err.println("Element could not invert " + transformation);
+		}
+	  }
+	  return inverseTransform;
+  }
 
   // Implementation variables
   private boolean elementChanged = true; // The element changed, the transformation needs to be updated
@@ -56,7 +77,7 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
   protected boolean canBeMeasured = true; // Whether 
   private DrawingPanel panel;
   private double[] corners = new double[8]; // The coordinates of the four points of the bounding rectangle of the eleemnt
-  private AffineTransform totalTransformation=new AffineTransform();
+  private AffineTransform myTransformation=new AffineTransform();
 
   private double xmax;  // the maximum x value 
   private double ymax;  // the maximum y value 
@@ -510,6 +531,7 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * @throws ClassCastException if an object of a non-supported class is passed as argument
    */
   final public void setTransformation (Object _transform) throws ClassCastException {
+	  haveInverse = false;
     if (_transform==null) transformation.setToIdentity();
     else if (_transform instanceof org.opensourcephysics.numerics.Matrix2DTransformation)
       transformation.setTransform(((org.opensourcephysics.numerics.Matrix2DTransformation) _transform).getTotalTransform());
@@ -539,47 +561,71 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Returns the actual transformation. Use with caution (do not change the transformation)
    * @return
    */
-  final protected AffineTransform getTheTransformation() { return this.transformation; }
+  public final AffineTransform getTheTransformation() { return this.transformation; }
   
   private AffineTransform trEl = new AffineTransform();
-  /**
-   * Returns the total transformation, taking into account the position, size, and transformation
-   * of the element and that of its group (and supergroups), if any.
-   * @return
-   */
-  final protected AffineTransform getTotalTransform () {
-	checkTransform();
-    if (group==null) return totalTransformation;
-    trEl.setTransform(group.getTotalTransform());
-    trEl.concatenate(totalTransformation);
-    return trEl;
-  }
 
-  private void checkTransform() {
-	    if (elementChanged) {
-	        totalTransformation = AffineTransform.getTranslateInstance(this.x,this.y);
-	        totalTransformation.concatenate(transformation);
-	        totalTransformation.scale(sizeX,sizeY);
-	        elementChanged = false;
-	        setNeedToProject(true);
-	      }
-  }
-/**
+	/**
+	 * Returns the total transformation, taking into account the position, size, and
+	 * transformation of the element and that of its group (and supergroups), if
+	 * any.
+	 * 
+	 * @return
+	 */
+	final protected AffineTransform getTotalTransform() {
+		checkTransform();
+		if (group == null)
+			return myTransformation;
+		trEl.setTransform(group.getTotalTransform());
+		trEl.concatenate(myTransformation);
+		return trEl;
+	}
+
+	private void checkTransform() {
+		if (elementChanged) {
+			myTransformation.setToTranslation(x, y);
+			myTransformation.concatenate(transformation);
+			myTransformation.scale(sizeX, sizeY);
+			elementChanged = false;
+			setNeedToProject(true);
+		}
+	}
+	
+    AffineTransform trE = new AffineTransform();
+
+  /**
    * Returns the total transformation combined with that of its panel's
    * @param _panel
    * @return
    */
   final protected AffineTransform getPixelTransform (org.opensourcephysics.display.DrawingPanel _panel) {
-    AffineTransform transform = _panel.getPixelTransform();
-    transform.concatenate(getTotalTransform());
-    return transform;
+    trE.setTransform(_panel.getPixelTransform());
+    trE.concatenate(getTotalTransform());
+    return trE;
   }
-  
-  protected AffineTransform getPixelTransform(AffineTransform tr) {
+
+	/**
+	 * Returns the total transformation combined with the group's pre-contatentated transform
+	 * 
+	 * @param _panel
+	 * @return
+	 */
+	final protected AffineTransform getPixelTransform(Group group) {
 		checkTransform();
-		tr.concatenate(totalTransformation);
-		return tr;
+		trE.setTransform(group.getGroupTransform());
+		trE.concatenate(myTransformation);
+		return trE;
 	}
+
+	protected Shape transformPath(org.opensourcephysics.display.DrawingPanel _panel, GeneralPath p) {
+		return getPixelTransform(_panel).createTransformedShape(p);
+	}
+
+	protected Shape transformShape(org.opensourcephysics.display.DrawingPanel _panel, Shape s) {
+		return getPixelTransform(_panel).createTransformedShape(s);
+	}
+	
+//	Shape trShape = getPixelTransform(_panel).createTransformedShape(getCurrentSegmentPath());
 
 
 
@@ -627,7 +673,7 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
       el = elList.get(k);
       vector[0] -= el.x;
       vector[1] -= el.y;
-      el.transformation.inverseTransform(vector,0,vector,0,1);
+      el.getInverseTransform().transform(vector,0,vector,0,1);
       if (el!=this) {
         if (el.sizeX!=0.0) vector[0] /= el.sizeX;
         if (el.sizeY!=0.0) vector[1] /= el.sizeY;
@@ -790,7 +836,7 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
           double[] coordinates = point.clone();
           coordinates[0] -= gr.x;
           coordinates[1] -= gr.y;
-          try { gr.transformation.inverseTransform(coordinates,0,coordinates,0,1); } 
+          try { gr.getInverseTransform().transform(coordinates,0,coordinates,0,1); } 
           catch (Exception exc) {};
           double[] origin = getHotSpotBodyCoordinates(target);
           elementDirectTransformations(origin);
@@ -811,7 +857,7 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
           groupInverseTransformations(coordinates);
           coordinates[0] -= this.x;
           coordinates[1] -= this.y;
-          try { this.transformation.inverseTransform(coordinates,0,coordinates,0,1); } 
+          try { getInverseTransform().transform(coordinates,0,coordinates,0,1); } 
           catch (Exception exc) {};
           double[] origin = getHotSpotBodyCoordinates(target);
           if (origin[0]!=0) coordinates[0] /= origin[0];
@@ -843,7 +889,7 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
       el = elList.get(k);
       vector[0] -= el.x;
       vector[1] -= el.y;
-      try { el.transformation.inverseTransform(vector,0,vector,0,1); } 
+      try { el.getInverseTransform().transform(vector,0,vector,0,1); } 
       catch (Exception exc) {};
       if (el.sizeX!=0.0) vector[0] /= el.sizeX;
       if (el.sizeY!=0.0) vector[1] /= el.sizeY;

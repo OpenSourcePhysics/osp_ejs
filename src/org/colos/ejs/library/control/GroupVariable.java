@@ -7,9 +7,11 @@
 
 package org.colos.ejs.library.control;
 
-import org.colos.ejs.library.control.value.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.*;
+import org.colos.ejs.library.control.value.DoubleValue;
+import org.colos.ejs.library.control.value.Value;
 
 /**
  * A utility class that holds information about a value that can be shared
@@ -20,15 +22,15 @@ public class GroupVariable {
   private String name;
   private Value value;
   private boolean definedInModel=false, obsolete=false;
-  private Vector<Item> elementList;
-  private Vector<MethodWithOneParameter> methodList;
+  private List<Item> elementList;
+  private List<MethodWithOneParameter> methodList;
 
   // A GroupVariable should be created with a non-null value
   // that matches the type it is going to be used.
   public GroupVariable (String _aName, Value _aValue) {
     name = _aName;
-    elementList = new Vector<Item>();
-    methodList  = new Vector<MethodWithOneParameter> ();
+    elementList = new ArrayList<Item>();
+    methodList  = new ArrayList<MethodWithOneParameter> ();
 //    value = _aValue.cloneValue();
     if (_aValue!=null) value = _aValue.cloneValue();
     else value  = new DoubleValue(0.0);
@@ -71,19 +73,21 @@ public class GroupVariable {
     return !elementList.isEmpty();
   }
 
-  public void removeElementListener (ControlElement _element, int _index) {
-    for (Item item : elementList) {
-      if (item.element==_element && item.index==_index) {
-        elementList.removeElement(item);
-        return;
-      }
-    }
-  }
+	public void removeElementListener(ControlElement _element, int _index) {
+		// BH 2020.03.27 optimization
+		for (int i = elementList.size(); --i >= 0;) {
+			Item item = elementList.get(i);
+			if ((item.element == _element) && (item.index == _index)) {
+				elementList.remove(i);
+				return;
+			}
+		}
+	}
 
   public void propagateValue (ControlElement _element, boolean _collectingData) {
     if (_collectingData) {
-      for (Enumeration<Item> e = elementList.elements() ; e.hasMoreElements() ;) {
-        Item item = e.nextElement();
+		for (int i = elementList.size(); --i >= 0;) {
+			Item item = elementList.get(i);
         if (item.element instanceof DataCollector) {
           item.element.setActive(false);
           if (item.element.myMethodsForProperties[item.index]!=null) { // AMAVP (See note in ControlElement)
@@ -99,8 +103,8 @@ public class GroupVariable {
       }
     }
     else {
-      for (Enumeration<Item> e = elementList.elements() ; e.hasMoreElements() ;) {
-        Item item = e.nextElement();
+		for (int i = elementList.size(); --i >= 0;) {
+			Item item = elementList.get(i);
         if (item.element!=_element) {
 //        if (!item.element.isActive()) continue; // This would avoid infinite loops, but may have side-effects
           item.element.setActive(false);
@@ -130,14 +134,15 @@ public class GroupVariable {
     methodList.add(new MethodWithOneParameter (ControlElement.VARIABLE_CHANGED,_target,_method,null,null,_anObject));
   }
 
-  public void removeListener (Object _target, String _method) {
-    for (MethodWithOneParameter method : methodList) {
-      if (method.equals(ControlElement.VARIABLE_CHANGED,_target, _method)) {
-        methodList.removeElement(method);
-        return;
-      }
-    }
-  }
+	public void removeListener(Object _target, String _method) {
+		for (int i = methodList.size(); --i >= 0;) {
+			MethodWithOneParameter method = methodList.get(i);
+			if (method.equals(ControlElement.VARIABLE_CHANGED, _target, _method)) {
+				methodList.remove(i);
+				return;
+			}
+		}
+	}
 
   public void invokeListeners (ControlElement _element) {
     for (MethodWithOneParameter method : methodList) method.invoke(ControlElement.VARIABLE_CHANGED,_element);

@@ -27,37 +27,39 @@ import org.opensourcephysics.display.Dataset;
  */
 public class Group extends Element implements Data {
   // Implementation variables
-  private ArrayList<Element> elementList = new ArrayList<Element>();
+  protected ArrayList<Element> elementList = new ArrayList<Element>();
 //  private ArrayList<Element> elementReversedList = new ArrayList<Element>();
   private int elementInteracted = -1;
-  
-  private boolean allCircles = true;
   
   public Group() {
 	  super();
   }
   
-  // Special cases
+	// Special cases
+
+	/**
+	 * Clears all data in child elements of type Trail
+	 */
+	public void clear() {
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			Element el = list.get(i);
+			if (el instanceof ElementTrail)
+				((ElementTrail) el).clear();
+		}
+	}
   
-  
-  /**
-   * Clears all data in child elements of type Trail
-   */
-  public void clear() {
-	  List<Element> elems = getElements();
-	  for (int i = 0, n = elems.size(); i < n; i++) {
-		  Element el = elems.get(i);
-		  if (el instanceof ElementTrail)
-			  ((ElementTrail) el).clear();
-	  }
-  }
-  
-  /**
-   * Initializes all data in child elements of type Trail
-   */
-  public void initialize() {
-    for (Element el : getElements()) if (el instanceof ElementTrail) ((ElementTrail) el).initialize();
-  }
+	/**
+	 * Initializes all data in child elements of type Trail
+	 */
+	public void initialize() {
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			Element el = list.get(i);
+			if (el instanceof ElementTrail)
+				((ElementTrail) el).initialize();
+		}
+	}
 
   // ----------------------------------------------------
   // New methods
@@ -70,14 +72,6 @@ public class Group extends Element implements Data {
    */
   public void addElement(Element element) {
 	  addElementAtIndex(Integer.MAX_VALUE, element);
-//    if (!elementList.contains(element)) {
-//      elementList.add(element);
-//      if (allCircles  && (!(element instanceof ElementShape) || ((ElementShape)element).getShapeType() != ElementShape.CIRCLE)) {
-//    	  allCircles = false;
-//      }
-////      elementReversedList.add(0,element);
-//    }
-//    element.setGroup(this);
   }
 
   /**
@@ -90,10 +84,6 @@ public class Group extends Element implements Data {
     if (!elementList.contains(element)) {
 //      index = Math.max(index, elementList.size()-1); // BH 2020.03.25 I think this is an error. Why add it just BEFORE the last element?
       elementList.add(Math.min(index, elementList.size()), element);
-      if (allCircles  && (!(element instanceof ElementShape) || ((ElementShape)element).getShapeType() != ElementShape.CIRCLE)) {
-    	  allCircles = false;
-      }
-//      elementReversedList.add(elementReversedList.size()-index,element);
     }
     element.setGroup(this);
   }
@@ -115,19 +105,21 @@ public class Group extends Element implements Data {
    */
   public void removeElement(Element element) {
     elementList.remove(element);
-//    elementReversedList.remove(element);
     element.setGroup(null);
   }
 
-  /**
-   * Removes all Elements from this Group
-   * @see Element
-   */
-  public void removeAllElements() {
-    for (Element element : elementList) element.setGroup(null);
-    elementList.clear();
-//    elementReversedList.clear();
-  }
+	/**
+	 * Removes all Elements from this Group
+	 * 
+	 * @see Element
+	 */
+	public void removeAllElements() {
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			list.get(i).setGroup(null);
+		}
+		elementList.clear();
+	}
 
   /**
    * Gets the cloned list of Elements in the group.
@@ -135,8 +127,17 @@ public class Group extends Element implements Data {
    * @return cloned list
    */
   @SuppressWarnings("unchecked")
-  public synchronized java.util.List<Element> getElements() {
+  public synchronized java.util.List<Element> getElementsCloned() {
     return (java.util.List<Element>) elementList.clone();
+  }
+
+  
+  /**
+   * Gets the uncloned list of Elements in the group.
+   * @return uncloned list
+   */
+  public java.util.List<Element> getElementsRaw() {
+    return elementList;
   }
 
 //  @SuppressWarnings("unchecked")
@@ -178,7 +179,11 @@ public class Group extends Element implements Data {
   public double[][][] getData3D() { return null; }
 
   public String[] getColumnNames() {
-    for (Element el : getElements()) if (el instanceof Data) return ((Data) el).getColumnNames();
+		List<Element> list = elementList;
+		for (int i = 0, n = list.size(); i < n; i++) {
+			Element el = list.get(i);
+			if (el instanceof Data) return ((Data) el).getColumnNames();
+		}
     return null; 
   }
 
@@ -192,64 +197,71 @@ public class Group extends Element implements Data {
     return new Color[] { Color.BLACK, Color.BLUE };
   }
 
-  public java.util.List<Data> getDataList() {
-    java.util.List<Data> list = new java.util.ArrayList<Data>();
-    for (Element el : getElements()) if (el instanceof Data) list.add((Data)el);
-    return list;
-  }
+	public java.util.List<Data> getDataList() {
+		java.util.List<Data> list = new java.util.ArrayList<Data>();
+		List<Element> elist = elementList;
+		for (int i = 0, n = elist.size(); i < n; i++) {
+			Element el = elist.get(i);
+			if (el instanceof Data)
+				list.add((Data) el);
+		}
+		return list;
+	}
 
   public java.util.ArrayList<Dataset>  getDatasets() { return null; }
   
-  // ----------------------------------------------------
-  // Overwriting Element's methods
-  // ----------------------------------------------------
+	// ----------------------------------------------------
+	// Overwriting Element's methods
+	// ----------------------------------------------------
 
-  @Override
-  public boolean hasChanged() {
-    if (super.hasChanged()) return true;
-    for (Element el : getElements()) if (el.hasChanged()) return true;
-    return false;
+	@Override
+	public boolean hasChanged() {
+		if (super.hasChanged())
+			return true;
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			Element el = list.get(i);
+			if (el.hasChanged())
+				return true;
+		}
+		return false;
+	}
+
+  private AffineTransform groupTransform = new AffineTransform();
+  
+  protected AffineTransform getGroupTransform() {
+	  return groupTransform;	  
   }
-
-  private AffineTransform tr = new AffineTransform();
-  private AffineTransform tr1 = new AffineTransform();
   
 	@Override
 	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
 		if (!isVisible() || !isReallyVisible())
 			return;
-		List<Element> elems = getElements();
-		if (allCircles) {
-			tr.setToIdentity();
-			_panel.getPixelTransform(tr).concatenate(getTotalTransform());
-			for (int i = 0, n = elems.size(); i < n; i++) {
-				tr1.setTransform(tr);
-				((ElementShape) elems.get(i)).drawCircle(_g, tr1);
-			}
-		} else {
-			for (int i = 0, n = elems.size(); i < n; i++) {
-				elems.get(i).draw(_panel, _g);
-			}
+		List<Element> elems = elementList;
+		groupTransform.setTransform(_panel.getPixelTransform());
+		groupTransform.concatenate(getTotalTransform());
+		for (int i = 0, n = elems.size(); i < n; i++) {
+			Element el = elems.get(i);
+			if (el.isVisible())
+				el.draw(_panel, _g);
 		}
 	}
 
-  @Override
-  public void setNeedToProject(boolean _need) {
-	  List<Element> elems = getElements();
-	  for (int i = 0, n = elems.size(); i < n; i++) {
-		  Element el = elems.get(i);
-el.setNeedToProject(_need);
-	  }
-  }
+	@Override
+	public void setNeedToProject(boolean _need) {
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			list.get(i).setNeedToProject(_need);
+		}
+	}
 
 	@Override
 	public boolean isMeasured() { // required by Measurable (in Interactive)
 		if (!super.isMeasured())
 			return false;
-		List<Element> elems = getElements();
-		for (int i = 0, n = elems.size(); i < n; i++) {
-			Element el = elems.get(i);
-			if (el.isMeasured())
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			if (list.get(i).isMeasured())
 				return true;
 		}
 		return false;
@@ -259,7 +271,9 @@ el.setNeedToProject(_need);
   protected void updateExtrema() {
     if (!hasChanged()) return;
     initExtrema();
-    for (Element el : getElements()) {
+	List<Element> list = elementList; 
+	for (int i = list.size(); --i >= 0;) {
+		Element el = list.get(i);
       if (el.isMeasured()) {
         double minx = el.getXMin(), maxx = el.getXMax();
         double miny = el.getYMin(), maxy = el.getYMax();
@@ -283,7 +297,7 @@ el.setNeedToProject(_need);
 
   public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
     if (!isReallyVisible()) return null;
-    List<Element> elList = getElements();
+    List<Element> elList = elementList;
     for (int i=elList.size()-1; i>=0; i--) {
       org.opensourcephysics.display.Interactive target = elList.get(i).findInteractive(_panel,_xpix,_ypix);
       if (target!=null) {

@@ -8,6 +8,8 @@
 package org.opensourcephysics.drawing2d;
 
 import java.awt.*;
+import java.util.List;
+
 import org.opensourcephysics.display.PlottingPanel;
 import org.opensourcephysics.display2d.VectorColorMapper;
 
@@ -176,14 +178,20 @@ public class VectorField extends Group {
     }
   }
 
-  public void setArrowType (int type) {
-    arrowType = type;
-    for (Element element : getElements()) ((ElementArrow)element).setArrowType(type);
-  }
+	public void setArrowType(int type) {
+		arrowType = type;
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			((ElementArrow) list.get(i)).setArrowType(type);
+		}
+	}
   
-  public void setRelativePosition (int position) {
-    for (Element element : getElements()) element.getStyle().setRelativePosition(position);
-  }
+	public void setRelativePosition(int position) {
+		List<Element> list = elementList;
+		for (int i = list.size(); --i >= 0;) {
+			list.get(i).getStyle().setRelativePosition(position);
+		}
+	}
   
   public void setUseColorMapper(boolean _do) {
     useColorMapper = _do;
@@ -304,21 +312,26 @@ public class VectorField extends Group {
     }
   }
 
-  private boolean checkArrays() {
-    nX = nY = Integer.MAX_VALUE;
-    checkArraySize(vectorSizeXData);
-    checkArraySize(vectorSizeYData);
-    checkArraySize(vectorAngleData);
-    checkArraySize(vectorMagnitudeData);
-    if (nX==Integer.MAX_VALUE) nX = 0; 
-    if (nY==Integer.MAX_VALUE) nY = 0;
-    if (nX<=0 || nY<=0) return false;
+	private boolean checkArrays() {
+		nX = nY = Integer.MAX_VALUE;
+		checkArraySize(vectorSizeXData);
+		checkArraySize(vectorSizeYData);
+		checkArraySize(vectorAngleData);
+		checkArraySize(vectorMagnitudeData);
+		if (nX == Integer.MAX_VALUE)
+			nX = 0;
+		if (nY == Integer.MAX_VALUE)
+			nY = 0;
+		if (nX <= 0 || nY <= 0)
+			return false;
 
-    if (vectorLength==null || vectorLength.length!=nX || vectorLength[0].length!=nY) vectorLength = new double[nX][nY];
-    int total = nX*nY;
-    if (total!=(getElements().size()-1)) setNumberOfElements(total);
-    return true;
-  }
+		if (vectorLength == null || vectorLength.length != nX || vectorLength[0].length != nY)
+			vectorLength = new double[nX][nY];
+		int total = nX * nY;
+		if (total != (elementList.size() - 1))
+			setNumberOfElements(total);
+		return true;
+	}
   
   private boolean isAngleSet() {
     if (vectorAngleData==null && Double.isNaN(vectorAngle)) return false;
@@ -496,5 +509,6 @@ public class VectorField extends Group {
     if (index >= levels) return colors[levels-1];
     return  colors[index];
   }
+
 
 } // End of class

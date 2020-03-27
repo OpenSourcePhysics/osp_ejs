@@ -28,39 +28,13 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class ElementShape extends Element {
 
-	/**
-	 * Very simple circle shape - no need to render as line segments;
-	 * Graphics2D can take care of that.
-	 * 
-	 * @author hansonr
-	 *
-	 */
-	public static class CircleShape extends Ellipse2D.Double {
-
-		public CircleShape(double x1, double y1, double d) {			
-			super(x1, y1, d, d);
-		}
-		
-		public void draw(Graphics g, double dx, double dy, double scale) {
-			int w = (int) (width * scale);
-			g.drawOval((int) (x + dx), (int) (y + dy), w, w);			
-		}
-
-		public void fill(Graphics g, double dx, double dy, double scale) {
-			int w = (int) (width * scale);
-			g.fillOval((int) (x + dx), (int) (y + dy), w, w);			
-		}
-
-	}
-
   public final static int NONE             = 0;
   public final static int ELLIPSE          = 1;
   public final static int RECTANGLE        = 2;
   public final static int ROUND_RECTANGLE  = 3;
   public final static int WHEEL            = 4;
-  public final static int CIRCLE           = 5; // BH 2020.03.25
 
-  public /*final*/ static int DEFAULT = CIRCLE;//ELLIPSE;
+  public /*final*/ static int DEFAULT = ELLIPSE;
 
   // Configuration variables
   protected int shapeType = -1;  // Make sure a shape is created
@@ -82,18 +56,19 @@ public class ElementShape extends Element {
 		setShapeType(DEFAULT);
 	}
   
-  // -------------------------------------
-  // New configuration methods
-  // -------------------------------------
+	// -------------------------------------
+	// New configuration methods
+	// -------------------------------------
 
-  /**
-   * Set the type of the shape to draw
-   */
-  public void setShapeType (int _type) {
-    if (shapeType==_type) return;
-    shapeType = _type;
-    recreateShape();
-  }
+	/**
+	 * Set the type of the shape to draw
+	 */
+	public void setShapeType(int _type) {
+		if (shape != null && shapeType == _type)
+			return;
+		shapeType = _type;
+		recreateShape();
+	}
 
   /**
    * Get the type of the shape to draw
@@ -156,76 +131,85 @@ public class ElementShape extends Element {
   // Drawing
   // -------------------------------------
 
-	public void drawCircle(Graphics _g, AffineTransform tr) {
-// already checked	    if (!isReallyVisible()) return;
+	/**
+	 * Draw or fill a circle using Graphics2D.draw/fileOval.
+	 * 
+	 * @param _g
+	 * @param tr the final transform
+	 * @param style
+	 * @param color
+	 * @param fill
+	 */
+	public void drawCircle(Graphics g, AffineTransform tr, Paint fill, Color color) {
+		double scale = tr.getScaleX();
+		double dx = tr.getTranslateX();
+		double dy = tr.getTranslateY();
+		Ellipse2D.Double e = (Ellipse2D.Double) shape; 
+		int w = (int) (e.width * scale);
 
-		getPixelTransform(tr);
+		Graphics2D g2 = (Graphics2D) g;
+		if (fill != null) {
+			g2.setPaint(fill);
+			g2.fillOval((int) (e.x + dx - w/2), (int) (e.y + dy - w/2), w, w);			
+		}
+		if (color != null) {
+			g2.setColor(color);
+			g2.drawOval((int) (e.x + dx - w/2), (int) (e.y + dy - w/2), w, w);			
+		}
+	}
+
+	@Override
+	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+		Group group = getGroup();
+		if (group == null && !isReallyVisible())
+			return;
+		Style style = getStyle();
+		Graphics2D g2 = (Graphics2D) _g;
+		if (shape == null) {
+			if (hasChanged() || needsToProject())
+				projectPoints();
+			g2.setColor(style.getLineColor());
+			g2.drawOval((int) pixel[0], (int) pixel[1], 1, 1); // draw a point
+			return;
+		}
+		AffineTransform tr = (group == null ? getPixelTransform(_panel) : getPixelTransform(group));
 		if (trueSize) {
 			if (hasChanged() || needsToProject())
 				projectPoints();
 			tr.concatenate(trueSizeTransform);
 		}
-		double scale = tr.getScaleX();
-		double dx = tr.getTranslateX();
-		double dy = tr.getTranslateY();
-
-		Style style = getStyle();
-		Color color;
-		Paint fill;
-		Graphics2D g2 = (Graphics2D) _g;
-		if (style.isDrawingFill() && (fill = style.getFillColor()) != null) { // First fill the inside
-			g2.setPaint(fill);
-			((CircleShape) shape).fill(g2, dx, dy, scale);
+		g2.setStroke(style.getLineStroke());
+		Paint fill = (style.isDrawingFill() ? style.getFillColor() : null);
+		Color color = (style.isDrawingLines() ? style.getLineColor() : null);
+		// we could add shortcuts here for simple shapes
+		switch (shapeType) {
+		case ELLIPSE:
+			if (((Ellipse2D.Double) shape).width == ((Ellipse2D.Double) shape).height) {
+				drawCircle(_g, tr, fill, color);
+				return;
+			}
+			break;
 		}
-		if (style.isDrawingLines() && (color = style.getLineColor()) != null) {
-			g2.setStroke(style.getLineStroke());
+		Shape trShape = tr.createTransformedShape(shape);
+		if (fill != null) { // First fill the inside
+			g2.setPaint(fill);
+			g2.fill(trShape);
+		}
+		if (color != null) {
 			g2.setColor(color);
-			((CircleShape) shape).draw(g2, dx, dy, scale);
+			if (shapeType == WHEEL) {
+				g2.draw(tr.createTransformedShape(line1));
+				g2.draw(tr.createTransformedShape(line2));
+			}
+			g2.draw(trShape);
 		}
 	}
-
-  private AffineTransform trES = new AffineTransform();
-
-  @Override
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
-    if (!isReallyVisible()) return;
-//    System.out.println ("drawing for x,y to "+this.getX()+", "+this.getY());
-//    System.out.println ("size = "+this.getSizeX()+", "+this.getSizeY());
-
-    Graphics2D g2 = (Graphics2D) _g;
-    g2.setStroke(getStyle().getLineStroke());
-    Color color = getStyle().getLineColor();
-    if (shape==null) {
-      if (hasChanged() || needsToProject()) projectPoints();
-      g2.setColor(color);
-      g2.drawOval( (int) pixel[0], (int) pixel[1], 1, 1); // draw a point
-      return;
-    }
-    Paint fill = getStyle().getFillColor();
-    trES.setTransform(getPixelTransform(_panel));
-    if (trueSize) {
-      if (hasChanged() || needsToProject()) projectPoints();
-      trES.concatenate(trueSizeTransform);
-    }
-    Shape trShape = trES.createTransformedShape(shape);
-    if (fill!=null && getStyle().isDrawingFill()) { // First fill the inside
-      g2.setPaint(fill);
-      g2.fill(trShape);
-    }
-    if (color!=null && getStyle().isDrawingLines()) {
-      g2.setColor(color);
-      if (shapeType==WHEEL) {
-        g2.draw(trES.createTransformedShape(line1));
-        g2.draw(trES.createTransformedShape(line2));
-      }
-      g2.draw(trShape);
-    }
-  }
 
   // -------------------------------------
   // Interaction
   // -------------------------------------
   
+
   @Override
   public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
     if (!targetPosition.isEnabled()) return null;
@@ -237,12 +221,10 @@ public class ElementShape extends Element {
         if (Math.abs(pixel[0]-_xpix)<1 && Math.abs(pixel[1]-_ypix)<1) return this.targetPosition;
         return null;
       }
-      AffineTransform tr;
+      AffineTransform tr = getPixelTransform(_panel);
       if (trueSize) {
-        tr = new AffineTransform (trueSizeTransform);
-        tr.preConcatenate(getPixelTransform(_panel));
+    	tr.concatenate(trueSizeTransform);
       }
-      else tr = getPixelTransform(_panel);
       Shape trShape = tr.createTransformedShape(shape);
       if (trShape.contains(_xpix,_ypix)) return this.targetPosition;
     }
@@ -284,7 +266,6 @@ public class ElementShape extends Element {
       case ELLIPSE         : shape = new Ellipse2D.Double(x1,y1,1.0,1.0); break;
       case RECTANGLE       : shape = new Rectangle2D.Double(x1,y1,1.0,1.0); break;
       case ROUND_RECTANGLE : shape = new RoundRectangle2D.Double(x1,y1,1.0,1.0,0.3,0.3); break;
-      case CIRCLE          : shape = new CircleShape(x1,y1,1.0); break;
     }
     setElementChanged();
   }
@@ -301,6 +282,10 @@ public class ElementShape extends Element {
       trueSizeTransform = AffineTransform.getScaleInstance(pixelSize[0]==0?0:getSizeX()/pixelSize[0], pixelSize[1]==0?0:getSizeY()/pixelSize[1]);
     }
     setNeedToProject(false);
+  }
+  
+  public String toString() {
+	  return "["+getClass().getName()+ " type=" + shapeType + "]";
   }
 
 }

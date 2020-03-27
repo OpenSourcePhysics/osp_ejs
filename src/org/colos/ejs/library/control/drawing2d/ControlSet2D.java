@@ -87,7 +87,7 @@ public abstract class ControlSet2D extends ControlElement2D {
     newElement.setSizeXY(oldElement.getSizeX(),oldElement.getSizeY());
     newElement.setVisible(oldElement.isVisible());
     newElement.setCanBeMeasured(oldElement.getCanBeMeasured());
-    newElement.setTransformation(oldElement.getTransformation());
+    newElement.setTransformation(oldElement.getTheTransformation());
 
     newElement.getInteractionTarget(Element.TARGET_POSITION).setEnabled(oldElement.getInteractionTarget(Element.TARGET_POSITION).getEnabled());
     newElement.getInteractionTarget(Element.TARGET_POSITION).setAffectsGroup(oldElement.getInteractionTarget(Element.TARGET_POSITION).getAffectsGroup());

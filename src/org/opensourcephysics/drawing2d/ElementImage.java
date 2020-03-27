@@ -200,45 +200,63 @@ public class ElementImage extends Element {
     return 4;
   }
 
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
-    if (image==null || !isReallyVisible()) return;
-    //lastPanel = _panel;
-    Graphics2D g2 = (Graphics2D) _g;
-    AffineTransform tr;
-    if (trueSize) {
-      if (hasChanged() || needsToProject()) projectPoints();
-      tr = new AffineTransform (trueSizeTransform);
-      tr.preConcatenate(getPixelTransform(_panel));
-    }
-    else tr = getPixelTransform(_panel);
-    tr.concatenate(imageTransform);
-    g2.drawImage(image,tr,_panel); // Setting the panel as observer is important!
-  }
+	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+		if (image == null || !isReallyVisible())
+			return;
+		// lastPanel = _panel;
+		Graphics2D g2 = (Graphics2D) _g;
+		AffineTransform tr;
+		if (trueSize) {
+			if (hasChanged() || needsToProject())
+				projectPoints();
+			tr = getPixelTransform(_panel);
+			tr.concatenate(trueSizeTransform);
+			// was:
+//			tr = new AffineTransform(trueSizeTransform);
+//			tr.preConcatenate(getPixelTransform(_panel, tr));
 
-  // ------------------------------------- 
-  // Interaction
-  // -------------------------------------
+		} else {
+			tr = getPixelTransform(_panel);
+		}
+		tr.concatenate(imageTransform);
+		g2.drawImage(image, tr, _panel); // Setting the panel as observer is important!
+	}
 
-  public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
-    if (!targetPosition.isEnabled()) return null;
-    if (image==null || !isReallyVisible()) return null;
-    if (hasChanged() || needsToProject()) projectPoints();
-    int sensitivity = getStyle().getSensitivity();
-    if (sensitivity<=0) {
-      AffineTransform tr;
-      if (trueSize) {
-        tr = new AffineTransform (trueSizeTransform);
-        tr.preConcatenate(getPixelTransform(_panel));
-      }
-      else tr = getPixelTransform(_panel);
-      Shape trShape = tr.createTransformedShape(shape);
-      if (trShape.contains(_xpix,_ypix)) return this.targetPosition;
-    }
-    else {
-      if (Math.abs(pixel[0]-_xpix)<sensitivity && Math.abs(pixel[1]-_ypix)<sensitivity) return this.targetPosition;
-    }
-    return null;
-  }
+	// -------------------------------------
+	// Interaction
+	// -------------------------------------
+
+	public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel,
+			int _xpix, int _ypix) {
+		if (!targetPosition.isEnabled())
+			return null;
+		if (image == null || !isReallyVisible())
+			return null;
+		if (hasChanged() || needsToProject())
+			projectPoints();
+		int sensitivity = getStyle().getSensitivity();
+		if (sensitivity <= 0) {
+
+			AffineTransform tr = getPixelTransform(_panel);
+			if (trueSize) {
+				tr.concatenate(trueSizeTransform);
+			}
+			// was:
+//      AffineTransform tr;
+//      if (trueSize) {
+//        tr = new AffineTransform (trueSizeTransform);
+//        tr.preConcatenate(getPixelTransform(_panel));
+//      }
+//      else tr = getPixelTransform(_panel);
+			Shape trShape = tr.createTransformedShape(shape);
+			if (trShape.contains(_xpix, _ypix)) {
+				return targetPosition;
+			}
+		} else if (Math.abs(pixel[0] - _xpix) < sensitivity && Math.abs(pixel[1] - _ypix) < sensitivity) {
+			return targetPosition;
+		}
+		return null;
+	}
 
   // -------------------------------------
   // Private methods
