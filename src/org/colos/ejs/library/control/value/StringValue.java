@@ -15,7 +15,10 @@ package org.colos.ejs.library.control.value;
 public class StringValue extends Value {
   public String value;
 
-  public StringValue(String _val) { value = _val; }
+	public StringValue(String _val) {
+		super(TYPE_STRING);
+		value = _val;
+	}
 
   public boolean getBoolean() { return value.equals("true"); }
 

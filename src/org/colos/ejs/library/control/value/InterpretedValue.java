@@ -19,6 +19,7 @@ public class InterpretedValue extends Value {
   private PropertyEditor myEjsPropertyEditor;
 
   public InterpretedValue(String _expression, PropertyEditor _editor) {
+	  super(TYPE_EXPRESSION);
     myEjsPropertyEditor = _editor;
     expression = new String(_expression.trim());
   }

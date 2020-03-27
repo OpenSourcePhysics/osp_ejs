@@ -15,7 +15,10 @@ package org.colos.ejs.library.control.value;
 public class DoubleValue extends Value {
   public double value;
 
-  public DoubleValue(double _val) { value = _val; }
+	public DoubleValue(double _val) {
+		super(TYPE_DOUBLE);
+		value = _val;
+	}
 
   public boolean getBoolean() { return (value!=0.0); }
 

@@ -722,7 +722,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("location","646,23")
       .setProperty("size","300,300")
       .getObject();
-    if(ThreeStateNuclearDecay.debugging) {
+    if(!ThreeStateNuclearDecay.debugging) {
     dataTable = (org.opensourcephysics.display.DataPanel)
       addElement(new org.colos.ejs.library.control.swing.ControlDataTable(),"dataTable")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
@@ -1098,7 +1098,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("text","table");
     getElement("tableDialog")
       .setProperty("title","Three-State Decay Table");
-    if(ThreeStateNuclearDecay.debugging) {
+    if(!ThreeStateNuclearDecay.debugging) {
     getElement("dataTable")
       .setProperty("maxPoints","1000")
       .setProperty("norepeat","true")

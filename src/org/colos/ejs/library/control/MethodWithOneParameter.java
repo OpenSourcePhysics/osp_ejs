@@ -7,9 +7,15 @@
 
 package org.colos.ejs.library.control;
 
-import java.lang.reflect.*;
+import java.lang.reflect.Method;
 
-import org.colos.ejs.library.control.value.*;
+import org.colos.ejs.library.control.value.BooleanValue;
+import org.colos.ejs.library.control.value.DoubleValue;
+import org.colos.ejs.library.control.value.IntegerValue;
+import org.colos.ejs.library.control.value.ObjectValue;
+import org.colos.ejs.library.control.value.StringValue;
+import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.display.OSPRuntime;
 
 /**
  * A class to store and invoke methods using reflection.
@@ -108,50 +114,63 @@ public class MethodWithOneParameter {
       System.err.println (getClass().getName()+" : Error! Unable to find a suitable method "+methodName+
         " in class "+targetObject.getClass().getName());
     }
-    if (isArray) returnValue = new ObjectValue(null);
+    // BH 2020.03.27 cannot determine return type for JavaScript -- just assign ObjectValue
+    if (isArray || OSPRuntime.isJS) returnValue = new ObjectValue(null);
     else if (_returnType==null) returnValue = null; // AMAVP
     else {
       _returnType = _returnType.trim().toLowerCase();
       if (_returnType.equals("double"))  returnValue = new DoubleValue(0.0);
 //      else if (_returnType.equals("byte"))    returnValue = new IntegerValue(0);
-      else if (_returnType.equals("int"))     returnValue = new IntegerValue(0);
+			else if (_returnType.equals("int"))     returnValue = new IntegerValue(0);
       else if (_returnType.equals("string"))  returnValue = new StringValue("");
       else if (_returnType.equals("boolean")) returnValue = new BooleanValue(false);
       else if (_returnType.equals("object"))  returnValue = new ObjectValue(null);
-      else returnValue = null; // return type is void
+      else returnValue = null; // return type is void or in SwingJS unknown
     }
   }
 
-  public Value invoke (int _type, Object _callingObject) { // Modified for AMAVP
-    if (methodType!=_type) return null;
-//   System.err.println ("Invoking method "+this.methodName+" with Value "+parameterList);
-    try {
-      if (isArray) ((ObjectValue) returnValue).value = methodToCall.invoke (targetObject,parameterList);
-      else if (returnValue==null) // void return type
-        methodToCall.invoke (targetObject,parameterList);
-      else if (returnValue instanceof DoubleValue)
-        ((DoubleValue) returnValue).value = ((Double) methodToCall.invoke (targetObject,parameterList)).doubleValue();
-      else if (returnValue instanceof IntegerValue)
-        ((IntegerValue) returnValue).value = ((Integer) methodToCall.invoke (targetObject,parameterList)).intValue();
-      else if (returnValue instanceof BooleanValue)
-        ((BooleanValue) returnValue).value = ((Boolean) methodToCall.invoke (targetObject,parameterList)).booleanValue();
-      else if (returnValue instanceof StringValue) {
-        Object obj = methodToCall.invoke (targetObject,parameterList);
-        if (obj==null) ((StringValue) returnValue).value = null;
-        else ((StringValue) returnValue).value = methodToCall.invoke (targetObject,parameterList).toString();
-      }
-      else if (returnValue instanceof ObjectValue)
-        ((ObjectValue) returnValue).value = methodToCall.invoke (targetObject,parameterList);
-      if (secondMethod!=null) {
-        if (_callingObject instanceof ControlElement) {
-          if (((ControlElement) _callingObject).hasDelayedActions()) secondMethod.invoke(_type,_callingObject);
-        }
-        else secondMethod.invoke(_type,_callingObject);
-      }
-    }
-    catch (Exception exc) { exc.printStackTrace(System.err); return null; }
-    return returnValue;
-  }
+	public Value invoke(int _type, Object _callingObject) { // Modified for AMAVP
+		if (methodType != _type)
+			return null;
+		try {
+			Object val = methodToCall.invoke(targetObject, parameterList);
+		      switch (returnValue.getType()) {
+		      default:
+		      case Value.TYPE_OBJECT:
+		    	  ((ObjectValue) returnValue).value = val;
+		    	  break;
+		      case Value.TYPE_BOOLEAN:
+		          ((BooleanValue) returnValue).value = ((Boolean) val).booleanValue();
+		    	  break;
+		      case Value.TYPE_DOUBLE:
+		          ((DoubleValue) returnValue).value = ((Double) val).doubleValue();
+		    	  break;
+		      case Value.TYPE_EXPRESSION:
+		    	  break;
+		      case Value.TYPE_INTEGER:
+		          ((IntegerValue) returnValue).value = ((Integer) val).intValue();
+		    	  break;
+		      case Value.TYPE_STRING:
+		          ((StringValue) returnValue).value = val.toString();
+		    	  break;
+		      }
+
+			
+			
+			
+			if (secondMethod != null) {
+				if (_callingObject instanceof ControlElement) {
+					if (((ControlElement) _callingObject).hasDelayedActions())
+						secondMethod.invoke(_type, _callingObject);
+				} else
+					secondMethod.invoke(_type, _callingObject);
+			}
+		} catch (Exception exc) {
+			exc.printStackTrace(System.err);
+			return null;
+		}
+		return returnValue;
+	}
 
   public boolean equals  (int _type, Object _target, String _name) {
     if (methodType!=_type) return false;

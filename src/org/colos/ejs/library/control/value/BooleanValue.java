@@ -15,7 +15,10 @@ package org.colos.ejs.library.control.value;
 public class BooleanValue extends Value {
   public boolean value;
 
-  public BooleanValue(boolean _val) { value = _val; }
+	public BooleanValue(boolean _val) {
+		super(TYPE_BOOLEAN);
+		value = _val;
+	}
 
   public boolean getBoolean() { return value; }
 

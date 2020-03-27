@@ -13,21 +13,37 @@ package org.colos.ejs.library.control.value;
 public class ObjectValue extends Value {
   public Object value;
 
-  public ObjectValue (Object _val) { value = _val; }
+	public ObjectValue(Object _val) {
+		super(TYPE_OBJECT);
+		value = _val;
+	}
 
-  public boolean getBoolean() {
-    if (value==null) return false;
-    return value.toString().equals("true");
-  }
+	public boolean getBoolean() {
+		if (value == null || value == Boolean.FALSE) {
+			return false;
+		}
+		if (value == Boolean.TRUE)
+			return true;
+		if (value instanceof Number)
+			return ((Number) value).doubleValue() != 0;
+		return value.toString().equals("true"); //$NON-NLS-1$
+	}
 
-  public int getInteger() {
-    return (int) Math.round(getDouble());
-  }
+	public int getInteger() {
+		if (value instanceof Number)
+			return ((Number) value).intValue();
+		return (int) Math.round(getDouble());
+	}
 
-  public double  getDouble()  {
-    try { return Double.valueOf(value.toString()).doubleValue(); }
-    catch (Exception exc) { return 0.0; }
-  }
+	public double getDouble() {
+		try {
+			if (value instanceof Number)
+				return ((Number) value).doubleValue();
+			return Double.valueOf(value.toString()).doubleValue();
+		} catch (NumberFormatException exc) {
+			return 0.0;
+		}
+	}
 
   public String  getString()  {
     if (value==null) return null;

@@ -15,7 +15,10 @@ package org.colos.ejs.library.control.value;
 public class IntegerValue extends Value {
   public int value;
 
-  public IntegerValue(int _val) { value = _val; }
+	public IntegerValue(int _val) {
+		super(TYPE_INTEGER);
+		value = _val;
+	}
 
   public boolean getBoolean() { return (value!=0); }
 

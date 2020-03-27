@@ -84,45 +84,58 @@ public class GroupVariable {
 		}
 	}
 
-  public void propagateValue (ControlElement _element, boolean _collectingData) {
-    if (_collectingData) {
+	public void propagateValue(ControlElement _element, boolean _collectingData) {
 		for (int i = elementList.size(); --i >= 0;) {
 			Item item = elementList.get(i);
-        if (item.element instanceof DataCollector) {
-          item.element.setActive(false);
-          if (item.element.myMethodsForProperties[item.index]!=null) { // AMAVP (See note in ControlElement)
-            item.element.setValue(item.index,item.element.myMethodsForProperties[item.index]
-                .invoke(ControlElement.METHOD_FOR_VARIABLE,null)); // null = no calling object
-          }
-          else if (item.element.myExpressionsForProperties[item.index]!=null) { // AMAVP (See note in ControlElement)
-            item.element.setValue(item.index,item.element.myExpressionsForProperties[item.index]);
-          }
-          else item.element.setValue(item.index,value);
-          item.element.setActive(true);
-        }
-      }
-    }
-    else {
-		for (int i = elementList.size(); --i >= 0;) {
-			Item item = elementList.get(i);
-        if (item.element!=_element) {
-//        if (!item.element.isActive()) continue; // This would avoid infinite loops, but may have side-effects
-          item.element.setActive(false);
-          if (item.element.myMethodsForProperties[item.index]!=null) { // AMAVP (See note in ControlElement)
-//          System.out.println ("I  call the method "+item.element.myMethodsForProperties[item.index].toString()+ "first!");
-            item.element.setValue(item.index,item.element.myMethodsForProperties[item.index]
-                .invoke(ControlElement.METHOD_FOR_VARIABLE,null)); // null = no calling object
-          }
-          else if (item.element.myExpressionsForProperties[item.index]!=null) { // AMAVP (See note in ControlElement)
-            //System.out.println ("I  call the expression "+((InterpretedValue)item.element.myExpressionsForProperties[item.index]).getExpression()+ "first!");
-            item.element.setValue(item.index,item.element.myExpressionsForProperties[item.index]);
-          }
-          else item.element.setValue(item.index,value);
-          item.element.setActive(true);
-        }
-      }
-    }
-  }
+			if (_collectingData ? item.element instanceof DataCollector : item.element != _element) {
+				item.element.setActive(false);
+				MethodWithOneParameter method = item.element.myMethodsForProperties[item.index];
+				Value exp;
+				if (method != null) { // AMAVP (See note in ControlElement)
+					item.element.setValue(item.index, method.invoke(ControlElement.METHOD_FOR_VARIABLE, null)); // null = no calling object
+				} else if ((exp = item.element.myExpressionsForProperties[item.index]) != null) { // AMAVP (See note in
+																							// ControlElement)
+					item.element.setValue(item.index, exp);
+				} else
+					item.element.setValue(item.index, value);
+				item.element.setActive(true);
+			}
+		}
+//		if (_collectingData) {
+//			for (int i = elementList.size(); --i >= 0;) {
+//				Item item = elementList.get(i);
+//				if (item.element instanceof DataCollector) {
+//					item.element.setActive(false);
+//					MethodWithOneParameter method = item.element.myMethodsForProperties[item.index];
+//					Value exp;
+//					if (method != null) { // AMAVP (See note in ControlElement)
+//						item.element.setValue(item.index, method.invoke(ControlElement.METHOD_FOR_VARIABLE, null)); // null = no calling object
+//					} else if ((exp = item.element.myExpressionsForProperties[item.index]) != null) { // AMAVP (See note in
+//																								// ControlElement)
+//						item.element.setValue(item.index, exp);
+//					} else
+//						item.element.setValue(item.index, value);
+//					item.element.setActive(true);
+//				}
+//			}
+//		} else {
+//			for (int i = elementList.size(); --i >= 0;) {
+//				Item item = elementList.get(i);
+//				if (item.element != _element) {
+//					item.element.setActive(false);
+//					MethodWithOneParameter method = item.element.myMethodsForProperties[item.index];
+//					Value exp;
+//					if (method != null) { // AMAVP (See note in ControlElement)
+//						item.element.setValue(item.index, method.invoke(ControlElement.METHOD_FOR_VARIABLE, null));
+//					} else if ((exp=item.element.myExpressionsForProperties[item.index]) != null) { 
+//						item.element.setValue(item.index, exp);
+//					} else
+//						item.element.setValue(item.index, value);
+//					item.element.setActive(true);
+//				}
+//			}
+//		}
+	}
 
 // --------------------------------------------------------
 // Adding and removing method elements
