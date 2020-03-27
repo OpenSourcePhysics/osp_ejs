@@ -837,11 +837,6 @@ sun/swing/UIAction.js
 sun/swing/UIClientPropertyKey.js
 sun/swing/table/DefaultTableCellHeaderRenderer.js
 sun/text/resources/FormatData.js
-sun/text/resources/FormatData_en.js
-sun/text/resources/en/FormatData_en.js
-sun/text/resources/en/FormatData_en_US.js
-sun/text/resources/fr/FormatData_fr.js
-sun/text/resources/fr/FormatData_fr_FR.js
 sun/util/calendar/AbstractCalendar.js
 sun/util/calendar/BaseCalendar.js
 sun/util/calendar/CalendarDate.js
