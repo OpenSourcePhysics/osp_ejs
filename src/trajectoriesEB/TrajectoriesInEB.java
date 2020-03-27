@@ -1,18 +1,26 @@
 /*
- * Class : ThreeStateNuclearDecay.java
+ * Class : TrajectoriesInEB.java
  *  Generated using  *  Easy Java/Javascript Simulations Version 5.3, build 190423. Visit http://www.um.es/fem/Ejs
  */ 
 
-package threestatedecay;
+package trajectoriesEB;
 
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
+import javax.swing.event.*;
+import javax.swing.*;
+import java.awt.event.*;
 import java.awt.*;
+import java.net.*;
+import java.util.*;
+import java.io.*;
+import java.lang.*;
 
-public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
+public class TrajectoriesInEB extends org.colos.ejs.library.Model {
 
   static {
+    org.opensourcephysics.tools.ToolForData.setTool(new org.opensourcephysics.tools.ToolForDataFull());
     __translatorUtil = new org.colos.ejs.library.utils.TranslatorUtil();
   }
 
@@ -21,9 +29,9 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
   static public int _sServerPort = -1;
   static public int _getServerPort() { return _sServerPort; }
 
-  public ThreeStateNuclearDecaySimulation _simulation=null;
-  public ThreeStateNuclearDecayView _view=null;
-  public ThreeStateNuclearDecay _model=this;
+  public TrajectoriesInEBSimulation _simulation=null;
+  public TrajectoriesInEBView _view=null;
+  public TrajectoriesInEB _model=this;
 
   // -------------------------- 
   // Information on HTML pages
@@ -65,21 +73,18 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
   // static methods 
   // -------------------------- 
 
-  static public String _getEjsModel() { return "/testing/ThreeStateNuclearDecay.ejs"; }
+  static public String _getEjsModel() { return "/testing/TrajectoriesInEB.xml"; }
 
   static public String _getModelDirectory() { return "testing/"; }
 
   static public java.awt.Dimension _getEjsAppletDimension() {
-    return new java.awt.Dimension(619,474);
+    return new java.awt.Dimension(586,308);
   }
 
   static public java.util.Set<String> _getEjsResources() {
     java.util.Set<String> list = new java.util.HashSet<String>();
-    //if(true) return list; // WC: Debugging  Showing html files fails in JS
-    list.add("ThreeStateNuclearDecay/ThreeStateDecayTheory.html");
-    list.add("ThreeStateNuclearDecay/ThreeStateSample.gif");
-    list.add("ThreeStateNuclearDecay/ThreeStateNuclearDecay.html");
-    list.add("ThreeStateNuclearDecay/three_state_ode.gif");
+    list.add("/testing/TrajectoriesInEB/TrajectoriesInEB.html");
+    list.add("/testing/TrajectoriesInEB/trajectories.jpg");
     return list;
   };
 
@@ -126,20 +131,20 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
       System.exit(-1);
     }
 
-    ThreeStateNuclearDecay __theModel = new ThreeStateNuclearDecay (_args);
+    TrajectoriesInEB __theModel = new TrajectoriesInEB (_args);
   }
 
   static public javax.swing.JComponent getModelPane(String[] _args, javax.swing.JFrame _parentFrame) {
     if (!_common_initialization(_args)) return null;
-    ThreeStateNuclearDecay __theModel = new ThreeStateNuclearDecay ("mainFrame",_parentFrame,null,null,_args,true);
+    TrajectoriesInEB __theModel = new TrajectoriesInEB ("mainFrame",_parentFrame,null,null,_args,true);
     return (javax.swing.JComponent) __theModel._getView().getComponent("mainFrame");
   }
 
-  public ThreeStateNuclearDecay () { this (null, null, null,null,null,false); } // slave application
+  public TrajectoriesInEB () { this (null, null, null,null,null,false); } // slave application
 
-  public ThreeStateNuclearDecay (String[] _args) { this (null, null, null,null,_args,true); }
+  public TrajectoriesInEB (String[] _args) { this (null, null, null,null,_args,true); }
 
-  public ThreeStateNuclearDecay (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, org.colos.ejs.library.LauncherApplet _anApplet, String[] _args, boolean _allowAutoplay) {
+  public TrajectoriesInEB (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, org.colos.ejs.library.LauncherApplet _anApplet, String[] _args, boolean _allowAutoplay) {
     org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(true);
     __theArguments = _args;
     __theApplet = _anApplet;
@@ -147,7 +152,7 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
     if (_Ejs_format instanceof java.text.DecimalFormat) {
       ((java.text.DecimalFormat) _Ejs_format).getDecimalFormatSymbols().setDecimalSeparator('.');
     }
-    _simulation = new ThreeStateNuclearDecaySimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
+    _simulation = new TrajectoriesInEBSimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
     _simulation.processArguments(_args);
     if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);
   }
@@ -169,33 +174,29 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
   public int _getPreferredStepsPerDisplay() { return 1; }
 
   public void _resetModel () {
-    _isEnabled_initialization1 = true; // Reset enabled condition for Model.Initialization.Initialize Particles
-    _isEnabled_evolution1 = false; // Reset enabled condition for Model.Evolution.ODE Evolution
-    _isEnabled_evolution2 = true; // Reset enabled condition for Model.Evolution.Stochastic Evolution
-    N10 = 1000; // Variables.Stochastic Vars:1    N10 = 1000; // Variables.Stochastic Vars:1
-    N20 = 0; // Variables.Stochastic Vars:2    N20 = 0; // Variables.Stochastic Vars:2
-    N = N10+N20; // Variables.Stochastic Vars:3    N = N10+N20; // Variables.Stochastic Vars:3
-    N1 = N10; // Variables.Stochastic Vars:4    N1 = N10; // Variables.Stochastic Vars:4
-    N2 = N20; // Variables.Stochastic Vars:5    N2 = N20; // Variables.Stochastic Vars:5
-    N3 = 0; // Variables.Stochastic Vars:6    N3 = 0; // Variables.Stochastic Vars:6
-    dN1 = Double.NaN; // Variables.Stochastic Vars:11    dN1 = Double.NaN; // Variables.Stochastic Vars:11
-    dN2 = Double.NaN; // Variables.Stochastic Vars:12    dN2 = Double.NaN; // Variables.Stochastic Vars:12
-    n1 = N10; // Variables.Dynamical Vars:1    n1 = N10; // Variables.Dynamical Vars:1
-    n2 = N20; // Variables.Dynamical Vars:2    n2 = N20; // Variables.Dynamical Vars:2
-    n3 = 0; // Variables.Dynamical Vars:3    n3 = 0; // Variables.Dynamical Vars:3
-    t = 0; // Variables.Dynamical Vars:4    t = 0; // Variables.Dynamical Vars:4
-    dt = 0.01; // Variables.Dynamical Vars:5    dt = 0.01; // Variables.Dynamical Vars:5
-    tol = 1E-8; // Variables.Dynamical Vars:6    tol = 1E-8; // Variables.Dynamical Vars:6
-    stride = 5; // Variables.Aux Vars:5    stride = 5; // Variables.Aux Vars:5
-    k1 = 1; // Variables.Aux Vars:6    k1 = 1; // Variables.Aux Vars:6
-    k2 = 0.5; // Variables.Aux Vars:7    k2 = 0.5; // Variables.Aux Vars:7
-    x = new double [N]; // Variables.Aux Vars:8
-    y = new double [N]; // Variables.Aux Vars:9
-    yTitle = "N1,N2,N3"; // Variables.Aux Vars:10    yTitle = "N1,N2,N3"; // Variables.Aux Vars:10
-    colors = new Color [N]; // Variables.Aux Vars:11
-    for (int _i0=0; _i0<N; _i0++) colors[_i0] = java.awt.Color.RED; // Variables.Aux Vars:11
-    sampleSize = 10; // Variables.Aux Vars:12    sampleSize = 10; // Variables.Aux Vars:12
-    particleDiameter = 0.5; // Variables.Aux Vars:13    particleDiameter = 0.5; // Variables.Aux Vars:13
+    _isEnabled_initialization1 = true; // Reset enabled condition for Model.Initialization.Ball initialization
+    _isEnabled_evolution1 = true; // Reset enabled condition for Model.Evolution.ODE Evolution
+    msg = "Drag the source position."; // Variables.Aux vars:1    msg = "Drag the source position."; // Variables.Aux vars:1
+    componentB = " Bx = "; // Variables.Aux vars:2    componentB = " Bx = "; // Variables.Aux vars:2
+    componentE = " Ex = "; // Variables.Aux vars:3    componentE = " Ex = "; // Variables.Aux vars:3
+    boxSize = 10; // Variables.Aux vars:4    boxSize = 10; // Variables.Aux vars:4
+    E = 1; // Variables.Aux vars:5    E = 1; // Variables.Aux vars:5
+    B = 1; // Variables.Aux vars:6    B = 1; // Variables.Aux vars:6
+    v0 = 2; // Variables.Aux vars:7    v0 = 2; // Variables.Aux vars:7
+    sx = -boxSize; // Variables.Aux vars:8    sx = -boxSize; // Variables.Aux vars:8
+    sy = 0; // Variables.Aux vars:9    sy = 0; // Variables.Aux vars:9
+    n = 50; // Variables.Dynamical vars:1    n = 50; // Variables.Dynamical vars:1
+    x = new double [n]; // Variables.Dynamical vars:2
+    for (int _i0=0; _i0<n; _i0++) x[_i0] = 0; // Variables.Dynamical vars:2
+    vx = new double [n]; // Variables.Dynamical vars:3
+    y = new double [n]; // Variables.Dynamical vars:4
+    for (int _i0=0; _i0<n; _i0++) y[_i0] = 0; // Variables.Dynamical vars:4
+    vy = new double [n]; // Variables.Dynamical vars:5
+    z = new double [n]; // Variables.Dynamical vars:6
+    vz = new double [n]; // Variables.Dynamical vars:7
+    t = 0; // Variables.Dynamical vars:8    t = 0; // Variables.Dynamical vars:8
+    dt = 0.1; // Variables.Dynamical vars:9    dt = 0.1; // Variables.Dynamical vars:9
+    tol = 1.0E-6; // Variables.Dynamical vars:10    tol = 1.0E-6; // Variables.Dynamical vars:10
     _ODEi_evolution1 = new _ODE_evolution1();
   }
 
@@ -218,10 +219,7 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
   public void _stepModel () {
     __shouldBreak = false;
     boolean _wasEnabled_evolution1 = _isEnabled_evolution1;
-    boolean _wasEnabled_evolution2 = _isEnabled_evolution2;
     if (_wasEnabled_evolution1) _ODEi_evolution1.step();
-    if (__shouldBreak) return;
-    if (_wasEnabled_evolution2) _evolution2 ();
     if (__shouldBreak) return;
   }
 
@@ -234,9 +232,12 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
 
   public void _freeMemory () {
     getSimulation().setEnded(); // Signal that the simulation ended already
-    x = null;  // Variables.Aux Vars:8
-    y = null;  // Variables.Aux Vars:9
-    colors = null;  // Variables.Aux Vars:11
+    x = null;  // Variables.Dynamical vars:2
+    vx = null;  // Variables.Dynamical vars:3
+    y = null;  // Variables.Dynamical vars:4
+    vy = null;  // Variables.Dynamical vars:5
+    z = null;  // Variables.Dynamical vars:6
+    vz = null;  // Variables.Dynamical vars:7
     _ODEi_evolution1=null;
     System.gc(); // Free memory from unused old arrays
   }
@@ -272,51 +273,38 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
  // Variables defined by the user
  // -------------------------------------------
 
- public int N10  = 1000; // Variables.Stochastic Vars:1
- public int N20  = 0; // Variables.Stochastic Vars:2
- public int N  = N10+N20; // Variables.Stochastic Vars:3
- public int N1  = N10; // Variables.Stochastic Vars:4
- public int N2  = N20; // Variables.Stochastic Vars:5
- public int N3  = 0; // Variables.Stochastic Vars:6
- public double p1 ; // Variables.Stochastic Vars:7
- public double p2 ; // Variables.Stochastic Vars:8
- public double p12 ; // Variables.Stochastic Vars:9
- public double p13 ; // Variables.Stochastic Vars:10
- public double dN1  = Double.NaN; // Variables.Stochastic Vars:11
- public double dN2  = Double.NaN; // Variables.Stochastic Vars:12
- public double n1  = N10; // Variables.Dynamical Vars:1
- public double n2  = N20; // Variables.Dynamical Vars:2
- public double n3  = 0; // Variables.Dynamical Vars:3
- public double t  = 0; // Variables.Dynamical Vars:4
- public double dt  = 0.01; // Variables.Dynamical Vars:5
- public double tol  = 1E-8; // Variables.Dynamical Vars:6
- public boolean plotChange ; // Variables.Aux Vars:1
- public boolean showTable ; // Variables.Aux Vars:2
- public boolean showPlot ; // Variables.Aux Vars:3
- public int plotMode ; // Variables.Aux Vars:4
- public int stride  = 5; // Variables.Aux Vars:5
- public double k1  = 1; // Variables.Aux Vars:6
- public double k2  = 0.5; // Variables.Aux Vars:7
- public double x []; // Variables.Aux Vars:8
- public double y []; // Variables.Aux Vars:9
- public String yTitle  = "N1,N2,N3"; // Variables.Aux Vars:10
- public Color colors []; // Variables.Aux Vars:11
- public double sampleSize  = 10; // Variables.Aux Vars:12
- public double particleDiameter  = 0.5; // Variables.Aux Vars:13
+ public String msg  = "Drag the source position."; // Variables.Aux vars:1
+ public String componentB  = " Bx = "; // Variables.Aux vars:2
+ public String componentE  = " Ex = "; // Variables.Aux vars:3
+ public double boxSize  = 10; // Variables.Aux vars:4
+ public double E  = 1; // Variables.Aux vars:5
+ public double B  = 1; // Variables.Aux vars:6
+ public double v0  = 2; // Variables.Aux vars:7
+ public double sx  = -boxSize; // Variables.Aux vars:8
+ public double sy  = 0; // Variables.Aux vars:9
+ public boolean crossed ; // Variables.Aux vars:10
+ public int n  = 50; // Variables.Dynamical vars:1
+ public double x []; // Variables.Dynamical vars:2
+ public double vx []; // Variables.Dynamical vars:3
+ public double y []; // Variables.Dynamical vars:4
+ public double vy []; // Variables.Dynamical vars:5
+ public double z []; // Variables.Dynamical vars:6
+ public double vz []; // Variables.Dynamical vars:7
+ public double t  = 0; // Variables.Dynamical vars:8
+ public double dt  = 0.1; // Variables.Dynamical vars:9
+ public double tol  = 1.0E-6; // Variables.Dynamical vars:10
 
  // -------------------------------------------
  // Enabled condition of pages 
  // -------------------------------------------
 
-  private boolean _isEnabled_initialization1 = true; // Enabled condition for Model.Initialization.Initialize Particles
-  private boolean _isEnabled_evolution1 = false; // Enabled condition for Model.Evolution.ODE Evolution
-  private boolean _isEnabled_evolution2 = true; // Enabled condition for Model.Evolution.Stochastic Evolution
+  private boolean _isEnabled_initialization1 = true; // Enabled condition for Model.Initialization.Ball initialization
+  private boolean _isEnabled_evolution1 = true; // Enabled condition for Model.Evolution.ODE Evolution
 
   public void _setPageEnabled(String _pageName, boolean _enabled) { // Sets the enabled state of a page
     boolean _pageFound = false;
-    if ("Initialize Particles".equals(_pageName)) { _pageFound = true; _isEnabled_initialization1 = _enabled; } // Change enabled condition for Model.Initialization.Initialize Particles
+    if ("Ball initialization".equals(_pageName)) { _pageFound = true; _isEnabled_initialization1 = _enabled; } // Change enabled condition for Model.Initialization.Ball initialization
     if ("ODE Evolution".equals(_pageName)) { _pageFound = true; _isEnabled_evolution1 = _enabled; _automaticResetSolvers(); } // Change enabled condition for Model.Evolution.ODE Evolution
-    if ("Stochastic Evolution".equals(_pageName)) { _pageFound = true; _isEnabled_evolution2 = _enabled; } // Change enabled condition for Model.Evolution.Stochastic Evolution
     if (!_pageFound) System.out.println ("_setPageEnabled() warning. Page not found: "+_pageName);
   }
 
@@ -326,32 +314,21 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
 
  // --- Initialization
 
-  public void _initialization1 () { // > Initialization.Initialize Particles
-    if(plotMode==0) _view.bothRadioButton.setSelected(true);  // > Initialization.Initialize Particles:1
-    t=0;  // > Initialization.Initialize Particles:2
-    n1=1;  // > Initialization.Initialize Particles:3
-    n2=0;  // > Initialization.Initialize Particles:4
-    n3=0;  // > Initialization.Initialize Particles:5
-    _resetSolvers();  // > Initialization.Initialize Particles:6
-    org.opensourcephysics.numerics.ode_solvers.EjsS_ODE ode= _getODE("ODE Evolution");  // > Initialization.Initialize Particles:7
-    ode.step();  // > Initialization.Initialize Particles:8
-    p1=1-Math.exp(-k1*dt);  // > Initialization.Initialize Particles:9
-    p2=1-Math.exp(-k2*dt);  // > Initialization.Initialize Particles:10
-    p12=n2;  // > Initialization.Initialize Particles:11
-    p13=n3;  // > Initialization.Initialize Particles:12
-    //_println("topDecay="+p1+"  p12+p13="+(p12+p13));  // > Initialization.Initialize Particles:13
-    //_println("n1="+n1+" n2="+n2+" n3="+n3+" total="+(n1+n2+n3));  // > Initialization.Initialize Particles:14
-    checkParticleNumber();  // > Initialization.Initialize Particles:15
-    setParticlePosition();  // > Initialization.Initialize Particles:16
-    t=0;  // > Initialization.Initialize Particles:17
-    n1=N1=N10;  // > Initialization.Initialize Particles:18
-    n2=N2=N20;  // > Initialization.Initialize Particles:19
-    n3=N3=0;  // > Initialization.Initialize Particles:20
-    _view.resetTraces();  // > Initialization.Initialize Particles:21
-    dN1=Double.NaN;  // > Initialization.Initialize Particles:22
-    dN2=Double.NaN;  // > Initialization.Initialize Particles:23
-    _resetSolvers();  // > Initialization.Initialize Particles:24
-  }  // > Initialization.Initialize Particles
+  public void _initialization1 () { // > Initialization.Ball initialization
+    double theta=0, dTheta=2*Math.PI/n;  // > Initialization.Ball initialization:1
+    t=0;  // > Initialization.Ball initialization:2
+    for(int i=0; i<n; i++){                // beginning of loop  // > Initialization.Ball initialization:3
+      x[i]=0;  // > Initialization.Ball initialization:4
+      y[i]=0;  // > Initialization.Ball initialization:5
+      z[i]=0;  // > Initialization.Ball initialization:6
+      vx[i]=v0*Math.sin(theta);             // x velocity component  // > Initialization.Ball initialization:7
+      vy[i]=v0*Math.cos(theta);             // y velocity component  // > Initialization.Ball initialization:8
+      vz[i]=0;  // > Initialization.Ball initialization:9
+      theta += dTheta;  // > Initialization.Ball initialization:10
+    }                                      // end of loop  // > Initialization.Ball initialization:11
+    componentB=crossed?" Bz = ":" Bx = ";  // > Initialization.Ball initialization:12
+    componentE=crossed?" Ey = ":" Ex = ";  // > Initialization.Ball initialization:13
+  }  // > Initialization.Ball initialization
 
  // --- Evolution
 
@@ -370,6 +347,14 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
     private boolean __isEnabled=true; // Whether it is enabled
     private boolean __mustUserReinitialize=false; // Whether the user asked to reset the solver
     private boolean __mustReinitialize=true; // flag to reinitialize the solver
+
+    // Temporary array variables matching those defined by the user
+    private double[] _x;
+    private double[] _vx;
+    private double[] _y;
+    private double[] _vy;
+    private double[] _z;
+    private double[] _vz;
 
     _ODE_evolution1() { // Class constructor
       __solverClass = org.opensourcephysics.numerics.ode_solvers.rk.CashKarp45.class;
@@ -412,7 +397,14 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
     }
 
     private void __instantiateSolver () {
-      __state = new double[1+1+1+1];
+      __state = new double[1+x.length+vx.length+y.length+vy.length+z.length+vz.length];
+      // allocate temporary arrays
+      _x = new double[x.length];
+      _vx = new double[vx.length];
+      _y = new double[y.length];
+      _vy = new double[vy.length];
+      _z = new double[z.length];
+      _vz = new double[vz.length];
       __pushState();
       try { // Create the solver by reflection
         Class<?>[] __c = { };
@@ -433,6 +425,7 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
     public boolean isAccelerationIndependentOfVelocity() { return false; }
 
     public void initializeSolver () {
+      if (__arraysChanged()) { __instantiateSolver(); initializeSolver(); return; }
       __pushState();
       __eventSolver.initialize(dt);
       __eventSolver.setBestInterpolation(false);
@@ -448,14 +441,42 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
     private void __pushState () { // Copy our variables to the state
       // Copy our variables to __state[] 
       int __cIn=0;
-      if (__state[__cIn]!=n1) __mustReinitialize = true;
-      __state[__cIn++] = n1;
-      if (__state[__cIn]!=n2) __mustReinitialize = true;
-      __state[__cIn++] = n2;
-      if (__state[__cIn]!=n3) __mustReinitialize = true;
-      __state[__cIn++] = n3;
+      if (!__mustReinitialize)
+        for (int __i=0,__n=__cIn; __i<x.length; __i++)
+           if (__state[__n++]!=x[__i]) { __mustReinitialize = true; break; }
+      System.arraycopy(x,0,__state,__cIn,x.length); __cIn += x.length;
+      if (!__mustReinitialize)
+        for (int __i=0,__n=__cIn; __i<vx.length; __i++)
+           if (__state[__n++]!=vx[__i]) { __mustReinitialize = true; break; }
+      System.arraycopy(vx,0,__state,__cIn,vx.length); __cIn += vx.length;
+      if (!__mustReinitialize)
+        for (int __i=0,__n=__cIn; __i<y.length; __i++)
+           if (__state[__n++]!=y[__i]) { __mustReinitialize = true; break; }
+      System.arraycopy(y,0,__state,__cIn,y.length); __cIn += y.length;
+      if (!__mustReinitialize)
+        for (int __i=0,__n=__cIn; __i<vy.length; __i++)
+           if (__state[__n++]!=vy[__i]) { __mustReinitialize = true; break; }
+      System.arraycopy(vy,0,__state,__cIn,vy.length); __cIn += vy.length;
+      if (!__mustReinitialize)
+        for (int __i=0,__n=__cIn; __i<z.length; __i++)
+           if (__state[__n++]!=z[__i]) { __mustReinitialize = true; break; }
+      System.arraycopy(z,0,__state,__cIn,z.length); __cIn += z.length;
+      if (!__mustReinitialize)
+        for (int __i=0,__n=__cIn; __i<vz.length; __i++)
+           if (__state[__n++]!=vz[__i]) { __mustReinitialize = true; break; }
+      System.arraycopy(vz,0,__state,__cIn,vz.length); __cIn += vz.length;
       if (__state[__cIn]!=t) __mustReinitialize = true;
       __state[__cIn++] = t;
+    }
+
+    private boolean __arraysChanged () {
+      if (x.length != _x.length) return true;
+      if (vx.length != _vx.length) return true;
+      if (y.length != _y.length) return true;
+      if (vy.length != _vy.length) return true;
+      if (z.length != _z.length) return true;
+      if (vz.length != _vz.length) return true;
+      return false;
     }
 
     public void resetSolver () {
@@ -485,6 +506,7 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
       if (!__isEnabled) return 0;
       if (dt==0) return 0;
       if (__mustInitialize) initializeSolver();
+      if (__arraysChanged()) { __instantiateSolver(); initializeSolver(); }
       __eventSolver.setStepSize(dt);
       __eventSolver.setInternalStepSize(dt);
       __eventSolver.setMaximumInternalSteps(10000);
@@ -504,9 +526,12 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
       double __stepTaken = __takeMaximumStep ? __eventSolver.maxStep() : __eventSolver.step();
       // Extract our variables from __state
       int __cOut=0;
-      n1 = __state[__cOut++];
-      n2 = __state[__cOut++];
-      n3 = __state[__cOut++];
+      System.arraycopy(__state,__cOut,x,0,x.length); __cOut+=x.length;
+      System.arraycopy(__state,__cOut,vx,0,vx.length); __cOut+=vx.length;
+      System.arraycopy(__state,__cOut,y,0,y.length); __cOut+=y.length;
+      System.arraycopy(__state,__cOut,vy,0,vy.length); __cOut+=vy.length;
+      System.arraycopy(__state,__cOut,z,0,z.length); __cOut+=z.length;
+      System.arraycopy(__state,__cOut,vz,0,vz.length); __cOut+=vz.length;
       t = __state[__cOut++];
       // Check for error
       if (__eventSolver.getErrorCode()!=org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver.ERROR.NO_ERROR) __errorAction();
@@ -520,268 +545,135 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
       int __index=-1; // so that it can be used in preliminary code
       // Extract our variables from __aState
       int __cOut=0;
-      double n1 = __aState[__cOut++];
-      double n2 = __aState[__cOut++];
-      double n3 = __aState[__cOut++];
+      double[] x = _x;
+      System.arraycopy(__aState,__cOut,x,0,x.length); __cOut+=x.length;
+      double[] vx = _vx;
+      System.arraycopy(__aState,__cOut,vx,0,vx.length); __cOut+=vx.length;
+      double[] y = _y;
+      System.arraycopy(__aState,__cOut,y,0,y.length); __cOut+=y.length;
+      double[] vy = _vy;
+      System.arraycopy(__aState,__cOut,vy,0,vy.length); __cOut+=vy.length;
+      double[] z = _z;
+      System.arraycopy(__aState,__cOut,z,0,z.length); __cOut+=z.length;
+      double[] vz = _vz;
+      System.arraycopy(__aState,__cOut,vz,0,vz.length); __cOut+=vz.length;
       double t = __aState[__cOut++];
       // Preliminary code: Code to be executed before rate equations are evaluated
+      msg=null;  // > Evolution:ODE Evolution.Prelim code ODE Evolution:1
+      double[] ax=new double[n];  // > Evolution:ODE Evolution.Prelim code ODE Evolution:2
+      double[] ay=new double[n];  // > Evolution:ODE Evolution.Prelim code ODE Evolution:3
+      double[] az=new double[n];  // > Evolution:ODE Evolution.Prelim code ODE Evolution:4
+      for(int i=0; i<n; i++){  // > Evolution:ODE Evolution.Prelim code ODE Evolution:5
+        ax[i]=crossed?vy[i]*B   :E;  // > Evolution:ODE Evolution.Prelim code ODE Evolution:6
+        ay[i]=crossed?E-vx[i]*B :B*vz[i];  // > Evolution:ODE Evolution.Prelim code ODE Evolution:7
+        az[i]=crossed? 0        :-B*vy[i];  // > Evolution:ODE Evolution.Prelim code ODE Evolution:8
+      }  // > Evolution:ODE Evolution.Prelim code ODE Evolution:9
       // Compute the rate
       int __cRate = 0;
-      __aRate[__cRate++] = -k1*n1; // Evolution:ODE Evolution:1
-      __aRate[__cRate++] = +k1*n1-k2*n2; // Evolution:ODE Evolution:2
-      __aRate[__cRate++] = k2*n2; // Evolution:ODE Evolution:3
+      System.arraycopy(vx,0,__aRate,__cRate,_x.length); // Evolution:ODE Evolution:1
+      __cRate += x.length;
+      System.arraycopy(ax,0,__aRate,__cRate,_vx.length); // Evolution:ODE Evolution:2
+      __cRate += vx.length;
+      System.arraycopy(vy,0,__aRate,__cRate,_y.length); // Evolution:ODE Evolution:3
+      __cRate += y.length;
+      System.arraycopy(ay,0,__aRate,__cRate,_vy.length); // Evolution:ODE Evolution:4
+      __cRate += vy.length;
+      System.arraycopy(vz,0,__aRate,__cRate,_z.length); // Evolution:ODE Evolution:5
+      __cRate += z.length;
+      System.arraycopy(az,0,__aRate,__cRate,_vz.length); // Evolution:ODE Evolution:6
+      __cRate += vz.length;
       __aRate[__cRate++] = 1.0; // The independent variable 
     }//end of getRate
 
   } // End of class _ODE_evolution1
 
-  public void _evolution2 () { // > Evolution.Stochastic Evolution
-    org.opensourcephysics.numerics.ode_solvers.EjsS_ODE ode= _getODE("ODE Evolution");  // > Evolution.Stochastic Evolution:1
-    ode.step();  // > Evolution.Stochastic Evolution:2
-    computeStochasticDecay();  // > Evolution.Stochastic Evolution:3
-    if(N1==0 && N2==0){  // all particles have decayed  // > Evolution.Stochastic Evolution:4
-      _pause();  // > Evolution.Stochastic Evolution:5
-    }  // > Evolution.Stochastic Evolution:6
-  }  // > Evolution.Stochastic Evolution
-
  // --- Constraints
 
  // --- Custom
 
-  public void checkParticleNumber(){  // > Custom.Check Particle Number:1
-    N=N10+N20;  // > Custom.Check Particle Number:2
-    if(N==x.length) return;  // > Custom.Check Particle Number:3
-    x=new double[N];  // > Custom.Check Particle Number:4
-    y=new double[N];  // > Custom.Check Particle Number:5
-    colors=new java.awt.Color[N];  // > Custom.Check Particle Number:6
-  }  // > Custom.Check Particle Number:7
-
-  public void setParticlePosition() {  // > Custom.Set Particle Position:1
-    double radius=particleDiameter/2;  // > Custom.Set Particle Position:2
-    double sampleWidth=sampleSize-particleDiameter;  // > Custom.Set Particle Position:3
-    for(int i=0; i<N10; i++){  // > Custom.Set Particle Position:4
-      x[i]=radius+sampleWidth*Math.random();  // > Custom.Set Particle Position:5
-      y[i]=radius+sampleWidth*Math.random();  // > Custom.Set Particle Position:6
-      colors[i]=java.awt.Color.RED;  // > Custom.Set Particle Position:7
-    }  // > Custom.Set Particle Position:8
-    for(int i=N10; i<N; i++){  // > Custom.Set Particle Position:9
-      x[i]=radius+sampleWidth*Math.random();  // > Custom.Set Particle Position:10
-      y[i]=radius+sampleWidth*Math.random();  // > Custom.Set Particle Position:11
-      colors[i]=java.awt.Color.GREEN;  // > Custom.Set Particle Position:12
-    }  // > Custom.Set Particle Position:13
-    if(N10==0 || N20==0) return;  // > Custom.Set Particle Position:14
-    for(int i=0; i<4*N; i++){// randomize color order  // > Custom.Set Particle Position:15
-      int r1=(int)(N*Math.random());  // > Custom.Set Particle Position:16
-      int r2=(int)(N*Math.random());  // > Custom.Set Particle Position:17
-      Color c=colors[r1];  // > Custom.Set Particle Position:18
-      colors[r1]=colors[r2];  // > Custom.Set Particle Position:19
-      colors[r2]=c;  // > Custom.Set Particle Position:20
-        // > Custom.Set Particle Position:21
-    }  // > Custom.Set Particle Position:22
-  }  // > Custom.Set Particle Position:23
-
-  public void computeStochasticDecay () {  // > Custom.Stochastic Decay:1
-    double topToMiddleProbability=1-Math.exp(-k1*dt);       // 1->2 decay probability within dt  // > Custom.Stochastic Decay:2
-    //double topToBottomProbability=1-Math.exp(-(k1+k2)*dt);  // 1->3 decay probability within dt  // > Custom.Stochastic Decay:3
-    double middleToBottomProbability=1-Math.exp(-k2*dt);    // 2->3 decay probability within dt  // > Custom.Stochastic Decay:4
-    dN1=0;  // > Custom.Stochastic Decay:5
-    dN2=0;  // > Custom.Stochastic Decay:6
-    for (int i = 0; i < N; i++) {  // > Custom.Stochastic Decay:7
-      double p=Math.random();  // > Custom.Stochastic Decay:8
-      if(colors[i].equals(java.awt.Color.RED)&& p<p12) { // decay from state 1 to 2  // > Custom.Stochastic Decay:9
-        colors[i]=java.awt.Color.GREEN;  // > Custom.Stochastic Decay:10
-        N1--;  // > Custom.Stochastic Decay:11
-        N2++;  // > Custom.Stochastic Decay:12
-        dN1++;  // > Custom.Stochastic Decay:13
-      } else if(colors[i].equals(java.awt.Color.RED)&& p<p12+p13) { // decvay from state 1 to 3  // > Custom.Stochastic Decay:14
-        colors[i]=java.awt.Color.BLUE;  // > Custom.Stochastic Decay:15
-        N1--;  // > Custom.Stochastic Decay:16
-        N3++;  // > Custom.Stochastic Decay:17
-        dN1++;  // > Custom.Stochastic Decay:18
-        dN2++;  // > Custom.Stochastic Decay:19
-      } else if(colors[i].equals(java.awt.Color.GREEN)&&p<p2) { // decay from state 2  // > Custom.Stochastic Decay:20
-        colors[i]=java.awt.Color.BLUE;  // > Custom.Stochastic Decay:21
-        N2--;  // > Custom.Stochastic Decay:22
-        N3++;  // > Custom.Stochastic Decay:23
-        dN2++;  // > Custom.Stochastic Decay:24
-      }  // > Custom.Stochastic Decay:25
-    }  // > Custom.Stochastic Decay:26
-  }  // > Custom.Stochastic Decay:27
+  public void changeN () {  // > Custom.Change N:1
+    n=Math.max(1,n);  // > Custom.Change N:2
+    n=Math.min(1024,n);  // > Custom.Change N:3
+    x=new double[n];  // > Custom.Change N:4
+    vx=new double[n];  // > Custom.Change N:5
+    y=new double[n];  // > Custom.Change N:6
+    vy=new double[n];  // > Custom.Change N:7
+    z=new double[n];  // > Custom.Change N:8
+    vz=new double[n];  // > Custom.Change N:9
+    _initialize();  // > Custom.Change N:10
+  }  // > Custom.Change N:11
 
  // --- Methods for view elements
 
-  public boolean _method_for_n1Field_editable () {
-    return t==0;
+  public boolean _method_for_BField_editable () {
+    return _isPaused();
   }
 
-  public void _method_for_n1Field_action () {
-    N1=Math.max(1,N1);
-    N1=Math.min(10000,N1);
-    N10=N1;
+  public void _method_for_BField_action () {
     _initialize();
   }
-  public boolean _method_for_k1Field_editable () {
-    return t==0;
+  public boolean _method_for_EField_editable () {
+    return _isPaused();
   }
 
-  public void _method_for_k1Field_action () {
-    k1=Math.min(k1,1000);
-    k1=Math.max(k1,0);
+  public void _method_for_EField_action () {
     _initialize();
   }
-  public boolean _method_for_n2Field_editable () {
-    return t==0;
+  public double _method_for_ballDrawingPanel_minimumX () {
+    return -boxSize;
   }
 
-  public void _method_for_n2Field_action () {
-    N2=Math.max(1,N2);
-    N2=Math.min(10000,N2);
-    N20=N2;
-    _initialize();
-  }
-  public boolean _method_for_k2Field_editable () {
-    return t==0;
+  public double _method_for_ballDrawingPanel_minimumY () {
+    return -boxSize;
   }
 
-  public void _method_for_k2Field_action () {
-    k1=Math.min(k1,1000);
-    k1=Math.max(k1,0);
-    _initialize();
-  }
-  public void _method_for_n3Field_action () {
-    _initialize();
-  }
-  public void _method_for_startButton_actionOn () {
+  public void _method_for_startStopButton_actionOn () {
     _play();
   }
-  public void _method_for_startButton_actionOff () {
+  public void _method_for_startStopButton_actionOff () {
     _pause();
   }
   public void _method_for_stepButton_action () {
     _step();
   }
-  public void _method_for_resetTime_action () {
+  public void _method_for_resetTimeButton_action () {
     _initialize();
   }
   public void _method_for_resetButton_action () {
     _reset();
   }
-  public void _method_for_timeField_action () {
+  public boolean _method_for_nField_editable () {
+    return _isPaused();
+  }
+
+  public void _method_for_nField_action () {
+    changeN();
+  }
+  public boolean _method_for_vField_editable () {
+    return _isPaused();
+  }
+
+  public void _method_for_vField_action () {
     _initialize();
   }
-  public boolean _method_for_dtField_editable () {
-    return t==0;
+  public boolean _method_for_crossButton_enabled () {
+    return _isPaused();
   }
 
-  public void _method_for_dtField_action () {
+  public void _method_for_crossButton_actionon () {
     _initialize();
   }
-  public double[] _method_for_dataTable_input () {
-  	System.err.println("_method_for_dataTable_input"); //WC: Debug.  JS error occurs here
-    return new double[]{t,N1,N2,N3,dN1,dN2};
+  public boolean _method_for_parallelButton_variable () {
+    return !crossed;
   }
 
-  public void _method_for_clearTabel_action () {
-    _view.dataTable.clearData();
-    _view.dataTable.appendRow(new double[]{t,N1,N2,N3});
-  }
-  public void _method_for_strideField_action () {
-    stride=Math.max(1,stride);
-  }
-  public boolean _method_for_n1Trail_visible () {
-    return plotMode!=2 && !plotChange;
+  public boolean _method_for_parallelButton_enabled () {
+    return _isPaused();
   }
 
-  public boolean _method_for_n1Trail_measured () {
-    return !plotChange;
+  public void _method_for_parallelButton_actionon () {
+    crossed=false;
+    _initialize();
   }
-
-  public boolean _method_for_n2Trail_visible () {
-    return plotMode!=2&& !plotChange;
-  }
-
-  public boolean _method_for_n2Trail_measured () {
-    return !plotChange;
-  }
-
-  public boolean _method_for_n3Trail_visible () {
-    return plotMode!=2 && !plotChange;
-  }
-
-  public boolean _method_for_n3Trail_measured () {
-    return !plotChange;
-  }
-
-  public boolean _method_for_N1Trail_visible () {
-    return plotMode!=1 && !plotChange;
-  }
-
-  public boolean _method_for_N1Trail_measured () {
-    return !plotChange;
-  }
-
-  public boolean _method_for_N2Trail_visible () {
-    return plotMode!=1 && !plotChange;
-  }
-
-  public boolean _method_for_N2Trail_measured () {
-    return !plotChange;
-  }
-
-  public boolean _method_for_N3Trail_visible () {
-    return plotMode!=1 && !plotChange;
-  }
-
-  public boolean _method_for_N3Trail_measured () {
-    return !plotChange;
-  }
-
-  public boolean _method_for_dN1Trace_visible () {
-    return plotMode!=1 && plotChange;
-  }
-
-  public boolean _method_for_dN2Trace_visible () {
-    return plotMode!=1 && plotChange;
-  }
-
-  public double _method_for_dn1Trail_inputX () {
-    return t+dt;
-  }
-
-  public double _method_for_dn1Trail_inputY () {
-    return n1*p1;
-  }
-
-  public boolean _method_for_dn1Trail_visible () {
-    return plotMode!=2 &&  plotChange;
-  }
-
-  public double _method_for_dn2Trail_inputX () {
-    return t+dt;
-  }
-
-  public double _method_for_dn2Trail_inputY () {
-    return n2*p2+n1*p13;
-  }
-
-  public boolean _method_for_dn2Trail_visible () {
-    return plotMode!=2 &&  plotChange;
-  }
-
-  public void _method_for_continuousRadioButton_action () {
-    plotMode=1;
-  }
-  public void _method_for_stochasticRadioButton_action () {
-    plotMode=2;
-  }
-  public void _method_for_bothRadioButton_action () {
-    plotMode=0;
-  }
-  public void _method_for_deltaCheckBox_actionon () {
-    yTitle="$\\Delta$N1,$\\Delta$N2";
-  }
-  public void _method_for_deltaCheckBox_actionoff () {
-    yTitle="N1,N2,N3";
-  }
-} // End of class ThreeStateNuclearDecayModel
+} // End of class TrajectoriesInEBModel
 
