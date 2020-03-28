@@ -1,4 +1,6 @@
+.gitignore
 /bin/
 /site/
 /site1/
 /site2/
+*.old
