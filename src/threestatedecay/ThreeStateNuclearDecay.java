@@ -11,8 +11,6 @@ package threestatedecay;
 import java.awt.*;
 
 public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
-	
-	static boolean debugging=false; // now with false allows for a data table
 
   static {
     __translatorUtil = new org.colos.ejs.library.utils.TranslatorUtil();
@@ -67,9 +65,9 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
   // static methods 
   // -------------------------- 
 
-  static public String _getEjsModel() { return "/testing/ThreeStateNuclearDecay.ejs"; }
+  static public String _getEjsModel() { return "/threestatedecay/ThreeStateNuclearDecay.ejs"; }
 
-  static public String _getModelDirectory() { return "testing/"; }
+  static public String _getModelDirectory() { return "threestatedecay/"; }
 
   static public java.awt.Dimension _getEjsAppletDimension() {
     return new java.awt.Dimension(619,474);
@@ -77,11 +75,10 @@ public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
 
   static public java.util.Set<String> _getEjsResources() {
     java.util.Set<String> list = new java.util.HashSet<String>();
-    if(true) return list; // WC: Debugging
-    list.add("/testing/ThreeStateNuclearDecay/ThreeStateDecayTheory.html");
-    list.add("/testing/ThreeStateNuclearDecay/ThreeStateSample.gif");
-    list.add("/testing/ThreeStateNuclearDecay/ThreeStateNuclearDecay.html");
-    list.add("/testing/ThreeStateNuclearDecay/three_state_ode.gif");
+    list.add("ThreeStateDecay/ThreeStateNuclearDecay/ThreeStateDecayTheory.html");
+    list.add("ThreeStateDecay/ThreeStateNuclearDecay/ThreeStateSample.gif");
+    list.add("ThreeStateDecay/ThreeStateNuclearDecay/ThreeStateNuclearDecay.html");
+    list.add("ThreeStateDecay/ThreeStateNuclearDecay/three_state_ode.gif");
     return list;
   };
 

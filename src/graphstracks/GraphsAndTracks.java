@@ -75,9 +75,9 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
   // static methods 
   // -------------------------- 
 
-  static public String _getEjsModel() { return "/testing/GraphsAndTracks.xml"; }
+  static public String _getEjsModel() { return "graphstracks/GraphsAndTracks.xml"; }
 
-  static public String _getModelDirectory() { return "testing/"; }
+  static public String _getModelDirectory() { return "graphstracks/"; }
 
   static public java.awt.Dimension _getEjsAppletDimension() {
     return new java.awt.Dimension(789,393);
@@ -85,9 +85,9 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
 
   static public java.util.Set<String> _getEjsResources() {
     java.util.Set<String> list = new java.util.HashSet<String>();
-    list.add("/testing/GraphsAndTracks/GraphsAndTracks.jpg");
-    list.add("/testing/GraphsAndTracks/ejsPage.css");
-    list.add("/testing/GraphsAndTracks/GraphsAndTracks.html");
+    list.add("graphstracks/GraphsAndTracks/GraphsAndTracks.jpg");
+    list.add("graphstracks/GraphsAndTracks/ejsPage.css");
+    list.add("graphstracks/GraphsAndTracks/GraphsAndTracks.html");
     return list;
   };
 
