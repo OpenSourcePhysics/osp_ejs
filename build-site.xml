@@ -79,7 +79,7 @@
  	<!-- transfer resources -->
 
   	<echo> Copying ${resource.dir} files into ${j2s.dir} </echo>
-  	<copy todir="${j2s.dir}">
+   	<copy todir="${j2s.dir}">
       <fileset dir="${resource.dir}">
       	<include name="**"/>
   	</fileset>
