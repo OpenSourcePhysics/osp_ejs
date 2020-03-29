@@ -61,9 +61,9 @@ public class VisualizationHints {
   
 
   // Implementation variables
-  private NumberFormat theFormatX = new DecimalFormat(formatX);
-  private NumberFormat theFormatY = new DecimalFormat(formatY);
-  private NumberFormat theFormatZ = new DecimalFormat(formatZ);
+  private NumberFormat theFormatX = org.opensourcephysics.numerics.Util.newDecimalFormat(formatX);
+  private NumberFormat theFormatY = org.opensourcephysics.numerics.Util.newDecimalFormat(formatY);
+  private NumberFormat theFormatZ = org.opensourcephysics.numerics.Util.newDecimalFormat(formatZ);
 
   /**
    * The DrawingPanel3D to which it belongs.

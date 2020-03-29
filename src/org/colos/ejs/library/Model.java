@@ -377,6 +377,47 @@ public abstract class Model { //implements ExternalClient {
     return _getSimulation().getVariable (_varName);
   }
 
+  // BH 2020.03.28 from xxxx.java subclasses  -- I want to fix this ONCE!
+  
+	static protected boolean _common_model_initialization() {
+		boolean pathsSet = false, underEjs = false;
+		try { // in case of security problems
+			if ("true".equals(System.getProperty("org.osp.launcher"))) {
+				// Running under Launcher
+				org.opensourcephysics.display.OSPRuntime.setLauncherMode(true);
+			}
+		} catch (Exception _exception) {
+		} // do not complain
+		try { // in case of security problems
+			if (System.getProperty("osp_ejs") != null) { // Running under EJS
+				underEjs = true;
+				org.colos.ejs.library.Simulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/");
+				// This is for classes (such as EjsMatlab) which needs to know where the library
+				// is
+				pathsSet = true;
+			}
+		} catch (Exception _exception) {
+			pathsSet = false;
+		}
+		// maybe an unsigned Web start?
+		try {
+			String screen = System.getProperty("screen");
+			if (screen != null) {
+				org.colos.ejs.library.control.EjsControl.setDefaultScreen(Integer.parseInt(screen));
+			}
+		} catch (Exception _exception) {
+		} // Ignore any error here
+		if (!pathsSet) {
+			org.colos.ejs.library.Simulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/");
+			// This is for classes (such as EjsMatlab) which needs to know where the library
+			// is
+		}
+		if (!underEjs) {
+		}
+		return true; // Everything went ok
+	}
+
+
   
   // -------------------------------- FKH 20060903 for javascript and java connection
   /*

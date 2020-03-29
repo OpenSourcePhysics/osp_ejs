@@ -107,7 +107,7 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
   
   public void finalUpdate() {
 //    if (myGroup!=null && myGroup.isCollectingData()) return;
-    dataPanel.refreshTable();
+    dataPanel.refreshTable("CDT.finalUpdate");
   }
 
 // ------------------------------------------------

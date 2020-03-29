@@ -6,6 +6,7 @@
 package massandspring;
 
 import org.colos.ejs.library._EjsConstants;
+import org.opensourcephysics.media.core.NumberField;
 
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
@@ -73,7 +74,10 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
     initialize();
     setUpdateSimulation(false);
     // The following is used by the JNLP file for the simulation to help find resources
-    try { setUserCodebase(new java.net.URL(System.getProperty("jnlp.codebase"))); }
+    try { 
+    	String base = System.getProperty("jnlp.codebase");
+    	if (base != null)
+    		setUserCodebase(new java.net.URL(base)); }
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
     update();
     if (javax.swing.SwingUtilities.isEventDispatchThread()) createControl();
@@ -312,7 +316,8 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("text"," k = ")
       .getObject();
     kField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"kField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"kField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","parametersPanel")
       .setProperty("variable","k")
@@ -326,7 +331,8 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("text"," E = ")
       .getObject();
     energyField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"energyField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"energyField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","parametersPanel")
       .setProperty("variable","E")

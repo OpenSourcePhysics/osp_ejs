@@ -12,8 +12,8 @@ import java.text.DecimalFormat;
  * A simple object that has three double coordinates. The coordinates are public.
  */
 public class Point3D {
-  static protected final DecimalFormat scientificFormat = new DecimalFormat("0.###E0");
-  static protected final DecimalFormat decimalFormat    = new DecimalFormat("0.00");
+  static protected final DecimalFormat scientificFormat = org.opensourcephysics.numerics.Util.newDecimalFormat("0.###E0");
+  static protected final DecimalFormat decimalFormat    = org.opensourcephysics.numerics.Util.newDecimalFormat("0.00");
 
   /**
    * The x coordinate of the point

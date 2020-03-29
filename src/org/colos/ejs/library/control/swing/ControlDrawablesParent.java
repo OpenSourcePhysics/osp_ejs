@@ -394,10 +394,10 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 
 class MyCoordinateStringBuilder extends org.opensourcephysics.display.axes.CoordinateStringBuilder {
 
-  DecimalFormat xFormat = new DecimalFormat("x=0.000;x=-0.000");
-  DecimalFormat yFormat = new DecimalFormat("y=0.000;y=-0.000");
+  DecimalFormat xFormat = org.opensourcephysics.numerics.Util.newDecimalFormat("x=0.000;x=-0.000");
+  DecimalFormat yFormat = org.opensourcephysics.numerics.Util.newDecimalFormat("y=0.000;y=-0.000");
   ParserSuryono parser=null;
-  DecimalFormat expressionFormat = new DecimalFormat("0.000;-0.000");
+  DecimalFormat expressionFormat = org.opensourcephysics.numerics.Util.newDecimalFormat("0.000;-0.000");
 
 
   public void setXFormat (DecimalFormat format) { xFormat = format; }

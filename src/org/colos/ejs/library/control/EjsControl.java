@@ -498,7 +498,7 @@ public class EjsControl {
 
   public void addListener (String _name) { addListener (_name, "apply(\""+_name+"\")", null); }
 
-//  public void addListener (String _name, String _method) { addListener (_name, _method, null); }
+	//  public void addListener (String _name, String _method) { addListener (_name, _method, null); }
 
  /**
   * Instructs the group to invoke a method (with an optional parameter) when a
@@ -708,6 +708,12 @@ public class EjsControl {
     for (NeedsUpdate nu : updateList) nu.update();
   }
 
+	private Runnable doPropagate = new Runnable() {
+		public synchronized void run() {
+			propagateValues();
+		}
+	};
+	
 	/**
 	 * Refresh all elements
 	 */
@@ -717,11 +723,7 @@ public class EjsControl {
 			propagateValues();
 		else
 			try {
-				javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-					public synchronized void run() {
-						propagateValues();
-					}
-				});
+				javax.swing.SwingUtilities.invokeAndWait(doPropagate);
 			} catch (InterruptedException exc) {
 			} catch (java.lang.reflect.InvocationTargetException exc2) {
 			}

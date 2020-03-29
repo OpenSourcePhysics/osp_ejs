@@ -6,6 +6,8 @@
 package massandspring;
 
 import org.colos.ejs.library._EjsConstants;
+import org.opensourcephysics.display.OSPRuntime;
+import org.opensourcephysics.tools.ResourceLoader;
 
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
@@ -93,42 +95,32 @@ public class MassAndSpring extends org.colos.ejs.library.Model {
     return list;
   };
 
-  static public boolean _common_initialization(String[] _args) {
-    String lookAndFeel = null;
-    boolean decorated = true;
-    if (_args!=null) for (int i=0; i<_args.length; i++) {
-      if      (_args[i].equals("-_lookAndFeel"))          lookAndFeel = _args[++i];
-      else if (_args[i].equals("-_decorateWindows"))      decorated = true;
-      else if (_args[i].equals("-_doNotDecorateWindows")) decorated = false;
-      else if (_args[i].equals("-_noSwingView")) _sSwingView = false;
-      else if (_args[i].equals("-_serverPort")) try { _sServerPort = Integer.parseInt(_args[++i]); } catch (Exception exc) { _sServerPort = -1; exc.printStackTrace(); } 
-    }
-    if (lookAndFeel!=null) org.opensourcephysics.display.OSPRuntime.setLookAndFeel(decorated,lookAndFeel);
-    org.opensourcephysics.tools.ResourceLoader.addSearchPath("testing/"); // This is for relative resources
-    boolean pathsSet = false, underEjs = false;
-    try { // in case of security problems
-      if ("true".equals(System.getProperty("org.osp.launcher"))) { // Running under Launcher
-        org.opensourcephysics.display.OSPRuntime.setLauncherMode(true);
-      }
-    }
-    catch (Exception _exception) { } // do not complain
-    try { // in case of security problems
-      if (System.getProperty("osp_ejs")!=null) { // Running under EJS
-        underEjs = true;
-        org.colos.ejs.library.Simulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/"); // This is for classes (such as EjsMatlab) which needs to know where the library is
-        pathsSet = true;
-      }
-    }
-    catch (Exception _exception) { pathsSet = false; } // maybe an unsigned Web start?
-    try { org.colos.ejs.library.control.EjsControl.setDefaultScreen(Integer.parseInt(System.getProperty("screen"))); } // set default screen 
-    catch (Exception _exception) { } // Ignore any error here
-    if (!pathsSet) {
-      org.colos.ejs.library.Simulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/"); // This is for classes (such as EjsMatlab) which needs to know where the library is
-    }
-    if (!underEjs) {
-    }
-    return true; // Everything went ok
-  }
+	static public boolean _common_initialization(String[] _args) {
+		String lookAndFeel = null;
+		boolean decorated = true;
+		if (_args != null)
+			for (int i = 0; i < _args.length; i++) {
+				if (_args[i].equals("-_lookAndFeel"))
+					lookAndFeel = _args[++i];
+				else if (_args[i].equals("-_decorateWindows"))
+					decorated = true;
+				else if (_args[i].equals("-_doNotDecorateWindows"))
+					decorated = false;
+				else if (_args[i].equals("-_noSwingView"))
+					_sSwingView = false;
+				else if (_args[i].equals("-_serverPort"))
+					try {
+						_sServerPort = Integer.parseInt(_args[++i]);
+					} catch (Exception exc) {
+						_sServerPort = -1;
+						exc.printStackTrace();
+					}
+			}
+		if (lookAndFeel != null)
+			OSPRuntime.setLookAndFeel(decorated, lookAndFeel);
+		ResourceLoader.addSearchPath("testing/"); // This is for relative resources
+		return _common_model_initialization();
+	}
 
   static public void main (String[] _args) {
     if (!_common_initialization(_args)) {

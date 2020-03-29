@@ -7,19 +7,37 @@
 
 package org.colos.ejs.library.control.swing;
 
+import java.text.DecimalFormatSymbols;
+
 /**
  * A textfield to display double values. When this value changes,
  * it invokes both the VARIABLE_CHANGED and the ACTION actions.
  */
 public class ControlParsedNumberField extends ControlNumberField {
 
+private static final DecimalFormatSymbols FORMAT_EN = new java.text.DecimalFormatSymbols(new java.util.Locale("en"));
+
 // -------------------------------------
 // Private methods and inner classes
 // -------------------------------------
 
-  @Override
+	/**
+	 * Specify the kind of JavaScript JTextField.
+	 * 
+	 * @param doc null for standard PlainDocument; String "null" for JavaScript
+	 *            faster but more limited version.
+	 */
+  public ControlParsedNumberField(Object doc) {
+	  super(doc);
+	}
+
+public ControlParsedNumberField() {
+	super(null);
+}
+
+@Override
   protected void fixTheFormat (java.text.DecimalFormat _format) {
-    _format.setDecimalFormatSymbols(new java.text.DecimalFormatSymbols(new java.util.Locale("en")));
+    _format.setDecimalFormatSymbols(FORMAT_EN);
   }
 
   protected void acceptValue() {

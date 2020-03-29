@@ -108,64 +108,76 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
 
 // ---------- Class constructor -------------------
 
-  public ThreeStateNuclearDecayView (ThreeStateNuclearDecaySimulation _sim, String _replaceName, java.awt.Frame _replaceOwnerFrame) {
-    super(_sim,_replaceName,_replaceOwnerFrame);
-    _simulation = _sim;
-    _model = (ThreeStateNuclearDecay) _sim.getModel();
-    _model._view = this;
-    addTarget("_simulation",_simulation);
-    addTarget("_model",_model);
-    _model._resetModel();
-    initialize();
-    setUpdateSimulation(false);
-    // The following is used by the JNLP file for the simulation to help find resources
-    try { setUserCodebase(new java.net.URL(System.getProperty("jnlp.codebase"))); }
-    catch (Exception exc) { } // Do nothing and keep quiet if it fails
-    update();
-    if (javax.swing.SwingUtilities.isEventDispatchThread()) createControl();
-    else try {
-      javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-        public void run () { 
-          createControl();
-        }
-      });
-    } catch (java.lang.reflect.InvocationTargetException it_exc) { it_exc.printStackTrace(); 
-    } catch (InterruptedException i_exc) { i_exc.printStackTrace(); };
-    addElementsMenuEntries();
-    update();
-    setUpdateSimulation(true);
-    addListener("N10"); // Variables.Stochastic Vars:1
-    addListener("N20"); // Variables.Stochastic Vars:2
-    addListener("N"); // Variables.Stochastic Vars:3
-    addListener("N1"); // Variables.Stochastic Vars:4
-    addListener("N2"); // Variables.Stochastic Vars:5
-    addListener("N3"); // Variables.Stochastic Vars:6
-    addListener("p1"); // Variables.Stochastic Vars:7
-    addListener("p2"); // Variables.Stochastic Vars:8
-    addListener("p12"); // Variables.Stochastic Vars:9
-    addListener("p13"); // Variables.Stochastic Vars:10
-    addListener("dN1"); // Variables.Stochastic Vars:11
-    addListener("dN2"); // Variables.Stochastic Vars:12
-    addListener("n1"); // Variables.Dynamical Vars:1
-    addListener("n2"); // Variables.Dynamical Vars:2
-    addListener("n3"); // Variables.Dynamical Vars:3
-    addListener("t"); // Variables.Dynamical Vars:4
-    addListener("dt"); // Variables.Dynamical Vars:5
-    addListener("tol"); // Variables.Dynamical Vars:6
-    addListener("plotChange"); // Variables.Aux Vars:1
-    addListener("showTable"); // Variables.Aux Vars:2
-    addListener("showPlot"); // Variables.Aux Vars:3
-    addListener("plotMode"); // Variables.Aux Vars:4
-    addListener("stride"); // Variables.Aux Vars:5
-    addListener("k1"); // Variables.Aux Vars:6
-    addListener("k2"); // Variables.Aux Vars:7
-    addListener("x"); // Variables.Aux Vars:8
-    addListener("y"); // Variables.Aux Vars:9
-    addListener("yTitle"); // Variables.Aux Vars:10
-    addListener("colors"); // Variables.Aux Vars:11
-    addListener("sampleSize"); // Variables.Aux Vars:12
-    addListener("particleDiameter"); // Variables.Aux Vars:13
-  }
+	public ThreeStateNuclearDecayView(ThreeStateNuclearDecaySimulation _sim, String _replaceName,
+			java.awt.Frame _replaceOwnerFrame) {
+		super(_sim, _replaceName, _replaceOwnerFrame);
+		_simulation = _sim;
+		_model = (ThreeStateNuclearDecay) _sim.getModel();
+		_model._view = this;
+		addTarget("_simulation", _simulation);
+		addTarget("_model", _model);
+		_model._resetModel();
+		initialize();
+		setUpdateSimulation(false);
+		// The following is used by the JNLP file for the simulation to help find
+		// resources
+		try {
+			String jnlp = System.getProperty("jnlp.codebase");
+			if (jnlp != null)
+				setUserCodebase(new java.net.URL(jnlp));
+		} catch (Exception exc) {
+		} // Do nothing and keep quiet if it fails
+		update();
+		if (javax.swing.SwingUtilities.isEventDispatchThread())
+			createControl();
+		else
+			try {
+				javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
+					public void run() {
+						createControl();
+					}
+				});
+			} catch (java.lang.reflect.InvocationTargetException it_exc) {
+				it_exc.printStackTrace();
+			} catch (InterruptedException i_exc) {
+				i_exc.printStackTrace();
+			}
+		;
+		addElementsMenuEntries();
+		update();
+		setUpdateSimulation(true);
+		addListener("N10"); // Variables.Stochastic Vars:1
+		addListener("N20"); // Variables.Stochastic Vars:2
+		addListener("N"); // Variables.Stochastic Vars:3
+		addListener("N1"); // Variables.Stochastic Vars:4
+		addListener("N2"); // Variables.Stochastic Vars:5
+		addListener("N3"); // Variables.Stochastic Vars:6
+		addListener("p1"); // Variables.Stochastic Vars:7
+		addListener("p2"); // Variables.Stochastic Vars:8
+		addListener("p12"); // Variables.Stochastic Vars:9
+		addListener("p13"); // Variables.Stochastic Vars:10
+		addListener("dN1"); // Variables.Stochastic Vars:11
+		addListener("dN2"); // Variables.Stochastic Vars:12
+		addListener("n1"); // Variables.Dynamical Vars:1
+		addListener("n2"); // Variables.Dynamical Vars:2
+		addListener("n3"); // Variables.Dynamical Vars:3
+		addListener("t"); // Variables.Dynamical Vars:4
+		addListener("dt"); // Variables.Dynamical Vars:5
+		addListener("tol"); // Variables.Dynamical Vars:6
+		addListener("plotChange"); // Variables.Aux Vars:1
+		addListener("showTable"); // Variables.Aux Vars:2
+		addListener("showPlot"); // Variables.Aux Vars:3
+		addListener("plotMode"); // Variables.Aux Vars:4
+		addListener("stride"); // Variables.Aux Vars:5
+		addListener("k1"); // Variables.Aux Vars:6
+		addListener("k2"); // Variables.Aux Vars:7
+		addListener("x"); // Variables.Aux Vars:8
+		addListener("y"); // Variables.Aux Vars:9
+		addListener("yTitle"); // Variables.Aux Vars:10
+		addListener("colors"); // Variables.Aux Vars:11
+		addListener("sampleSize"); // Variables.Aux Vars:12
+		addListener("particleDiameter"); // Variables.Aux Vars:13
+	}
 
 // ---------- Implementation of View -------------------
 
@@ -431,7 +443,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("foreground","RED")
       .getObject();
     n1Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"n1Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"n1Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","n1Panel")
@@ -458,7 +471,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     k1Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"k1Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"k1Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","k1Panel")
@@ -486,7 +500,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("foreground","0,128,0,255")
       .getObject();
     n2Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"n2Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"n2Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","n2Panel")
@@ -513,7 +528,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     k2Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"k2Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"k2Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","k2Panel")
@@ -541,7 +557,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("foreground","BLUE")
       .getObject();
     n3Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"n3Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"n3Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","n3Panel")
@@ -650,7 +667,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     timeField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"timeField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"timeField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","timePanel")
@@ -677,7 +695,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     dtField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"dtField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"dtField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","dtPanel")
@@ -768,7 +787,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("tooltip","The stride between data points.")
       .getObject();
     strideField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(),"strideField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
+    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"strideField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","stridePanel")

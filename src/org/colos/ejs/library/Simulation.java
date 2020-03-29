@@ -89,6 +89,8 @@ public abstract class Simulation extends Animation implements LocaleListener {
   static public String getPathToLibrary() { return pathToLibrary; }
 
   static public void setPathToLibrary(String _path) {
+	  if (OSPRuntime.isJS)
+		  return;
     try {
       File libDir = new File (_path);
 //      System.err.println ("Path set to "+_path);
@@ -1788,7 +1790,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    */
   public boolean saveImage (String _element) {
     GregorianCalendar cal = new GregorianCalendar();
-    DecimalFormat format = new DecimalFormat("00");
+    DecimalFormat format = org.opensourcephysics.numerics.Util.newDecimalFormat("00");
     String date = cal.get(Calendar.YEAR)+""
                 + format.format(cal.get(Calendar.MONTH))+""
                 + format.format(cal.get(Calendar.DATE))+"_"

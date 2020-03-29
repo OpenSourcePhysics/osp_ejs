@@ -252,7 +252,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
         break;
       case MOVES_GROUP      : myElement.getInteractionTarget(Element.TARGET_POSITION).setAffectsGroup(_value.getBoolean()); break;
       case ENABLED_SIZE     : 
-        if (_value instanceof BooleanValue) myElement.getInteractionTarget(Element.TARGET_SIZE).setEnabled(_value.getBoolean());  
+        if (_value instanceof BooleanValue) 
+        	myElement.getInteractionTarget(Element.TARGET_SIZE).setEnabled(_value.getBoolean());  
         else myElement.getInteractionTarget(Element.TARGET_SIZE).setEnabled(_value.getInteger()); 
         break;
       case RESIZES_GROUP    : myElement.getInteractionTarget(Element.TARGET_SIZE).setAffectsGroup(_value.getBoolean()); break;

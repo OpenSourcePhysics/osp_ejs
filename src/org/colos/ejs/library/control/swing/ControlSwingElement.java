@@ -11,6 +11,8 @@ import java.util.*;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.text.Document;
+
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
@@ -74,19 +76,33 @@ public abstract class ControlSwingElement extends ControlElement {
   * Instantiates an object that wraps a Swing JComponent of this type.
   */
   public ControlSwingElement() {
-    super();
-    myObject = myVisual = createVisual();
-    myDefaultFrgd = myVisual.getForeground();
-    myDefaultBkgd = myVisual.getBackground();
-    myDefaultFont = myVisual.getFont();
-    mySize = myDefaultSize = myVisual.getPreferredSize();
+    this(null);
   }
+
+  public static final String SIMPLE_DOCUMENT = "null";
+
+
+  /**
+   * JavaScript only -- null for standard PlainDocument; String "null" for JSPlainDocument,
+   * which is faster but does not support Java undo/redo and doesn't support caret positioning.
+   */
+  protected Object doc;
 
 // ------------------------------------------------
 // Visual components
 // ------------------------------------------------
 
- /**
+	public ControlSwingElement(Object doc) {
+		super();
+		this.doc = (/** @j2sNative  1 ? doc : */null);
+		myObject = myVisual = createVisual();
+		myDefaultFrgd = myVisual.getForeground();
+		myDefaultBkgd = myVisual.getBackground();
+		myDefaultFont = myVisual.getFont();
+		mySize = myDefaultSize = myVisual.getPreferredSize();
+	}
+
+/**
   * Creates the visual component of this <code>ControlElement</code>,
   * the one you can configure graphically.
   */

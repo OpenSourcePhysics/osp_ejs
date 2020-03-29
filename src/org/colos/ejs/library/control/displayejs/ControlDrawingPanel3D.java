@@ -467,9 +467,9 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
       case 25 : drawingPanel3D.setRemoveHiddenLines(true); break;
       case 26 : drawingPanel3D.setAllowQuickRedraw(true); break;
 
-      case 27 : drawingPanel3D.setXFormat(new DecimalFormat("x=0.000;x=-0.000")); break;
-      case 28 : drawingPanel3D.setYFormat(new DecimalFormat("y=0.000;y=-0.000")); break;
-      case 29 : drawingPanel3D.setZFormat(new DecimalFormat("z=0.000;z=-0.000")); break;
+      case 27 : drawingPanel3D.setXFormat(org.opensourcephysics.numerics.Util.newDecimalFormat("x=0.000;x=-0.000")); break;
+      case 28 : drawingPanel3D.setYFormat(org.opensourcephysics.numerics.Util.newDecimalFormat("y=0.000;y=-0.000")); break;
+      case 29 : drawingPanel3D.setZFormat(org.opensourcephysics.numerics.Util.newDecimalFormat("z=0.000;z=-0.000")); break;
       case 30 : removeAction (ControlSwingElement.KEY_ACTION,getProperty("keyAction")); break;
       case 31 : keyPressedValue.value = -1; break;
       case 32 : removeAction (ControlSwingElement.MOUSE_ENTERED_ACTION,getProperty("enteredAction")); break;

@@ -12,6 +12,8 @@ import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.value.*;
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.text.Document;
+
 import java.text.DecimalFormat;
 
 /**
@@ -41,12 +43,20 @@ public class ControlNumberField extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  // To be overriden by ParsedField
+  public ControlNumberField() {
+	  super(null);
+  }
+  
+  public ControlNumberField(Object doc) {
+	  super(doc);
+}
+
+// To be overriden by ParsedField
   protected void fixTheFormat (java.text.DecimalFormat _format) {
   }
 
   protected java.awt.Component createVisual () {
-    textfield = new JTextField();
+    textfield = new JTextField((Document) doc, null, 0);
     fixTheFormat(defaultFormat);
     format = defaultFormat;
     defaultValue  = 0.0;
