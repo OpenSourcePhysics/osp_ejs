@@ -5,22 +5,7 @@
 
 package graphstracks;
 
-import org.colos.ejs.library._EjsConstants;
-
-import org.opensourcephysics.display.OSPRuntime;
-// Imports suggested by Model Elements:
-// End of imports from Model Elements
-
-import javax.swing.event.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.*;
-
-import org.colos.ejs.library.View;
+import java.awt.Color;
 
 class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private GraphsAndTracksSimulation _simulation=null;

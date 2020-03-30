@@ -5,8 +5,9 @@
 
 package threestatedecay;
 
-import java.awt.*;
+import static org.colos.ejs.library.control.swing.ControlSwingElement.SIMPLE_DOCUMENT;
 
+import java.awt.Color;
 
 class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private ThreeStateNuclearDecaySimulation _simulation=null;
@@ -443,8 +444,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("foreground","RED")
       .getObject();
     n1Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"n1Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"n1Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","n1Panel")
@@ -471,8 +471,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     k1Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"k1Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"k1Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","k1Panel")
@@ -500,8 +499,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("foreground","0,128,0,255")
       .getObject();
     n2Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"n2Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"n2Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","n2Panel")
@@ -528,8 +526,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     k2Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"k2Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"k2Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","k2Panel")
@@ -557,8 +554,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("foreground","BLUE")
       .getObject();
     n3Field = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"n3Field")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"n3Field")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","n3Panel")
@@ -667,8 +663,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     timeField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"timeField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"timeField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","timePanel")
@@ -695,8 +690,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("alignment","RIGHT")
       .getObject();
     dtField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"dtField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"dtField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","dtPanel")
@@ -787,8 +781,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("tooltip","The stride between data points.")
       .getObject();
     strideField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"strideField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"strideField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","stridePanel")

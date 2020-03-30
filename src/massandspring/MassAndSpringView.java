@@ -5,22 +5,8 @@
 
 package massandspring;
 
-import org.colos.ejs.library._EjsConstants;
-import org.opensourcephysics.media.core.NumberField;
 
-// Imports suggested by Model Elements:
-// End of imports from Model Elements
-
-import javax.swing.event.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.*;
-
-import org.colos.ejs.library.View;
+import static org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT;
 
 class MassAndSpringView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private MassAndSpringSimulation _simulation=null;
@@ -316,8 +302,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("text"," k = ")
       .getObject();
     kField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"kField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"kField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","parametersPanel")
       .setProperty("variable","k")
@@ -331,8 +316,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("text"," E = ")
       .getObject();
     energyField = (javax.swing.JTextField)
-      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(
-    		  org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT),"energyField")
+      addElement(new org.colos.ejs.library.control.swing.ControlParsedNumberField(SIMPLE_DOCUMENT),"energyField")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","parametersPanel")
       .setProperty("variable","E")

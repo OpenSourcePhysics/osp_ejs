@@ -648,8 +648,15 @@ static public void main (String[] _args) {
   }
   public void _method_for_startButton_actionOff () {
     _pause();
+    // BH 2020.03.30 needed because table does not revalidate during row addition, only when paused.
+    refreshTable("_pause");
   }
-  public void _method_for_stepButton_action () {
+
+	private void refreshTable(String from) {
+		_view.dataTable.refreshTable(from);
+	}
+
+public void _method_for_stepButton_action () {
     _step();
   }
   public void _method_for_resetTime_action () {
@@ -674,7 +681,7 @@ static public void main (String[] _args) {
 
   public void _method_for_clearTabel_action () {
     _view.dataTable.clearData();
-    _view.dataTable.appendRow(new double[]{t,N1,N2,N3});
+    _view.dataTable.appendRow(new double[]{t,N1,N2,N3, Double.NaN, Double.NaN });
   }
   public void _method_for_strideField_action () {
     stride=Math.max(1,stride);
