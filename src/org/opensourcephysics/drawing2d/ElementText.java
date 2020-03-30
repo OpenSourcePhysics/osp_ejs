@@ -10,7 +10,11 @@ package org.opensourcephysics.drawing2d;
 import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.util.Hashtable;
+import java.util.Map;
 
+import org.opensourcephysics.display.DrawableTextLine;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.TextLine;
 
@@ -26,11 +30,14 @@ public class ElementText extends Element {
   private Font font;
   private boolean trueSize=false;
   
+  private boolean useDrawableTL = OSPRuntime.isJS;
   // Implementation variables
   private double[] coordinates = new double[3]; // The input for all projections
   private double[] pixel = new double[3]; // The output of all projections
-  private TextLine textLine = new TextLine();
-  private AffineTransform translation = new AffineTransform();
+  private TextLine textLine = (useDrawableTL ? new DrawableTextLine("", 0, 0) : new TextLine());
+  private AffineTransform trAlign = new AffineTransform();
+private double xAlign;
+private double yAlign;
 
   {
     setSizeXY(0.4,0.4);
@@ -118,7 +125,9 @@ public class ElementText extends Element {
         case Style.SOUTH_EAST : x1 = -1.0; y1 =  0.0; break;
         case Style.SOUTH_WEST : x1 =  0.0; y1 =  0.0; break;
       }
-      translation = AffineTransform.getTranslateInstance(x1, y1);
+      xAlign = x1;
+      yAlign = y1;
+      trAlign = AffineTransform.getTranslateInstance(x1, y1);
     }
   }
   
@@ -151,26 +160,41 @@ public class ElementText extends Element {
     return 4;
   }
 
-  AffineTransform trET = new AffineTransform();
-  AffineTransform trETinv = new AffineTransform();
+  private AffineTransform trET = new AffineTransform();
+  private AffineTransform trETinv = new AffineTransform();
+  private Point2D.Double pixelPt = new Point2D.Double();
   
-	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+  public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
 		if (!isReallyVisible() || text == null || text.length() <= 0)
 			return;
 		// if (hasChanged() || needsToProject()) projectPoints();
 		Graphics2D g2 = (Graphics2D) _g;
+		AffineTransform at = getPixelTransform(_panel);
+		pixelPt.setLocation(0, 0);
+		at.transform(pixelPt, pixelPt);
 
+		Stroke stroke = getStyle().getLineStroke();
 		Color color = getStyle().getLineColor();
 		Paint fill = getStyle().getFillColor();
-		g2.setStroke(getStyle().getLineStroke());
+		g2.setStroke(stroke);
 
-		if (!trueSize && !OSPRuntime.isJS) {
+		FontMetrics fm = g2.getFontMetrics(font);
+		if (!trueSize && !useDrawableTL) {
+			// Java only -- but do we need to go throw all this trouble?
 			TextLayout tl = new TextLayout(text, font, g2.getFontRenderContext());
 			java.awt.geom.Rectangle2D rect = tl.getBounds();
-		    AffineTransform tr = new AffineTransform(translation);
-			tr.scale(1.0 / rect.getWidth(), -1.0 / rect.getHeight());
-			tr.translate(-rect.getX(), -rect.getMaxY());
-			Shape shape = transformShape(_panel, tl.getOutline(tr));
+			int cw = fm.stringWidth("X");
+		    at.setTransform(trAlign);
+		    // BH 2020.03.29 Java Bug - -There was a coding error here -- was 
+		    //tr.scale(1.0 / rect.getWidth(), -1.0 / rect.getHeight());
+			// but that makes the w and h the same, regardless of the number of characters in the text.
+		    at.scale(1.0 / cw, -1.0 / cw);
+			at.translate(-rect.getX(), -rect.getMaxY());
+			//at.rotate(Math.PI/2); // just testing
+			Shape shape = transformShape(_panel, tl.getOutline(at));
+//			System.out.println("\nrect=" + rect + "\nshape=" 
+//			+ shape.getBounds() + "\ntr="
+//					+ at + "\n" + trAlign);
 			if (fill != null && getStyle().isDrawingFill()) { // First fill the inside
 				g2.setPaint(fill);
 				g2.fill(shape);
@@ -180,47 +204,53 @@ public class ElementText extends Element {
 				g2.draw(shape);
 			}
 		} else {
-		    AffineTransform originalTransform = g2.getTransform();
+			// JavaScript or trueSize
+		    AffineTransform tr0 = g2.getTransform();
 			textLine.setColor(color);
-			int a1 = 0, b1 = 0, leny = 0;
+			int px = 0, py = 0;
 			if (trueSize) {
-				 a1 = (int) pixel[0];
-				 b1 = (int) pixel[1];
+				 px = (int) pixel[0];
+				 py = (int) pixel[1];
 				if (hasChanged() || needsToProject())
 					projectPoints();
 				try {
-					trET.setTransform(originalTransform);
+					trET.setTransform(tr0);
 					trET.translate(pixel[0], pixel[1]);
 					trET.concatenate(trETinv);
 					trET.translate(-pixel[0], -pixel[1]);
 					g2.setTransform(trET);
 				} catch (Exception exc) {
 				}
-				leny = textLine.getHeight(_g) / 2;
 			} else {
-				// JavaScript??
-				FontMetrics fm = g2.getFontMetrics(font);
-				int w = fm.stringWidth(text);
-				int h = fm.getHeight();
-				leny = h/2;
+				// JavaScript only -- very simple!
+				px = (int) pixelPt.x;
+				py = (int) pixelPt.y;
 			}
+			
+			// adjust from baseline to center of an "X"
+			int leny = textLine.getHeight(_g) / 2;
 			switch (getStyle().getRelativePosition()) {
 			case Style.CENTERED:
 			case Style.EAST:
 			case Style.WEST:
-				b1 += leny / 2.0;
+				py += leny / 2;
 				break;
 			case Style.NORTH:
 			case Style.NORTH_EAST:
 			case Style.NORTH_WEST:
-				b1 += leny;
+				py += leny;
 				break;
 			default:
 				break;
 			}
-			textLine.drawText(g2, a1, b1);
-			g2.setTransform(originalTransform);
+			
+			//g2.transform(AffineTransform.getRotateInstance(Math.PI/2,  px,  py)); // just testing
+			g2.setFont(font); // BH -- oops, forgot this? or is it set earlier?
+			textLine.drawText(g2, px, py);
+			g2.setTransform(tr0);
 		}
+//		g2.drawLine((int) pixelPt.x,(int) pixelPt.y-5,(int) pixelPt.x,(int) pixelPt.y + 5 );
+//		g2.drawLine((int) pixelPt.x-5,(int) pixelPt.y,(int) pixelPt.x+5,(int) pixelPt.y);
 	}
 
   // -------------------------------------

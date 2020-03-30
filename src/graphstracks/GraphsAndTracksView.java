@@ -1189,7 +1189,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("x","xt")
       .setProperty("y","-0.6")
       .setProperty("text","%labels%")
-      .setProperty("font","Monospaced,PLAIN,16")
+      .setProperty("font","Monospaced,BOLD,16")
       .getObject();
     controlPanel = (javax.swing.JPanel)
       addElement(new org.colos.ejs.library.control.swing.ControlPanel(),"controlPanel")
