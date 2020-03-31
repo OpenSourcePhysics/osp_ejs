@@ -70,6 +70,8 @@ public abstract class Simulation extends Animation implements LocaleListener {
   private JLabel increaseFontButton, decreaseFontButton, openPageButton;
   protected VideoUtil videoUtil;
   
+  protected boolean disablePopUp=true; // Disable pop up menu because many options are not implemented
+  
 // ---------------------------------------------------
 //  Utilities to extract resources
 // ---------------------------------------------------
@@ -1275,6 +1277,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
   }
 
   public void addElementMenuEntries (String elementName, List<Object> _entries) {
+  	if(disablePopUp)return;  // don't show "Element Options" in pop up menu.
     if (elementsMenu==null) {
       elementsMenu = new JMenu(getMenuText("ejs_res:MenuItem.Elements"));
       List<Object> list = new ArrayList<Object>();
@@ -1301,6 +1304,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
   
   @SuppressWarnings("serial")
   public void getPopupMenu (final Component _component, int _x, int _y, String _element) {
+  	if(disablePopUp) return;
     captureElement = _element;
     if (popupMenu==null) {
       boolean canAccessDisk = true;
