@@ -35,7 +35,7 @@ public class ControlTwoStateButton extends ControlSwingElement {
   private String textOn="", textOff="";
   private char mnemonicOn=(char) -1, mnemonicOff=(char) -1;
   private Color frgdOn=null, frgdOff=null, bkgdOn=null, bkgdOff=null;
-  protected BooleanValue internalValue=new BooleanValue(true);
+  protected BooleanValue internalValue=Value.VALUE_TRUE;
 
 
 // ------------------------------------------------

@@ -129,7 +129,7 @@ public class EjsControl {
   * The default constructor.
   */
   public EjsControl () {
-    setValue (ControlElement.METHOD_TRIGGER,new BooleanValue(false)); // AMAVP
+    setValue (ControlElement.METHOD_TRIGGER,Value.VALUE_FALSE); // AMAVP
     methodTriggerVariable = variableTable.get(ControlElement.METHOD_TRIGGER); // AMAVP
   }
 
@@ -934,7 +934,7 @@ public class EjsControl {
 // -------------------------------------------------------
 
   // For the custom methods
-  private BooleanValue booleanValue = new BooleanValue(false);
+  private BooleanValue booleanValue = Value.VALUE_FALSE;
   private IntegerValue integerValue = new IntegerValue(0);
   private DoubleValue  doubleValue  = new DoubleValue(0.0);
   private StringValue  stringValue  = new StringValue("");

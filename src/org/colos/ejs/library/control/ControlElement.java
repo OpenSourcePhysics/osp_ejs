@@ -616,7 +616,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
 //      if      (propertyIsTypeOf(_property,"[]"))      newValue = new ObjectValue(null);
 //      else
         if       (propertyIsTypeOf(_property,"double"))  newValue = new DoubleValue(0.0);
-        else if (propertyIsTypeOf(_property,"boolean")) newValue = new BooleanValue(false);
+        else if (propertyIsTypeOf(_property,"boolean")) newValue = Value.VALUE_FALSE;
         else if (propertyIsTypeOf(_property,"int"))     newValue = new IntegerValue(0);
         else if (propertyIsTypeOf(_property,"String"))  newValue = new StringValue(_value);
         else newValue = new ObjectValue(null);
@@ -681,7 +681,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
       // myGroup.update() will take care of triggering the method
       myGroup.methodTriggerVariable.addElementListener(this,index);
       myProperties[index] = myGroup.methodTriggerVariable;
-//    myProperties[index] = myGroup.registerVariable (METHOD_TRIGGER,this,index,new BooleanValue(false));
+//    myProperties[index] = myGroup.registerVariable (METHOD_TRIGGER,this,index,Value.VALUE_FALSE);
       myGroup.update(); // trigger the method right now
       myGroup.finalUpdate(); // trigger the method right now
     } // End --- AMAVP
