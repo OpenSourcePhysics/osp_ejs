@@ -28,9 +28,12 @@
   	<!-- location of third-party jar contents as precompiled zipped .js files to copy to site/ -->
   	<property name="libjs.dir" value="libjs" />
  
-  	<!-- non-Java resources to copy to site/ -->
+  	<!-- non-Java resources to copy to site/swingjs/j2s -->
     <property name="resource.dir" value="resources" />  
   	
+  	<!-- non-Java resources to copy to site/ -->
+    <property name="site-resource.dir" value="site-resources" />  	  	
+
   	<!-- OSP JS library to copy to site/ -->
     <property name="osp.dir" value="../osp/site/swingjs/j2s" />  
   	
@@ -78,6 +81,12 @@
   	 
  	<!-- transfer resources -->
 
+  	<echo> Copying ${site-resource.dir} files into ${site.dir} </echo>
+  	<copy todir="${site.dir}">
+      <fileset dir="${site-resource.dir}" erroronmissingdir="false" >
+      	<include name="**"/>
+  	</fileset>
+    </copy>
   	<echo> Copying ${resource.dir} files into ${j2s.dir} </echo>
    	<copy todir="${j2s.dir}">
       <fileset dir="${resource.dir}">
@@ -85,6 +94,8 @@
   	</fileset>
     </copy>
       		
+
+  	
 </target>
 	
 
