@@ -305,11 +305,11 @@ public class ElementPolygon extends Element implements Data {
     for (int k = 0, n = aPoints.length;k<n;k++) {
       if (Math.abs(aPoints[k]-_xpix)<sensitivity && Math.abs(bPoints[k]-_ypix)<sensitivity) {
         if (targetPosition.isEnabled()) {
-          targetPosition.setDataObject(new Integer(k));
+          targetPosition.setDataObject(Integer.valueOf(k));
           return targetPosition;
         }
         if (targetSize.isEnabled()) {
-          targetSize.setDataObject(new Integer(k));
+          targetSize.setDataObject(Integer.valueOf(k));
           return targetSize;
         }
       }

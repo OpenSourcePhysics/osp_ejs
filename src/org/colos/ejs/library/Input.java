@@ -83,7 +83,7 @@ public class Input extends Memory {
     if (value.equals("true"))  { setValue (variable,true); return; }
     if (value.equals("false")) { setValue (variable,false); return; }
     try {
-      Integer test = new Integer(value);
+      Integer test = Integer.valueOf(value);
       setValue(variable,test.intValue());
       return;
     } catch (Exception exc) {}; // Do nothing
