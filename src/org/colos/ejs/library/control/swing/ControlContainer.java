@@ -14,7 +14,7 @@ import org.colos.ejs.library.control.value.*;
  * A configurable Container
  */
 public abstract class ControlContainer extends ControlSwingElement {
-  static private final BooleanValue falseValue = new BooleanValue(false);
+  static private final BooleanValue falseValue = Value.VALUE_FALSE;// BH 2020.03.31 too complex right now. new BooleanValue(false);
   protected java.util.Vector<ControlSwingElement> radioButtons = new java.util.Vector<ControlSwingElement>();
   protected java.util.Vector<ControlElement> children = new java.util.Vector<ControlElement>();
 
