@@ -107,7 +107,7 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
   
   public void finalUpdate() {
 //    if (myGroup!=null && myGroup.isCollectingData()) return;
-    dataPanel.refreshTable();
+    // dataPanel.refreshTable("?");  // WC:  Added from parameter ("?") for new API.
   }
 
 // ------------------------------------------------
