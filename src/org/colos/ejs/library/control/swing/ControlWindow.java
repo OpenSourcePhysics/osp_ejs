@@ -201,7 +201,7 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
   protected void whenClosing () {
 //    System.err.println ("Simulation ended = "+getSimulation().hasEnded());
     if ((getSimulation()!=null) && getSimulation().hasEnded()) return;
-    internalValue.value = false;
+    internalValue.setValue(false);
     variableChanged (getVisibleIndex(),internalValue);
     invokeActions(ControlSwingElement.ACTION_OFF);
   }
@@ -212,7 +212,7 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
         setProperty("visible", "false");
         ((Window) getComponent()).setVisible(false);
         ((Window) getComponent()).dispose();
-        sWindowList.remove(this);
+        sWindowList.remove(ControlWindow.this); // BH 2020.04.04 Java bug was trying to remove Runnable.this
       }
     });
   }
@@ -363,8 +363,7 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
         break;
 
       case WINDOW_VISIBLE : // Overrides its super 'visible'
-        internalValue.value = _value.getBoolean();
-        if (internalValue.value) show();
+        if (internalValue.setValue(_value)) show();
         else hide();
         break;
       case WINDOW_SIZE : // // Overrides its super 'size'
@@ -425,7 +424,7 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
       case 5 : removeAction (ControlSwingElement.ACTION_ON,getProperty("onDisplay")); break;
 
       case WINDOW_VISIBLE : // Overrides its super 'visible'
-        internalValue.value = true;
+        internalValue.setValue(true);
         show();
         break;
       case WINDOW_SIZE : // // Overrides its super 'size'

@@ -934,7 +934,7 @@ public class EjsControl {
 // -------------------------------------------------------
 
   // For the custom methods
-  private BooleanValue booleanValue = Value.VALUE_FALSE;
+  private BooleanValue booleanValue = new BooleanValue(false); // mutable
   private IntegerValue integerValue = new IntegerValue(0);
   private DoubleValue  doubleValue  = new DoubleValue(0.0);
   private StringValue  stringValue  = new StringValue("");
@@ -948,7 +948,7 @@ public class EjsControl {
   * @param _value
   */
   public void setValue (String _name, boolean _value) {
-    booleanValue.value = _value;
+    booleanValue.setValue(_value);
     setValue(_name,booleanValue);
   }
 

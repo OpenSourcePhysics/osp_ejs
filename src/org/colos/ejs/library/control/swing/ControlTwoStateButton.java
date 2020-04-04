@@ -35,7 +35,7 @@ public class ControlTwoStateButton extends ControlSwingElement {
   private String textOn="", textOff="";
   private char mnemonicOn=(char) -1, mnemonicOff=(char) -1;
   private Color frgdOn=null, frgdOff=null, bkgdOn=null, bkgdOff=null;
-  protected BooleanValue internalValue=Value.VALUE_TRUE;
+  protected BooleanValue internalValue=new BooleanValue(true); // not immutable!
 
 
 // ------------------------------------------------
@@ -52,14 +52,14 @@ public class ControlTwoStateButton extends ControlSwingElement {
     button.addActionListener (
         new java.awt.event.ActionListener() {
           public void actionPerformed (java.awt.event.ActionEvent _e) {
-            final boolean value = !internalValue.value;
+            final boolean value = !internalValue.getBoolean();
             SwingUtilities.invokeLater(new Runnable() {
               public void run () { 
                 updateGUI(value);
               }
             });
-            int actionToInvoke = internalValue.value ? ControlSwingElement.ACTION_ON : ControlSwingElement.ACTION_OFF; 
-            internalValue.value = !internalValue.value;
+            int actionToInvoke = internalValue.getBoolean() ? ControlSwingElement.ACTION_ON : ControlSwingElement.ACTION_OFF; 
+            internalValue.setValue(!internalValue.getBoolean());
             if (variableLinked) {
               variableChanged (VARIABLE,internalValue);
               if (isUnderEjs) setFieldListValue(VARIABLE,internalValue);
@@ -73,10 +73,10 @@ public class ControlTwoStateButton extends ControlSwingElement {
   }
 
   public void reset() {
-    internalValue.value = true;
+    internalValue.setValue(true);
     SwingUtilities.invokeLater(new Runnable() {
       public void run () { 
-        updateGUI(internalValue.value);
+        updateGUI(true);
       }
     });
   }
@@ -155,18 +155,19 @@ public class ControlTwoStateButton extends ControlSwingElement {
 // ------------------------------------------------
 
   public void setValue (int _index, Value _value) {
+	boolean state = internalValue.getBoolean();
     switch (_index) {
-      case 0 : textOn  = org.opensourcephysics.display.TeXParser.parseTeX(_value.getString()); if (internalValue.value)  button.setText(textOn);  break;
-      case 1 : textOff = org.opensourcephysics.display.TeXParser.parseTeX(_value.getString()); if (!internalValue.value) button.setText(textOff); break;
+      case 0 : textOn  = org.opensourcephysics.display.TeXParser.parseTeX(_value.getString()); if (state)  button.setText(textOn);  break;
+      case 1 : textOff = org.opensourcephysics.display.TeXParser.parseTeX(_value.getString()); if (!state) button.setText(textOff); break;
       case 2 :
         if (_value.getString().equals(imageFileOn)) return;
         iconOn = getIcon(imageFileOn = _value.getString());
-        if (internalValue.value) button.setIcon (iconOn);
+        if (state) button.setIcon (iconOn);
         break;
       case 3 :
         if (_value.getString().equals(imageFileOff)) return;
         iconOff = getIcon(imageFileOff = _value.getString());
-        if (!internalValue.value) button.setIcon (iconOff);
+        if (!state) button.setIcon (iconOff);
         break;
       case 4 : // actionOn
         removeAction (ControlSwingElement.ACTION_ON,getProperty("actionOn"));
@@ -176,22 +177,22 @@ public class ControlTwoStateButton extends ControlSwingElement {
         removeAction (ControlSwingElement.ACTION_OFF,getProperty("actionOff"));
         addAction(ControlSwingElement.ACTION_OFF,_value.getString());
         break;
-      case 6 : mnemonicOn  = _value.getString().charAt(0); if (internalValue.value)  button.setMnemonic(mnemonicOn);  break;
-      case 7 : mnemonicOff = _value.getString().charAt(0); if (!internalValue.value) button.setMnemonic(mnemonicOff); break;
+      case 6 : mnemonicOn  = _value.getString().charAt(0); if (state)  button.setMnemonic(mnemonicOn);  break;
+      case 7 : mnemonicOff = _value.getString().charAt(0); if (!state) button.setMnemonic(mnemonicOff); break;
       case 8 :
         if (_value.getObject() instanceof Color) {
           frgdOff = (Color) _value.getObject();
-          if (!internalValue.value) button.setForeground(frgdOff);
+          if (!state) button.setForeground(frgdOff);
         }
         break;
       case 9 : // Background
         if (_value.getObject() instanceof Color) {
           bkgdOff = (Color) _value.getObject();
-          if (!internalValue.value) button.setBackground(bkgdOff);
+          if (!state) button.setBackground(bkgdOff);
         }
         break;
       case 10 : button.setHorizontalAlignment(_value.getInteger()); break; // alignment
-      case VARIABLE : internalValue.value = _value.getBoolean(); updateGUI(internalValue.value); break;
+      case VARIABLE : internalValue.setValue(_value); updateGUI(internalValue.getBoolean()); break;
       
       case SELECTED : updateGUI(_value.getBoolean()); break;
 //        defaultStateSet = true;  defaultState = _value.getBoolean();
@@ -202,38 +203,39 @@ public class ControlTwoStateButton extends ControlSwingElement {
       case MY_FOREGROUND :
         if (_value.getObject() instanceof Color) {
           frgdOn = (Color) _value.getObject();
-          if (internalValue.value) button.setForeground(frgdOn);
+          if (state) button.setForeground(frgdOn);
         }
         break;
       case MY_BACKGROUND :
         if (_value.getObject() instanceof Color) {
           bkgdOn = (Color) _value.getObject();
-          if (internalValue.value) button.setBackground(bkgdOn);
+          if (state) button.setBackground(bkgdOn);
         }
         break;
     }
   }
 
   public void setDefaultValue (int _index) {
+	boolean state = internalValue.getBoolean();
     switch (_index) {
-      case 0 : textOn  = "";  if (internalValue.value)  button.setText(textOn);  break;
-      case 1 : textOff = "";  if (!internalValue.value) button.setText(textOff); break;
-      case 2 : imageFileOn  = null; iconOn  = null; if (internalValue.value)  button.setIcon (iconOn);  break;
-      case 3 : imageFileOff = null; iconOff = null; if (!internalValue.value) button.setIcon (iconOff); break;
+      case 0 : textOn  = "";  if (state)  button.setText(textOn);  break;
+      case 1 : textOff = "";  if (!state) button.setText(textOff); break;
+      case 2 : imageFileOn  = null; iconOn  = null; if (state)  button.setIcon (iconOn);  break;
+      case 3 : imageFileOff = null; iconOff = null; if (!state) button.setIcon (iconOff); break;
       case 4 : removeAction (ControlSwingElement.ACTION_ON, getProperty("actionOn"));  break;
       case 5 : removeAction (ControlSwingElement.ACTION_OFF,getProperty("actionOff")); break;
-      case 6 : mnemonicOn  = (char) -1; if (internalValue.value)  button.setMnemonic(mnemonicOn);  break;
-      case 7 : mnemonicOff = (char) -1; if (!internalValue.value) button.setMnemonic(mnemonicOff); break;
-      case 8 : frgdOff = myDefaultFrgd; if (!internalValue.value) button.setForeground(frgdOff); break;
-      case 9 : bkgdOff = myDefaultBkgd; if (!internalValue.value) button.setBackground(bkgdOff); break;
+      case 6 : mnemonicOn  = (char) -1; if (state)  button.setMnemonic(mnemonicOn);  break;
+      case 7 : mnemonicOff = (char) -1; if (!state) button.setMnemonic(mnemonicOff); break;
+      case 8 : frgdOff = myDefaultFrgd; if (!state) button.setForeground(frgdOff); break;
+      case 9 : bkgdOff = myDefaultBkgd; if (!state) button.setBackground(bkgdOff); break;
       case 10 : button.setHorizontalAlignment(SwingConstants.CENTER); break;
-      case VARIABLE : internalValue.value = true; updateGUI(internalValue.value); break;
+      case VARIABLE : internalValue.setValue(true); updateGUI(true); break;
       case SELECTED : updateGUI(true); break; 
 //        defaultStateSet = false; break;
 
       default: super.setDefaultValue(_index-TWO_STATE_ADDED); break;
-      case MY_FOREGROUND : frgdOn = myDefaultFrgd; if (internalValue.value) button.setForeground(frgdOn); break;
-      case MY_BACKGROUND : bkgdOn = myDefaultBkgd; if (internalValue.value) button.setBackground(bkgdOn); break;
+      case MY_FOREGROUND : frgdOn = myDefaultFrgd; if (state) button.setForeground(frgdOn); break;
+      case MY_BACKGROUND : bkgdOn = myDefaultBkgd; if (state) button.setBackground(bkgdOn); break;
     }
   }
 

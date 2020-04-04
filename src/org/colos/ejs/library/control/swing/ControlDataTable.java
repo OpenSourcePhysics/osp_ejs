@@ -9,6 +9,7 @@ package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.control.*;
 import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.display.DataRowModel;
 import org.opensourcephysics.display.OSPRuntime;
 
 import java.awt.event.MouseAdapter;
@@ -107,7 +108,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
   
   public void finalUpdate() {
 //    if (myGroup!=null && myGroup.isCollectingData()) return;
-    dataPanel.refreshTable("CDT.finalUpdate");
+    dataPanel.refreshTable(DataRowModel.FINAL_UPDATE);  // BH 2020.04.04 this is a controlled keyword
+    // WC:  Added from parameter ("?") for new API.
   }
 
 // ------------------------------------------------

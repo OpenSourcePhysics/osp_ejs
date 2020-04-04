@@ -43,7 +43,7 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
       new java.awt.event.ActionListener() {
         public void actionPerformed (java.awt.event.ActionEvent _e) {
           if (cantUnselectItself) {
-            if (internalValue.value && !radioButton.isSelected()) {
+            if (internalValue.getBoolean() && !radioButton.isSelected()) {
               radioButton.setSelected(true);
               return;
             }
@@ -64,11 +64,11 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
   }
 
   protected void setInternalValue (boolean _state) {
-    internalValue.value = _state;
+    internalValue.setValue(_state);
     if (myControlParent!=null) myControlParent.informRadioGroup(mySelf,_state);
     variableChanged (VARIABLE,internalValue);
     invokeActions ();
-    if (internalValue.value) invokeActions(ControlSwingElement.ACTION_ON);
+    if (internalValue.getBoolean()) invokeActions(ControlSwingElement.ACTION_ON);
     else invokeActions(ControlSwingElement.ACTION_OFF);
   }
 
@@ -122,46 +122,62 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
-    switch (_index) {
-      case 0 :
-        if (!labelString.equals(_value.getString())) {
-          labelString = _value.getString();
-          if (labelString==null) labelString = "";
-          radioButton.setText(org.opensourcephysics.display.TeXParser.parseTeX(_value.getString()));
-        }
-      break;  // text
-      case 1 : // image
-        if (_value.getString().equals(imageFile)) return; // no need to do it again
-        radioButton.setIcon (getIcon(imageFile=_value.getString()));
-        break;
-      case 2 : // selectedImage
-        if (_value.getString().equals(selectedimageFile)) return; // no need to do it again
-        radioButton.setSelectedIcon (getIcon(selectedimageFile=_value.getString()));
-        break;
-      case 3 : radioButton.setHorizontalAlignment(_value.getInteger()); break; // alignment
-      case VARIABLE : radioButton.setSelected(internalValue.value = _value.getBoolean()); break;
-      case SELECTED :
-        defaultStateSet = true; defaultState = _value.getBoolean();
-        setActive (false); reset (); setActive(true);
-        break;
-      case 6 : // action
-        removeAction (ControlElement.ACTION,getProperty("action"));
-        addAction(ControlElement.ACTION,_value.getString());
-        break;
-      case 7 : // actionon
-        removeAction (ControlSwingElement.ACTION_ON,getProperty("actionon"));
-        addAction(ControlSwingElement.ACTION_ON,_value.getString());
-        break;
-      case 8 : // actionoff
-        removeAction (ControlSwingElement.ACTION_OFF,getProperty("actionoff"));
-        addAction(ControlSwingElement.ACTION_OFF,_value.getString());
-        break;
-      case 9 : radioButton.setMnemonic(_value.getString().charAt(0)); break;
-      case 10 : cantUnselectItself = _value.getBoolean(); break;
-      default: super.setValue(_index-11,_value); break;
-    }
-  }
+	public void setValue(int _index, Value _value) {
+		switch (_index) {
+		case 0:
+			if (!labelString.equals(_value.getString())) {
+				labelString = _value.getString();
+				if (labelString == null)
+					labelString = "";
+				radioButton.setText(org.opensourcephysics.display.TeXParser.parseTeX(_value.getString()));
+			}
+			break; // text
+		case 1: // image
+			if (_value.getString().equals(imageFile))
+				return; // no need to do it again
+			radioButton.setIcon(getIcon(imageFile = _value.getString()));
+			break;
+		case 2: // selectedImage
+			if (_value.getString().equals(selectedimageFile))
+				return; // no need to do it again
+			radioButton.setSelectedIcon(getIcon(selectedimageFile = _value.getString()));
+			break;
+		case 3:
+			radioButton.setHorizontalAlignment(_value.getInteger());
+			break; // alignment
+		case VARIABLE:
+			radioButton.setSelected(internalValue.setValue(_value));
+			break;
+		case SELECTED:
+			defaultStateSet = true;
+			defaultState = _value.getBoolean();
+			setActive(false);
+			reset();
+			setActive(true);
+			break;
+		case 6: // action
+			removeAction(ControlElement.ACTION, getProperty("action"));
+			addAction(ControlElement.ACTION, _value.getString());
+			break;
+		case 7: // actionon
+			removeAction(ControlSwingElement.ACTION_ON, getProperty("actionon"));
+			addAction(ControlSwingElement.ACTION_ON, _value.getString());
+			break;
+		case 8: // actionoff
+			removeAction(ControlSwingElement.ACTION_OFF, getProperty("actionoff"));
+			addAction(ControlSwingElement.ACTION_OFF, _value.getString());
+			break;
+		case 9:
+			radioButton.setMnemonic(_value.getString().charAt(0));
+			break;
+		case 10:
+			cantUnselectItself = _value.getBoolean();
+			break;
+		default:
+			super.setValue(_index - 11, _value);
+			break;
+		}
+	}
 
   public void setDefaultValue (int _index) {
     switch (_index) {

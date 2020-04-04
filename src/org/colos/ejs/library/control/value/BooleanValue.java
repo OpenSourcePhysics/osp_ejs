@@ -6,38 +6,53 @@
 
 package org.colos.ejs.library.control.value;
 
- /**
-  * A <code>BooleanValue</code> is a <code>Value</code> object that
-  * holds a boolean value.
-  * <p>
-  * @see     Value
-  */
+/**
+ * A <code>BooleanValue</code> is a <code>Value</code> object that holds a
+ * boolean value.
+ * <p>
+ * 
+ * @see Value
+ */
 public class BooleanValue extends Value {
-  public boolean value;
+	private boolean value;
 
 	public BooleanValue(boolean _val) {
 		super(TYPE_BOOLEAN);
 		value = _val;
 	}
 
-  public boolean getBoolean() { return value; }
+	public boolean getBoolean() {
+		return value;
+	}
 
-  public int getInteger() { 
-    if (value) return 1; 
-    return 0; 
-  }
+	public int getInteger() {
+		if (value)
+			return 1;
+		return 0;
+	}
 
-  public double getDouble()  { 
-    if (value) return 1.0; 
-    return 0.0; 
-  }
+	public double getDouble() {
+		if (value)
+			return 1.0;
+		return 0.0;
+	}
 
-  public String getString()  { 
-    if (value) return "true"; 
-    return "false"; 
-  }
+	public String getString() {
+		if (value)
+			return "true";
+		return "false";
+	}
 
-  public Object getObject()  { return null; }
+	public Object getObject() {
+		return null;
+	}
+
+	public void setValue(boolean _value) {
+		value = _value;
+	}
+
+	public boolean setValue(Value _value) {
+		return value = _value.getBoolean();
+	}
 
 }
-

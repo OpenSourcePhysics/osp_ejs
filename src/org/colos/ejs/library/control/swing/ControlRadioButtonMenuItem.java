@@ -36,7 +36,7 @@ public class ControlRadioButtonMenuItem extends ControlRadioButton implements Ra
       new java.awt.event.ActionListener() {
         public void actionPerformed (java.awt.event.ActionEvent _e) {
           if (cantUnselectItself) {
-            if (internalValue.value && !radioButton.isSelected()) {
+            if (internalValue.getBoolean() && !radioButton.isSelected()) {
               radioButton.setSelected(true);
               return;
             }

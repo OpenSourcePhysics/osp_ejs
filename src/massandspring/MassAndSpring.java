@@ -5,7 +5,6 @@
 
 package massandspring;
 
-import org.colos.ejs.library._EjsConstants;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.tools.ResourceLoader;
 
