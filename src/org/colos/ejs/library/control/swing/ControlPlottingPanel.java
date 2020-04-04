@@ -57,8 +57,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
   private DoubleValue[] posValues ={ new DoubleValue(0.0), new DoubleValue(0.0)};
   private IntegerValue keyPressedValue = new IntegerValue(-1);
 //  private Value[] axesValues = { 
-//      new BooleanValue(true), new DoubleValue(0.0), new DoubleValue(0.0), // X axis autoscale, min, and max
-//      new BooleanValue(true), new DoubleValue(0.0), new DoubleValue(0.0)  // Y axis autoscale, min, and max
+//      Value.VALUE_TRUE, new DoubleValue(0.0), new DoubleValue(0.0), // X axis autoscale, min, and max
+//      Value.VALUE_TRUE, new DoubleValue(0.0), new DoubleValue(0.0)  // Y axis autoscale, min, and max
 //  };
 
 // ------------------------------------------------

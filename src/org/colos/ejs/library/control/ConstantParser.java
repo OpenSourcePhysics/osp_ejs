@@ -28,8 +28,8 @@ public class ConstantParser {
   }
 
   static public Value booleanConstant (String _value) {
-    if (_value.equals("true"))  return new BooleanValue(true);
-    if (_value.equals("false")) return new BooleanValue(false);
+    if (_value.equals("true"))  return Value.VALUE_TRUE;
+    if (_value.equals("false")) return Value.VALUE_FALSE;
     return null; // Not a valid constant
   }
 

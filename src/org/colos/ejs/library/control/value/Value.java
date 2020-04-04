@@ -33,6 +33,11 @@ public abstract class Value {
 	public final static int TYPE_INTEGER    = 4;
 	public final static int TYPE_STRING     = 5;
 	
+	
+	public static final ObjectValue VALUE_NULL = new ObjectValue(null);	
+	public static final BooleanValue VALUE_FALSE = new BooleanValue(false);
+	public static final BooleanValue VALUE_TRUE = new BooleanValue(true);
+
 	protected int type;
 	
 	Value(int type) {
@@ -192,49 +197,59 @@ public abstract class Value {
 //    return txt;
 //  }
 
-  static public Value parseConstant (String _input, boolean _silentMode) {
-    _input = _input.trim();
-    if (_input.length()<=0) return null;
-    if (_input.equals("null")) return new ObjectValue(null);
-
-    if (_input.startsWith("\"")) { // "String"
-      if (_input.length()<=1) return null;
-      if (!_input.endsWith("\"")) {
-        //if (!_silentMode) System.err.println ("Value : Error 1! Incorrect input to parse "+_input);
-        return null;
-      }
-      return new StringValue (_input.substring(1,_input.length()-1)); //removeScapes(_input.substring(1,_input.length()-1)));
-    }
-    if (_input.startsWith("'")) { // "String"
-      if (!_input.endsWith("'")) {
-//        if (!_silentMode) System.err.println ("Value : Error 1! Incorrect input to parse "+_input);
-        return null;
-      }
-      return new StringValue (_input.substring(1,_input.length()-1)); //removeScapes(_input.substring(1,_input.length()-1)));
-    }
-
-    if (_input.equals("true"))  return new BooleanValue(true);
-    if (_input.equals("false")) return new BooleanValue(false);
-
-//    I a m not sure if this could cause any problem...
-//    if (_input.equals("Math.PI")) return new DoubleValue(Math.PI);
-//    if (_input.equals("Math.E"))  return new DoubleValue(Math.E);
-
-    if (_input.indexOf('.')>=0) {   // double
-      try { double v = Double.parseDouble(_input); return new DoubleValue(v); }
-      catch (Exception e) {
-        if (!_silentMode) System.err.println ("Value : Error 2! Incorrect input to parse "+_input);
-        return null;
-      }
-    }
-    // int
-    try { int i = Integer.parseInt(_input); return new IntegerValue(i); }
-    catch (Exception e) {
-      // Must be a variable : Do not complain!
-      // System.err.println ("Value : Error 3! Incorrect input to parse "+_input);
-      return null;
-    }
-  }
+	static public Value parseConstant(String _input, boolean _silentMode) {
+		_input = _input.trim();
+		if (_input.length() == 0)
+			return null;
+		char c0 = _input.charAt(0);
+		switch (c0) {
+		case 'n':
+			return (_input.equals("null") ? VALUE_NULL : null);
+		case '"':
+			if (_input.length() <= 1)
+				return null;
+			if (!_input.endsWith("\"")) {
+				// if (!_silentMode) System.err.println ("Value : Error 1! Incorrect input to
+				// parse "+_input);
+				return null;
+			}
+			return new StringValue(_input.substring(1, _input.length() - 1)); // removeScapes(_input.substring(1,_input.length()-1)));
+		case '\'':
+			if (!_input.endsWith("'")) {
+//		        if (!_silentMode) System.err.println ("Value : Error 1! Incorrect input to parse "+_input);
+				return null;
+			}
+			return new StringValue(_input.substring(1, _input.length() - 1)); // removeScapes(_input.substring(1,_input.length()-1)));
+		case 't':
+			return (_input.equals("true") ? VALUE_TRUE : null);
+		case 'f':
+			return (_input.equals("false") ? VALUE_FALSE : null);
+		case 'M':
+				// author:
+				// I am not sure if this could cause any problem...
+				//		    if (_input.equals("Math.PI")) return new DoubleValue(Math.PI);
+				//		    if (_input.equals("Math.E"))  return new DoubleValue(Math.E);
+			return null;
+		default:
+			if (_input.indexOf('.') >= 0) { // double
+				try {
+					return new DoubleValue(Double.parseDouble(_input));
+				} catch (Exception e) {
+					if (!_silentMode)
+						System.err.println("Value : Error 2! Incorrect input to parse " + _input);
+				}
+				return null;
+			}
+			try {
+				// BH 2020.03.28 optimizing minimal use of intentional throw
+				return ("+-0123456789".indexOf(c0) < 0 ? null : new IntegerValue(Integer.parseInt(_input)));
+			} catch (Exception e) {
+				if (!_silentMode)
+					System.err.println("Value : Error 3! Incorrect input to parse " + _input);
+				return null;
+			}
+		}
+	}
 
 }
 

@@ -29,7 +29,7 @@ public class Memory {
   }
 
   public void setValue (String variable, int value) {
-    hashTable.put(variable, new Integer(value));
+    hashTable.put(variable, Integer.valueOf(value));
   }
 
   public void setValue (String variable, double value) {
