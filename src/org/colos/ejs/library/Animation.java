@@ -342,6 +342,9 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
     for (ControlElement element : view.getElements()) {
       if (element instanceof ControlWindow) ControlWindow.removeFromWindowList((ControlWindow) element);
     }
+
+    if(JSUtil.isJS) return;
+    
     if (model._isApplet()) {
       view.onExit();
       model._freeMemory();
