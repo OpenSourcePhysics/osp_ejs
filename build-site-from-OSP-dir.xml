@@ -25,9 +25,12 @@
  	<!-- SwingjS_site zip file (could be varied if versioning is needed) -->
   	<property name="swingjs.zip" value="swingjs/SwingJS-site.zip" />
 
-  	<!-- location of third-party jar contents as precompiled zipped .js files to copy to site/ -->
+  	<!-- location of third-party jar contents as precompiled zipped .js files to copy to site
+  	including OSP.zip    -->
+  	
   	<property name="libjs.dir" value="libjs" />
- 
+
+  	
   	<!-- non-Java resources to copy to site/swingjs/j2s -->
     <property name="resource.dir" value="resources" />  
   	
@@ -54,7 +57,7 @@
 	   all zip files placed in libjs will be processed
 	   
 	   this includes OSP.zip, even though we are copying it from osp.j2s.dir as well
-	 -->
+
 
   	<for param="file.zip">
   	  <path>
@@ -65,6 +68,8 @@
   	  </sequential>
   	</for>
 
+	 -->
+  	
   	<!-- unzip SwingJS-site.zip 
   	
   	  we do this separately, as we want it done last 
