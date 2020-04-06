@@ -10,7 +10,7 @@ import org.opensourcephysics.display.OSPRuntime;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-class ThreeStateNuclearDecaySimulation extends org.colos.ejs.library.EjsSimulation { 
+class ThreeStateNuclearDecaySimulation extends org.opensourcephysics.ejs.EjsSimulation { 
 
   private ThreeStateNuclearDecayView mMainView;
 

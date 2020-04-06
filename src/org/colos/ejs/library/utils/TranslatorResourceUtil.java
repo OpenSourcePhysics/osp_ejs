@@ -18,7 +18,7 @@ import java.util.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import org.colos.ejs.library.EjsSimulation;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.tools.Resource;
 import org.opensourcephysics.tools.ResourceLoader;
 import org.opensourcephysics.tools.ToolsRes;

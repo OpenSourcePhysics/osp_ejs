@@ -11,7 +11,7 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import org.colos.ejs.library.EjsSimulation;
+import org.opensourcephysics.ejs.EjsSimulation;
 
 /**
  * A simple map between properties and values

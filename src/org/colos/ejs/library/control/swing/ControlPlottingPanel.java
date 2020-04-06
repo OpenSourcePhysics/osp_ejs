@@ -14,9 +14,9 @@ import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import org.colos.ejs.library.EjsSimulation;
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.*;
 import org.opensourcephysics.display.axes.*;

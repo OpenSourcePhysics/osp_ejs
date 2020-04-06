@@ -10,8 +10,9 @@ import java.io.IOException;
 import java.awt.*;
 
 import javax.swing.*;
-import org.colos.ejs.library.EjsSimulation;
+
 import org.opensourcephysics.controls.Cryptic;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.tools.Resource;
 import org.opensourcephysics.tools.ResourceLoader;
 

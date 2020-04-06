@@ -13,7 +13,7 @@ import java.awt.*;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.tools.ResourceLoader;
 
-public class ThreeStateNuclearDecay extends org.colos.ejs.library.Model {
+public class ThreeStateNuclearDecay extends org.opensourcephysics.ejs.EjsModel {
 	
   static {
     __translatorUtil = new org.colos.ejs.library.utils.TranslatorUtil();
@@ -156,7 +156,7 @@ static public void main (String[] _args) {
 
   public org.colos.ejs.library.View _getView() { return _view; }
 
-  public org.colos.ejs.library.EjsSimulation _getSimulation() { return _simulation; }
+  public org.opensourcephysics.ejs.EjsSimulation _getSimulation() { return _simulation; }
 
   public int _getPreferredStepsPerDisplay() { return 1; }
 
@@ -461,8 +461,8 @@ static public void main (String[] _args) {
     private void __errorAction () {
       if (__ignoreErrors) return;
       System.err.println (__eventSolver.getErrorMessage());
-      int __option = javax.swing.JOptionPane.showConfirmDialog(_view.getComponent(_simulation.getMainWindow()),org.colos.ejs.library.EjsSimulation.getEjsString("ODEError.Continue"),
-        org.colos.ejs.library.EjsSimulation.getEjsString("Error"), javax.swing.JOptionPane.YES_NO_CANCEL_OPTION);
+      int __option = javax.swing.JOptionPane.showConfirmDialog(_view.getComponent(_simulation.getMainWindow()),org.opensourcephysics.ejs.EjsSimulation.getEjsString("ODEError.Continue"),
+        org.opensourcephysics.ejs.EjsSimulation.getEjsString("Error"), javax.swing.JOptionPane.YES_NO_CANCEL_OPTION);
       if (__option==javax.swing.JOptionPane.YES_OPTION) __ignoreErrors = true;
       else if (__option==javax.swing.JOptionPane.CANCEL_OPTION) _pause();
       // Make sure the solver is reinitialized;

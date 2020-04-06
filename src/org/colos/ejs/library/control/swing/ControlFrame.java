@@ -7,9 +7,9 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.EjsSimulation;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.ejs.control.value.*;
 
 import javax.swing.JFrame;
@@ -45,7 +45,7 @@ public class ControlFrame extends ControlWindow {
     frame = new JFrame(EjsControl.getDefaultGraphicsConfiguration());
     
     frame.getContentPane().setLayout (new java.awt.BorderLayout());
-    String path = org.colos.ejs.library.EjsSimulation.getPathToLibrary();
+    String path = org.opensourcephysics.ejs.EjsSimulation.getPathToLibrary();
 //    System.err.println ("Path is "+path);
     if (!path.endsWith("/")) path += "/";
     java.awt.Image image = ResourceLoader.getImage(path+"_ejs_library/images/EjsMainIcon.gif");

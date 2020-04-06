@@ -11,7 +11,7 @@ import org.opensourcephysics.numerics.*;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-class GyroscopeSimulation extends org.colos.ejs.library.EjsSimulation { 
+class GyroscopeSimulation extends org.opensourcephysics.ejs.EjsSimulation { 
 
   private GyroscopeView mMainView;
 

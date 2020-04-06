@@ -467,7 +467,7 @@ public class ControlComplexScalarField extends ControlDrawable2D implements org.
   public void addMenuEntries () {
     if (getMenuNameEntry()==null) return;
     java.util.List<Object> list = new java.util.ArrayList<Object> ();
-    list.add(new AbstractAction(org.colos.ejs.library.EjsSimulation.getEjsString("InteractiveTrace.ShowDataTable")){
+    list.add(new AbstractAction(org.opensourcephysics.ejs.EjsSimulation.getEjsString("InteractiveTrace.ShowDataTable")){
       private static final long serialVersionUID = 1L;
       public void actionPerformed(java.awt.event.ActionEvent e) { showDataTable(true); }
     });

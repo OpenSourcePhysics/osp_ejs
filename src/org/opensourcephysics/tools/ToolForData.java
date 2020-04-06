@@ -4,8 +4,8 @@ import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
-import org.colos.ejs.library.EjsSimulation;
 import org.opensourcephysics.display.Data;
+import org.opensourcephysics.ejs.EjsSimulation;
 
 public class ToolForData {
 

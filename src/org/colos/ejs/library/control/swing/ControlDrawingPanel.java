@@ -7,9 +7,9 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.EjsSimulation;
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.ejs.control.value.*;
 
 import org.opensourcephysics.displayejs.InteractionTarget;

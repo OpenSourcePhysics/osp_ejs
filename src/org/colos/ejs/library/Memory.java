@@ -15,7 +15,7 @@ import java.util.*;
 public class Memory {
 
   static public String getResource(String key) {
-    return org.colos.ejs.library.EjsSimulation.ejsRes.getString(key);
+    return org.opensourcephysics.ejs.EjsSimulation.ejsRes.getString(key);
   }
 
   protected Hashtable<String, Object> hashTable = new Hashtable<String, Object>();

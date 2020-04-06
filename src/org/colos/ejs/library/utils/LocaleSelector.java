@@ -14,7 +14,7 @@ import java.util.Set;
 
 import javax.swing.*;
 
-import org.colos.ejs.library.EjsSimulation;
+import org.opensourcephysics.ejs.EjsSimulation;
 
 /**
  * A combobox used for displaying and selecting a LocaleItem

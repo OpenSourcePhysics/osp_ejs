@@ -6,10 +6,12 @@
 
 package org.colos.ejs.library;
 
+import org.opensourcephysics.ejs.EjsModel;
+
 /**
  * A base class for functions.
  * Subclasses must overwrite the methods
  */
 
-public abstract class AbstractModel extends Model  { } // backwards compatibility
+public abstract class AbstractModel extends EjsModel  { } // backwards compatibility
 

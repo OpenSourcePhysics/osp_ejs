@@ -21,10 +21,10 @@ import javax.swing.JRadioButtonMenuItem;
 
 import java.awt.event.ActionListener;
 
-import org.colos.ejs.library.EjsSimulation;
 import org.colos.ejs.library.control.*;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.drawing3d.*;

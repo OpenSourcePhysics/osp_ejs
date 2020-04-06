@@ -1,7 +1,7 @@
 package org.colos.ejs.library.utils;
 
-import org.colos.ejs.library.Model;
 import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.EjsModel;
 
 /**
  * A class of utilities for model elements
@@ -55,7 +55,7 @@ public class ModelElementsUtilities {
    * or that of a String variable of the model
    * @return
    */
-  static public String getValue(Model _model, String _value) {
+  static public String getValue(EjsModel _model, String _value) {
     if (_value==null) return null;
     if (_value.startsWith("%")) return _model._getVariable(removeEnclosingString(_value,"%"));
     return removeEnclosingString(_value,"\"");
@@ -66,7 +66,7 @@ public class ModelElementsUtilities {
    * or that of a int variable of the model
    * @return
    */
-  static public int getIntegerValue(Model _model, String _value) {
+  static public int getIntegerValue(EjsModel _model, String _value) {
     try {
       if (_value.startsWith("%")) return Integer.parseInt(_model._getVariable(removeEnclosingString(_value,"%")));
       return Integer.parseInt(removeEnclosingString(_value,"\""));
@@ -79,7 +79,7 @@ public class ModelElementsUtilities {
    * or that of a double variable of the model
    * @return
    */
-  static public double getDoubleValue(Model _model, String _value) {
+  static public double getDoubleValue(EjsModel _model, String _value) {
     try {
       if (_value.startsWith("%")) return Double.parseDouble(_model._getVariable(removeEnclosingString(_value,"%")));
       return Double.parseDouble(removeEnclosingString(_value,"\""));
@@ -92,7 +92,7 @@ public class ModelElementsUtilities {
    * or that of a boolean variable of the model
    * @return
    */
-  static public boolean getBooleanValue(Model _model, String _value) {
+  static public boolean getBooleanValue(EjsModel _model, String _value) {
     try {
       if (_value.startsWith("%")) return Boolean.parseBoolean(_model._getVariable(removeEnclosingString(_value,"%")));
       return Boolean.parseBoolean(removeEnclosingString(_value,"\""));
@@ -104,7 +104,7 @@ public class ModelElementsUtilities {
    * Returns the view element object identified by its name
    * @return
    */
-  static public Object getViewElement(Model _model, String _value) {
+  static public Object getViewElement(EjsModel _model, String _value) {
     String elementName = getValue(_model, _value) ;
     ControlElement ctrlEl = _model.getView().getElement(elementName);
     if (ctrlEl!=null) return ctrlEl.getObject();

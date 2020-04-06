@@ -19,7 +19,7 @@ import java.util.Vector;
 
 import javax.swing.SwingUtilities;
 
-import org.colos.ejs.library.EjsSimulation;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.ejs.control.value.DoubleValue;
 import org.opensourcephysics.ejs.control.value.IntegerValue;
 import org.opensourcephysics.ejs.control.value.InterpretedValue;
@@ -98,13 +98,13 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
     getDataInformationMenuEntries(final java.awt.Component _parent, final org.opensourcephysics.display.Data _data) { 
     
     java.util.ArrayList<Object> list = new java.util.ArrayList<Object> ();
-    list.add(new javax.swing.AbstractAction(org.colos.ejs.library.EjsSimulation.getEjsString("InteractiveTrace.ShowDataTable")){
+    list.add(new javax.swing.AbstractAction(org.opensourcephysics.ejs.EjsSimulation.getEjsString("InteractiveTrace.ShowDataTable")){
       private static final long serialVersionUID = 1L;
       public void actionPerformed(java.awt.event.ActionEvent e) { 
         org.opensourcephysics.tools.ToolForData.getTool().showTable(_parent,_data);
       }
     });
-    list.add(new javax.swing.AbstractAction(org.colos.ejs.library.EjsSimulation.getEjsString("InteractiveTrace.ShowDatasetTool")){
+    list.add(new javax.swing.AbstractAction(org.opensourcephysics.ejs.EjsSimulation.getEjsString("InteractiveTrace.ShowDatasetTool")){
       private static final long serialVersionUID = 1L;
       public void actionPerformed(java.awt.event.ActionEvent e) { 
         org.opensourcephysics.tools.ToolForData.getTool().showDataTool(_parent, _data);

@@ -4,7 +4,7 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
 import java.awt.AWTEvent;
 import java.awt.BorderLayout;
@@ -83,6 +83,9 @@ import javax.swing.event.HyperlinkListener;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.html.HTMLEditorKit;
 
+import org.colos.ejs.library.LauncherApplet;
+import org.colos.ejs.library.Memory;
+import org.colos.ejs.library.MoodleLink;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
 import org.colos.ejs.library.control.MethodWithOneParameter;
@@ -115,7 +118,7 @@ import org.opensourcephysics.tools.XuggleRes;
  * A base interface for a simulation
  */
 
-public abstract class EjsSimulation extends Animation implements LocaleListener {
+public abstract class EjsSimulation extends EjsAnimation implements LocaleListener {
 	static public ResourceBundle ejsRes = ResourceBundle.getBundle("org.colos.ejs.library.resources.ejs_res",
 			Locale.getDefault());
 
@@ -553,11 +556,11 @@ public abstract class EjsSimulation extends Animation implements LocaleListener 
 	}
 
 	public String translateString(String _property, String _default) {
-		return Model._getTranslatorUtil().translateString(_property, _default);
+		return EjsModel._getTranslatorUtil().translateString(_property, _default);
 	}
 
 	public String translateString(String _property) {
-		return Model._getTranslatorUtil().translateString(_property);
+		return EjsModel._getTranslatorUtil().translateString(_property);
 	}
 
 	/**
@@ -579,7 +582,7 @@ public abstract class EjsSimulation extends Animation implements LocaleListener 
 		DisplayRes.setLocale(locale);
 		DialogsRes.setLocale(locale);
 		ejsRes = ResourceBundle.getBundle("org.colos.ejs.library.resources.ejs_res", locale);
-		Model._getTranslatorUtil().setLocaleItem(currentLocaleItem);
+		EjsModel._getTranslatorUtil().setLocaleItem(currentLocaleItem);
 		setViewLocale();
 		popupMenu = null;
 		resetDescriptionPages();
@@ -747,7 +750,7 @@ public abstract class EjsSimulation extends Animation implements LocaleListener 
 
 		JPanel bottomPanel = new JPanel(new BorderLayout());
 		bottomPanel.setBorder(new EtchedBorder(EtchedBorder.LOWERED));
-		JComponent localeComponent = Model._getTranslatorUtil().getSelectorComponent(this);
+		JComponent localeComponent = EjsModel._getTranslatorUtil().getSelectorComponent(this);
 		if (localeComponent != null) {
 			localeComponent.setBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 2));
 			bottomPanel.add(buttonsPanel, BorderLayout.WEST);
@@ -1662,7 +1665,7 @@ public abstract class EjsSimulation extends Animation implements LocaleListener 
 
 			JMenu guiMenu = new JMenu(ejsRes.getString("MenuItem.GUI"));
 
-			Model._getTranslatorUtil().addToMenu(guiMenu, this);
+			EjsModel._getTranslatorUtil().addToMenu(guiMenu, this);
 
 			JMenu fontMenu = new JMenu(DisplayRes.getString("DrawingFrame.Font_menu_title"));
 			fontMenu.add(new AbstractAction(DisplayRes.getString("DrawingFrame.IncreaseFontSize_menu_item")) {
@@ -1783,7 +1786,7 @@ public abstract class EjsSimulation extends Animation implements LocaleListener 
 		if (snapshotMenuItem != null)
 			snapshotMenuItem.setVisible(_component instanceof DrawingPanel);
 
-		Model._getTranslatorUtil().refreshMenu();
+		EjsModel._getTranslatorUtil().refreshMenu();
 
 		popupTriggeredBy = _component;
 		if (_x >= 0 && _y >= 0)

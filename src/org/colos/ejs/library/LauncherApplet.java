@@ -9,6 +9,8 @@ package org.colos.ejs.library;
 import java.awt.*;
 import javax.swing.*;
 import org.opensourcephysics.display.DrawingFrame;
+import org.opensourcephysics.ejs.EjsModel;
+import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.tools.ResourceLoader;
 
 /**
@@ -20,7 +22,7 @@ public abstract class LauncherApplet extends JApplet {
   private JFrame _parentFrame=null;
   private java.awt.Component mainComponent=null;
 
-  public Model _model=null;
+  public EjsModel _model=null;
   public EjsSimulation _simulation=null;
   public View _view=null;
 
@@ -126,7 +128,7 @@ public abstract class LauncherApplet extends JApplet {
     return null;
   }
 
-  public Component captureWindow (Model _aModel, String _aWindow){
+  public Component captureWindow (EjsModel _aModel, String _aWindow){
     if (_aWindow==null) return null;
     RootPaneContainer root;
     if (_parentFrame!=null) root = _parentFrame;

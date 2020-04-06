@@ -4,7 +4,7 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,6 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.colos.ejs.library.DelayedAction;
+import org.colos.ejs.library.LauncherApplet;
+import org.colos.ejs.library.MultipleView;
+import org.colos.ejs.library.View;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
 import org.colos.ejs.library.control.swing.ControlWindow;
@@ -25,7 +29,7 @@ import javajs.async.SwingJSUtils.StateMachine;
  * A base interface for a simulation
  */
 
-public abstract class Animation implements java.lang.Runnable, StateMachine {
+public abstract class EjsAnimation implements java.lang.Runnable, StateMachine {
 	static private final ThreadGroup sEJSThreadGroup = new ThreadGroup("EJS thread group");
 
 	static public int MAXIMUM_FPS = 25; // Not final on purpose
@@ -53,12 +57,12 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	protected boolean hasEnded = false;
 
 	// Relation with the simulation parts
-	protected Model model = null;
+	protected EjsModel model = null;
 	protected View view = null;
 
 	// Variables for clones
-	protected Animation master = null;
-	protected ArrayList<Model> slaveList = new ArrayList<Model>();
+	protected EjsAnimation master = null;
+	protected ArrayList<EjsModel> slaveList = new ArrayList<EjsModel>();
 
 // -----------------------------
 // Setters and getters
@@ -68,11 +72,11 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 		return sEJSThreadGroup;
 	}
 
-	final public Model getModel() {
+	final public EjsModel getModel() {
 		return model;
 	}
 
-	final public void setModel(Model _aModel) {
+	final public void setModel(EjsModel _aModel) {
 		model = _aModel;
 		LauncherApplet applet = model._getApplet();
 //    System.out.println ("Setting the model : applet = "+applet);
@@ -237,7 +241,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 		initialRealTime = 1000 * getModel()._getRealTime() - System.currentTimeMillis();
 		animationThread.start(); // start the animation
 		isPlaying = true;
-		for (Model slave : slaveList)
+		for (EjsModel slave : slaveList)
 			slave._getSimulation().isPlaying = true;
 	}
 
@@ -260,7 +264,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 		abortSPDLoop = true;
 		if (stateHelper != null)
 			stateHelper.setState(STATE_DONE);
-		for (Model slave : slaveList) {
+		for (EjsModel slave : slaveList) {
 			slave._getSimulation().isPlaying = false;
 			slave._getSimulation().abortSPDLoop = true;
 		}
@@ -297,7 +301,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 				long t1 = (/** @j2sNative performance.now() || */
 				System.currentTimeMillis());
 				step();
-				for (Model slave : slaveList)
+				for (EjsModel slave : slaveList)
 					slave._getSimulation().step();
 				if (applyVariablesWhenIdle() || checkMethodsInvokedByView()) {
 					model._automaticResetSolvers();
@@ -342,7 +346,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 //        if (loopEnabled) 
 			{
 				step();
-				for (Model slave : slaveList)
+				for (EjsModel slave : slaveList)
 					slave._getSimulation().step();
 			}
 			if (applyVariablesWhenIdle() || checkMethodsInvokedByView()) {
@@ -701,7 +705,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 			return;
 		}
 		update();
-		for (Model slave : slaveList)
+		for (EjsModel slave : slaveList)
 			slave._getSimulation().update();
 //    loopEnabled = true;
 	}
@@ -715,7 +719,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	 * 
 	 * @return Model The model of the simulation created.
 	 */
-	final public Model runSimulation() {
+	final public EjsModel runSimulation() {
 		return runSimulation(null);
 	}
 
@@ -726,15 +730,15 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	 * @param _classname String
 	 * @return Model The model of the simulation created.
 	 */
-	final public Model runSimulation(String _classname) {
+	final public EjsModel runSimulation(String _classname) {
 		try {
 			Class<?> theClass;
 			if (_classname == null)
 				theClass = getModel().getClass();
 			else
 				theClass = Class.forName(_classname);
-			Model simModel = (Model) theClass.newInstance();
-			Animation top = getTopMaster();
+			EjsModel simModel = (EjsModel) theClass.newInstance();
+			EjsAnimation top = getTopMaster();
 			simModel._getSimulation().master = top;
 			simModel._getSimulation().isPlaying = isPlaying;
 			simModel._getSimulation().update();
@@ -751,11 +755,11 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	 * 
 	 * @param _simulation Object
 	 */
-	final public void freeSimulation(Model _simulationModel) {
+	final public void freeSimulation(EjsModel _simulationModel) {
 		if (_simulationModel == null)
 			return;
 		try {
-			Animation top = getTopMaster();
+			EjsAnimation top = getTopMaster();
 			top.slaveList.remove(_simulationModel);
 			_simulationModel._getSimulation().master = null;
 			if (_simulationModel._getView() instanceof EjsControl)
@@ -775,7 +779,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	 * 
 	 * @param _simulation Object
 	 */
-	final public void killSimulation(Model _simulationModel) {
+	final public void killSimulation(EjsModel _simulationModel) {
 		if (_simulationModel == null)
 			return;
 		freeSimulation(_simulationModel);
@@ -788,10 +792,10 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	 * Kills all slaves simulations of this one.
 	 */
 	final public synchronized void killAllSimulations() {
-		List<Model> list = slaveList;
-		slaveList = new ArrayList<Model>();
-		for (Iterator<Model> it = list.iterator(); it.hasNext();) {
-			Model simModel = it.next();
+		List<EjsModel> list = slaveList;
+		slaveList = new ArrayList<EjsModel>();
+		for (Iterator<EjsModel> it = list.iterator(); it.hasNext();) {
+			EjsModel simModel = it.next();
 			simModel._getSimulation().pause();
 			simModel._getSimulation().master = null;
 			if (simModel._getView() instanceof EjsControl) {
@@ -807,7 +811,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	 * 
 	 * @return Model
 	 */
-	final public Model getTopSimulation() {
+	final public EjsModel getTopSimulation() {
 		return getTopMaster().getModel();
 	}
 
@@ -817,10 +821,10 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	 * 
 	 * @return Simulation
 	 */
-	final private Animation getTopMaster() {
+	final private EjsAnimation getTopMaster() {
 		if (master == null)
 			return this;
-		Animation topMaster = master;
+		EjsAnimation topMaster = master;
 		while (topMaster.master != null)
 			topMaster = topMaster.master;
 		return topMaster;
