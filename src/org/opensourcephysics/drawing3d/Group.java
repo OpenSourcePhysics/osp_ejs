@@ -9,7 +9,9 @@ package org.opensourcephysics.drawing3d;
 
 import java.awt.Color;
 import java.awt.Paint;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
 import org.opensourcephysics.display.DisplayColors;

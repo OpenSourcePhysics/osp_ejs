@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.drawing3d;
 
-import java.awt.*;
+import java.awt.Color;
 
 import org.opensourcephysics.display2d.VectorColorMapper;
 import org.opensourcephysics.drawing3d.utils.Style;

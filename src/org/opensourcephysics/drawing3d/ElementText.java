@@ -7,7 +7,8 @@
 
 package org.opensourcephysics.drawing3d;
 
-import java.awt.*;
+import java.awt.Font;
+
 import org.opensourcephysics.display.TextLine;
 import org.opensourcephysics.drawing3d.utils.ImplementingObject;
 import org.opensourcephysics.drawing3d.utils.Style;

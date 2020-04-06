@@ -7,8 +7,9 @@
 
 package org.opensourcephysics.drawing3d.simple3d;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
 
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementImage;

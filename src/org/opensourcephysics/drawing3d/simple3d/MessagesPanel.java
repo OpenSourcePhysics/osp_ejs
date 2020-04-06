@@ -2,9 +2,10 @@ package org.opensourcephysics.drawing3d.simple3d;
 
 import java.awt.Component;
 import java.awt.Graphics;
-import org.opensourcephysics.drawing3d.DrawingPanel3D;
+
 import org.opensourcephysics.display.OSPLayout;
 import org.opensourcephysics.display.TextPanel;
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
 
 /**
  * A panel that hosts messages in its four corners

@@ -7,9 +7,14 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.DisplayColors;
+import org.opensourcephysics.display.DrawingPanel;
 
 public class InteractivePoints extends AbstractInteractiveElement {
   // Configuration variables

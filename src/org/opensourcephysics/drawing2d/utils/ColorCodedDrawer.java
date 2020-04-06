@@ -7,7 +7,8 @@
 
 package org.opensourcephysics.drawing2d.utils;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
 import javax.swing.JFrame;
 

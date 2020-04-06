@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.drawing3d.interaction;
 
-import org.opensourcephysics.drawing3d.*;
+import org.opensourcephysics.drawing3d.Element;
 
 /**
  * The simple3d implementation of InteractionTarget

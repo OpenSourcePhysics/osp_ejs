@@ -7,10 +7,11 @@
 
 package org.opensourcephysics.numerics.ode_solvers.rk;
 
-import org.opensourcephysics.numerics.ode_interpolation.*;
-import org.opensourcephysics.numerics.ode_solvers.SolverEngineDiscreteTimeAdaptive;
+import org.opensourcephysics.numerics.ode_interpolation.Dopri853IntervalData;
+import org.opensourcephysics.numerics.ode_interpolation.IntervalData;
 import org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver;
 import org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver.DISCONTINUITY_CODE;
+import org.opensourcephysics.numerics.ode_solvers.SolverEngineDiscreteTimeAdaptive;
 
 /**
  * Title:        Dopri853

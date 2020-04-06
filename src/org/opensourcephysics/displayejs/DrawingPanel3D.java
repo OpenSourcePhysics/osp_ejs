@@ -6,9 +6,16 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.Interactive;
 import org.opensourcephysics.display.InteractivePanel;
