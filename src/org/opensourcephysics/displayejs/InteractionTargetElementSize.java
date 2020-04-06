@@ -6,7 +6,8 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display.Interactive;
 
 public class InteractionTargetElementSize implements InteractionTarget {
   protected InteractiveElement element;

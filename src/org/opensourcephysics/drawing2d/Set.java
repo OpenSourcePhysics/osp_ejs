@@ -7,7 +7,8 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.util.*;
+import java.util.List;
+
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
 

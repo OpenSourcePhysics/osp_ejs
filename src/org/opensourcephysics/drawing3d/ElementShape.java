@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.drawing3d;
 
-import org.opensourcephysics.drawing3d.utils.*;
+import org.opensourcephysics.drawing3d.utils.ImplementingObject;
 
 /**
  * <p>Title: ElementShape</p>

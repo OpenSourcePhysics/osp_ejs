@@ -6,7 +6,11 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.numerics.Transformation;
 

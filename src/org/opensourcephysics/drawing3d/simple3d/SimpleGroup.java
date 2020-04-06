@@ -7,8 +7,11 @@
 
 package org.opensourcephysics.drawing3d.simple3d;
 
-import java.util.*;
-import org.opensourcephysics.drawing3d.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.Group;
 
 
 /**

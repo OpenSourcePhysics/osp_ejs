@@ -7,11 +7,12 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.util.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;

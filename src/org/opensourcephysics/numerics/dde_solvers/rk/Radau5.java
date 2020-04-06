@@ -11,8 +11,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.opensourcephysics.numerics.*;
-import org.opensourcephysics.numerics.dde_solvers.interpolation.*;
+import org.opensourcephysics.numerics.ODE;
+import org.opensourcephysics.numerics.ODEAdaptiveSolver;
+import org.opensourcephysics.numerics.ODESolverInterpolator;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.IntervalData;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.Radau5IntervalData;
 import org.opensourcephysics.numerics.dde_solvers.rk.irk.Radau5Adaptive;
 
 /**

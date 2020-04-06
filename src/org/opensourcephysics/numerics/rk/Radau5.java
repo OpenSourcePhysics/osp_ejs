@@ -10,7 +10,7 @@ package org.opensourcephysics.numerics.rk;
 import org.opensourcephysics.numerics.ODE;
 import org.opensourcephysics.numerics.ODEAdaptiveSolver;
 import org.opensourcephysics.numerics.ODESolverInterpolator;
-import org.opensourcephysics.numerics.rk.irk.*;
+import org.opensourcephysics.numerics.rk.irk.Radau5Adaptive;
 
 /**
  * Title:        Radau5

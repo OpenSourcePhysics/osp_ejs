@@ -6,8 +6,11 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
-import org.opensourcephysics.display.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.displayejs.utils.VectorAlgebra;
 
 public class InteractiveSpring extends AbstractInteractiveElement {

@@ -7,8 +7,9 @@
 
 package org.opensourcephysics.drawing3d;
 
-import org.opensourcephysics.drawing3d.utils.*;
-import org.opensourcephysics.drawing3d.interaction.*;
+import org.opensourcephysics.drawing3d.interaction.InteractionTarget;
+import org.opensourcephysics.drawing3d.utils.ImplementingObject;
+import org.opensourcephysics.drawing3d.utils.Style;
 
 /**
  * <p>Title: ElementSegment</p>

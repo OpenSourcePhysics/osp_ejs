@@ -7,6 +7,7 @@
 package org.opensourcephysics.displayejs;
 
 import java.awt.Color;
+
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
 

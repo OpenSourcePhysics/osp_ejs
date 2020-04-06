@@ -8,8 +8,8 @@
 package org.opensourcephysics.drawing3d.simple3d;
 
 import org.opensourcephysics.drawing3d.Element;
-import org.opensourcephysics.drawing3d.ElementDisk;
 import org.opensourcephysics.drawing3d.ElementCylinder;
+import org.opensourcephysics.drawing3d.ElementDisk;
 import org.opensourcephysics.drawing3d.utils.Resolution;
 
 /**

@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.automaticcontrol;
 
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.displayejs.Style;
 
 public class Valve extends PoligonsAndTexts  {
   static final public int CONTINUOUS = 0;

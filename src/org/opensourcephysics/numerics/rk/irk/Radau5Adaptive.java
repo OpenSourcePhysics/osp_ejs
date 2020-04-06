@@ -1,7 +1,7 @@
 package org.opensourcephysics.numerics.rk.irk;
 
-import org.opensourcephysics.numerics.ODEAdaptiveSolver;
 import org.opensourcephysics.numerics.ODE;
+import org.opensourcephysics.numerics.ODEAdaptiveSolver;
 
 /**
  * Numerical solution of a stiff system of first order ordinary

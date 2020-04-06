@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.automaticcontrol;
 
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.displayejs.Style;
 
 public class Symbol extends PoligonsAndTexts {
   static final public int CIRCLE_1 = 0;

@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.numerics.qss;
 
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.ODE;
 
 /**
  * An abstract class for Solvers based on QSS method

@@ -6,9 +6,17 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
-import java.awt.geom.*;
-import org.opensourcephysics.display.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
+import java.awt.geom.RoundRectangle2D;
+
+import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * An InteractiveParticle is an InteractiveElement that displays a RectangularShape

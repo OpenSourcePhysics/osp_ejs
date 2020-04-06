@@ -6,7 +6,7 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.DrawingPanel;
 
 public class InteractionTargetTracePoint extends InteractionTargetElementPosition {
   Point3D point;

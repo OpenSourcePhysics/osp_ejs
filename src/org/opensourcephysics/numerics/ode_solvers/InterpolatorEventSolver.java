@@ -7,7 +7,8 @@
 
 package org.opensourcephysics.numerics.ode_solvers;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.opensourcephysics.controls.OSPLog;
 import org.opensourcephysics.numerics.ODE;

@@ -7,7 +7,9 @@
 
 package org.opensourcephysics.numerics.rk;
 
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.ODE;
+import org.opensourcephysics.numerics.ODEAdaptiveSolver;
+import org.opensourcephysics.numerics.ODESolverInterpolator;
 
 /**
  * Title:        AbstractExplicitRKSolverInterpolator

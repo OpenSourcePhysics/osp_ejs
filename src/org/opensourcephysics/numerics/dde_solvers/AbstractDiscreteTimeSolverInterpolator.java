@@ -7,9 +7,16 @@
 
 package org.opensourcephysics.numerics.dde_solvers;
 
-import org.opensourcephysics.numerics.*;
-import org.opensourcephysics.numerics.dde_solvers.interpolation.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.opensourcephysics.numerics.DDE;
+import org.opensourcephysics.numerics.ODE;
+import org.opensourcephysics.numerics.ODEAdaptiveSolver;
+import org.opensourcephysics.numerics.ODESolverInterpolator;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.IntervalData;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.StateMemory;
 
 /**
  * Title:        AbstractDiscreteTimeSolverInterpolator

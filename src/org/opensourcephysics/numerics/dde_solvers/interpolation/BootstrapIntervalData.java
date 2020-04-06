@@ -7,7 +7,8 @@
 
 package org.opensourcephysics.numerics.dde_solvers.interpolation;
 
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.DDE;
+import org.opensourcephysics.numerics.ODE;
 
 /**
  * Uses one step of BootStrapping from Hermite interpolation to get one extra precission order

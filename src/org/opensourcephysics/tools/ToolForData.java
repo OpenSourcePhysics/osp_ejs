@@ -1,7 +1,9 @@
 package org.opensourcephysics.tools;
 
 import java.awt.Component;
+
 import javax.swing.JOptionPane;
+
 import org.colos.ejs.library.Simulation;
 import org.opensourcephysics.display.Data;
 

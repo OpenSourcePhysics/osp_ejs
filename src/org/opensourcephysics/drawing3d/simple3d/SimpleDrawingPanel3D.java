@@ -7,16 +7,34 @@
 
 package org.opensourcephysics.drawing3d.simple3d;
 
-import java.util.*;
-import java.lang.reflect.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.LayoutManager;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.awt.print.*;
-import javax.swing.*;
-import org.opensourcephysics.drawing3d.*;
-import org.opensourcephysics.drawing3d.utils.*;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import javax.swing.JViewport;
+import javax.swing.SwingUtilities;
+
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.utils.ImplementingObject;
+import org.opensourcephysics.drawing3d.utils.ImplementingPanel;
+import org.opensourcephysics.drawing3d.utils.VisualizationHints;
 import org.opensourcephysics.tools.ResourceLoader;
 
 /**

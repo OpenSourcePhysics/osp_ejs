@@ -8,7 +8,8 @@
 package org.opensourcephysics.numerics.dde_solvers.rk;
 
 import org.opensourcephysics.numerics.dde_solvers.AbstractDiscreteTimeAdaptiveSolverInterpolator;
-import org.opensourcephysics.numerics.dde_solvers.interpolation.*;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.Dopri853IntervalData;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.IntervalData;
 
 /**
  * Title:        Dopri853

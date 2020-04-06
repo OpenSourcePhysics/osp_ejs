@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.drawing3d.utils;
 
-import org.opensourcephysics.drawing3d.*;
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
 import org.opensourcephysics.drawing3d.utils.mapping.Mapping;
 import org.opensourcephysics.drawing3d.utils.mapping.MappingXYZ;
 import org.opensourcephysics.drawing3d.utils.mapping.MappingXZY;
@@ -15,7 +15,8 @@ import org.opensourcephysics.drawing3d.utils.mapping.MappingYXZ;
 import org.opensourcephysics.drawing3d.utils.mapping.MappingYZX;
 import org.opensourcephysics.drawing3d.utils.mapping.MappingZXY;
 import org.opensourcephysics.drawing3d.utils.mapping.MappingZYX;
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.Quaternion;
+import org.opensourcephysics.numerics.VectorMath;
 
 /**
  * <p>Title: Camera</p>

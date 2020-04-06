@@ -8,6 +8,7 @@
 package org.opensourcephysics.drawing3d.simple3d;
 
 import java.awt.Graphics2D;
+
 import org.opensourcephysics.drawing3d.DrawingPanel3D;
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementPolygon;

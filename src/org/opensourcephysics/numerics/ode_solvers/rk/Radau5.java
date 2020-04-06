@@ -7,9 +7,9 @@
 
 package org.opensourcephysics.numerics.ode_solvers.rk;
 
-import org.opensourcephysics.numerics.ode_interpolation.*;
-import org.opensourcephysics.numerics.ode_solvers.SolverEngine;
+import org.opensourcephysics.numerics.ode_interpolation.Radau5IntervalData;
 import org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver.ERROR;
+import org.opensourcephysics.numerics.ode_solvers.SolverEngine;
 import org.opensourcephysics.numerics.ode_solvers.rk.irk.Radau5Adaptive;
 
 /**

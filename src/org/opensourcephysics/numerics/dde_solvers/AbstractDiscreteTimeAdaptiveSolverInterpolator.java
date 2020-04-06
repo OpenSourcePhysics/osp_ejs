@@ -7,7 +7,8 @@
 
 package org.opensourcephysics.numerics.dde_solvers;
 
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.ODE;
+import org.opensourcephysics.numerics.ODEAdaptiveSolver;
 
 /**
  * Title:        AbstractDiscreteTimeAdaptiveSolverInterpolator

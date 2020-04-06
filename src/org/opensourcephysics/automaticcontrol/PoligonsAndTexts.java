@@ -6,7 +6,13 @@
 
 package org.opensourcephysics.automaticcontrol;
 
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.displayejs.GroupDrawable;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionListener;
+import org.opensourcephysics.displayejs.InteractionTargetGroupDrawableElement;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.InteractivePoligon;
+import org.opensourcephysics.displayejs.InteractiveText;
 
 /**
  * <p>Title: </p>

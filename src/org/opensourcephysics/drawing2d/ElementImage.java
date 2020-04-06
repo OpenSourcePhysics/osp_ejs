@@ -7,8 +7,14 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.awt.*;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Shape;
+import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
+
 import org.opensourcephysics.tools.Resource;
 import org.opensourcephysics.tools.ResourceLoader;
 

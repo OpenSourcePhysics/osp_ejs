@@ -6,10 +6,14 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
 //import org.opensourcephysics.displayejs.utils.Utils;
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.geom.AffineTransform;
+
+import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * An InteractiveImage is an InteractiveElement that displays an Image

@@ -6,7 +6,7 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * A particular implmentation of a position target for a cursor

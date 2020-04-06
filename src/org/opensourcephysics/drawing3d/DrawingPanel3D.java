@@ -7,17 +7,28 @@
 
 package org.opensourcephysics.drawing3d;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Paint;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.MouseInputAdapter;
 
 import org.opensourcephysics.display.OSPRuntime;
-import org.opensourcephysics.drawing3d.utils.*;
-import org.opensourcephysics.drawing3d.interaction.*;
+import org.opensourcephysics.drawing3d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing3d.interaction.InteractionListener;
+import org.opensourcephysics.drawing3d.interaction.InteractionSource;
+import org.opensourcephysics.drawing3d.interaction.InteractionTarget;
+import org.opensourcephysics.drawing3d.utils.Camera;
+import org.opensourcephysics.drawing3d.utils.Decoration;
+import org.opensourcephysics.drawing3d.utils.ImplementationChangeListener;
+import org.opensourcephysics.drawing3d.utils.ImplementingPanel;
+import org.opensourcephysics.drawing3d.utils.VisualizationHints;
 import org.opensourcephysics.ejs.EjsRes;
 import org.opensourcephysics.tools.VideoTool;
 

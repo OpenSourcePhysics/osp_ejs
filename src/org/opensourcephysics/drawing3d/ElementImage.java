@@ -11,7 +11,7 @@ import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 
-import org.opensourcephysics.drawing3d.utils.*;
+import org.opensourcephysics.drawing3d.utils.ImplementingObject;
 import org.opensourcephysics.tools.Resource;
 import org.opensourcephysics.tools.ResourceLoader;
 

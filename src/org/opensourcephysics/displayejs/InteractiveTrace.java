@@ -7,10 +7,22 @@
 package org.opensourcephysics.displayejs;
 
 
-import java.util.*;
-import java.awt.*;
-import java.awt.geom.*;
-import org.opensourcephysics.display.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Polygon;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
+import java.awt.geom.RoundRectangle2D;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.opensourcephysics.display.Data;
+import org.opensourcephysics.display.Dataset;
+import org.opensourcephysics.display.DrawingPanel;
 
 public class InteractiveTrace extends AbstractInteractiveElement implements Data, org.opensourcephysics.display.LogMeasurable {
   static public final int SHOW_ALL = 0;

@@ -6,9 +6,18 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
-import java.awt.geom.*;
-import org.opensourcephysics.display.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
+import java.awt.geom.RoundRectangle2D;
+
+import org.opensourcephysics.display.Data;
+import org.opensourcephysics.display.Dataset;
+import org.opensourcephysics.display.DrawingPanel;
 
 public class InteractivePoligon extends AbstractInteractiveElement implements Data {
   static public final int PLAIN  = 0;

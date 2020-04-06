@@ -6,7 +6,7 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.DrawingPanel;
 
 public class InteractionTargetPoligonPoint extends InteractionTargetElementSize {
   protected InteractivePoligon poligon=null;

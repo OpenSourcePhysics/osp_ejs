@@ -8,11 +8,18 @@
 package org.opensourcephysics.drawing3d;
 
 import java.awt.Color;
-import java.util.*;
-import org.opensourcephysics.numerics.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.drawing3d.utils.*;
-import org.opensourcephysics.drawing3d.interaction.*;
+import org.opensourcephysics.drawing3d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing3d.interaction.InteractionListener;
+import org.opensourcephysics.drawing3d.interaction.InteractionSource;
+import org.opensourcephysics.drawing3d.interaction.InteractionTarget;
+import org.opensourcephysics.drawing3d.utils.ImplementingObject;
+import org.opensourcephysics.drawing3d.utils.Style;
+import org.opensourcephysics.drawing3d.utils.TransformationWrapper;
+import org.opensourcephysics.numerics.Transformation;
 
 /**
  *

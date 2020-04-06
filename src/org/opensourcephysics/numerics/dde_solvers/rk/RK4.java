@@ -8,7 +8,8 @@
 package org.opensourcephysics.numerics.dde_solvers.rk;
 
 import org.opensourcephysics.numerics.dde_solvers.AbstractDiscreteTimeSolverInterpolator;
-import org.opensourcephysics.numerics.dde_solvers.interpolation.*;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.BootstrapIntervalData;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.IntervalData;
 
 /**
  * Title:        RK4

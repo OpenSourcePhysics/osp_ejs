@@ -7,8 +7,16 @@
 
 package org.opensourcephysics.drawing3d.simple3d;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RectangularShape;
+import java.awt.geom.RoundRectangle2D;
 
 import org.opensourcephysics.drawing3d.DrawingPanel3D;
 import org.opensourcephysics.drawing3d.Element;

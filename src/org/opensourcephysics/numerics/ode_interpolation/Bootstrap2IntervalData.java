@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.numerics.ode_interpolation;
 
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.ODE;
 
 /**
  * Uses a second step of BootStrapping from BootStrapping1 interpolation to get one extra precission order

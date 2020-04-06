@@ -6,8 +6,8 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
 import org.opensourcephysics.controls.Control;
+import org.opensourcephysics.display.Interactive;
 
 /**
  * This is the interface for elements that can be properly added to DrawingPanel3D

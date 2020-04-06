@@ -8,6 +8,7 @@
 package org.opensourcephysics.drawing2d.interaction;
 
 import java.awt.Graphics;
+
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.Interactive;
 import org.opensourcephysics.drawing2d.Element;

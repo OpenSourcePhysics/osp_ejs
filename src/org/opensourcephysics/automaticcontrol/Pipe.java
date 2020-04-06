@@ -7,9 +7,15 @@
 
 package org.opensourcephysics.automaticcontrol;
 
-import java.awt.*;
-import org.opensourcephysics.display.*;
-import org.opensourcephysics.displayejs.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.displayejs.DrawingPanel3D;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.InteractivePoligon;
 
 public class Pipe extends InteractivePoligon {
   // Configuration variables

@@ -6,7 +6,8 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display.Interactive;
 
 public class InteractionTargetSetElement implements InteractionTarget {
   private ElementSet set;

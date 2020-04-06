@@ -7,9 +7,14 @@
 
 package org.opensourcephysics.numerics.dde_solvers.interpolation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.DDE;
+import org.opensourcephysics.numerics.ODE;
 
 /**
  * StateMemory is a class for objects that store past states of an ODE (in form of IntervalData objects)

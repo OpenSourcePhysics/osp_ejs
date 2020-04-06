@@ -7,7 +7,7 @@
 
 package org.opensourcephysics.numerics.rk;
 
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.ODEAdaptiveSolver;
 
 /**
  * Title:        HermiteAdaptiveRKSolverInterpolator

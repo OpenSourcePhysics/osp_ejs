@@ -7,14 +7,18 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.util.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.GeneralPath;
+import java.util.ArrayList;
 import java.util.List;
-import java.awt.*;
-import java.awt.geom.*;
 
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
-import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * <p>

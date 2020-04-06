@@ -7,7 +7,9 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
 import java.util.List;
 
 import org.opensourcephysics.display.PlottingPanel;

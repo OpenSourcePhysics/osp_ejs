@@ -7,7 +7,8 @@
 
 package org.opensourcephysics.numerics;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.opensourcephysics.controls.OSPLog;
 

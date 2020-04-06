@@ -7,7 +7,12 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Stroke;
+import java.awt.TexturePaint;
+import java.awt.Toolkit;
 
 import org.opensourcephysics.tools.ResourceLoader;
 

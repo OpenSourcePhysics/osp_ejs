@@ -7,7 +7,10 @@
 
 package org.opensourcephysics.numerics.ode_interpolation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 import org.opensourcephysics.numerics.ODE;
 import org.opensourcephysics.numerics.ode_solvers.DelayDifferentialEquation;

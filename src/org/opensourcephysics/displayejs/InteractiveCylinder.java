@@ -6,7 +6,7 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * This class implements a general 3D Cylinder. The user can specify the three main axes

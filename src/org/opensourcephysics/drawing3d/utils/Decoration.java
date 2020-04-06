@@ -7,10 +7,15 @@
 
 package org.opensourcephysics.drawing3d.utils;
 
-import java.util.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
 
-import org.opensourcephysics.drawing3d.*;
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementArrow;
+import org.opensourcephysics.drawing3d.ElementSegment;
+import org.opensourcephysics.drawing3d.ElementText;
 
 /**
  *

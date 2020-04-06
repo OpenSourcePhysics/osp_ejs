@@ -6,13 +6,12 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
 
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.controls.Control;
 import org.opensourcephysics.display.DrawingPanel;
-import org.opensourcephysics.drawing2d.*;
-import org.opensourcephysics.controls.*;
+import org.opensourcephysics.display.Interactive;
 
 /**
  * This is the basic abstract class for the family

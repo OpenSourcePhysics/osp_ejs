@@ -6,9 +6,12 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
-import java.util.*;
-import org.opensourcephysics.display.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.util.ArrayList;
+
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display.Interactive;
 
 /**
  * An ElementSet is a simple interactive, drawable3D, measurable3D, that helps create and set

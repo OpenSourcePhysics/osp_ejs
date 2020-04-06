@@ -7,7 +7,11 @@
 
 package org.opensourcephysics.drawing3d.utils;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Paint;
+import java.awt.Stroke;
+
 import org.opensourcephysics.drawing3d.Element;
 
 public class Style {

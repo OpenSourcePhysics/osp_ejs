@@ -6,7 +6,11 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Paint;
+import java.awt.Stroke;
 
 /**
  * A class that holds all the information possibly required by a Drawable3D

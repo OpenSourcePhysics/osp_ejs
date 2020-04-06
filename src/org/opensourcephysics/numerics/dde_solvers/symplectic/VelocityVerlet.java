@@ -8,7 +8,8 @@
 package org.opensourcephysics.numerics.dde_solvers.symplectic;
 
 import org.opensourcephysics.numerics.dde_solvers.AbstractDiscreteTimeSolverInterpolator;
-import org.opensourcephysics.numerics.dde_solvers.interpolation.*;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.HermiteIntervalData;
+import org.opensourcephysics.numerics.dde_solvers.interpolation.IntervalData;
 
 /**
  * Title:        EulerRichardson

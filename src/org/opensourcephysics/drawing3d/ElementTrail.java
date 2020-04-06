@@ -10,10 +10,11 @@ package org.opensourcephysics.drawing3d;
 import java.awt.Color;
 import java.awt.Paint;
 import java.util.ArrayList;
-import org.opensourcephysics.drawing3d.utils.ImplementingObject;
+
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
 import org.opensourcephysics.display.DisplayColors;
+import org.opensourcephysics.drawing3d.utils.ImplementingObject;
 
 /**
  * <p>Title: ElementTrail</p>

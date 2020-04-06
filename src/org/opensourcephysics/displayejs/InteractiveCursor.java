@@ -6,8 +6,11 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.awt.*;
-import org.opensourcephysics.display.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * An InteractiveParticle is an InteractiveElement that displays a RectangularShape

@@ -6,7 +6,8 @@
 
 package org.opensourcephysics.displayejs;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A base abstract class for objects that need to implement InteractionSource

@@ -6,7 +6,7 @@
  */
 
 package org.opensourcephysics.numerics.qss;
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.numerics.ODE;
 
 /**
  * A utility class for MultirateODE odes.

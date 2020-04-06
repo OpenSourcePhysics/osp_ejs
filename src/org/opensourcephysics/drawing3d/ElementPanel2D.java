@@ -8,8 +8,10 @@
 package org.opensourcephysics.drawing3d;
 
 import java.awt.Component;
+
 import org.opensourcephysics.drawing2d.DrawingPanel2D;
-import org.opensourcephysics.drawing3d.utils.*;
+import org.opensourcephysics.drawing3d.utils.ImplementingObject;
+import org.opensourcephysics.drawing3d.utils.Style;
 
 
 /**

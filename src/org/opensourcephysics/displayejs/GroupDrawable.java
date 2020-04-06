@@ -6,8 +6,12 @@
 
 package org.opensourcephysics.displayejs;
 
-import org.opensourcephysics.display.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display.Interactive;
 
 public class GroupDrawable extends Group implements Interactive, Drawable3D, Measurable3D, InteractionSource {
 

@@ -1,8 +1,8 @@
 package org.opensourcephysics.tools;
 
 import java.awt.Component;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.WindowConstants;
 

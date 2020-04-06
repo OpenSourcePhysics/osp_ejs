@@ -8,10 +8,11 @@
 package org.opensourcephysics.numerics.ode_solvers.symplectic;
 
 import org.opensourcephysics.numerics.ODE;
-import org.opensourcephysics.numerics.ode_interpolation.*;
-import org.opensourcephysics.numerics.ode_solvers.SolverEngineDiscreteTime;
+import org.opensourcephysics.numerics.ode_interpolation.HermiteIntervalData;
+import org.opensourcephysics.numerics.ode_interpolation.IntervalData;
 import org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver;
 import org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver.DISCONTINUITY_CODE;
+import org.opensourcephysics.numerics.ode_solvers.SolverEngineDiscreteTime;
 
 /**
  * Title:        EulerRichardson

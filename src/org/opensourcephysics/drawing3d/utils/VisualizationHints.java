@@ -7,13 +7,13 @@
 
 package org.opensourcephysics.drawing3d.utils;
 
-import org.opensourcephysics.drawing3d.*;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
-import java.text.*;
+import java.text.NumberFormat;
+
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
 
 public class VisualizationHints {
   static public final int HINT_DECORATION_TYPE = 0;

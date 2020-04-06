@@ -7,10 +7,19 @@
 
 package org.opensourcephysics.automaticcontrol;
 
-import org.colos.ejs.library.Function;
-import org.opensourcephysics.displayejs.*;
-import org.opensourcephysics.display.DrawingPanel;
 import java.awt.Color;
+
+import org.colos.ejs.library.Function;
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.displayejs.DrawingPanel3D;
+import org.opensourcephysics.displayejs.GroupDrawable;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionListener;
+import org.opensourcephysics.displayejs.InteractionTargetPoligonPoint;
+import org.opensourcephysics.displayejs.InteractiveArrow;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.InteractivePoligon;
+import org.opensourcephysics.displayejs.Object3D;
 
 public class Tank extends GroupDrawable  implements InteractionListener {
   static private final boolean insideConnected[] = { true, true, true, true, true};

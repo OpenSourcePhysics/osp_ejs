@@ -7,13 +7,17 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Stroke;
 import java.awt.geom.AffineTransform;
 
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.Interactive;
-
 import org.opensourcephysics.drawing2d.utils.ColorCodedDrawer;
 
 /**

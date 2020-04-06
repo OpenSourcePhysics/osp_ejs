@@ -8,7 +8,8 @@
 package org.opensourcephysics.drawing2d.interaction;
 
 import java.awt.AWTEvent;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 
 /**
  *

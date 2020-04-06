@@ -7,13 +7,26 @@
 
 package org.opensourcephysics.drawing3d.utils;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import org.opensourcephysics.drawing3d.*;
-import org.opensourcephysics.drawing3d.interaction.*;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
+import org.opensourcephysics.drawing3d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing3d.interaction.InteractionListener;
 import org.opensourcephysics.tools.ToolsRes;
 
 /**

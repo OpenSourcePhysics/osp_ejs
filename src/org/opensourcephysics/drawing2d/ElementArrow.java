@@ -7,7 +7,10 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Paint;
 
 /**
  * <p>Title: ElementArrow </p>

@@ -7,8 +7,10 @@
 
 package org.opensourcephysics.drawing2d;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+
 import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
 
 /**
