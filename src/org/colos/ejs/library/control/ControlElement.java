@@ -50,7 +50,7 @@ import org.opensourcephysics.ejs.control.value.Value;
   * <p>
   * @see     EjsControl
   */
-public abstract class ControlElement implements org.colos.ejs.library.ConfigurableElement {
+public abstract class ControlElement implements org.opensourcephysics.ejs.ConfigurableElement {
 
   protected EjsControl  myGroup = null; // The group of ControlElements with which I share variables
   protected Hashtable<String,String> myPropertiesTable = new Hashtable<String,String>(); // A place to hold any property
@@ -1185,7 +1185,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
   /**
    * Used to delay invoking methods
    */
-  static private class MethodDelayedAction implements org.colos.ejs.library.DelayedAction {
+  static private class MethodDelayedAction implements org.opensourcephysics.ejs.DelayedAction {
     MethodWithOneParameter method;
     int type;
     Object object;

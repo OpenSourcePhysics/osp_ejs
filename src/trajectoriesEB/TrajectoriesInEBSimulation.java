@@ -5,7 +5,7 @@
 
 package trajectoriesEB;
 
-import org.colos.ejs.library._EjsConstants;
+import org.opensourcephysics.ejs._EjsConstants;
 
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
@@ -15,7 +15,7 @@ class TrajectoriesInEBSimulation extends org.opensourcephysics.ejs.EjsSimulation
   private TrajectoriesInEBView mMainView;
 
   public TrajectoriesInEBSimulation (TrajectoriesInEB _model, String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, boolean _allowAutoplay) {
-  	videoUtil = new org.colos.ejs.library.utils.VideoUtil();
+  	videoUtil = new org.opensourcephysics.ejs.VideoUtil();
     try { setUnderEjs("true".equals(System.getProperty("osp_ejs"))); }
     catch (Exception exc) { setUnderEjs(false); } // in case of applet security
     setCodebase (_codebase);
@@ -30,7 +30,7 @@ class TrajectoriesInEBSimulation extends org.opensourcephysics.ejs.EjsSimulation
     else { reset(); setAutoplay(false); }
     recreateDescriptionPanel();
     if (_model._getApplet()!=null && _model._getApplet().getParameter("locale")!=null) {
-      setLocaleItem(org.colos.ejs.library.utils.LocaleItem.getLocaleItem(_model._getApplet().getParameter("locale")),false);
+      setLocaleItem(org.opensourcephysics.ejs.utils.LocaleItem.getLocaleItem(_model._getApplet().getParameter("locale")),false);
     }
     else setLocaleItem(getLocaleItem(),false); // false so that not to reset the model twice at start-up
   }

@@ -3,7 +3,7 @@
  */
 
 // package com.gurge.amd;
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs.utils;
 
 import java.awt.AWTException;
 import java.awt.Image;

@@ -1,4 +1,4 @@
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs.utils;
 
 import org.colos.ejs.library.control.ControlElement;
 import org.opensourcephysics.ejs.EjsModel;

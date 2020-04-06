@@ -4,7 +4,7 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
 /**
  * An interface for actions that need to be delayed if the simulation is playing

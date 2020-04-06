@@ -4,7 +4,7 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
 import java.util.Hashtable;
 

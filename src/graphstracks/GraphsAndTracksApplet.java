@@ -5,11 +5,10 @@
 
 package graphstracks;
 
-import org.colos.ejs.library._EjsConstants;
-
 import org.opensourcephysics.display.OSPRuntime;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
+import org.opensourcephysics.ejs._EjsConstants;
 
 public class GraphsAndTracksApplet extends org.opensourcephysics.ejs.EjsLauncherApplet {
 

@@ -6,7 +6,6 @@
 
 package org.opensourcephysics.ejs;
 
-import org.colos.ejs.library.ConfigurableElement;
 import org.colos.ejs.library.control.ControlElement;
 
 /**

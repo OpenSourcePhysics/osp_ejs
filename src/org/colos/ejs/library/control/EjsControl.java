@@ -36,14 +36,13 @@ import javax.swing.JTextArea;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
-import org.colos.ejs.library.ConfigurableElement;
 import org.colos.ejs.library.control.swing.ControlContainer;
 import org.colos.ejs.library.control.swing.ControlDialog;
 import org.colos.ejs.library.control.swing.ControlDrawable;
 import org.colos.ejs.library.control.swing.ControlParentOfDrawables;
 import org.colos.ejs.library.control.swing.ControlWindow;
-import org.colos.ejs.library.utils.LocaleItem;
 import org.opensourcephysics.desktop.OSPDesktop;
+import org.opensourcephysics.ejs.ConfigurableElement;
 import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.ejs.Function;
 import org.opensourcephysics.ejs.control.value.BooleanValue;
@@ -52,6 +51,7 @@ import org.opensourcephysics.ejs.control.value.IntegerValue;
 import org.opensourcephysics.ejs.control.value.ObjectValue;
 import org.opensourcephysics.ejs.control.value.StringValue;
 import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.ejs.utils.LocaleItem;
 import org.opensourcephysics.tools.Resource;
 import org.opensourcephysics.tools.ResourceLoader;
 

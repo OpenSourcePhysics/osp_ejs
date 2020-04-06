@@ -5,8 +5,7 @@
 
 package motionneardipole;
 
-import org.colos.ejs.library._EjsConstants;
-
+import org.opensourcephysics.ejs._EjsConstants;
 import org.opensourcephysics.numerics.Matrix3DTransformation;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements

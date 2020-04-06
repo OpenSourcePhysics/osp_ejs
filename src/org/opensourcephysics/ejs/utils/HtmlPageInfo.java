@@ -1,4 +1,4 @@
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs.utils;
 
 public class HtmlPageInfo {
   private LocaleItem item;

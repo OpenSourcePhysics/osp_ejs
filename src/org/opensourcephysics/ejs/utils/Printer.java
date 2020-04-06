@@ -4,11 +4,13 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs.utils;
 
 import java.awt.Frame;
 import java.awt.Rectangle;
 import java.io.PrintWriter;
+
+import org.opensourcephysics.ejs.HardcopyWriter;
 
 /**
  * A dummy video tool

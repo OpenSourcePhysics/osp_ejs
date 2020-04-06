@@ -17,7 +17,7 @@ import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
  * @author Francisco Esquembre
  *
  */
-class UpdateHotSpot2DDelayedAction implements org.colos.ejs.library.DelayedAction {
+class UpdateHotSpot2DDelayedAction implements org.opensourcephysics.ejs.DelayedAction {
   private InteractionTarget target2D;
   private double[] point;
   private MouseEvent event;

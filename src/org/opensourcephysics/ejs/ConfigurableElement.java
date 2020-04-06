@@ -1,4 +1,4 @@
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
 public interface ConfigurableElement {
 

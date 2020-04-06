@@ -19,10 +19,8 @@ import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import org.colos.ejs.library.Input;
-import org.colos.ejs.library.Memory;
-import org.colos.ejs.library.utils.TranslatorUtil;
 import org.opensourcephysics.display.OSPRuntime;
+import org.opensourcephysics.ejs.utils.TranslatorUtil;
 
 public abstract class EjsModel { // implements ExternalClient {
 	static protected TranslatorUtil __translatorUtil;
@@ -296,8 +294,8 @@ public abstract class EjsModel { // implements ExternalClient {
 		_getSimulation().setParentComponent(_parent);
 	}
 
-	abstract public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName,
-			org.colos.ejs.library.utils.LocaleItem _localeItem);
+	abstract public org.opensourcephysics.ejs.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName,
+			org.opensourcephysics.ejs.utils.LocaleItem _localeItem);
 
 	/**
 	 * Calls the class _getEjsResources() method. This returns a set of all resource

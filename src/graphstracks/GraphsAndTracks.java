@@ -5,11 +5,10 @@
 
 package graphstracks;
 
-import org.colos.ejs.library._EjsConstants;
-
 import org.opensourcephysics.display.OSPRuntime;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
+import org.opensourcephysics.ejs._EjsConstants;
 
 import javax.swing.event.*;
 import javax.swing.*;
@@ -23,7 +22,7 @@ import java.lang.*;
 public class GraphsAndTracks extends org.opensourcephysics.ejs.EjsModel {
 
   static {
-    __translatorUtil = new org.colos.ejs.library.utils.TranslatorUtil();
+    __translatorUtil = new org.opensourcephysics.ejs.utils.TranslatorUtil();
   }
 
   static public boolean _sSwingView = true;
@@ -39,37 +38,37 @@ public class GraphsAndTracks extends org.opensourcephysics.ejs.EjsModel {
   // Information on HTML pages
   // -------------------------- 
 
-  static private java.util.Map<String,java.util.Set<org.colos.ejs.library.utils.HtmlPageInfo>> __htmlPagesMap =
-    new java.util.HashMap<String,java.util.Set<org.colos.ejs.library.utils.HtmlPageInfo>>();
+  static private java.util.Map<String,java.util.Set<org.opensourcephysics.ejs.utils.HtmlPageInfo>> __htmlPagesMap =
+    new java.util.HashMap<String,java.util.Set<org.opensourcephysics.ejs.utils.HtmlPageInfo>>();
 
   /**
    * Adds info about an html on the model
    */
   static public void _addHtmlPageInfo(String _pageName, String _localeStr, String _title, String _link) {
-    java.util.Set<org.colos.ejs.library.utils.HtmlPageInfo> pages = __htmlPagesMap.get(_pageName);
+    java.util.Set<org.opensourcephysics.ejs.utils.HtmlPageInfo> pages = __htmlPagesMap.get(_pageName);
     if (pages==null) {
-      pages = new java.util.HashSet<org.colos.ejs.library.utils.HtmlPageInfo>();
+      pages = new java.util.HashSet<org.opensourcephysics.ejs.utils.HtmlPageInfo>();
       __htmlPagesMap.put(_pageName, pages);
     }
-    org.colos.ejs.library.utils.LocaleItem item = org.colos.ejs.library.utils.LocaleItem.getLocaleItem(_localeStr);
-    if (item!=null) pages.add(new org.colos.ejs.library.utils.HtmlPageInfo(item, _title, _link));
+    org.opensourcephysics.ejs.utils.LocaleItem item = org.opensourcephysics.ejs.utils.LocaleItem.getLocaleItem(_localeStr);
+    if (item!=null) pages.add(new org.opensourcephysics.ejs.utils.HtmlPageInfo(item, _title, _link));
   }
 
   /**
    * Returns info about an html on the model
    */
-  static public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageClassInfo(String _pageName, org.colos.ejs.library.utils.LocaleItem _item) {
-    java.util.Set<org.colos.ejs.library.utils.HtmlPageInfo> pages = __htmlPagesMap.get(_pageName);
+  static public org.opensourcephysics.ejs.utils.HtmlPageInfo _getHtmlPageClassInfo(String _pageName, org.opensourcephysics.ejs.utils.LocaleItem _item) {
+    java.util.Set<org.opensourcephysics.ejs.utils.HtmlPageInfo> pages = __htmlPagesMap.get(_pageName);
     if (pages==null) return null;
-    org.colos.ejs.library.utils.HtmlPageInfo defaultInfo=null;
-    for (org.colos.ejs.library.utils.HtmlPageInfo info : pages) {
+    org.opensourcephysics.ejs.utils.HtmlPageInfo defaultInfo=null;
+    for (org.opensourcephysics.ejs.utils.HtmlPageInfo info : pages) {
       if (info.getLocaleItem().isDefaultItem()) defaultInfo = info;
       if (info.getLocaleItem().equals(_item)) return info;
     }
     return defaultInfo;
   }
 
-  public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName, org.colos.ejs.library.utils.LocaleItem _item) { return _getHtmlPageClassInfo(_pageName,_item); }
+  public org.opensourcephysics.ejs.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName, org.opensourcephysics.ejs.utils.LocaleItem _item) { return _getHtmlPageClassInfo(_pageName,_item); }
 
   // -------------------------- 
   // static methods 

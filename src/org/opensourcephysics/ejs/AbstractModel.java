@@ -4,9 +4,7 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
-
-import org.opensourcephysics.ejs.EjsModel;
+package org.opensourcephysics.ejs;
 
 /**
  * A base class for functions.

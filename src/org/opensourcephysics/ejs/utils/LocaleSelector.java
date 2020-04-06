@@ -5,7 +5,7 @@
  * <http://www.opensourcephysics.org/>
  */
 
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs.utils;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

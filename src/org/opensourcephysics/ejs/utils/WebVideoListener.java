@@ -1,4 +1,4 @@
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs.utils;
 
 import java.awt.Image;
 import java.util.EventListener;

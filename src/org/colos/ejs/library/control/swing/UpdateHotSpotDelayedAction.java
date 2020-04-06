@@ -18,7 +18,7 @@ import org.opensourcephysics.displayejs.Point3D;
  * @author Francisco Esquembre
  *
  */
-class UpdateHotSpotDelayedAction implements org.colos.ejs.library.DelayedAction {
+class UpdateHotSpotDelayedAction implements org.opensourcephysics.ejs.DelayedAction {
   private InteractionTarget target;
   private InteractivePanel panel;
   private Point3D point;

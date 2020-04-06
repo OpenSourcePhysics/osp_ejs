@@ -9,7 +9,7 @@
  * please visit http://www.davidflanagan.com/javaexamples3.
  */
 
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs;
 
 import java.awt.Dimension;
 import java.awt.Font;

@@ -4,7 +4,7 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library.utils;
+package org.opensourcephysics.ejs.utils;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -4,13 +4,12 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.EjsView;
 
 /**
  * A base interface for the graphical user interface of a simulation
