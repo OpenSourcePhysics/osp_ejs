@@ -894,8 +894,8 @@ public class EjsControl {
     String name = _element.getProperty("name");
     if (name!=null) elementTable.remove(name);
     elementList.remove(_element);
-    if (_element instanceof NeedsUpdate) updateList.remove(_element);
-    if (_element instanceof NeedsFinalUpdate) finalUpdateList.remove(_element);
+    if (_element instanceof NeedsUpdate) updateList.remove((NeedsUpdate) _element);
+    if (_element instanceof NeedsFinalUpdate) finalUpdateList.remove((NeedsFinalUpdate) _element);
     if (_element instanceof ControlContainer) {
       for (Enumeration<ControlElement> e=((ControlContainer)_element).getChildren().elements(); e.hasMoreElements(); ) {
         ControlElement child = e.nextElement();
