@@ -218,7 +218,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("BRmessage","%_model._method_for_drawingPanel_BRmessage()%" )
       .getObject();
     wallShape2D = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"wallShape2D")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"wallShape2D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","drawingPanel")
       .setProperty("x","0")
@@ -230,7 +230,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("fillColor","DARKGRAY")
       .getObject();
     spring2D = (org.opensourcephysics.drawing2d.ElementSpring)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlSpring2D(),"spring2D")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlSpring2D(),"spring2D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","drawingPanel")
       .setProperty("x","0.1")
@@ -241,7 +241,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("radius","0.05")
       .getObject();
     massShape2D = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"massShape2D")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"massShape2D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","drawingPanel")
       .setProperty("x","x")
@@ -355,7 +355,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("titleY","Displacement and Velocity")
       .getObject();
     displacementTrail2D = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"displacementTrail2D")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"displacementTrail2D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","plottingPanel")
       .setProperty("inputX","t")
@@ -366,7 +366,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
       .setProperty("lineColor","BLUE")
       .getObject();
     velocityTrail2D = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"velocityTrail2D")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"velocityTrail2D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","plottingPanel")
       .setProperty("inputX","t")

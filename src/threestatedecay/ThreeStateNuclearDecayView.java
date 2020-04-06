@@ -580,7 +580,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("square","true")
       .getObject();
     sampleShapeSet = (org.opensourcephysics.drawing2d.Set)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShapeSet2D(),"sampleShapeSet")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShapeSet2D(),"sampleShapeSet")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","sampleDraingPanel")
       .setProperty("x","x")
@@ -811,7 +811,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("titleY","%yTitle%")
       .getObject();
     n1Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"n1Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"n1Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","t")
@@ -825,7 +825,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("yLabel","n1")
       .getObject();
     n2Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"n2Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"n2Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","t")
@@ -839,7 +839,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("yLabel","n2")
       .getObject();
     n3Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"n3Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"n3Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","t")
@@ -853,7 +853,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("yLabel","n3")
       .getObject();
     N1Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"N1Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"N1Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","t")
@@ -871,7 +871,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
 
   private void createControl50() {
     N2Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"N2Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"N2Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","t")
@@ -885,7 +885,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("yLabel","N2")
       .getObject();
     N3Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"N3Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"N3Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","t")
@@ -899,7 +899,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("yLabel","N3")
       .getObject();
     dN1Trace = (org.opensourcephysics.displayejs.InteractiveTrace)
-      addElement(new org.colos.ejs.library.control.displayejs.ControlTrace(),"dN1Trace")
+      addElement(new org.opensourcephysics.ejs.control.displayejs.ControlTrace(),"dN1Trace")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("x","t")
@@ -913,7 +913,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("secondaryColor","RED")
       .getObject();
     dN2Trace = (org.opensourcephysics.displayejs.InteractiveTrace)
-      addElement(new org.colos.ejs.library.control.displayejs.ControlTrace(),"dN2Trace")
+      addElement(new org.opensourcephysics.ejs.control.displayejs.ControlTrace(),"dN2Trace")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("x","t")
@@ -927,7 +927,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("secondaryColor","0,255,0,182")
       .getObject();
     dn1Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"dn1Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"dn1Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","%_model._method_for_dn1Trail_inputX()%" )
@@ -941,7 +941,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
       .setProperty("yLabel","$\\Delta$n1")
       .getObject();
     dn2Trail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"dn2Trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"dn2Trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","decayPlottingPanel")
       .setProperty("inputX","%_model._method_for_dn2Trail_inputX()%" )

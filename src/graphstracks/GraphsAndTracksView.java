@@ -1021,7 +1021,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("TLmessage","%msg%")
       .getObject();
     groundShape = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"groundShape")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"groundShape")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("x","0")
@@ -1034,7 +1034,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("fillColor","GREEN")
       .getObject();
     postSet = (org.opensourcephysics.drawing2d.Set)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShapeSet2D(),"postSet")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShapeSet2D(),"postSet")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("x","xt")
@@ -1050,7 +1050,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("fillColor","GRAY")
       .getObject();
     trackSet = (org.opensourcephysics.drawing2d.Set)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShapeSet2D(),"trackSet")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShapeSet2D(),"trackSet")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("numberOfElements","%_model._method_for_trackSet_numberOfElements()%" )
@@ -1069,7 +1069,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("fillColor","BLUE")
       .getObject();
     ghostSet = (org.opensourcephysics.drawing2d.Set)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShapeSet2D(),"ghostSet")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShapeSet2D(),"ghostSet")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("numberOfElements","ng")
@@ -1085,7 +1085,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("drawingLines","false")
       .getObject();
     ballGroup = (org.opensourcephysics.drawing2d.Group)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlGroup2D(),"ballGroup")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlGroup2D(),"ballGroup")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("x","x")
@@ -1096,7 +1096,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("measured","false")
       .getObject();
     ballShape = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"ballShape")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"ballShape")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","ballGroup")
       .setProperty("x","0")
@@ -1113,7 +1113,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("fillColor","RED")
       .getObject();
     vArrow = (org.opensourcephysics.drawing2d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlArrow2D(),"vArrow")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlArrow2D(),"vArrow")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","ballGroup")
       .setProperty("x","0")
@@ -1128,7 +1128,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("lineWidth","2")
       .getObject();
     vText = (org.opensourcephysics.drawing2d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlText2D(),"vText")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlText2D(),"vText")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","ballGroup")
       .setProperty("x","%_model._method_for_vText_x()%" )
@@ -1140,7 +1140,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("font","Monospaced,BOLD,14")
       .getObject();
     gArrow = (org.opensourcephysics.drawing2d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlArrow2D(),"gArrow")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlArrow2D(),"gArrow")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("x","x")
@@ -1155,7 +1155,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("lineWidth","2")
       .getObject();
     gText = (org.opensourcephysics.drawing2d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlText2D(),"gText")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlText2D(),"gText")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("x","%_model._method_for_gText_x()%" )
@@ -1167,7 +1167,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("font","Monospaced,BOLD,14")
       .getObject();
     textSet = (org.opensourcephysics.drawing2d.Set)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTextSet2D(),"textSet")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTextSet2D(),"textSet")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","tracksPlottingPanel")
       .setProperty("numberOfElements","nt")
@@ -1543,7 +1543,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("titleY","%xAxisTitle%")
       .getObject();
     xtrackTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"xtrackTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"xtrackTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","positionPlottingPanel")
       .setProperty("inputX","t")
@@ -1558,7 +1558,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("yLabel","x track")
       .getObject();
     xMarker = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"xMarker")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"xMarker")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","positionPlottingPanel")
       .setProperty("x","t")
@@ -1571,7 +1571,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("fillColor","PINK")
       .getObject();
     xTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"xTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"xTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","positionPlottingPanel")
       .setProperty("inputX","t")
@@ -1586,7 +1586,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("yLabel","x Ball")
       .getObject();
     yBallTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"yBallTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"yBallTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","positionPlottingPanel")
       .setProperty("inputX","t")
@@ -1756,7 +1756,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("titleY","%vAxisTitle%")
       .getObject();
     vTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"vTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"vTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","velocityPlottingPanel")
       .setProperty("inputX","t")
@@ -1771,7 +1771,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("yLabel","v")
       .getObject();
     yMarker = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"yMarker")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"yMarker")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","velocityPlottingPanel")
       .setProperty("x","t")
@@ -1784,7 +1784,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("fillColor","PINK")
       .getObject();
     vxTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"vxTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"vxTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","velocityPlottingPanel")
       .setProperty("inputX","t")
@@ -1799,7 +1799,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("yLabel","vx")
       .getObject();
     vyTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"vyTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"vyTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","velocityPlottingPanel")
       .setProperty("inputX","t")
@@ -1969,7 +1969,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("titleY","%aAxisTitle%")
       .getObject();
     aTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"aTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"aTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","accelerationPlottingPanel")
       .setProperty("inputX","t")
@@ -1988,7 +1988,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
 
   private void createControl100() {
     aMarker = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"aMarker")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"aMarker")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","accelerationPlottingPanel")
       .setProperty("x","t")
@@ -2001,7 +2001,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("fillColor","PINK")
       .getObject();
     axTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"axTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"axTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","accelerationPlottingPanel")
       .setProperty("inputX","t")
@@ -2016,7 +2016,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("yLabel","ax")
       .getObject();
     ayTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"ayTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"ayTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","accelerationPlottingPanel")
       .setProperty("inputX","t")
@@ -2186,7 +2186,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("titleY","energy/mass")
       .getObject();
     energyTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"energyTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"energyTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","energyPlottingPanel")
       .setProperty("inputX","t")
@@ -2199,7 +2199,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("yLabel","energy")
       .getObject();
     keTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"keTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"keTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","energyPlottingPanel")
       .setProperty("inputX","t")
@@ -2212,7 +2212,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
       .setProperty("yLabel","ke")
       .getObject();
     peTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"peTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"peTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","energyPlottingPanel")
       .setProperty("inputX","t")

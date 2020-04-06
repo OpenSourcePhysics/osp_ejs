@@ -569,7 +569,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("tooltip","Rotor position on shaft")
       .getObject();
     spaceViewDrawingPanel3D = (org.opensourcephysics.drawing3d.DrawingPanel3D)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlDrawingPanel3D(),"spaceViewDrawingPanel3D")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlDrawingPanel3D(),"spaceViewDrawingPanel3D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","mainFrame")
@@ -592,18 +592,18 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("allowQuickRedraw","false")
       .getObject();
     rotorGroup = (org.opensourcephysics.drawing3d.Group)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlGroup3D(),"rotorGroup")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlGroup3D(),"rotorGroup")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceViewDrawingPanel3D")
       .getObject();
     quaternion3D = (org.opensourcephysics.drawing3d.utils.transformations.QuaternionRotation)
-      addElement(new org.colos.ejs.library.control.drawing3d.utils.ControlQuaternionTransformation(),"quaternion3D")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.utils.ControlQuaternionTransformation(),"quaternion3D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","rotorGroup")
       .setProperty("q","q")
       .getObject();
     shaftArrow = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"shaftArrow")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"shaftArrow")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","rotorGroup")
       .setProperty("x","0")
@@ -617,7 +617,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     rotor = (org.opensourcephysics.drawing3d.ElementEllipsoid)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlEllipsoid3D(),"rotor")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlEllipsoid3D(),"rotor")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","rotorGroup")
       .setProperty("z","z0")
@@ -629,7 +629,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("resolution","5,60,5")
       .getObject();
     shaft = (org.opensourcephysics.drawing3d.ElementCylinder)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlCylinder3D(),"shaft")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlCylinder3D(),"shaft")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","rotorGroup")
       .setProperty("z","%_model._method_for_shaft_z()%" )
@@ -640,13 +640,13 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("fillColor","RED")
       .getObject();
     vectorGroup = (org.opensourcephysics.drawing3d.Group)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlGroup3D(),"vectorGroup")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlGroup3D(),"vectorGroup")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","rotorGroup")
       .setProperty("visible","showVectors")
       .getObject();
     angularMomentumVector = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"angularMomentumVector")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"angularMomentumVector")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","vectorGroup")
       .setProperty("size","angularMomentum")
@@ -655,7 +655,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("resolution","20")
       .getObject();
     angularMomentumText = (org.opensourcephysics.drawing3d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlText3D(),"angularMomentumText")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlText3D(),"angularMomentumText")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","vectorGroup")
       .setProperty("x","%_model._method_for_angularMomentumText_x()%" )
@@ -665,7 +665,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("text","L")
       .getObject();
     torqueVector = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"torqueVector")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"torqueVector")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","vectorGroup")
       .setProperty("position","angularMomentum")
@@ -675,7 +675,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     torqueText = (org.opensourcephysics.drawing3d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlText3D(),"torqueText")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlText3D(),"torqueText")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","vectorGroup")
       .setProperty("x","%_model._method_for_torqueText_x()%" )
@@ -686,7 +686,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("text","N")
       .getObject();
     omegaVector = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"omegaVector")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"omegaVector")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","vectorGroup")
       .setProperty("sizeX","%_model._method_for_omegaVector_sizeX()%" )
@@ -696,7 +696,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     omegaText = (org.opensourcephysics.drawing3d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlText3D(),"omegaText")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlText3D(),"omegaText")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","vectorGroup")
       .setProperty("x","%_model._method_for_omegaText_x()%" )
@@ -706,7 +706,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("text","$\\omega$")
       .getObject();
     baseCylinder = (org.opensourcephysics.drawing3d.ElementCylinder)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlCylinder3D(),"baseCylinder")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlCylinder3D(),"baseCylinder")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceViewDrawingPanel3D")
       .setProperty("z","%_model._method_for_baseCylinder_z()%" )
@@ -717,7 +717,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("fillColor","LIGHTGRAY")
       .getObject();
     postCylinder = (org.opensourcephysics.drawing3d.ElementCylinder)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlCylinder3D(),"postCylinder")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlCylinder3D(),"postCylinder")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceViewDrawingPanel3D")
       .setProperty("z","%_model._method_for_postCylinder_z()%" )
@@ -728,7 +728,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("fillColor","LIGHTGRAY")
       .getObject();
     shaftTrail = (org.opensourcephysics.drawing3d.MultiTrail)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlTrail3D(),"shaftTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlTrail3D(),"shaftTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceViewDrawingPanel3D")
       .setProperty("inputX","%_model._method_for_shaftTrail_inputX()%" )
@@ -739,7 +739,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     spaceAxisGroup = (org.opensourcephysics.drawing3d.Group)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlGroup3D(),"spaceAxisGroup")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlGroup3D(),"spaceAxisGroup")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceViewDrawingPanel3D")
       .setProperty("x","%_model._method_for_spaceAxisGroup_x()%" )
@@ -747,7 +747,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("visible","showSpace")
       .getObject();
     xArrow3D2 = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"xArrow3D2")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"xArrow3D2")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceAxisGroup")
       .setProperty("x","0")
@@ -760,7 +760,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     yArrow3D2 = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"yArrow3D2")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"yArrow3D2")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceAxisGroup")
       .setProperty("x","0")
@@ -773,7 +773,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     zArrow3D2 = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"zArrow3D2")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"zArrow3D2")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceAxisGroup")
       .setProperty("x","0")
@@ -786,7 +786,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     xText2 = (org.opensourcephysics.drawing3d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlText3D(),"xText2")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlText3D(),"xText2")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceAxisGroup")
       .setProperty("x","%_model._method_for_xText2_x()%" )
@@ -795,7 +795,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("text","X")
       .getObject();
     yText2 = (org.opensourcephysics.drawing3d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlText3D(),"yText2")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlText3D(),"yText2")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceAxisGroup")
       .setProperty("x","0")
@@ -804,7 +804,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("text","Y")
       .getObject();
     zText2 = (org.opensourcephysics.drawing3d.ElementText)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlText3D(),"zText2")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlText3D(),"zText2")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","spaceAxisGroup")
       .setProperty("x","0")
@@ -1041,7 +1041,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("titleY","elevation angle")
       .getObject();
     axisElevationTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"axisElevationTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"axisElevationTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","elevationPlottingPanel")
       .setProperty("inputX","t")
@@ -1052,7 +1052,7 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
       .setProperty("lineWidth","2")
       .getObject();
     momentumElevationTrail = (org.opensourcephysics.drawing2d.ElementTrail)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrail2D(),"momentumElevationTrail")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrail2D(),"momentumElevationTrail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","elevationPlottingPanel")
       .setProperty("inputX","t")

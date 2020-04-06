@@ -419,14 +419,14 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
       .setProperty("TLmessage","%msg%")
       .getObject();
     group = (org.opensourcephysics.drawing2d.Group)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlGroup2D(),"group")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlGroup2D(),"group")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","ballDrawingPanel")
       .setProperty("x","sx")
       .setProperty("y","sy")
       .getObject();
     trailSet = (org.opensourcephysics.drawing2d.Set)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlTrailSet2D(),"trailSet")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlTrailSet2D(),"trailSet")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","group")
       .setProperty("inputX","x")
@@ -435,7 +435,7 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
       .setProperty("norepeat","true")
       .getObject();
     particles = (org.opensourcephysics.drawing2d.Set)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShapeSet2D(),"particles")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShapeSet2D(),"particles")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","group")
       .setProperty("x","x")
@@ -446,7 +446,7 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
       .setProperty("enabledPosition","true")
       .getObject();
     source = (org.opensourcephysics.drawing2d.ElementShape)
-      addElement(new org.colos.ejs.library.control.drawing2d.ControlShape2D(),"source")
+      addElement(new org.opensourcephysics.ejs.control.drawing2d.ControlShape2D(),"source")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","group")
       .setProperty("x","0")

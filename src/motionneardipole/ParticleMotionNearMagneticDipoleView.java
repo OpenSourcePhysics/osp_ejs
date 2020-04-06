@@ -213,7 +213,7 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
       .setProperty("size","579,685")
       .getObject();
     drawingPanel3D = (org.opensourcephysics.drawing3d.DrawingPanel3D)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlDrawingPanel3D(),"drawingPanel3D")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlDrawingPanel3D(),"drawingPanel3D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","frame")
@@ -234,7 +234,7 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
       .setProperty("decorationType","AXES")
       .getObject();
     trail = (org.opensourcephysics.drawing3d.MultiTrail)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlTrail3D(),"trail")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlTrail3D(),"trail")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","drawingPanel3D")
       .setProperty("inputX","%_model._method_for_trail_inputX()%" )
@@ -243,7 +243,7 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
       .setProperty("lineWidth","2")
       .getObject();
     dipoleArrow = (org.opensourcephysics.drawing3d.ElementArrow)
-      addElement(new org.colos.ejs.library.control.drawing3d.ControlArrow3D(),"dipoleArrow")
+      addElement(new org.opensourcephysics.ejs.control.drawing3d.ControlArrow3D(),"dipoleArrow")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("parent","drawingPanel3D")
       .setProperty("x","0")
