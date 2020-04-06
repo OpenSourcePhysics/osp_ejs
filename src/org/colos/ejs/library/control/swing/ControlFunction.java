@@ -26,7 +26,7 @@ public class ControlFunction extends ControlTextField {
   // Implementation variables
   protected FunctionTextField functionTextField;
   protected String variables;
-  private org.colos.ejs.library.Function theFunction; // For backwards compatibility
+  private org.opensourcephysics.ejs.Function theFunction; // For backwards compatibility
 //  private boolean verbose = false;
 
   protected java.awt.Component createVisual () {
@@ -46,7 +46,7 @@ public class ControlFunction extends ControlTextField {
     variables = "t";
     indVars = new String [] { variables };
     // For backwards compatibility
-    theFunction = new org.colos.ejs.library.Function() {
+    theFunction = new org.opensourcephysics.ejs.Function() {
       public double eval (double x) { return evaluate(x); }
     };
 

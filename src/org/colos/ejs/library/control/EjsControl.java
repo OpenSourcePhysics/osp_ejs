@@ -17,6 +17,7 @@ import javax.swing.event.*;
 import java.net.URL;
 import org.colos.ejs.library.*;
 import org.colos.ejs.library.control.swing.*;
+import org.opensourcephysics.ejs.Function;
 import org.opensourcephysics.ejs.control.value.*;
 import org.colos.ejs.library.utils.LocaleItem;
 import org.opensourcephysics.tools.*;
