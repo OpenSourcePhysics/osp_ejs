@@ -20,7 +20,7 @@ public class VideoUtil {
 
   public void takeSnapshot(Component _component) {}
 
-  public boolean startVideoTool (org.colos.ejs.library.View _view, String _element) { return false; }
+  public boolean startVideoTool (org.opensourcephysics.ejs.EjsView _view, String _element) { return false; }
   
   public void captureVideoImage() {}
   

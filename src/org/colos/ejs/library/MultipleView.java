@@ -10,68 +10,69 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.EjsView;
 
 /**
  * A base interface for the graphical user interface of a simulation
  */
 
-public class MultipleView implements View {
-  private List<View> mViews;
+public class MultipleView implements EjsView {
+  private List<EjsView> mViews;
 
-  public MultipleView(View... views) {
-    mViews = new ArrayList<View>();
-    for (View view: views) mViews.add(view);
+  public MultipleView(EjsView... views) {
+    mViews = new ArrayList<EjsView>();
+    for (EjsView view: views) mViews.add(view);
   }
 
-  public View getFirstView() { return mViews.get(0); }
+  public EjsView getFirstView() { return mViews.get(0); }
 
   /**
    * Clearing any previous data
    */
   public void reset() {
-    for (View view: mViews) view.reset();
+    for (EjsView view: mViews) view.reset();
   }
 
   /**
    * A softer reset. Calling reset makes initialize unnecessary
    */
   public void initialize() {
-    for (View view: mViews) view.initialize();
+    for (EjsView view: mViews) view.initialize();
   }
 
   /**
    * A softer reset. Calling reset makes initialize unnecessary
    */
   public void clearData() {
-    for (View view: mViews) view.clearData();
+    for (EjsView view: mViews) view.clearData();
   }
 
   /**
    * A softer reset. Calling reset makes initialize unnecessary
    */
   public void resetTraces() {
-    for (View view: mViews) view.resetTraces();
+    for (EjsView view: mViews) view.resetTraces();
   }
 
   /**
    * Read current data
    */
   public void read() {
-    for (View view: mViews) view.read();
+    for (EjsView view: mViews) view.read();
   }
 
   /**
    * Read a single variable
    */
   public void read(String variable) {
-    for (View view: mViews) view.read(variable);
+    for (EjsView view: mViews) view.read(variable);
   }
 
   /**
    * Accept data sent and display it
    */
   public void update() {
-    for (View view: mViews) view.update();
+    for (EjsView view: mViews) view.update();
   }
 
   /**
@@ -79,21 +80,21 @@ public class MultipleView implements View {
    * Typically used by drawing panels for rendering
    */
   public void finalUpdate() {
-    for (View view: mViews) view.finalUpdate();
+    for (EjsView view: mViews) view.finalUpdate();
   }
 
   /**
    * Accept data sent but do not graphic work
    */
   public void collectData() {
-    for (View view: mViews) view.collectData();
+    for (EjsView view: mViews) view.collectData();
   }
 
   /**
    * Clean-up when you exit
    */
   public void onExit() {
-    for (View view: mViews) view.onExit();
+    for (EjsView view: mViews) view.onExit();
   }
 
   /**
@@ -102,7 +103,7 @@ public class MultipleView implements View {
    * @param _value boolean
    */
   public void setUpdateSimulation (boolean value) {
-    for (View view: mViews) view.setUpdateSimulation(value);
+    for (EjsView view: mViews) view.setUpdateSimulation(value);
   }
 
   /**
@@ -112,7 +113,7 @@ public class MultipleView implements View {
    * @return The graphical component
    */
   public java.awt.Component getComponent (String _name) {
-    for (View view: mViews) {
+    for (EjsView view: mViews) {
       java.awt.Component component = view.getComponent(_name);
       if (component!=null) return component;
     }
@@ -126,7 +127,7 @@ public class MultipleView implements View {
    * @return The ControlElement
    */
   public ControlElement getElement (String _name) {
-    for (View view: mViews) {
+    for (EjsView view: mViews) {
       ControlElement element = view.getElement(_name);
       if (element!=null) return element;
     }
@@ -140,7 +141,7 @@ public class MultipleView implements View {
    * @return The ControlElement
    */
   public ConfigurableElement getConfigurableElement (String _name) {
-    for (View view: mViews) {
+    for (EjsView view: mViews) {
       ConfigurableElement element = view.getConfigurableElement(_name);
       if (element!=null) return element;
     }
@@ -152,7 +153,7 @@ public class MultipleView implements View {
    * @param variable
    */
   public void blockVariable(String variable) {
-    for (View view: mViews) view.blockVariable(variable);
+    for (EjsView view: mViews) view.blockVariable(variable);
   }
 
   // ---------------------------------------
@@ -166,7 +167,7 @@ public class MultipleView implements View {
    * @param s
    */
   public void println(String s) {
-    for (View view: mViews) view.println(s);
+    for (EjsView view: mViews) view.println(s);
   }
 
   /**
@@ -174,7 +175,7 @@ public class MultipleView implements View {
    * messages in a non-editable text area.
    */
   public void println() {
-    for (View view: mViews) view.println();
+    for (EjsView view: mViews) view.println();
   }
 
   /**
@@ -184,14 +185,14 @@ public class MultipleView implements View {
    * @param s
    */
   public void print(String s) {
-    for (View view: mViews) view.print(s);
+    for (EjsView view: mViews) view.print(s);
   }
 
   /**
    * Clears all text from the control's message area.
    */
   public void clearMessages() {
-    for (View view: mViews) view.clearMessages();
+    for (EjsView view: mViews) view.clearMessages();
   }
 
   //CJB for collaborative
@@ -200,7 +201,7 @@ public class MultipleView implements View {
    */
   public java.util.Vector<ControlElement> getElements() {
     java.util.Vector<ControlElement> elements = new java.util.Vector<ControlElement>();
-    for (View view: mViews) {
+    for (EjsView view: mViews) {
       java.util.Vector<ControlElement> viewElements = view.getElements();
       if (viewElements!=null) elements.addAll(viewElements);
     }

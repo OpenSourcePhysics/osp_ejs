@@ -9,7 +9,7 @@ package motionneardipole;
 // End of imports from Model Elements
 
 
-class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
+class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control.EjsControl implements org.opensourcephysics.ejs.EjsView {
   private ParticleMotionNearMagneticDipoleSimulation _simulation=null;
   private ParticleMotionNearMagneticDipole _model=null;
 

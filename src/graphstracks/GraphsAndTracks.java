@@ -147,7 +147,7 @@ public class GraphsAndTracks extends org.opensourcephysics.ejs.EjsModel {
 
   public GraphsAndTracks (String[] _args) { this (null, null, null,null,_args,true); }
 
-  public GraphsAndTracks (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, org.colos.ejs.library.LauncherApplet _anApplet, String[] _args, boolean _allowAutoplay) {
+  public GraphsAndTracks (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, org.opensourcephysics.ejs.EjsLauncherApplet _anApplet, String[] _args, boolean _allowAutoplay) {
     org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(true);
     __theArguments = _args;
     __theApplet = _anApplet;
@@ -170,7 +170,7 @@ public class GraphsAndTracks extends org.opensourcephysics.ejs.EjsModel {
 
   public String _getClassModelDirectory() { return _getModelDirectory(); }
 
-  public org.colos.ejs.library.View _getView() { return _view; }
+  public org.opensourcephysics.ejs.EjsView _getView() { return _view; }
 
   public org.opensourcephysics.ejs.EjsSimulation _getSimulation() { return _simulation; }
 

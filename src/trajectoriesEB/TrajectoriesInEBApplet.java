@@ -9,7 +9,7 @@ package trajectoriesEB;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-public class TrajectoriesInEBApplet extends org.colos.ejs.library.LauncherApplet {
+public class TrajectoriesInEBApplet extends org.opensourcephysics.ejs.EjsLauncherApplet {
 
   static {
     org.opensourcephysics.display.OSPRuntime.loadTranslatorTool = false;

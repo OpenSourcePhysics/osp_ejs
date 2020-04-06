@@ -4,7 +4,7 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -16,14 +16,12 @@ import javax.swing.RootPaneContainer;
 import javax.swing.WindowConstants;
 
 import org.opensourcephysics.display.DrawingFrame;
-import org.opensourcephysics.ejs.EjsModel;
-import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.tools.ResourceLoader;
 
 /**
  * A utility class to launch simulations as applets
  */
-public abstract class LauncherApplet extends JApplet {
+public abstract class EjsLauncherApplet extends JApplet {
 	private static final long serialVersionUID = 1L;
 
 	private JFrame _parentFrame = null;
@@ -31,13 +29,13 @@ public abstract class LauncherApplet extends JApplet {
 
 	public EjsModel _model = null;
 	public EjsSimulation _simulation = null;
-	public View _view = null;
+	public EjsView _view = null;
 
 	static {
 		org.opensourcephysics.display.OSPRuntime.appletMode = true;
 	}
 
-	public LauncherApplet() {
+	public EjsLauncherApplet() {
 		super();
 		org.opensourcephysics.display.OSPRuntime.applet = this;
 	}

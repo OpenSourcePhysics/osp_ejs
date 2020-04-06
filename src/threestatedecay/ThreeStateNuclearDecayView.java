@@ -9,7 +9,7 @@ import static org.colos.ejs.library.control.swing.ControlSwingElement.SIMPLE_DOC
 
 import java.awt.Color;
 
-class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
+class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsControl implements org.opensourcephysics.ejs.EjsView {
   private ThreeStateNuclearDecaySimulation _simulation=null;
   private ThreeStateNuclearDecay _model=null;
 

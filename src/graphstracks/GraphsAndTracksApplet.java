@@ -11,7 +11,7 @@ import org.opensourcephysics.display.OSPRuntime;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-public class GraphsAndTracksApplet extends org.colos.ejs.library.LauncherApplet {
+public class GraphsAndTracksApplet extends org.opensourcephysics.ejs.EjsLauncherApplet {
 
   static {
     org.opensourcephysics.display.OSPRuntime.loadTranslatorTool = false;

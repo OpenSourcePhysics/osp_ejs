@@ -4,15 +4,16 @@
  * @author F. Esquembre (http://fem.um.es).
  */
 
-package org.colos.ejs.library;
+package org.opensourcephysics.ejs;
 
+import org.colos.ejs.library.ConfigurableElement;
 import org.colos.ejs.library.control.ControlElement;
 
 /**
  * A base interface for the graphical user interface of a simulation
  */
 
-public interface View {
+public interface EjsView {
 
  /**
   * Clearing any previous data

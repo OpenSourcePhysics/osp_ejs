@@ -13,9 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.colos.ejs.library.DelayedAction;
-import org.colos.ejs.library.LauncherApplet;
 import org.colos.ejs.library.MultipleView;
-import org.colos.ejs.library.View;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
 import org.colos.ejs.library.control.swing.ControlWindow;
@@ -58,7 +56,7 @@ public abstract class EjsAnimation implements java.lang.Runnable, StateMachine {
 
 	// Relation with the simulation parts
 	protected EjsModel model = null;
-	protected View view = null;
+	protected EjsView view = null;
 
 	// Variables for clones
 	protected EjsAnimation master = null;
@@ -78,7 +76,7 @@ public abstract class EjsAnimation implements java.lang.Runnable, StateMachine {
 
 	final public void setModel(EjsModel _aModel) {
 		model = _aModel;
-		LauncherApplet applet = model._getApplet();
+		EjsLauncherApplet applet = model._getApplet();
 //    System.out.println ("Setting the model : applet = "+applet);
 //    System.out.println ("parameter _initialState = "+applet.getParameter("initialState")); 
 		if (applet != null) {
@@ -103,13 +101,13 @@ public abstract class EjsAnimation implements java.lang.Runnable, StateMachine {
 		}
 	}
 
-	final public View getView() {
+	final public EjsView getView() {
 		if (view instanceof MultipleView)
 			return ((MultipleView) view).getFirstView();
 		return view;
 	}
 
-	final public void setView(View _aView) {
+	final public void setView(EjsView _aView) {
 		view = _aView;
 	}
 

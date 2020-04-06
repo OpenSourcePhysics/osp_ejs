@@ -11,7 +11,7 @@ import org.opensourcephysics.numerics.*;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-public class GyroscopeApplet extends org.colos.ejs.library.LauncherApplet {
+public class GyroscopeApplet extends org.opensourcephysics.ejs.EjsLauncherApplet {
 
   static {
     org.opensourcephysics.display.OSPRuntime.loadTranslatorTool = false;

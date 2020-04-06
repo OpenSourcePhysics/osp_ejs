@@ -10,7 +10,7 @@ import org.colos.ejs.library._EjsConstants;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-public class ThreeStateNuclearDecayApplet extends org.colos.ejs.library.LauncherApplet {
+public class ThreeStateNuclearDecayApplet extends org.opensourcephysics.ejs.EjsLauncherApplet {
 
   static {
     org.opensourcephysics.display.OSPRuntime.loadTranslatorTool = false;

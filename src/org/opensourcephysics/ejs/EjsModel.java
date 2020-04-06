@@ -20,9 +20,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.colos.ejs.library.Input;
-import org.colos.ejs.library.LauncherApplet;
 import org.colos.ejs.library.Memory;
-import org.colos.ejs.library.View;
 import org.colos.ejs.library.utils.TranslatorUtil;
 import org.opensourcephysics.display.OSPRuntime;
 
@@ -31,7 +29,7 @@ public abstract class EjsModel { // implements ExternalClient {
 	static private GraphicsConfiguration __graphicConfiguration = null;
 
 	protected String[] __theArguments = null;
-	protected LauncherApplet __theApplet = null;
+	protected EjsLauncherApplet __theApplet = null;
 	public org.opensourcephysics.tools.ToolForData _tools = org.opensourcephysics.tools.ToolForData.getTool(); // Table,
 																												// Data,
 																												// and
@@ -109,9 +107,9 @@ public abstract class EjsModel { // implements ExternalClient {
 	// Abstract methods
 	// --------------------------------------------------------
 
-	abstract public View _getView();
+	abstract public EjsView _getView();
 
-	public View getView() {
+	public EjsView getView() {
 		return _getView();
 	} // backwards compatibility
 
@@ -181,7 +179,7 @@ public abstract class EjsModel { // implements ExternalClient {
 
 	// --- Utilities ---
 
-	public LauncherApplet _getApplet() {
+	public EjsLauncherApplet _getApplet() {
 		return __theApplet;
 	}
 

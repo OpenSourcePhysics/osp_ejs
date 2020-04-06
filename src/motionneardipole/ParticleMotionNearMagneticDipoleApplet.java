@@ -11,7 +11,7 @@ import org.opensourcephysics.numerics.Matrix3DTransformation;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-public class ParticleMotionNearMagneticDipoleApplet extends org.colos.ejs.library.LauncherApplet {
+public class ParticleMotionNearMagneticDipoleApplet extends org.opensourcephysics.ejs.EjsLauncherApplet {
 
   static {
     org.opensourcephysics.display.OSPRuntime.loadTranslatorTool = false;

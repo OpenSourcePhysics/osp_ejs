@@ -9,6 +9,9 @@ package trajectoriesEB;
 // End of imports from Model Elements
 
 import javax.swing.event.*;
+
+import org.opensourcephysics.ejs.EjsView;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -17,9 +20,7 @@ import java.util.*;
 import java.io.*;
 import java.lang.*;
 
-import org.colos.ejs.library.View;
-
-class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
+class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl implements org.opensourcephysics.ejs.EjsView {
   private TrajectoriesInEBSimulation _simulation=null;
   private TrajectoriesInEB _model=null;
 

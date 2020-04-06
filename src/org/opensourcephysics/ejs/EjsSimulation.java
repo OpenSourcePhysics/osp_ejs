@@ -83,7 +83,6 @@ import javax.swing.event.HyperlinkListener;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.html.HTMLEditorKit;
 
-import org.colos.ejs.library.LauncherApplet;
 import org.colos.ejs.library.Memory;
 import org.colos.ejs.library.MoodleLink;
 import org.colos.ejs.library.control.ControlElement;
@@ -1384,8 +1383,8 @@ public abstract class EjsSimulation extends EjsAnimation implements LocaleListen
 	 * 
 	 * @return true if teh applet is non-null
 	 */
-	public LauncherApplet initMoodle() {
-		LauncherApplet applet = model._getApplet();
+	public EjsLauncherApplet initMoodle() {
+		EjsLauncherApplet applet = model._getApplet();
 		if (applet == null)
 			return null;
 		try {// FKH 20060417
@@ -1410,7 +1409,7 @@ public abstract class EjsSimulation extends EjsAnimation implements LocaleListen
 	// connection
 	// Search also for FKH in Model.java
 
-	private LauncherApplet javascriptControledApplet = null;
+	private EjsLauncherApplet javascriptControledApplet = null;
 
 	private boolean javascriptControlMode() {
 		return false;
@@ -2201,7 +2200,7 @@ public abstract class EjsSimulation extends EjsAnimation implements LocaleListen
 // --------------------------------------------------------
 
 	public void processArguments(String[] _args) {
-		LauncherApplet applet = model._getApplet();
+		EjsLauncherApplet applet = model._getApplet();
 		boolean stateRead = false;
 		if (applet != null) {
 			try {

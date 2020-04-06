@@ -8,7 +8,7 @@ package massandspring;
 
 import static org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT;
 
-class MassAndSpringView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
+class MassAndSpringView extends org.colos.ejs.library.control.EjsControl implements org.opensourcephysics.ejs.EjsView {
   private MassAndSpringSimulation _simulation=null;
   private MassAndSpring _model=null;
 

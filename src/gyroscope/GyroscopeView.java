@@ -7,7 +7,7 @@ package gyroscope;
 
 
 import org.colos.ejs.library._EjsConstants;
-
+import org.opensourcephysics.ejs.EjsView;
 import org.opensourcephysics.numerics.*;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
@@ -21,9 +21,7 @@ import java.util.*;
 import java.io.*;
 import java.lang.*;
 
-import org.colos.ejs.library.View;
-
-class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
+class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements org.opensourcephysics.ejs.EjsView {
   private GyroscopeSimulation _simulation=null;
   private Gyroscope _model=null;
 

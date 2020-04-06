@@ -7,7 +7,7 @@ package graphstracks;
 
 import java.awt.Color;
 
-class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
+class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl implements org.opensourcephysics.ejs.EjsView {
   private GraphsAndTracksSimulation _simulation=null;
   private GraphsAndTracks _model=null;
 
