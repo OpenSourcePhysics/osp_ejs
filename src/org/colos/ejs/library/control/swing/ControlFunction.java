@@ -7,10 +7,15 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.opensourcephysics.ejs.control.value.*;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import org.opensourcephysics.ejs.control.value.ParserSuryono;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.numerics.MathExpParser;
 import org.opensourcephysics.numerics.SuryonoParser;
-import java.util.*;
 
 /**
  * A text field that is able to evaluate analytic expression

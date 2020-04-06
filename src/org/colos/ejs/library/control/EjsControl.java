@@ -7,22 +7,53 @@
 
 package org.colos.ejs.library.control;
 
-import java.util.*;
-import java.awt.*;
-import java.io.File;
-
-import javax.swing.*;
-import javax.swing.event.*;
-
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dialog;
+import java.awt.Frame;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Window;
 import java.net.URL;
-import org.colos.ejs.library.*;
-import org.colos.ejs.library.control.swing.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.Vector;
+
+import javax.swing.Icon;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
+
+import org.colos.ejs.library.ConfigurableElement;
+import org.colos.ejs.library.control.swing.ControlContainer;
+import org.colos.ejs.library.control.swing.ControlDialog;
+import org.colos.ejs.library.control.swing.ControlDrawable;
+import org.colos.ejs.library.control.swing.ControlParentOfDrawables;
+import org.colos.ejs.library.control.swing.ControlWindow;
+import org.colos.ejs.library.utils.LocaleItem;
+import org.opensourcephysics.desktop.OSPDesktop;
 import org.opensourcephysics.ejs.EjsSimulation;
 import org.opensourcephysics.ejs.Function;
-import org.opensourcephysics.ejs.control.value.*;
-import org.colos.ejs.library.utils.LocaleItem;
-import org.opensourcephysics.tools.*;
-import org.opensourcephysics.desktop.OSPDesktop;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.tools.Resource;
+import org.opensourcephysics.tools.ResourceLoader;
 
 /**
  * A base class to group several ControlElements, connect them

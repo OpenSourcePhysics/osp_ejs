@@ -9,10 +9,14 @@
 package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.displayejs.InteractivePoligon;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.GeneralParser;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ParserAndVariables;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An analytic curve

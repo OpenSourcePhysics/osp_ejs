@@ -7,12 +7,27 @@
 
 package org.colos.ejs.library.control.displayejs;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Paint;
+import java.awt.Stroke;
+
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.Function;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.displayejs.*;
-import java.awt.*;
+import org.opensourcephysics.displayejs.AbstractInteractiveElement;
+import org.opensourcephysics.displayejs.ElementSet;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionListener;
+import org.opensourcephysics.displayejs.InteractionTargetElementSize;
+import org.opensourcephysics.displayejs.InteractionTargetSetElement;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.Resolution;
+import org.opensourcephysics.displayejs.Style;
+import org.opensourcephysics.ejs.Function;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An interactive set of particles

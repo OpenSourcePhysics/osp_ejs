@@ -7,23 +7,27 @@
 
 package org.colos.ejs.library.control.swing;
 
+import java.awt.Cursor;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.EjsSimulation;
-import org.opensourcephysics.ejs.control.value.*;
-
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display.Interactive;
+import org.opensourcephysics.display.InteractiveMouseHandler;
+import org.opensourcephysics.display.InteractivePanel;
+import org.opensourcephysics.displayejs.HasDataObjectInterface;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionSource;
 import org.opensourcephysics.displayejs.InteractionTarget;
 import org.opensourcephysics.displayejs.Point3D;
-import org.opensourcephysics.displayejs.InteractionEvent;
-import org.opensourcephysics.displayejs.HasDataObjectInterface;
-import org.opensourcephysics.displayejs.InteractionSource;
-
 import org.opensourcephysics.drawing2d.DrawingPanel2D;
-
-import org.opensourcephysics.display.*;
-
-import java.awt.Cursor;
-import java.awt.event.*;
+import org.opensourcephysics.ejs.EjsSimulation;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 
 /**

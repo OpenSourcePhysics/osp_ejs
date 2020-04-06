@@ -8,10 +8,11 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display2d.TriangularBinaryLattice;
-import org.opensourcephysics.display.Drawable;
 import java.awt.Color;
+
+import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.display2d.TriangularBinaryLattice;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlTriangularBinaryLattice extends ControlDrawable2D {
   static private final int TRIANGULAR_BINARY_LATTICE_ADDED = 8;

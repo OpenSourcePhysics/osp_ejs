@@ -8,9 +8,10 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementShape;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * Abstract superclass for display3d Elements (children of ControlElements3DParent)

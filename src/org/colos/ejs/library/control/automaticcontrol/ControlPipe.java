@@ -8,9 +8,10 @@
 package org.colos.ejs.library.control.automaticcontrol;
 
 import org.colos.ejs.library.control.displayejs.ControlPoligon;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.automaticcontrol.*;
+import org.opensourcephysics.automaticcontrol.Pipe;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An interactive particle

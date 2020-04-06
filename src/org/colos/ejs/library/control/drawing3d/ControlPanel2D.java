@@ -11,19 +11,20 @@ package org.colos.ejs.library.control.drawing3d;
 
 import java.awt.Color;
 import java.util.Vector;
+
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.NeedsFinalUpdate;
 import org.colos.ejs.library.control.NeedsUpdate;
 import org.colos.ejs.library.control.swing.ControlDrawable;
 import org.colos.ejs.library.control.swing.ControlParentOfDrawables;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.drawing2d.DrawingPanel2D;
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementPanel2D;
+import org.opensourcephysics.ejs.control.value.Value;
 
 
 public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, NeedsFinalUpdate, ControlParentOfDrawables {

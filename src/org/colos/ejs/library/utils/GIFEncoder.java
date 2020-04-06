@@ -5,9 +5,11 @@
 // package com.gurge.amd;
 package org.colos.ejs.library.utils;
 
-import java.io.*;
-import java.awt.*;
-import java.awt.image.*;
+import java.awt.AWTException;
+import java.awt.Image;
+import java.awt.image.PixelGrabber;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * GIFEncoder is a class which takes an image and saves it to a stream

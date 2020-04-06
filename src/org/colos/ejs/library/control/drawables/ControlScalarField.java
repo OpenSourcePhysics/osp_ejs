@@ -8,13 +8,25 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.colos.ejs.library.control.swing.*;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display.DrawingPanel;
-import org.opensourcephysics.display2d.*;
-
 import java.awt.Color;
-import javax.swing.*;
+
+import javax.swing.AbstractAction;
+import javax.swing.WindowConstants;
+
+import org.colos.ejs.library.control.swing.ControlDrawablesParent;
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display2d.ColorMapper;
+import org.opensourcephysics.display2d.ContourPlot;
+import org.opensourcephysics.display2d.GridPlot;
+import org.opensourcephysics.display2d.GridPointData;
+import org.opensourcephysics.display2d.GridTableFrame;
+import org.opensourcephysics.display2d.InterpolatedPlot;
+import org.opensourcephysics.display2d.Plot2D;
+import org.opensourcephysics.display2d.SurfacePlot;
+import org.opensourcephysics.display2d.SurfacePlotMouseController;
+import org.opensourcephysics.display2d.TestData;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlScalarField extends ControlDrawable2D implements org.colos.ejs.library.control.swing.NeedsPreUpdate {
   static private final int SCALAR_FIELD_ADDED = 19;

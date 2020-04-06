@@ -9,11 +9,15 @@ package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
 //import org.colos.ejs.library.control.ControlElement;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractiveSurface;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.GeneralParser;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ParserAndVariables;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An analytic surface

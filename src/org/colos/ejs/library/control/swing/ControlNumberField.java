@@ -7,14 +7,16 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.ConstantParser;
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 import java.awt.Color;
+import java.text.DecimalFormat;
+
 import javax.swing.JTextField;
 import javax.swing.text.Document;
 
-import java.text.DecimalFormat;
+import org.colos.ejs.library.control.ConstantParser;
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A textfield to display double values. When this value changes,

@@ -7,14 +7,20 @@
 
 package org.colos.ejs.library.control.displayejs;
 
+import java.awt.Color;
+
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionTargetElementSize;
+import org.opensourcephysics.displayejs.InteractionTargetPoligonMovingPoint;
+import org.opensourcephysics.displayejs.InteractionTargetPoligonPoint;
+import org.opensourcephysics.displayejs.InteractivePoligon;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.tools.ToolForData;
-
-import java.awt.Color;
 
 
 /**

@@ -7,14 +7,16 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
-import java.awt.*;
-//import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
+import java.awt.Color;
+
 import org.opensourcephysics.display2d.VectorColorMapper;
 import org.opensourcephysics.drawing2d.Style;
-import org.opensourcephysics.drawing3d.VectorField;
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementArrow;
+import org.opensourcephysics.drawing3d.VectorField;
+//import org.colos.ejs.library.control.swing.NeedsPreUpdate;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A simpler API for ControlVectorField3D

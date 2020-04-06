@@ -7,11 +7,13 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-
 import java.awt.Color;
+
 import javax.swing.JPasswordField;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A password field to enter passwords. When this value changes,

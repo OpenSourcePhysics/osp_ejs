@@ -7,15 +7,22 @@
 
 package org.colos.ejs.library.control.swing;
 
-import java.util.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Point;
+import java.awt.Window;
+import java.util.ArrayList;
 
-import javax.swing.*;
-import javax.swing.text.Document;
+import javax.swing.JComponent;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
  /**
   * <code>ControlSwingElement</code> is a base class for an object that

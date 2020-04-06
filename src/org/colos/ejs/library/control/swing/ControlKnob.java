@@ -9,9 +9,12 @@ package org.colos.ejs.library.control.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.drawing2d.ControlElement2D;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.swing.Knob;
 
 /**

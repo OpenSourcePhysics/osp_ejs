@@ -7,10 +7,10 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.opensourcephysics.ejs.control.value.*;
-
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable Label. It has no internal value, nor can trigger

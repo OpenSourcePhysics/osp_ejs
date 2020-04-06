@@ -11,10 +11,18 @@
 
 package org.colos.ejs.library.utils;
 
-import java.awt.*;
-import java.io.*;
-import java.text.*;
-import java.util.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.PrintJob;
+import java.awt.Toolkit;
+import java.io.Writer;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Properties;
+import java.util.TimeZone;
 
 /**
  * A character output stream that sends output to a printer.

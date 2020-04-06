@@ -8,9 +8,13 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.display2d.*;
 import java.awt.Color;
+
+import org.opensourcephysics.display2d.ColorMapper;
+import org.opensourcephysics.display2d.ContourPlot;
+import org.opensourcephysics.display2d.GridPointData;
+import org.opensourcephysics.display2d.TestData;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlContourPlot extends ControlDrawable2D {
   protected ContourPlot plot;

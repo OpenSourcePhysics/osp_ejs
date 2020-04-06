@@ -7,9 +7,10 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.AbstractInteractiveTile;
 import java.awt.Paint;
+
+import org.opensourcephysics.displayejs.AbstractInteractiveTile;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public abstract class ControlInteractiveTile extends ControlInteractiveElement {
   static final public int PROPERTIES_ADDED=7;

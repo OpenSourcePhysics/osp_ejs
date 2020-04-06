@@ -7,16 +7,20 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.*;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display.DataRowModel;
-import org.opensourcephysics.display.OSPRuntime;
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
+import java.util.StringTokenizer;
 
 import javax.swing.JTable;
+
+import org.colos.ejs.library.control.DataCollector;
+import org.colos.ejs.library.control.NeedsFinalUpdate;
+import org.colos.ejs.library.control.NeedsUpdate;
+import org.colos.ejs.library.control.Resetable;
+import org.opensourcephysics.display.DataRowModel;
+import org.opensourcephysics.display.OSPRuntime;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 
 /**

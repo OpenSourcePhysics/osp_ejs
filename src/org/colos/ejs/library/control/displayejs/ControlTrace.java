@@ -8,12 +8,13 @@
 package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.IntegerValue;
-import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;
-import org.opensourcephysics.tools.*;
+import org.opensourcephysics.displayejs.InteractiveParticle;
+import org.opensourcephysics.displayejs.InteractiveTrace;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.tools.ToolForData;
 
 /**
  * An interactive particle

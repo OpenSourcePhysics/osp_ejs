@@ -8,11 +8,12 @@
 package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
-
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractiveSurface;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlSurface extends ControlInteractiveTile {
   static final int PROPERTIES_SURFACE=PROPERTIES_ADDED+1;

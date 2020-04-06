@@ -10,14 +10,15 @@ package org.colos.ejs.library.control.swing;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display.OSPRuntime;
-
 import javax.swing.JDialog;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.display.OSPRuntime;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable Dialog.

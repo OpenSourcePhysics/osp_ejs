@@ -7,12 +7,16 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-
-import javax.swing.*;
-
 import java.awt.Color;
+
+import javax.swing.Icon;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable control button. It will trigger an action when clicked.

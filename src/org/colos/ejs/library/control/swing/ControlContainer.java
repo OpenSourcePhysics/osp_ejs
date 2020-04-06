@@ -8,7 +8,6 @@
 package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * A configurable Container

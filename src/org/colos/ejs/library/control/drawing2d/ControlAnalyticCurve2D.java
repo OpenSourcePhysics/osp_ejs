@@ -8,12 +8,18 @@
 
 package org.colos.ejs.library.control.drawing2d;
 
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.drawing2d.*;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.drawing2d.ElementPolygon;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.GeneralParser;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ParserAndVariables;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An analytic curve

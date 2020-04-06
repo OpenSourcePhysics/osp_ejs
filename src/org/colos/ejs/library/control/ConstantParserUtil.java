@@ -7,8 +7,9 @@
 
 package org.colos.ejs.library.control;
 
-import java.util.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.StringTokenizer;
 
 /**
  * This class provides static methods that parse a string and return

@@ -6,8 +6,10 @@
 
 package org.colos.ejs.library.control.drawing2d;
 
+import org.opensourcephysics.drawing2d.Element;
+import org.opensourcephysics.drawing2d.ElementShape;
+import org.opensourcephysics.drawing2d.Style;
 import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.drawing2d.*;
 
 /**
  * A set of arrows

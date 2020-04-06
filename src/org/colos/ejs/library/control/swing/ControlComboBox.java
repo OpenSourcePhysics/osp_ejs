@@ -7,11 +7,14 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 import java.awt.Color;
 import java.util.StringTokenizer;
+
 import javax.swing.JComboBox;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A combobox to display string options. When the selected option changes,

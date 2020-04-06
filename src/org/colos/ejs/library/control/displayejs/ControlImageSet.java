@@ -7,15 +7,19 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
-import org.opensourcephysics.display.Drawable;
+import java.awt.Image;
+import java.awt.image.CropImageFilter;
+import java.awt.image.FilteredImageSource;
+import java.awt.image.ImageObserver;
 //import misc.SplitImage;//FKH20060727
 import java.awt.image.ImageProducer;//FKH20060727
-import java.awt.Image;
-import java.awt.image.ImageObserver;
-import java.awt.image.FilteredImageSource;
-import java.awt.image.CropImageFilter;
+
+import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.ElementSet;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.InteractiveImage;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 /**
  * An interactive set of particles
  */

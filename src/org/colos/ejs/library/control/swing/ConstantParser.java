@@ -7,12 +7,21 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.opensourcephysics.ejs.control.value.*;
-
-import java.util.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.StringTokenizer;
 
 import javax.swing.SwingConstants;
+
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * This class provides static methods that parse a string and return

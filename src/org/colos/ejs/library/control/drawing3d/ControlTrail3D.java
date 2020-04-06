@@ -8,10 +8,10 @@
 package org.colos.ejs.library.control.drawing3d;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementTrail;
 import org.opensourcephysics.drawing3d.MultiTrail;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.tools.ToolForData;
 
 /**

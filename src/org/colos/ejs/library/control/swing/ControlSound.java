@@ -7,9 +7,9 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.opensourcephysics.ejs.control.value.*;
+import java.applet.AudioClip;
 
-import java.applet.*;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An element to play sound according to the state of an internal

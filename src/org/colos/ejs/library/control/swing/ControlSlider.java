@@ -7,14 +7,16 @@
 
 package org.colos.ejs.library.control.swing;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.text.DecimalFormat;
 
 import javax.swing.SwingConstants;
 
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A slider to display double values. When the value is changing it

@@ -10,8 +10,9 @@ package org.colos.ejs.library.control.drawing3d.utils;
 
 import org.opensourcephysics.drawing3d.utils.transformations.AxisRotation;
 import org.opensourcephysics.drawing3d.utils.transformations.CustomAxisRotation;
-import org.opensourcephysics.numerics.*;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.numerics.Matrix3DTransformation;
+import org.opensourcephysics.numerics.Transformation;
 
 /**
  * Superclass for 3D transformations of elements (children of ControlElements3D)

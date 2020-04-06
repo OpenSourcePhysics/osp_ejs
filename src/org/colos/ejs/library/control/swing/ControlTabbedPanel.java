@@ -9,13 +9,14 @@ package org.colos.ejs.library.control.swing;
 
 import java.util.StringTokenizer;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurabel TabbedPanel

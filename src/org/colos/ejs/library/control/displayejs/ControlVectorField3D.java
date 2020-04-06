@@ -7,12 +7,16 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
-import java.awt.Color;
-import org.opensourcephysics.display.Drawable;
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Stroke;
+
+import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractiveArrow;
+import org.opensourcephysics.displayejs.Style;
+import org.opensourcephysics.displayejs.VectorField3D;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlVectorField3D extends ControlDrawable3D {
   static private final int VFIELD_ADDED = 13;

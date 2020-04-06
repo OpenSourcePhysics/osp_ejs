@@ -8,9 +8,9 @@
 package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractiveBox;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlBox extends ControlInteractiveTile {
   static final int PROPERTIES_BOX=PROPERTIES_ADDED+2;

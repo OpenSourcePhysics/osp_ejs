@@ -8,8 +8,9 @@
 package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.displayejs.GroupDrawable;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public abstract class ControlGroupDrawable extends ControlDrawable3D {
   static protected final int GROUPDRAWABLE_ADDED= 12;

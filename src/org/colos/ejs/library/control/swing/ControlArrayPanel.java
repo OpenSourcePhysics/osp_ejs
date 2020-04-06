@@ -14,10 +14,13 @@ import java.util.StringTokenizer;
 
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
+
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.EjsArrayPanel;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable Label. It has no internal value, nor can trigger

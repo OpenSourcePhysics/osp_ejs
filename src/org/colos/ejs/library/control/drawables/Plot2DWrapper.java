@@ -8,11 +8,14 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.opensourcephysics.display2d.*;
-import javax.swing.JFrame;
 import java.awt.Color;
-import org.opensourcephysics.display.DrawingPanel;
 import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display2d.GridData;
+import org.opensourcephysics.display2d.Plot2D;
 
 /**
  * A wrapper for a plot2D that changes in run-time

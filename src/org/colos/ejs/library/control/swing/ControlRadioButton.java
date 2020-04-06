@@ -7,11 +7,12 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-
-import javax.swing.JRadioButton;
 import javax.swing.AbstractButton;
+import javax.swing.JRadioButton;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable checkbox. It will trigger an action when the

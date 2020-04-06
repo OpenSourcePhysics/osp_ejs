@@ -10,13 +10,13 @@ package org.colos.ejs.library.control.swing;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display.OSPRuntime;
-
-import javax.swing.JRootPane;
 import javax.swing.JMenuBar;
+import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.display.OSPRuntime;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable RootPane. This is as a substitute for JFrame

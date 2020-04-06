@@ -8,9 +8,10 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.InteractiveSpring;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlSpring extends ControlInteractiveElement {
   static private final int SPRING_ADDED = 3;

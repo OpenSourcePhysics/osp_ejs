@@ -8,8 +8,8 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.display.*;
+import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * The interface that all parents of Drawables must implement

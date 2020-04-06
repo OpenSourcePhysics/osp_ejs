@@ -7,14 +7,17 @@
 
 package org.colos.ejs.library.control.swing;
 
-import javax.swing.border.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.text.DecimalFormat;
+import java.util.Dictionary;
+import java.util.Enumeration;
+
 import javax.swing.JSlider;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 
 import org.colos.ejs.library.control.ConstantParser;
-
-import java.text.DecimalFormat;
-import java.awt.*;
-import java.util.*;
 
 /**
  * A slider to display double values. 

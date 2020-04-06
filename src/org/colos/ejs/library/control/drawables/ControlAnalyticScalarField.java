@@ -8,9 +8,13 @@
 package org.colos.ejs.library.control.drawables;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.GeneralParser;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ParserAndVariables;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A set of arrows that implements a simpler 2D vector field

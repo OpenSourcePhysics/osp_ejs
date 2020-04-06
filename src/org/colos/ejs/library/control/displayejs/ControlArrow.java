@@ -8,9 +8,11 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.Drawable;
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.displayejs.InteractiveArrow;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlArrow extends ControlInteractiveElement {
 

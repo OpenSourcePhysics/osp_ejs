@@ -6,8 +6,11 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.drawing3d.*;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementPolygon;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A set of Polygons

@@ -8,11 +8,13 @@
 
 package org.colos.ejs.library.control.drawables;
 
+import java.awt.Color;
+
 import org.colos.ejs.library.control.swing.ControlDrawable;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.ComplexDataset;
 import org.opensourcephysics.display.Drawable;
-import java.awt.Color;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlComplexDataset extends ControlDrawable implements org.colos.ejs.library.control.swing.NeedsPreUpdate,
                                                                  org.colos.ejs.library.control.Resetable,

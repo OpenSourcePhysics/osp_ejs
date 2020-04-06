@@ -8,8 +8,8 @@
 package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * Abstract superclass for Drawables (children of ControlDrawableParent)

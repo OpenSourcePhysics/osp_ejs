@@ -7,10 +7,13 @@
 
 package org.colos.ejs.library.control;
 
-import java.util.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.util.StringTokenizer;
 
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * This class provides static methods that parse a string and return

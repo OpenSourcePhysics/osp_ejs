@@ -9,7 +9,7 @@ package org.colos.ejs.library.utils;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.JMenu;
 
 import org.opensourcephysics.ejs.EjsSimulation;
 

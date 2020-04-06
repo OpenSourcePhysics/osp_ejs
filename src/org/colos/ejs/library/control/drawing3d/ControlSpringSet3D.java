@@ -6,8 +6,9 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.drawing3d.*;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementSpring;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A set of Springs

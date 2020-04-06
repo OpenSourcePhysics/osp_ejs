@@ -8,8 +8,9 @@
 package org.colos.ejs.library.control.swing;
 
 import java.awt.event.MouseEvent;
-import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
+
 import org.opensourcephysics.drawing2d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
 
 /**
  * Used to delay the update of the target when the simulation is running

@@ -7,13 +7,21 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.colos.ejs.library.control.swing.*;
-import org.opensourcephysics.ejs.control.value.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Stroke;
 
-import java.awt.*;
-import org.opensourcephysics.displayejs.*;
+import org.colos.ejs.library.control.swing.ControlDrawable;
+import org.colos.ejs.library.control.swing.ControlDrawablesParent;
+import org.colos.ejs.library.control.swing.NeedsPreUpdate;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.displayejs.ElementSet;
+import org.opensourcephysics.displayejs.InteractiveArrow;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.Style;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A set of arrows that implements a simpler 2D vector field

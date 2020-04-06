@@ -7,10 +7,11 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.opensourcephysics.ejs.control.value.*;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable panel. It has no internal value, nor can trigger

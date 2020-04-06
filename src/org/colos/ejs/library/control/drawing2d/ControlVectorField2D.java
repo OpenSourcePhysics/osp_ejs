@@ -7,12 +7,16 @@
 
 package org.colos.ejs.library.control.drawing2d;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
 import org.opensourcephysics.display2d.VectorColorMapper;
-import org.opensourcephysics.drawing2d.*;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.drawing2d.Element;
+import org.opensourcephysics.drawing2d.ElementArrow;
+import org.opensourcephysics.drawing2d.Style;
+import org.opensourcephysics.drawing2d.VectorField;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A group of arrows that implements a simpler 2D vector field

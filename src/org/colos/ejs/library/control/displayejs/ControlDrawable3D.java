@@ -8,8 +8,13 @@
 package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.swing.ControlDrawable;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.displayejs.InteractiveParticle;
+import org.opensourcephysics.displayejs.InteractiveTrace;
+import org.opensourcephysics.displayejs.Resolution;
+import org.opensourcephysics.displayejs.Style;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  *

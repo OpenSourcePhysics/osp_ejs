@@ -7,11 +7,12 @@
 
 package org.colos.ejs.library.control.swing;
 
-//import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-
-import javax.swing.border.*;
 import javax.swing.JTextArea;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+//import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable text. It has no internal value, nor can trigger

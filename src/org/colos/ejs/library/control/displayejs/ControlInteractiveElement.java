@@ -7,12 +7,22 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.displayejs.*;
-import java.awt.Stroke;
 import java.awt.BasicStroke;
+import java.awt.Stroke;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.display.DisplayColors;
+import org.opensourcephysics.displayejs.AbstractInteractiveElement;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionListener;
+import org.opensourcephysics.displayejs.InteractionTargetElementSize;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.Resolution;
+import org.opensourcephysics.displayejs.Style;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public abstract class ControlInteractiveElement extends ControlDrawable3D implements InteractionListener {
   static public final int IE_ADDED = 31;

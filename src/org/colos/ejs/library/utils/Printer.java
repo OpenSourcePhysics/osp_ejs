@@ -6,7 +6,8 @@
 
 package org.colos.ejs.library.utils;
 
-import java.awt.*;
+import java.awt.Frame;
+import java.awt.Rectangle;
 import java.io.PrintWriter;
 
 /**

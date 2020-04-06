@@ -8,9 +8,12 @@
 package org.colos.ejs.library.control.drawing3d;
 
 import java.awt.Color;
+
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.drawing3d.*;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementArrow;
+import org.opensourcephysics.drawing3d.Group;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A set of arrows that implements a 3D vector field

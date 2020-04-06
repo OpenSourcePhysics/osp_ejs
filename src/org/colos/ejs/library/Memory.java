@@ -6,7 +6,7 @@
 
 package org.colos.ejs.library;
 
-import java.util.*;
+import java.util.Hashtable;
 
 /**
  * A base class to store and retrieve data

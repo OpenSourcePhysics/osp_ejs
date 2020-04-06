@@ -8,10 +8,11 @@
 package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.displayejs.InteractiveCylinder;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlCylinder extends ControlInteractiveTile {
   static final int PROPERTIES_CYLINDER=PROPERTIES_ADDED+10;

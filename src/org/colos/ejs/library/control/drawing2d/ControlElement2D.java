@@ -10,12 +10,23 @@ package org.colos.ejs.library.control.drawing2d;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.geom.AffineTransform;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.drawing2d.*;
-import org.opensourcephysics.drawing2d.interaction.*;
-import org.colos.ejs.library.control.*;
-import org.colos.ejs.library.control.swing.*;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.drawing2d.Element;
+import org.opensourcephysics.drawing2d.ElementArrow;
+import org.opensourcephysics.drawing2d.ElementShape;
+import org.opensourcephysics.drawing2d.Style;
+import org.opensourcephysics.drawing2d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing2d.interaction.InteractionListener;
+import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.InterpretedValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public abstract class ControlElement2D extends org.colos.ejs.library.control.swing.ControlDrawable 
                                        implements InteractionListener {

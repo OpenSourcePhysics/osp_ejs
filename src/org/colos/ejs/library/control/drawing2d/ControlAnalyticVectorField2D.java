@@ -9,7 +9,11 @@ package org.colos.ejs.library.control.drawing2d;
 
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.GeneralParser;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ParserAndVariables;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An analytic vector field in 2D

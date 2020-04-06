@@ -8,11 +8,12 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display.ByteImage;
-import org.opensourcephysics.display.Drawable;
 import java.awt.Color;
 import java.util.Random;
+
+import org.opensourcephysics.display.ByteImage;
+import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlByteImage extends ControlDrawable2D {
   static final private int BYTEIMAGE_PROPERTIES_ADDED = 7;

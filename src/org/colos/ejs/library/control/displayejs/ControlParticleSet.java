@@ -7,12 +7,16 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Paint;
 
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.ElementSet;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.InteractiveParticle;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An interactive set of particles

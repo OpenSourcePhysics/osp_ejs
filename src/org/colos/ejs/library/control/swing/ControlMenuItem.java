@@ -7,9 +7,13 @@
 
 package org.colos.ejs.library.control.swing;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.KeyStroke;
+import javax.swing.ToolTipManager;
+
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import javax.swing.*;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable control button. It will trigger an action when clicked.

@@ -8,9 +8,13 @@ package org.colos.ejs.library.control.drawing2d;
 
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.drawing2d.*;
-import org.opensourcephysics.drawing2d.interaction.*;
+import org.opensourcephysics.drawing2d.Element;
+import org.opensourcephysics.drawing2d.ElementPolygon;
+import org.opensourcephysics.drawing2d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing2d.interaction.InteractionTarget;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A set of arrows

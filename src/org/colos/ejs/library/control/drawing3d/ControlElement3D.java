@@ -10,19 +10,29 @@ package org.colos.ejs.library.control.drawing3d;
 import java.awt.Color;
 import java.awt.Paint;
 
-import org.opensourcephysics.numerics.*;
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.drawing3d.utils.Control3DChild;
-import org.colos.ejs.library.control.drawing3d.utils.ControlTransformation3D;
 import org.colos.ejs.library.control.NeedsFinalUpdate;
 import org.colos.ejs.library.control.NeedsUpdate;
+import org.colos.ejs.library.control.drawing3d.utils.Control3DChild;
+import org.colos.ejs.library.control.drawing3d.utils.ControlTransformation3D;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.drawing3d.*;
-import org.opensourcephysics.drawing3d.interaction.*;
-import org.opensourcephysics.drawing3d.utils.*;
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementShape;
+import org.opensourcephysics.drawing3d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing3d.interaction.InteractionListener;
+import org.opensourcephysics.drawing3d.interaction.InteractionTarget;
+import org.opensourcephysics.drawing3d.utils.Resolution;
+import org.opensourcephysics.drawing3d.utils.Style;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.numerics.Matrix3DTransformation;
+import org.opensourcephysics.numerics.Transformation;
 
 
 /**

@@ -9,13 +9,14 @@ package org.colos.ejs.library.control.drawing3d;
 
 import java.awt.Color;
 
-import org.opensourcephysics.ejs.control.value.*;
 //import org.colos.freefem.PDEData;
 import org.opensourcephysics.display.DisplayColors;
 //import org.opensourcephysics.display.MeshTools;
 import org.opensourcephysics.display2d.ColorMapper;
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementMesh;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * Abstract superclass for display3d Elements (children of ControlElements3DParent)

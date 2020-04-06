@@ -8,17 +8,22 @@
 package org.colos.ejs.library.control.drawing3d;
 
 import java.awt.Color;
+
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.drawing3d.Set;
 import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.Set;
 import org.opensourcephysics.drawing3d.interaction.InteractionEvent;
 import org.opensourcephysics.drawing3d.interaction.InteractionTarget;
 import org.opensourcephysics.drawing3d.utils.Resolution;
 import org.opensourcephysics.drawing3d.utils.Style;
-import org.opensourcephysics.numerics.*;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.numerics.Matrix3DTransformation;
+import org.opensourcephysics.numerics.Transformation;
 import org.opensourcephysics.tools.ToolForData;
 
 

@@ -9,12 +9,17 @@
 package org.colos.ejs.library.control.drawables;
 
 import java.awt.Color;
-import org.colos.ejs.library.control.*;
-import org.colos.ejs.library.control.swing.*;
-import org.opensourcephysics.ejs.control.value.*;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.colos.ejs.library.control.DataCollector;
+import org.colos.ejs.library.control.Resetable;
+import org.colos.ejs.library.control.swing.ControlDrawable;
+import org.colos.ejs.library.control.swing.NeedsPreUpdate;
 import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.display.Histogram;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.display.Histogram;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate, Resetable, DataCollector {
   static private final int HISTOGRAM_ADDED = 14;

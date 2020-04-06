@@ -8,8 +8,8 @@
 package org.colos.ejs.library.control.automaticcontrol;
 
 import org.colos.ejs.library.control.displayejs.ControlPoligon;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
 
 
 /**

@@ -9,9 +9,9 @@ package org.colos.ejs.library.control.displayejs;
 
 import java.awt.Color;
 
-import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractivePoints;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An interactive particle

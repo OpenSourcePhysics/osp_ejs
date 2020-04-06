@@ -8,13 +8,16 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.colos.ejs.library.control.swing.ControlDrawablesParent;
-import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.display2d.*;
-
 import java.awt.Color;
 
+import org.colos.ejs.library.control.swing.ControlDrawablesParent;
 import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display2d.ColorMapper;
+import org.opensourcephysics.display2d.GridPointData;
+import org.opensourcephysics.display2d.SurfacePlot;
+import org.opensourcephysics.display2d.SurfacePlotMouseController;
+import org.opensourcephysics.display2d.TestData;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlSurfacePlot extends ControlDrawable2D {
   protected SurfacePlot plot;

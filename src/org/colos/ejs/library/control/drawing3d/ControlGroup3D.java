@@ -7,7 +7,9 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
+
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
 import org.opensourcephysics.drawing3d.DrawingPanel3D;

@@ -7,8 +7,8 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractiveCone;
 
 public class ControlCone extends ControlCylinder {
 

@@ -8,11 +8,12 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.opensourcephysics.ejs.control.value.*;
+import java.awt.Color;
+
+import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display2d.CellLattice;
 import org.opensourcephysics.display2d.ColorMapper;
-import org.opensourcephysics.display.Drawable;
-import java.awt.Color;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlCellLattice extends ControlDrawable2D {
   private CellLattice lattice;

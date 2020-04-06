@@ -7,8 +7,9 @@
 
 package org.colos.ejs.library.control.drawing2d;
 
-import org.opensourcephysics.drawing2d.*;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.drawing2d.ElementShape;
+import org.opensourcephysics.drawing2d.Style;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A 2D shape

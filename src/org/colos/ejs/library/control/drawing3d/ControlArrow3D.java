@@ -7,8 +7,9 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementArrow;
 import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.drawing3d.*;
 
 public class ControlArrow3D extends ControlElement3D {
   static final protected int ARROW_PROPERTIES_ADDED=1;

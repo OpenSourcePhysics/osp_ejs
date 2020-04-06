@@ -8,11 +8,12 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display2d.ByteRaster;
-import org.opensourcephysics.display.Drawable;
 import java.awt.Color;
+
+import org.colos.ejs.library.control.ControlElement;
+import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.display2d.ByteRaster;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlByteRaster extends ControlDrawable2D {
   static private final int BYTE_RASTER_ADDED = 8;

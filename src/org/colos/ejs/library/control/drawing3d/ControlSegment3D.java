@@ -7,7 +7,8 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
-import org.opensourcephysics.drawing3d.*;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementSegment;
 
 public class ControlSegment3D extends ControlElement3D {
 

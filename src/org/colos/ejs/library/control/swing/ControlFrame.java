@@ -7,20 +7,21 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.EjsControl;
-import org.opensourcephysics.ejs.EjsSimulation;
-import org.opensourcephysics.ejs.control.value.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import org.opensourcephysics.tools.ResourceLoader;
+import org.colos.ejs.library.control.ControlElement;
+import org.colos.ejs.library.control.EjsControl;
 import org.opensourcephysics.display.OSPRuntime;
+import org.opensourcephysics.ejs.EjsSimulation;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.tools.ResourceLoader;
 
 /**
  * A configurable Frame. It has no internal value, nor can trigger

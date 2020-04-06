@@ -8,10 +8,11 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display2d.BinaryLattice;
-import org.opensourcephysics.display.Drawable;
 import java.awt.Color;
+
+import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.display2d.BinaryLattice;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlBinaryLattice extends ControlDrawable2D {
   private BinaryLattice lattice;

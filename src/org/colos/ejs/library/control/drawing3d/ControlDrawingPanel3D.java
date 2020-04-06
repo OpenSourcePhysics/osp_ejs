@@ -9,28 +9,48 @@
 package org.colos.ejs.library.control.drawing3d;
 
 
-import java.util.*;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Enumeration;
+import java.util.Vector;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 
-import java.awt.event.ActionListener;
-
-import org.colos.ejs.library.control.*;
+import org.colos.ejs.library.control.ControlElement;
+import org.colos.ejs.library.control.HasEditor;
+import org.colos.ejs.library.control.NeedsFinalUpdate;
+import org.colos.ejs.library.control.NeedsUpdate;
+import org.colos.ejs.library.control.SpecialRender;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.opensourcephysics.ejs.EjsSimulation;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
-import org.opensourcephysics.drawing3d.*;
-import org.opensourcephysics.drawing3d.interaction.*;
-import org.opensourcephysics.drawing3d.utils.*;
+import org.opensourcephysics.drawing3d.DrawingPanel3D;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.interaction.InteractionEvent;
+import org.opensourcephysics.drawing3d.interaction.InteractionListener;
+import org.opensourcephysics.drawing3d.utils.Camera;
+import org.opensourcephysics.drawing3d.utils.CameraInspector;
+import org.opensourcephysics.drawing3d.utils.ImplementationChangeListener;
+import org.opensourcephysics.drawing3d.utils.VisualizationHints;
 import org.opensourcephysics.drawing3d.utils.mapping.Mapping;
+import org.opensourcephysics.ejs.EjsSimulation;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable 3D panel from the displayejs package

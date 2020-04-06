@@ -7,11 +7,11 @@
 
 package org.colos.ejs.library.control.swing;
 
+import java.text.DecimalFormat;
+
 import javax.swing.JProgressBar;
 
 import org.colos.ejs.library.control.ConstantParser;
-
-import java.text.DecimalFormat;
 
 /**
  * A slider to display double values. 

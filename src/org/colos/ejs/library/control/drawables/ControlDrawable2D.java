@@ -9,8 +9,9 @@
 package org.colos.ejs.library.control.drawables;
 
 import org.colos.ejs.library.control.swing.ControlDrawable;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display2d.ColorMapper;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public abstract class ControlDrawable2D extends ControlDrawable {
 

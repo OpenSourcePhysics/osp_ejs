@@ -9,20 +9,23 @@
 package org.colos.ejs.library.control.drawables;
 
 import java.awt.Color;
-import javax.swing.*;
 
-import org.colos.ejs.library.control.swing.*;
-import org.opensourcephysics.ejs.control.value.*;
+import javax.swing.AbstractAction;
+import javax.swing.WindowConstants;
+
+import org.colos.ejs.library.control.swing.ControlDrawablesParent;
 import org.opensourcephysics.display.DrawingPanel;
-import org.opensourcephysics.display2d.Plot2D;
 import org.opensourcephysics.display2d.ArrayData;
-import org.opensourcephysics.display2d.ComplexGridPlot;
-import org.opensourcephysics.display2d.ComplexContourPlot;
-import org.opensourcephysics.display2d.ComplexSurfacePlot;
-import org.opensourcephysics.display2d.ComplexInterpolatedPlot;
-import org.opensourcephysics.display2d.GridTableFrame;
 import org.opensourcephysics.display2d.ColorMapper;
+import org.opensourcephysics.display2d.ComplexContourPlot;
+import org.opensourcephysics.display2d.ComplexGridPlot;
+import org.opensourcephysics.display2d.ComplexInterpolatedPlot;
+import org.opensourcephysics.display2d.ComplexSurfacePlot;
+import org.opensourcephysics.display2d.GridTableFrame;
+import org.opensourcephysics.display2d.Plot2D;
 import org.opensourcephysics.display2d.SurfacePlotMouseController;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlComplexScalarField extends ControlDrawable2D implements org.colos.ejs.library.control.swing.NeedsPreUpdate {
   static private final int SCALAR_FIELD_ADDED = 18;

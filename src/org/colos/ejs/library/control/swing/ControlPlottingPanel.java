@@ -7,8 +7,12 @@
 
 package org.colos.ejs.library.control.swing;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JMenu;
@@ -16,12 +20,31 @@ import javax.swing.JMenuItem;
 
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
-import org.opensourcephysics.ejs.EjsSimulation;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.display.*;
-import org.opensourcephysics.display.axes.*;
-import org.opensourcephysics.displayejs.*;
+import org.opensourcephysics.display.DisplayRes;
+import org.opensourcephysics.display.DrawingPanel;
+import org.opensourcephysics.display.Interactive;
+import org.opensourcephysics.display.InteractiveMouseHandler;
+import org.opensourcephysics.display.InteractivePanel;
+import org.opensourcephysics.display.axes.AxisFactory;
+import org.opensourcephysics.display.axes.CartesianAxes;
+import org.opensourcephysics.display.axes.CartesianInteractive;
+import org.opensourcephysics.display.axes.CartesianType1;
+import org.opensourcephysics.display.axes.CartesianType2;
+import org.opensourcephysics.display.axes.CartesianType3;
+import org.opensourcephysics.display.axes.DrawableAxes;
+import org.opensourcephysics.display.axes.PolarAxes;
+import org.opensourcephysics.display.axes.PolarType1;
+import org.opensourcephysics.display.axes.PolarType2;
+import org.opensourcephysics.displayejs.HasDataObjectInterface;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionSource;
+import org.opensourcephysics.displayejs.InteractionTarget;
+import org.opensourcephysics.displayejs.Point3D;
 import org.opensourcephysics.drawing2d.PlottingPanel2D;
+import org.opensourcephysics.ejs.EjsSimulation;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable plottingPanel.

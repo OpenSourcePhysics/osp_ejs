@@ -8,15 +8,25 @@
 
 package org.colos.ejs.library.control.displayejs;
 
+import java.text.DecimalFormat;
+
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.swing.*;
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
+import org.colos.ejs.library.control.swing.ControlDrawable;
+import org.colos.ejs.library.control.swing.ControlDrawablesParent;
+import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.Interactive;
 import org.opensourcephysics.display.dialogs.AutoScaleInspector;
-import java.text.*;
+import org.opensourcephysics.displayejs.DrawingPanel3D;
+import org.opensourcephysics.displayejs.InteractionEvent;
+import org.opensourcephysics.displayejs.InteractionListener;
+import org.opensourcephysics.displayejs.InteractionSource;
+import org.opensourcephysics.displayejs.InteractionTarget;
+import org.opensourcephysics.displayejs.Point3D;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable 3D panel from the displayejs package

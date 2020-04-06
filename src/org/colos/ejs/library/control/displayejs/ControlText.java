@@ -7,9 +7,10 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractiveElement;
+import org.opensourcephysics.displayejs.InteractiveText;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An interactive particle

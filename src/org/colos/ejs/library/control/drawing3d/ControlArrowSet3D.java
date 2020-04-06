@@ -6,8 +6,9 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.ElementArrow;
 import org.opensourcephysics.ejs.control.value.Value;
-import org.opensourcephysics.drawing3d.*;
 
 /**
  * A set of arrows

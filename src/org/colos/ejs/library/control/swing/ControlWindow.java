@@ -7,17 +7,30 @@
 
 package org.colos.ejs.library.control.swing;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.LayoutManager;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.Window;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.JMenuBar;
+import javax.swing.JRootPane;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
 import org.colos.ejs.library.control.NeedsUpdate;
-import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.OSPRuntime;
-
-import java.awt.*;
-import java.util.ArrayList;
-
-import javax.swing.*;
-import javax.swing.border.Border;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A configurable Window. Base class for Frame and Dialog

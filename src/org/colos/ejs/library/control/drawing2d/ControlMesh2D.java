@@ -10,13 +10,13 @@ package org.colos.ejs.library.control.drawing2d;
 import java.awt.Color;
 import java.awt.Stroke;
 
-import org.opensourcephysics.ejs.control.value.IntegerValue;
-import org.opensourcephysics.ejs.control.value.Value;
 //import org.colos.freefem.PDEData;
 import org.opensourcephysics.display.DisplayColors;
 //import org.opensourcephysics.display.MeshTools;
 import org.opensourcephysics.display2d.ColorMapper;
 import org.opensourcephysics.drawing2d.ElementMesh;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A 2D segment

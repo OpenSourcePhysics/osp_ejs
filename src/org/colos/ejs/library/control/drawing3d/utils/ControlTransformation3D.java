@@ -8,12 +8,12 @@
 package org.colos.ejs.library.control.drawing3d.utils;
 
 
-import org.opensourcephysics.drawing3d.Element;
-import org.opensourcephysics.drawing3d.utils.TransformationWrapper;
-import org.opensourcephysics.numerics.*;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.drawing3d.ControlElement3D;
-import org.opensourcephysics.ejs.control.value.*;
+import org.opensourcephysics.drawing3d.Element;
+import org.opensourcephysics.drawing3d.utils.TransformationWrapper;
+import org.opensourcephysics.ejs.control.value.Value;
+import org.opensourcephysics.numerics.Transformation;
 
 /**
  * Superclass for 3D transformations of elements (children of ControlElements3D)

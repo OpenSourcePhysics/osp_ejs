@@ -7,9 +7,9 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.opensourcephysics.ejs.control.value.*;
-import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
+import org.opensourcephysics.displayejs.InteractivePlane;
+import org.opensourcephysics.ejs.control.value.Value;
 
 public class ControlPlane extends ControlInteractiveTile {
   static final int PROPERTIES_PLANE=PROPERTIES_ADDED+2;

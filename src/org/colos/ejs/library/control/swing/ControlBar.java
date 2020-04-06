@@ -7,10 +7,12 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.ConstantParser;
-import org.opensourcephysics.ejs.control.value.*;
-import javax.swing.SwingConstants;
 import java.text.DecimalFormat;
+
+import javax.swing.SwingConstants;
+
+import org.colos.ejs.library.control.ConstantParser;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A bar that display double values. The value cannot be changed
