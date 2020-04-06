@@ -12,7 +12,7 @@ import java.awt.Color;
 import javax.swing.*;
 
 import org.colos.ejs.library.control.swing.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display2d.Plot2D;
 import org.opensourcephysics.display2d.ArrayData;

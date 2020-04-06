@@ -9,12 +9,12 @@ package org.colos.ejs.library.control;
 
 import java.lang.reflect.Method;
 
-import org.colos.ejs.library.control.value.BooleanValue;
-import org.colos.ejs.library.control.value.DoubleValue;
-import org.colos.ejs.library.control.value.IntegerValue;
-import org.colos.ejs.library.control.value.ObjectValue;
-import org.colos.ejs.library.control.value.StringValue;
-import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.ejs.control.value.BooleanValue;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.display.OSPRuntime;
 
 /**

@@ -7,7 +7,7 @@
 
 package org.colos.ejs.library.control.automaticcontrol;
 
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.automaticcontrol.*;
 import org.opensourcephysics.display.Drawable;
 

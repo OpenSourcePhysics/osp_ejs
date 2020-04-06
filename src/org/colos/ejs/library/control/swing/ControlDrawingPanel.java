@@ -10,7 +10,7 @@ package org.colos.ejs.library.control.swing;
 import org.colos.ejs.library.Simulation;
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 import org.opensourcephysics.displayejs.InteractionTarget;
 import org.opensourcephysics.displayejs.Point3D;

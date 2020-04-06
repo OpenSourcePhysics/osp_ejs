@@ -8,13 +8,13 @@
 package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * A configurable Container
  */
 public abstract class ControlContainer extends ControlSwingElement {
-  static private final BooleanValue falseValue = Value.VALUE_FALSE;// BH 2020.03.31 too complex right now. new BooleanValue(false);
+  static private final org.opensourcephysics.ejs.control.value.BooleanValue falseValue = org.opensourcephysics.ejs.control.value.Value.VALUE_FALSE;// BH 2020.03.31 too complex right now. new BooleanValue(false);
   protected java.util.Vector<ControlSwingElement> radioButtons = new java.util.Vector<ControlSwingElement>();
   protected java.util.Vector<ControlElement> children = new java.util.Vector<ControlElement>();
 

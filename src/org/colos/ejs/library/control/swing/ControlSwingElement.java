@@ -14,7 +14,7 @@ import javax.swing.*;
 import javax.swing.text.Document;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 
  /**

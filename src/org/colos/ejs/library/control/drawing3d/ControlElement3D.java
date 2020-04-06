@@ -18,7 +18,7 @@ import org.colos.ejs.library.control.NeedsFinalUpdate;
 import org.colos.ejs.library.control.NeedsUpdate;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.drawing3d.*;
 import org.opensourcephysics.drawing3d.interaction.*;

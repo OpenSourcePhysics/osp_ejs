@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * A slider to display double values. When the value is changing it

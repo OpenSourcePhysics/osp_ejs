@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.opensourcephysics.display2d.VectorColorMapper;
 import org.opensourcephysics.drawing2d.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * A group of arrows that implements a simpler 2D vector field

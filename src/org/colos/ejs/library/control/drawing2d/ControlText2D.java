@@ -9,7 +9,7 @@ package org.colos.ejs.library.control.drawing2d;
 
 import java.awt.Font;
 import org.opensourcephysics.drawing2d.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * A 2D image

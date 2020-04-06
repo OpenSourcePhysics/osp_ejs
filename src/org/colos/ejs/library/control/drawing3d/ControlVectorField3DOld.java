@@ -9,7 +9,7 @@ package org.colos.ejs.library.control.drawing3d;
 
 import java.awt.Color;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.drawing3d.*;
 
 /**

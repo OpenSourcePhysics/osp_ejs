@@ -8,7 +8,7 @@ package org.colos.ejs.library.control.drawing2d;
 
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.drawing2d.*;
 import org.opensourcephysics.drawing2d.interaction.*;
 

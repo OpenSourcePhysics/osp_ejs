@@ -15,7 +15,7 @@ import org.opensourcephysics.drawing2d.*;
 import org.opensourcephysics.drawing2d.interaction.*;
 import org.colos.ejs.library.control.*;
 import org.colos.ejs.library.control.swing.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 public abstract class ControlElement2D extends org.colos.ejs.library.control.swing.ControlDrawable 
                                        implements InteractionListener {

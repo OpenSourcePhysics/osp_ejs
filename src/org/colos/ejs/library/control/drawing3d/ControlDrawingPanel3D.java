@@ -25,7 +25,7 @@ import org.colos.ejs.library.Simulation;
 import org.colos.ejs.library.control.*;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.drawing3d.*;
 import org.opensourcephysics.drawing3d.interaction.*;

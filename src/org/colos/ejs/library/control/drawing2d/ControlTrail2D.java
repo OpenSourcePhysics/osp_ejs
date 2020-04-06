@@ -10,7 +10,7 @@ package org.colos.ejs.library.control.drawing2d;
 import org.opensourcephysics.drawing2d.ElementTrail;
 import org.opensourcephysics.tools.ToolForData;
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * Abstract superclass for display3d Elements (children of ControlElements3DParent)

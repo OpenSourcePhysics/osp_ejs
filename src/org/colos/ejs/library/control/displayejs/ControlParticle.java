@@ -7,8 +7,8 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.colos.ejs.library.control.value.IntegerValue;
-import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Drawable;

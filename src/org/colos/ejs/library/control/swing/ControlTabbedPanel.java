@@ -10,7 +10,7 @@ package org.colos.ejs.library.control.swing;
 import java.util.StringTokenizer;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;

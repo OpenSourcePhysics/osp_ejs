@@ -10,7 +10,7 @@ package org.colos.ejs.library.control.drawing3d.utils;
 
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.numerics.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * Superclass for 3D transformations of elements (children of ControlElements3D)

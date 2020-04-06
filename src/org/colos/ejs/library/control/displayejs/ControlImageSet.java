@@ -7,7 +7,7 @@
 
 package org.colos.ejs.library.control.displayejs;
 
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
 //import misc.SplitImage;//FKH20060727

@@ -8,7 +8,7 @@
 package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.control.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DataRowModel;
 import org.opensourcephysics.display.OSPRuntime;
 

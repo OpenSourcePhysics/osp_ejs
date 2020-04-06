@@ -9,7 +9,7 @@ package org.colos.ejs.library.control.displayejs;
 
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.displayejs.*;
 //import org.colos.ejs.library.control.ControlElement;
 import org.opensourcephysics.display.DisplayColors;

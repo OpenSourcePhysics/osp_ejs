@@ -10,8 +10,8 @@ package org.colos.ejs.library.control;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.colos.ejs.library.control.value.DoubleValue;
-import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * A utility class that holds information about a value that can be shared

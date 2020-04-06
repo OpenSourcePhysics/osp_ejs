@@ -11,11 +11,21 @@
 
 package org.colos.ejs.library.control;
 
-import org.colos.ejs.library.Simulation;
-import org.colos.ejs.library.control.value.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
-import java.util.*;
 import javax.swing.SwingUtilities;
+
+import org.colos.ejs.library.Simulation;
+import org.opensourcephysics.ejs.control.value.DoubleValue;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.InterpretedValue;
+import org.opensourcephysics.ejs.control.value.ObjectValue;
+import org.opensourcephysics.ejs.control.value.StringValue;
+import org.opensourcephysics.ejs.control.value.Value;
 
  /**
   * <code>ControlElement</code> is a base class for an object that
@@ -55,8 +65,8 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
 
   MethodWithOneParameter[] myMethodsForProperties = null; // AMAVP
   Value[] myExpressionsForProperties = null; // AMAVP
-  protected PropertyEditor myEjsPropertyEditor=null; // For Ejs internal use
-  VariableEditor myEjsVariableEditor=null; // For Ejs internal use
+  protected org.opensourcephysics.ejs.control.PropertyEditor myEjsPropertyEditor=null; // For Ejs internal use
+  org.opensourcephysics.ejs.control.VariableEditor myEjsVariableEditor=null; // For Ejs internal use
 
 // ------------------------------------------------
 // Static constants and constructor
@@ -180,7 +190,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
    * For Ejs internal use only
    * @param _editor PropertyEditor
    */
-  public void setPropertyEditor (PropertyEditor _editor) {
+  public void setPropertyEditor (org.opensourcephysics.ejs.control.PropertyEditor _editor) {
     myEjsPropertyEditor = _editor;
 //    isUnderEjs = true;
   }
@@ -198,7 +208,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
    * For Ejs internal use only
    * @param _editor VariableEditor
    */
-  public void setVariableEditor (VariableEditor _editor) { myEjsVariableEditor = _editor; }
+  public void setVariableEditor (org.opensourcephysics.ejs.control.VariableEditor _editor) { myEjsVariableEditor = _editor; }
 
   /**
    * Stores the value of a property in the PropertyEditor

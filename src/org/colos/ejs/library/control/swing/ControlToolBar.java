@@ -7,7 +7,7 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;

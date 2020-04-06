@@ -8,7 +8,7 @@ package org.colos.ejs.library.control.drawing2d;
 
 import java.awt.Font;
 
-import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.drawing2d.*;
 
 /**

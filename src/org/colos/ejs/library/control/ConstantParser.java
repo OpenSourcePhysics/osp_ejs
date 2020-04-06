@@ -10,7 +10,7 @@ package org.colos.ejs.library.control;
 import java.util.*;
 import java.awt.*;
 
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 
 /**
  * This class provides static methods that parse a string and return

@@ -9,7 +9,7 @@
 package org.colos.ejs.library.control.drawables;
 
 import org.colos.ejs.library.control.swing.ControlDrawable;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.ComplexDataset;
 import org.opensourcephysics.display.Drawable;
 import java.awt.Color;

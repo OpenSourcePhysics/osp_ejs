@@ -7,7 +7,7 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.numerics.MathExpParser;
 import org.opensourcephysics.numerics.SuryonoParser;
 import java.util.*;

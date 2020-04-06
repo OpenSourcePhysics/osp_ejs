@@ -7,7 +7,7 @@
 
 package org.colos.ejs.library.control;
 
-import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.ejs.control.value.Value;
 
 /**
  * An interface to get the editor of properties in Ejs

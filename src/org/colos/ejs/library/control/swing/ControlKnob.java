@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.drawing2d.ControlElement2D;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.swing.Knob;
 
 /**

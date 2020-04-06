@@ -11,7 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.OSPRuntime;
 
 import javax.swing.JDialog;

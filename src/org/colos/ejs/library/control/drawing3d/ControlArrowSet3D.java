@@ -6,7 +6,7 @@
 
 package org.colos.ejs.library.control.drawing3d;
 
-import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.ejs.control.value.Value;
 import org.opensourcephysics.drawing3d.*;
 
 /**

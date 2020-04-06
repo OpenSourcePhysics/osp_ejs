@@ -11,7 +11,7 @@ package org.colos.ejs.library.control.displayejs;
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.Interactive;

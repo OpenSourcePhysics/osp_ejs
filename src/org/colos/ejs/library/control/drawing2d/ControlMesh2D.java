@@ -10,8 +10,8 @@ package org.colos.ejs.library.control.drawing2d;
 import java.awt.Color;
 import java.awt.Stroke;
 
-import org.colos.ejs.library.control.value.IntegerValue;
-import org.colos.ejs.library.control.value.Value;
+import org.opensourcephysics.ejs.control.value.IntegerValue;
+import org.opensourcephysics.ejs.control.value.Value;
 //import org.colos.freefem.PDEData;
 import org.opensourcephysics.display.DisplayColors;
 //import org.opensourcephysics.display.MeshTools;

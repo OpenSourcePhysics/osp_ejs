@@ -8,7 +8,7 @@
 package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.control.ConstantParser;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import javax.swing.SwingConstants;
 import java.text.DecimalFormat;
 

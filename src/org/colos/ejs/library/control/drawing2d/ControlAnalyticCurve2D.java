@@ -10,7 +10,7 @@ package org.colos.ejs.library.control.drawing2d;
 
 import java.awt.event.*;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.drawing2d.*;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.DrawingPanel;

@@ -9,7 +9,7 @@ package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.text.Document;

@@ -10,7 +10,7 @@ package org.colos.ejs.library.control.drawing3d;
 import java.awt.Color;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.drawing3d.Set;
 import org.opensourcephysics.drawing3d.Element;

@@ -12,7 +12,7 @@ import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.displayejs.ControlDrawingPanel3D;
 import org.colos.ejs.library.control.displayejs.ControlGroupDrawable;
 import org.colos.ejs.library.control.displayejs.ControlInteractiveElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.automaticcontrol.PoligonsAndTexts;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.displayejs.InteractionListener;

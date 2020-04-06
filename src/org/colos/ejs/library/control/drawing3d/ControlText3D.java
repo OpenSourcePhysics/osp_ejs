@@ -9,7 +9,7 @@
 package org.colos.ejs.library.control.drawing3d;
 
 import java.awt.Font;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.drawing3d.Element;
 import org.opensourcephysics.drawing3d.ElementText;
 

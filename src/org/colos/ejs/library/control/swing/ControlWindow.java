@@ -10,7 +10,7 @@ package org.colos.ejs.library.control.swing;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
 import org.colos.ejs.library.control.NeedsUpdate;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.OSPRuntime;
 
 import java.awt.*;

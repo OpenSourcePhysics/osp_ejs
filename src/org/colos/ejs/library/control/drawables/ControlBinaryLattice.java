@@ -8,7 +8,7 @@
 
 package org.colos.ejs.library.control.drawables;
 
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display2d.BinaryLattice;
 import org.opensourcephysics.display.Drawable;
 import java.awt.Color;

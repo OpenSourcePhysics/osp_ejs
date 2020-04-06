@@ -11,7 +11,7 @@ package org.colos.ejs.library.control.drawables;
 import java.awt.Color;
 import org.colos.ejs.library.control.*;
 import org.colos.ejs.library.control.swing.*;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
 import org.opensourcephysics.display.Histogram;
 import org.opensourcephysics.display.Drawable;

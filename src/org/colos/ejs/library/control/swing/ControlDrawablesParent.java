@@ -9,7 +9,7 @@ package org.colos.ejs.library.control.swing;
 
 import org.colos.ejs.library.Simulation;
 import org.colos.ejs.library.control.*;
-import org.colos.ejs.library.control.value.ParserSuryono;
+import org.opensourcephysics.ejs.control.value.ParserSuryono;
 import org.opensourcephysics.display.*;
 import org.opensourcephysics.display.dialogs.ScaleInspector;
 import org.opensourcephysics.display.dialogs.AutoScaleInspector;

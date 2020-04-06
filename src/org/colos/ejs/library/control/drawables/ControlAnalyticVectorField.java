@@ -8,7 +8,7 @@
 package org.colos.ejs.library.control.drawables;
 
 import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.ejs.control.value.*;
 import org.opensourcephysics.displayejs.*;
 import org.opensourcephysics.display.Drawable;
 import org.opensourcephysics.display.DrawingPanel;
