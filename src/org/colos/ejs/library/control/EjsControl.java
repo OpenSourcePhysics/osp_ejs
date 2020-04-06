@@ -50,7 +50,7 @@ public class EjsControl {
 
   private boolean mustUpdateSimulation = true;
   private boolean justCollectingData=false;
-  private Simulation mySimulation  = null;
+  private EjsSimulation mySimulation  = null;
   private Hashtable<String,Object>  targetTable   = new Hashtable<String,Object>();
   private Hashtable<String,ControlElement>  elementTable  = new Hashtable<String,ControlElement>();
   Hashtable<String,GroupVariable>  variableTable   = new Hashtable<String,GroupVariable>();
@@ -142,7 +142,7 @@ public class EjsControl {
   public EjsControl (Object _target) {
     this();
     addTarget("_default_",_target);
-    if (_target instanceof Simulation) setSimulation ((Simulation)_target);
+    if (_target instanceof EjsSimulation) setSimulation ((EjsSimulation)_target);
   }
 
  /**
@@ -227,16 +227,16 @@ public class EjsControl {
   * Sets the simulation under which the control is running
   * This is used to up date the simulation whenever an Element changes a
   * variable (See variableChanged in ControlElement)
-  * @param     Simulation _sim  The simulation
+  * @param     EjsSimulation _sim  The simulation
   */
-  public void setSimulation (Simulation _sim) { mySimulation = _sim; }
+  public void setSimulation (EjsSimulation _sim) { mySimulation = _sim; }
 
  /**
   * Returns the simulation under which the control is running
   * This is used to up date the simulation whenever an Element changes a
   * variable (See variableChanged in ControlElement
   */
-  public Simulation getSimulation () { return mySimulation; }
+  public EjsSimulation getSimulation () { return mySimulation; }
 
   /**
    * Returns the locale of the simulation
@@ -1307,8 +1307,8 @@ public class EjsControl {
     StringTokenizer tkn = new StringTokenizer(_documents,";,");
     while (tkn.hasMoreTokens()) {
       String filename = tkn.nextToken();
-      if (Simulation.isDisplayable(filename)) { 
-        java.io.File file = Simulation.getResourceFile(filename);
+      if (EjsSimulation.isDisplayable(filename)) { 
+        java.io.File file = EjsSimulation.getResourceFile(filename);
         if (file==null || OSPDesktop.open(file)==false) result = false;
       }
       else if (OSPDesktop.displayURL(filename)==false) result = false;

@@ -21,7 +21,7 @@ public abstract class LauncherApplet extends JApplet {
   private java.awt.Component mainComponent=null;
 
   public Model _model=null;
-  public Simulation _simulation=null;
+  public EjsSimulation _simulation=null;
   public View _view=null;
 
   static { 

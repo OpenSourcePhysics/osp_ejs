@@ -4,7 +4,7 @@ import java.awt.Component;
 
 import javax.swing.JOptionPane;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 import org.opensourcephysics.display.Data;
 
 public class ToolForData {
@@ -18,8 +18,8 @@ public class ToolForData {
   public boolean isFullTool() { return false; }
   
   public Object showTable (Component _component, Data... _data) { 
-    JOptionPane.showMessageDialog(_component,Simulation.ejsRes.getString("DataInformation.NotAvailable"), 
-        Simulation.ejsRes.getString("Error"), JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(_component,EjsSimulation.ejsRes.getString("DataInformation.NotAvailable"), 
+        EjsSimulation.ejsRes.getString("Error"), JOptionPane.ERROR_MESSAGE);
     return null; 
   }
 
@@ -28,14 +28,14 @@ public class ToolForData {
   }
 
   public Object showDataTool (Component _component, java.util.List<Data> _data) { 
-    JOptionPane.showMessageDialog(_component,Simulation.ejsRes.getString("DataInformation.NotAvailable"), 
-        Simulation.ejsRes.getString("Error"), JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(_component,EjsSimulation.ejsRes.getString("DataInformation.NotAvailable"), 
+        EjsSimulation.ejsRes.getString("Error"), JOptionPane.ERROR_MESSAGE);
     return null; 
   }
 
   public Object showDataTool (Component _component, Data... _data) { 
-    JOptionPane.showMessageDialog(_component,Simulation.ejsRes.getString("DataInformation.NotAvailable"), 
-        Simulation.ejsRes.getString("Error"), JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(_component,EjsSimulation.ejsRes.getString("DataInformation.NotAvailable"), 
+        EjsSimulation.ejsRes.getString("Error"), JOptionPane.ERROR_MESSAGE);
     return null; 
   }
 

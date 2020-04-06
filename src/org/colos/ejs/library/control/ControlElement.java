@@ -19,7 +19,7 @@ import java.util.Vector;
 
 import javax.swing.SwingUtilities;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 import org.opensourcephysics.ejs.control.value.DoubleValue;
 import org.opensourcephysics.ejs.control.value.IntegerValue;
 import org.opensourcephysics.ejs.control.value.InterpretedValue;
@@ -98,13 +98,13 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
     getDataInformationMenuEntries(final java.awt.Component _parent, final org.opensourcephysics.display.Data _data) { 
     
     java.util.ArrayList<Object> list = new java.util.ArrayList<Object> ();
-    list.add(new javax.swing.AbstractAction(org.colos.ejs.library.Simulation.getEjsString("InteractiveTrace.ShowDataTable")){
+    list.add(new javax.swing.AbstractAction(org.colos.ejs.library.EjsSimulation.getEjsString("InteractiveTrace.ShowDataTable")){
       private static final long serialVersionUID = 1L;
       public void actionPerformed(java.awt.event.ActionEvent e) { 
         org.opensourcephysics.tools.ToolForData.getTool().showTable(_parent,_data);
       }
     });
-    list.add(new javax.swing.AbstractAction(org.colos.ejs.library.Simulation.getEjsString("InteractiveTrace.ShowDatasetTool")){
+    list.add(new javax.swing.AbstractAction(org.colos.ejs.library.EjsSimulation.getEjsString("InteractiveTrace.ShowDatasetTool")){
       private static final long serialVersionUID = 1L;
       public void actionPerformed(java.awt.event.ActionEvent e) { 
         org.opensourcephysics.tools.ToolForData.getTool().showDataTool(_parent, _data);
@@ -1039,7 +1039,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
   */
   final public void invokeActions (int _type) {
     if (myActiveState && isControlUpdatingSimulation()) {
-      Simulation sim = getSimulation();
+      EjsSimulation sim = getSimulation();
       if (sim!=null && actionsWhenIdle) { // delay actions until idle
         for (MethodWithOneParameter method : myActionsList) sim.invokeMethodWhenIdle(new MethodDelayedAction(method, _type, this));
       }
@@ -1064,7 +1064,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
       myGroup.setReportingChange(false);
     }
     if (myActiveState && isControlUpdatingSimulation()) {
-      Simulation sim = getSimulation();
+      EjsSimulation sim = getSimulation();
       if (sim!=null && actionsWhenIdle) for (MethodWithOneParameter method : myActionsList) sim.invokeMethodWhenIdle(new MethodDelayedAction(method, ControlElement.VARIABLE_CHANGED, this));
       else for (MethodWithOneParameter method : myActionsList) method.invoke (ControlElement.VARIABLE_CHANGED,this);
     }
@@ -1127,7 +1127,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
     }
     if (!doMore) return; // AMAVP Nothing has changed
     if (myActiveState) {
-      Simulation sim = getSimulation();
+      EjsSimulation sim = getSimulation();
       if (sim!=null && actionsWhenIdle) for (MethodWithOneParameter method : myActionsList) sim.invokeMethodWhenIdle(new MethodDelayedAction(method, ControlElement.VARIABLE_CHANGED, this));
       else for (MethodWithOneParameter method : myActionsList) method.invoke (ControlElement.VARIABLE_CHANGED,this);
     }
@@ -1167,7 +1167,7 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
   * Gets the Simulation in which it runs
   * @return the Simulation
   */
-  final public Simulation getSimulation () {
+  final public EjsSimulation getSimulation () {
     if (myGroup==null) return null;
     return myGroup.getSimulation();
   }

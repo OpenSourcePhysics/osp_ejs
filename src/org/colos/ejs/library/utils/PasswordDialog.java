@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.awt.*;
 
 import javax.swing.*;
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 import org.opensourcephysics.controls.Cryptic;
 import org.opensourcephysics.tools.Resource;
 import org.opensourcephysics.tools.ResourceLoader;
@@ -36,11 +36,11 @@ public class PasswordDialog {
       }
     };
 
-    JButton okButton = new JButton (Simulation.getEjsString("Ok"));
+    JButton okButton = new JButton (EjsSimulation.getEjsString("Ok"));
     okButton.setActionCommand ("ok");
     okButton.addMouseListener (mouseListener);
 
-    JButton cancelButton = new JButton (Simulation.getEjsString("Cancel"));
+    JButton cancelButton = new JButton (EjsSimulation.getEjsString("Cancel"));
     cancelButton.setActionCommand ("cancel");
     cancelButton.addMouseListener (mouseListener);
 
@@ -50,7 +50,7 @@ public class PasswordDialog {
 
     // ----------- Input area ----------------------
     
-    JLabel label = new JLabel(Simulation.ejsRes.getString("Password.Password"));
+    JLabel label = new JLabel(EjsSimulation.ejsRes.getString("Password.Password"));
     label.setBorder(new javax.swing.border.EmptyBorder(0,3,0,3));
     field = new JPasswordField(20);
     field.addActionListener(new java.awt.event.ActionListener() {
@@ -64,7 +64,7 @@ public class PasswordDialog {
     message.setLineWrap(true);
     message.setEditable(false);
 //    message.setEnabled(false);
-    message.setText(Simulation.ejsRes.getString("Password.FileProtectedByPassword"));
+    message.setText(EjsSimulation.ejsRes.getString("Password.FileProtectedByPassword"));
     message.setBorder(BorderFactory.createEmptyBorder(5,3,5,3));
 
     JPanel panel = new JPanel (new BorderLayout());
@@ -77,7 +77,7 @@ public class PasswordDialog {
     bottomPanel.add (buttonPanel,java.awt.BorderLayout.CENTER);
 
     dialog = new JDialog();
-    dialog.setTitle(Simulation.getEjsString("Password.Password"));
+    dialog.setTitle(EjsSimulation.getEjsString("Password.Password"));
     dialog.getContentPane().setLayout (new java.awt.BorderLayout(0,0));
     dialog.getContentPane().add (panel,java.awt.BorderLayout.CENTER);
     dialog.getContentPane().add (bottomPanel,java.awt.BorderLayout.SOUTH);
@@ -117,7 +117,7 @@ public class PasswordDialog {
     if (_messageFrame!=null) _messageFrame.setVisible(true);
     Cryptic cryptic = new Cryptic("");
     recreateDialog(); // The dialog needs to be recreated each time or, otherwise, an applet will hang the browser if reloaded
-    String label2 = Simulation.ejsRes.getString("Password.AttemptsLeft");
+    String label2 = EjsSimulation.ejsRes.getString("Password.AttemptsLeft");
     dialog.setLocationRelativeTo(_parent);
     for (int i=3; i>0; i--) {
       field.setText("");
@@ -132,15 +132,15 @@ public class PasswordDialog {
         if (_messageFrame!=null) _messageFrame.setVisible(false);
         return password;
       }
-      if (i>1) JOptionPane.showMessageDialog(_parent, Simulation.ejsRes.getString("Password.IncorrectPassword")+"\n"+(i-1)+" "+label2, 
-          Simulation.ejsRes.getString("Error"),JOptionPane.ERROR_MESSAGE);
+      if (i>1) JOptionPane.showMessageDialog(_parent, EjsSimulation.ejsRes.getString("Password.IncorrectPassword")+"\n"+(i-1)+" "+label2, 
+          EjsSimulation.ejsRes.getString("Error"),JOptionPane.ERROR_MESSAGE);
     }
     if (_messageFrame!=null) _messageFrame.setVisible(false);
     return null;
   }
 
   static public Window showInformationPage (String _modelName, String _title, String _htmlPage, int width, int height) {
-    String title = Simulation.ejsRes.getString("DescriptionFor")+" "+_modelName;
+    String title = EjsSimulation.ejsRes.getString("DescriptionFor")+" "+_modelName;
     JDialog descriptionDialog = new JDialog (); //(Window)null,title); This is 1.6
     descriptionDialog.setTitle(title);
     JTabbedPane descriptionPanel = new JTabbedPane();

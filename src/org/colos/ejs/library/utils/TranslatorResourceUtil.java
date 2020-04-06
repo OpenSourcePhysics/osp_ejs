@@ -18,14 +18,14 @@ import java.util.*;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 import org.opensourcephysics.tools.Resource;
 import org.opensourcephysics.tools.ResourceLoader;
 import org.opensourcephysics.tools.ToolsRes;
 
 public class TranslatorResourceUtil extends TranslatorUtil {
   private String classname;
-  private Simulation simulation;
+  private EjsSimulation simulation;
   private Map<LocaleItem,Map<String,String>> translations = new HashMap<LocaleItem,Map<String,String>>();
   private Map<String,String> currentTranslation;
   private JMenu langMenu=null;
@@ -43,7 +43,7 @@ public class TranslatorResourceUtil extends TranslatorUtil {
   //------------------------------------
 
   @Override
-  public javax.swing.JComponent getSelectorComponent(Simulation _simulation) {
+  public javax.swing.JComponent getSelectorComponent(EjsSimulation _simulation) {
     this.simulation = _simulation;
     if (localeSelector==null) {
       localeSelector = new LocaleSelector(simulation);
@@ -96,7 +96,7 @@ public class TranslatorResourceUtil extends TranslatorUtil {
   }
 
   @Override
-  public void addToMenu (JMenu _menu, Simulation _simulation) {
+  public void addToMenu (JMenu _menu, EjsSimulation _simulation) {
     this.simulation = _simulation;
     // Change language menu
     langMenu = new JMenu(ToolsRes.getString("TranslatorTool.Label.Description"));

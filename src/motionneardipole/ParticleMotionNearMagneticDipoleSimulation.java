@@ -11,7 +11,7 @@ import org.opensourcephysics.numerics.Matrix3DTransformation;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-class ParticleMotionNearMagneticDipoleSimulation extends org.colos.ejs.library.Simulation { 
+class ParticleMotionNearMagneticDipoleSimulation extends org.colos.ejs.library.EjsSimulation { 
 
   private ParticleMotionNearMagneticDipoleView mMainView;
 

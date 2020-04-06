@@ -95,9 +95,9 @@ public abstract class Model { //implements ExternalClient {
 
   public View getView() { return _getView(); } // backwards compatibility
   
-  abstract public Simulation _getSimulation();
+  abstract public EjsSimulation _getSimulation();
 
-  public Simulation getSimulation() { return _getSimulation(); } // backwards compatibility
+  public EjsSimulation getSimulation() { return _getSimulation(); } // backwards compatibility
 
   abstract public int _getPreferredStepsPerDisplay();
   
@@ -258,7 +258,7 @@ public abstract class Model { //implements ExternalClient {
     if (_getSimulation().isUnderEjs()) return false;  
     File jarFile=null; 
     try {
-      URL url = Simulation.class.getProtectionDomain().getCodeSource().getLocation();
+      URL url = EjsSimulation.class.getProtectionDomain().getCodeSource().getLocation();
       jarFile = new File(url.toURI());
     }
     catch (Exception exc) { 
@@ -391,7 +391,7 @@ public abstract class Model { //implements ExternalClient {
 		try { // in case of security problems
 			if (System.getProperty("osp_ejs") != null) { // Running under EJS
 				underEjs = true;
-				org.colos.ejs.library.Simulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/");
+				org.colos.ejs.library.EjsSimulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/");
 				// This is for classes (such as EjsMatlab) which needs to know where the library
 				// is
 				pathsSet = true;
@@ -408,7 +408,7 @@ public abstract class Model { //implements ExternalClient {
 		} catch (Exception _exception) {
 		} // Ignore any error here
 		if (!pathsSet) {
-			org.colos.ejs.library.Simulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/");
+			org.colos.ejs.library.EjsSimulation.setPathToLibrary("/Users/wochristian/Desktop/EjsS_5.3/bin/config/");
 			// This is for classes (such as EjsMatlab) which needs to know where the library
 			// is
 		}

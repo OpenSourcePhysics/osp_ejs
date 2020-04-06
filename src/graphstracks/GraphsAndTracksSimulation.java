@@ -11,7 +11,7 @@ import org.opensourcephysics.display.OSPRuntime;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-class GraphsAndTracksSimulation extends org.colos.ejs.library.Simulation { 
+class GraphsAndTracksSimulation extends org.colos.ejs.library.EjsSimulation { 
 
   private GraphsAndTracksView mMainView;
 

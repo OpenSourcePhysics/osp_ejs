@@ -10,7 +10,7 @@ import org.colos.ejs.library._EjsConstants;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-class TrajectoriesInEBSimulation extends org.colos.ejs.library.Simulation { 
+class TrajectoriesInEBSimulation extends org.colos.ejs.library.EjsSimulation { 
 
   private TrajectoriesInEBView mMainView;
 

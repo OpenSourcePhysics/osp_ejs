@@ -7,7 +7,7 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 import org.colos.ejs.library.control.*;
 import org.opensourcephysics.ejs.control.value.ParserSuryono;
 import org.opensourcephysics.display.*;
@@ -151,7 +151,7 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     textAliasItem.addActionListener(new ActionListener(){
        public void actionPerformed(ActionEvent e){
           ((DrawingPanel) getVisual()).setAntialiasTextOn(textAliasItem.isSelected());
-          Simulation sim = getSimulation();
+          EjsSimulation sim = getSimulation();
           if (sim==null || sim.isPaused()) {
             ((DrawingPanel) getVisual()).invalidateImage();
             ((DrawingPanel) getVisual()).repaint();
@@ -163,7 +163,7 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     shapeAliasItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         ((DrawingPanel) getVisual()).setAntialiasShapeOn(shapeAliasItem.isSelected());
-        Simulation sim = getSimulation();
+        EjsSimulation sim = getSimulation();
         if (sim==null || sim.isPaused()) {
           ((DrawingPanel) getVisual()).invalidateImage();
           ((DrawingPanel) getVisual()).repaint();
@@ -294,7 +294,7 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     // Now render
     if (javax.swing.SwingUtilities.isEventDispatchThread()||Thread.currentThread().getName().equals("main")) {
 //      System.out.println ("Invalidate");
-      Simulation sim = getSimulation();
+      EjsSimulation sim = getSimulation();
       if (sim==null || sim.isPaused()) {
         ((DrawingPanel) getVisual()).invalidateImage();
         ((DrawingPanel) getVisual()).repaint();

@@ -21,7 +21,7 @@ import javax.swing.JRadioButtonMenuItem;
 
 import java.awt.event.ActionListener;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 import org.colos.ejs.library.control.*;
 import org.colos.ejs.library.control.swing.ControlSwingElement;
 import org.colos.ejs.library.control.swing.NeedsPreUpdate;
@@ -260,7 +260,7 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
 //  
   public void finalUpdate() {
     if (javax.swing.SwingUtilities.isEventDispatchThread()||Thread.currentThread().getName().equals("main")) {
-      Simulation sim = getSimulation();
+      EjsSimulation sim = getSimulation();
       if (sim==null || sim.isPaused()) {
         drawingPanel3D.update();
       }

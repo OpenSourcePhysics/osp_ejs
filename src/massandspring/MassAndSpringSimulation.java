@@ -9,7 +9,7 @@ import org.colos.ejs.library._EjsConstants;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-class MassAndSpringSimulation extends org.colos.ejs.library.Simulation { 
+class MassAndSpringSimulation extends org.colos.ejs.library.EjsSimulation { 
 
   private MassAndSpringView mMainView;
 

@@ -14,7 +14,7 @@ import java.util.Set;
 
 import javax.swing.*;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 
 /**
  * A combobox used for displaying and selecting a LocaleItem
@@ -59,8 +59,8 @@ public class LocaleSelector {
         // Add a new Locale or find an existing one
         LocaleItem newItem = LocaleItem.getLocaleItem(selected.toString());
         if (newItem==null) { // The entered string is not valid
-          JOptionPane.showMessageDialog(localeCB,Simulation.getEjsString("LocaleSelector.InvalidLocale")+" <"+selected.toString()+">", 
-              Simulation.getEjsString("Error"),JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(localeCB,EjsSimulation.getEjsString("LocaleSelector.InvalidLocale")+" <"+selected.toString()+">", 
+              EjsSimulation.getEjsString("Error"),JOptionPane.ERROR_MESSAGE);
           localeCB.setSelectedItem(LocaleItem.getDefaultItem());
           return;
         }
@@ -75,7 +75,7 @@ public class LocaleSelector {
       }
     });
 
-    localeLabel = new JLabel(Simulation.getEjsString("LocaleSelector.Language"), SwingConstants.RIGHT);
+    localeLabel = new JLabel(EjsSimulation.getEjsString("LocaleSelector.Language"), SwingConstants.RIGHT);
    
     JPanel fieldPanel = new JPanel(new BorderLayout());
     fieldPanel.add(localeLabel, BorderLayout.WEST);
@@ -95,7 +95,7 @@ public class LocaleSelector {
    * Makes sure to use the current locale for its labels
    */
   public void refreshGUI(LocaleItem _item) {
-    localeLabel.setText(Simulation.getEjsString("LocaleSelector.Language"));
+    localeLabel.setText(EjsSimulation.getEjsString("LocaleSelector.Language"));
     int n = localeCB.getItemCount();
     for (int i = 0; i<n; i++) {
       LocaleItem next = (LocaleItem) localeCB.getItemAt(i);

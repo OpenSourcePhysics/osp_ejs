@@ -11,7 +11,7 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 
 /**
  * A simple map between properties and values
@@ -27,7 +27,7 @@ public class TranslatorUtil  {
   /**
    * Provides a locale selector component (if any)
    */
-  public javax.swing.JComponent getSelectorComponent(Simulation _simulation) { return null; }
+  public javax.swing.JComponent getSelectorComponent(EjsSimulation _simulation) { return null; }
 
   /**
    * Adds a String to the properties
@@ -74,7 +74,7 @@ public class TranslatorUtil  {
   
   public void setLocaleItem (LocaleItem _item) { }
   
-  public void addToMenu (JMenu _menu, Simulation _simulation) { }
+  public void addToMenu (JMenu _menu, EjsSimulation _simulation) { }
 
   public void refreshMenu() {}
   

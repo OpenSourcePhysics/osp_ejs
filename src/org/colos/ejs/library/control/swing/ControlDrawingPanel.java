@@ -7,7 +7,7 @@
 
 package org.colos.ejs.library.control.swing;
 
-import org.colos.ejs.library.Simulation;
+import org.colos.ejs.library.EjsSimulation;
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
 import org.opensourcephysics.ejs.control.value.*;
@@ -412,7 +412,7 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
       case InteractivePanel.MOUSE_DRAGGED :
         if (targetHit!=null) {
           Point3D trackerPoint = new Point3D (_panel.getMouseX (),_panel.getMouseY (),0.0);
-          Simulation sim = getSimulation();
+          EjsSimulation sim = getSimulation();
           if (sim!=null) {
             sim.invokeMethodWhenIdle(new UpdateHotSpotDelayedAction(targetHit,_panel,trackerPoint));
             if (sim.isPaused()) _panel.render();
@@ -424,7 +424,7 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
         }
         else if (target2D!=null) {
           double [] point = new double[] {_panel.getMouseX (),_panel.getMouseY (),0.0};
-          Simulation sim = getSimulation();
+          EjsSimulation sim = getSimulation();
           if (sim!=null) {
             sim.invokeMethodWhenIdle(new UpdateHotSpot2DDelayedAction(target2D,point.clone(),_evt));
             if (sim.isPaused()) _panel.render();
@@ -440,7 +440,7 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
       case InteractivePanel.MOUSE_RELEASED :
         if (targetHit!=null) {
           targetHit.getSource().invokeActions (new InteractionEvent (targetHit.getSource(),InteractionEvent.MOUSE_RELEASED,null,targetHit));
-          Simulation sim = getSimulation();
+          EjsSimulation sim = getSimulation();
           if (sim==null || sim.isPaused()) {
             _panel.invalidateImage(); // this is needed because of the peculiar behavior of InteractivePanel scaleX and scaleY methods
             _panel.repaint();
@@ -448,7 +448,7 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
         }
         else if (target2D!=null) {
           invokeTheAction(target2D,org.opensourcephysics.drawing2d.interaction.InteractionEvent.MOUSE_RELEASED,_evt);
-          Simulation sim = getSimulation();
+          EjsSimulation sim = getSimulation();
           if (sim==null || sim.isPaused()) {
             _panel.invalidateImage(); // this is needed because of the peculiar behavior of InteractivePanel scaleX and scaleY methods
             _panel.repaint();
