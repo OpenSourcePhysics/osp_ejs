@@ -904,7 +904,7 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
     } else {  // > Custom.Save State:8
        if(fileName==null)fileName="";  // > Custom.Save State:9
        fileName=fileName.trim();  // > Custom.Save State:10
-      _saveDefaultStateToJar(fileName);  // > Custom.Save State:11
+      //_saveDefaultStateToJar(fileName);  // not supported in JS
     }  // > Custom.Save State:12
   }  // > Custom.Save State:13
 

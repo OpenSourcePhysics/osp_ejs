@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.opensourcephysics.js.JSUtil;
 import org.opensourcephysics.tools.ToolsRes;
 
 /**
@@ -83,7 +84,6 @@ public class LocaleItem implements Comparable<LocaleItem> {
     LOCALE_MAP.put(lang, localeItem);
     return localeItem;
   }
-
   // --------------------------
   // non-static part
   // --------------------------

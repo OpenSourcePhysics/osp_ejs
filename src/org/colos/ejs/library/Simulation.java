@@ -40,6 +40,7 @@ import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.DisplayRes;
 import org.opensourcephysics.display.dialogs.DialogsRes;
+import org.opensourcephysics.js.JSUtil;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.controls.OSPLog;
 import org.opensourcephysics.desktop.OSPDesktop;
@@ -48,7 +49,7 @@ import org.opensourcephysics.desktop.OSPDesktop;
  * A base interface for a simulation
  */
 
-public abstract class Simulation extends Animation implements LocaleListener {
+public abstract class Simulation extends Animation {
   static public ResourceBundle ejsRes = ResourceBundle.getBundle("org.colos.ejs.library.resources.ejs_res", Locale.getDefault());
 
   static private final String DEFAULT_STATE_FILENAME = "DefaultState.out";
@@ -304,13 +305,13 @@ public abstract class Simulation extends Animation implements LocaleListener {
 //---------------------------------------------------
 
   public boolean hasDefaultState() {
-    if (isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
+    if (JSUtil.isJS || isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
     Resource res = ResourceLoader.getResource(DEFAULT_STATE_FILENAME);
     return res!=null;
   }
 
   public boolean readDefaultState() {
-    if (isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
+    if (JSUtil.isJS || isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
     else if (hasDefaultState()) return readVariables(DEFAULT_STATE_FILENAME,(List<String>) null);
     else return false;
   }
@@ -325,6 +326,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * Reset to a user-defined default state 
    */
   protected void userDefinedReset() {
+  	if(JSUtil.isJS) return;
     if (resetFile!=null && !isMoodleConnected()) {
 //      System.out.println ("Must read state "+resetFile);
       if (resetFile.equals(DEFAULT_STATE_FILENAME)) readVariables(DEFAULT_STATE_FILENAME,(List<String>) null);
@@ -439,46 +441,12 @@ public abstract class Simulation extends Animation implements LocaleListener {
     return Model._getTranslatorUtil().translateString(_property); 
   }
 
-  /**
-   * Sets the locale item for the simulation
-   */
-  public void setLocaleItem (LocaleItem _item) {
-    setLocaleItem(_item, true);
-  }
-
-  /**
-   * Sets the locale item for the simulation but lets you not reset the model
-   */
-  protected void setLocaleItem (LocaleItem _item, boolean _resetModel) {
-    currentLocaleItem = _item;
-    Locale locale = _item.getLocale();
-    if (locale==null) locale = Locale.getDefault();
-    ToolsRes.setLocale(locale);
-    DisplayRes.setLocale(locale);
-    DialogsRes.setLocale(locale);
-    ejsRes = ResourceBundle.getBundle("org.colos.ejs.library.resources.ejs_res", locale);
-    Model._getTranslatorUtil().setLocaleItem(currentLocaleItem);
-    setViewLocale();
-    popupMenu = null;
-    resetDescriptionPages();
-    if (_resetModel) model._reset();
-  }
-
   public LocaleItem getLocaleItem() {
     return currentLocaleItem;
   }
 
-  public void setLocale (String _language) {
-//    System.out.println("Setting to locale "+_language);
-    LocaleItem item = LocaleItem.getLocaleItem(_language);
-    if (item!=null) setLocaleItem(item);
-    else {
-      System.out.println("Warning! Html editor is ignoring unrecognized locale name : "+_language+"\n");
-      setLocaleItem(LocaleItem.getDefaultItem());
-    }
-  }
-
   public Locale getLocale() {
+  	if(JSUtil.isJS)return Locale.getDefault();
     Locale locale = currentLocaleItem.getLocale();
     if (locale==null) locale = Locale.getDefault();
     return locale;
@@ -636,6 +604,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * @param _height
    */
   public void addDescriptionPage (String _htmlPage, int _width, int _height, boolean _visible) {
+  	if(JSUtil.isJS) return;
     HtmlPageInfo pageInfo = model._getHtmlPageInfo(_htmlPage, currentLocaleItem);
     if (pageInfo==null) {
       JOptionPane.showMessageDialog(popupTriggeredBy,"Html file not found: "+_htmlPage,"Description Error",JOptionPane.ERROR_MESSAGE);
@@ -713,72 +682,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
 //  }
   
   /**
-   * Old form for backwards compatibility
-   * @param _title
-   * @param _htmlPage
-   * @param width
-   * @param height
-   */
-  public void addDescriptionPage (String _title, String _htmlPage, int width, int height) { addDescriptionPage (_htmlPage, width, height,true); }
-
-  public void setDescriptionPageVisible(String _name, boolean _visible) {
-    if (descriptionPagesList==null) return;
-    for (EditorAndScroll pane : descriptionPagesList) {
-      if (pane.name.equals(_name)) {
-        if (pane.isVisible()!=_visible) {
-          pane.setVisible(_visible);
-          recreateDescriptionPanel();
-        }
-        break;
-      }
-    }  
-  }
-
-  /**
-   * Recreates the description panel 
-   */
-  protected void recreateDescriptionPanel() {
-    if (descriptionPanel==null) return;
-    descriptionPanel.removeAll();
-    for (EditorAndScroll pane : descriptionPagesList) {
-      if (!pane.isVisible()) continue;
-      HtmlPageInfo pageInfo = model._getHtmlPageInfo(pane.name, currentLocaleItem);
-      if (pageInfo!=null) descriptionPanel.add(pageInfo.getTitle(),pane.scrollPane);
-    }
-    descriptionDialog.pack();
-    if (descriptionPanel.getTabCount()<=0) {
-      descriptionDialog.setVisible(false);
-      showDescriptionOnStart = false;
-    }
-  }
-  
-  /**
-   * Resets the description pages after a change of locale, mainly
-   */
-  protected void resetDescriptionPages() {
-    if (descriptionPagesList==null) return;
-    try {
-      for (EditorAndScroll pane : descriptionPagesList) {
-        HtmlPageInfo pageInfo = model._getHtmlPageInfo(pane.name, currentLocaleItem);
-        if (pageInfo!=null) {
-          Resource htmlRes = ResourceLoader.getResource(pageInfo.getLink());
-          URL url = htmlRes.getURL();
-          if (pane.editorPane.getPage()!=url) {
-            pane.editorPane.setPage(url);
-            descriptionPanel.setTitleAt(descriptionPanel.indexOfComponent(pane.scrollPane), pageInfo.getTitle());
-          }
-        }
-      }
-    } catch (Exception exc) { exc.printStackTrace(); }
-    if (increaseFontButton!=null) {
-      descriptionDialog.setTitle(Memory.getResource("DescriptionFor")+" "+getModelClassname());
-      increaseFontButton.setToolTipText(DisplayRes.getString("DrawingFrame.IncreaseFontSize_menu_item"));
-      decreaseFontButton.setToolTipText(DisplayRes.getString("DrawingFrame.DecreaseFontSize_menu_item"));
-      openPageButton.setToolTipText(Memory.getResource("DescriptionPages.OpenExternalBrowser"));
-    }
-  }
-  
-  /**
    * Whether the description dialog should show at start-up (true by default)
    * @param _show
    */
@@ -803,6 +706,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * @return
    */
   public URL getDescriptionPageURL (String _htmlPage) {
+  	if(JSUtil.isJS) return null;
     HtmlPageInfo pageInfo = model._getHtmlPageInfo(_htmlPage, currentLocaleItem);
     if (pageInfo==null) return null;
     return ResourceLoader.getResource(pageInfo.getLink()).getURL();
@@ -812,6 +716,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * Extracts the description pages (if not yet done) and opens them in the system browser 
    */
   public boolean openDescriptionPagesInBrowser() {
+  	if(JSUtil.isJS) return true;
     File tempDir = extractResources();
     if (tempDir==null) return false;
     boolean failed = false;
@@ -830,6 +735,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * Extracts the description pages and opens the required page in the system browser 
    */
   public boolean openDescriptionPageInBrowser(String _name) {
+  	if(JSUtil.isJS) return false;
     File tempDir = extractResources();
     if (tempDir==null) {
       return false;
@@ -1398,7 +1304,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
               if (filename==null) return;
               jarFile = new File(filename);
             }
-            saveDefaultStateToJar(jarFile,null); 
+            //saveDefaultStateToJar(jarFile,null); //jar files not supported in JS
           }
         });
         ioStateMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.ReadState")){
@@ -1908,25 +1814,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
         }
       }
     }
-    if (!stateRead) {
-      if ((!isMoodleConnected()) && ResourceLoader.getResource(DEFAULT_STATE_FILENAME)!=null) {
-        OSPLog.fine("Reading default state from jar "+DEFAULT_STATE_FILENAME);
-        readVariables(DEFAULT_STATE_FILENAME, (List<String>) null);
-        resetFile = DEFAULT_STATE_FILENAME;
-        if (view!=null) view.reset();
-      }
-//      else System.out.println ("No default state to read");
-    }
-    if (applet==null) { // decide whether or not to show the description
-      boolean showIt = !isUnderEjs;
-      // Check if under Launcher
-      if (org.opensourcephysics.display.OSPRuntime.isLauncherMode()) showIt = false;
-      else try {
-        if ("true".equals(System.getProperty("osp_launcher"))) showIt = false;
-      } catch (Exception exc) {}; // Do not complain
-      if (showIt && showDescriptionOnStart) showDescription();
-    }
-
   }
 
   static public List<String> toArrayList (String _list) {
@@ -2395,147 +2282,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
     if (filename.toLowerCase().startsWith("http://")) return false; // ignore web files
     return true;
   }
-  
-  /**
-   * Saves a default file with default state into the simulation JAR file
-   * @return
-   */
-  public boolean saveDefaultStateToJar (File _jarFile, String _filenames) {
-    if (OSPRuntime.isLauncherMode()) {
-      OSPLog.warning("Simulation cannot save state to JAR when in Launcher mode. Ignored!");
-      return false;
-    }
-    try {
-      File tempFile = File.createTempFile(DEFAULT_STATE_FILENAME, null);
-      tempFile.delete();
-      boolean savedOk = saveVariables (tempFile.getAbsolutePath(), (List<String>) null); 
-      if (!savedOk) {
-        JOptionPane.showMessageDialog(getParentComponent(),"Cannot save data file","Could not create temp file",JOptionPane.ERROR_MESSAGE);
-        return false;
-      }
-//      System.out.println ("Saved OK "+tempFile.getAbsolutePath());
-
-      java.util.Set<File> extraFilesSet=new java.util.HashSet<File>();
-      if (_filenames!=null) {
-        StringTokenizer tkn = new StringTokenizer(_filenames,";,");
-        while (tkn.hasMoreTokens()) {
-          String extraFileName = tkn.nextToken();
-          if (!isDisplayable(extraFileName)) continue;
-//          System.err.println ("Trying "+extraFileName);
-          Resource res = ResourceLoader.getResource(extraFileName);          
-          File extraFile = null;
-          if (res!=null) extraFile = res.getFile();
-//          System.err.println ("res = "+res+" , FIle = "+extraFile);
-          // See if the file exists
-          if (extraFile==null || !extraFile.exists()) {
-            if (res==null || res.openReader()==null) JOptionPane.showMessageDialog(getParentComponent(),ejsRes.getString("Simulation.CantFindExtraFile")+" "+extraFileName,ejsRes.getString("Simulation.IgnoringExtraFile"),JOptionPane.WARNING_MESSAGE);
-            else JOptionPane.showMessageDialog(getParentComponent(),ejsRes.getString("Simulation.ExtraFileAlreadyIn")+" "+extraFileName+"\n"+ejsRes.getString("Simulation.RenameDocument"),ejsRes.getString("Simulation.IgnoringExtraFile"),JOptionPane.WARNING_MESSAGE);
-          }
-          else extraFilesSet.add(extraFile);
-        }        
-      }
-      
-      JPanel accesoryPanel = new JPanel(new BorderLayout());
-      JCheckBox htmlCheckBox = new JCheckBox(Memory.getResource("CreateHTMLPage"),false);
-      accesoryPanel.add(htmlCheckBox,BorderLayout.NORTH);
-
-      String proposedName = FileUtils.getPlainName(_jarFile) + "_StateAdded.jar";
-      File proposedFile = new File(proposedName);
-      int counter = 2;
-      while (proposedFile.exists()) {
-        proposedName = FileUtils.getPlainName(_jarFile) + "_StateAdded_"+counter+".jar";
-        proposedFile = new File(proposedName);
-        counter++;
-      }
-      File newJarFile = new File (_jarFile.getParentFile(),proposedName);
-      JFileChooser chooser=OSPRuntime.createChooser("JAR",new String[]{"jar"});
-      chooser.setSelectedFile(newJarFile);
-      chooser.setAccessory(accesoryPanel);
-      String filename = OSPRuntime.chooseFilename(chooser,getParentComponent(),true); // true = to save      
-      if (filename==null) return false;
-      if (filename.lastIndexOf('.')<0) filename += ".jar";
-
-      newJarFile = new File(filename);
-
-      JarInputStream  jarIn = new JarInputStream(new FileInputStream(_jarFile));
-      JarFile tmpJarFile = new JarFile(_jarFile);
-      JarOutputStream jarOut = new JarOutputStream(new FileOutputStream(newJarFile),tmpJarFile.getManifest());
-
-      java.util.Set<File> extraFilesRemoveSet=new java.util.HashSet<File>();
-      // Copy the old jar
-      JarEntry entry = jarIn.getNextJarEntry();
-      while (entry != null) {
-        String name = entry.getName();
-        if (name.equals(DEFAULT_STATE_FILENAME)) {
-          OSPLog.fine("Saving state to JAR : removing previous state file "+name);
-          entry = jarIn.getNextJarEntry();
-          continue; // Do not copy this one
-        }
-        String lowercaseName = name.toLowerCase();
-        if (lowercaseName.startsWith("meta-inf/") && (lowercaseName.endsWith(".sf") || lowercaseName.endsWith(".rsa") || lowercaseName.endsWith(".dsa")) ) {
-//        if ( lowercaseName.endsWith(".sf") || lowercaseName.endsWith(".rsa") || lowercaseName.endsWith(".dsa")) {
-          OSPLog.fine("Saving state to JAR : Ignoring signature file : "+name);
-          entry = jarIn.getNextJarEntry();
-          continue; // Do not copy this one
-        }
-//        System.out.println ("Copying file : "+name);
-        boolean overwrite = false;
-        for (File extraFile : extraFilesSet) {
-          if (extraFile.getName().equals(name)) {
-            int option = JOptionPane.showConfirmDialog(getParentComponent(),
-                "File already exists in JAR:"+name+"\nDo you want to overwrite it?", "Conflict with existing file", JOptionPane.YES_NO_OPTION);
-            if (option==JOptionPane.NO_OPTION) extraFilesRemoveSet.add(extraFile);
-            else overwrite = true;
-            break;
-          }
-        }
-        if (overwrite) {
-          entry = jarIn.getNextJarEntry();
-          continue;
-        }
-        byte[] buf = new byte[1024];
-        jarOut.putNextEntry(new JarEntry(name));
-        int len;
-        while ((len = jarIn.read(buf)) > 0) { jarOut.write(buf, 0, len); }
-        entry = jarIn.getNextJarEntry();
-      }
-      jarIn.close();
-      
-      // Exclude those already in JAR
-      extraFilesSet.removeAll(extraFilesRemoveSet);
-
-//      XMLControlElement control = null;       // Used to save XML
-//      java.io.OutputStream out = null;        // Used to save binary
-//      java.io.ObjectOutputStream dout = null; // Used to save binary
-//      control = new XMLControlElement(this.getClass());
-      
-      // Add the state
-      addFileToJar(jarOut, DEFAULT_STATE_FILENAME, tempFile);
-      tempFile.delete();
-      // Add the extra files
-      for (File extraFile : extraFilesSet) addFileToJar(jarOut, extraFile.getName(), extraFile);
-
-//      jarOut.putNextEntry(new JarEntry(DEFAULT_STATE_FILENAME));
-//      java.io.BufferedOutputStream bout = new java.io.BufferedOutputStream (jarOut);
-//      java.io.ObjectOutputStream dout = new java.io.ObjectOutputStream (bout);
-//      java.lang.reflect.Field[] fields = model.getClass().getFields();
-//      for (int i=0; i<fields.length; i++) {
-//        if (!(fields[i].get(model) instanceof java.io.Serializable)) continue; // Ignore these ones
-//        dout.writeObject(fields[i].get(model));
-//      }
-//      jarOut.closeEntry();
-
-      jarOut.close();
-      tmpJarFile.close();
-      if (htmlCheckBox.isSelected()) createHTMLpage(newJarFile.getName());
-      return true;
-    }
-    catch (java.lang.Exception ioe) {
-      errorMessage ("Error when trying to save state to "+_jarFile.getName());
-      ioe.printStackTrace(System.err);
-      return false;
-    }
-  }
+ 
 
 
   static private class MyXMLAccessory extends JPanel { //implements java.beans.PropertyChangeListener {

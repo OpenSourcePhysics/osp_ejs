@@ -256,12 +256,6 @@ public class EjsControl {
   public String getLocaleLanguage() { return mySimulation.getLocale().getLanguage(); }
 
   /**
-   * Returns the locale of the simulation
-   * @return
-   */
-  public void setLocale(String _language) { mySimulation.setLocale(_language); }
-
-  /**
    * Whether the simulation must call update when variables change.
    * Also, view elements actions are disabled if this value is false.
    * This should be set to false at start up of Ejs
@@ -1326,11 +1320,6 @@ public class EjsControl {
    * @return true is successful, false otherwise 
    */
   public boolean openDescriptionPageInBrowser(String _name) { return getSimulation().openDescriptionPageInBrowser(_name); }
-
-  /**
-   * Sets the visibility of a given description page
-   */
-  public void setDescriptionPageVisible(String _name, boolean _visible) { getSimulation().setDescriptionPageVisible(_name, _visible); }
   
   /**
    * Brings in the capture video tool for the given view element

@@ -29,11 +29,6 @@ class GyroscopeSimulation extends org.colos.ejs.library.Simulation {
     setStepsPerDisplay(_model._getPreferredStepsPerDisplay()); 
     if (_allowAutoplay) { setAutoplay(false); reset(); }
     else { reset(); setAutoplay(false); }
-    recreateDescriptionPanel();
-    if (_model._getApplet()!=null && _model._getApplet().getParameter("locale")!=null) {
-      setLocaleItem(org.colos.ejs.library.utils.LocaleItem.getLocaleItem(_model._getApplet().getParameter("locale")),false);
-    }
-    else setLocaleItem(getLocaleItem(),false); // false so that not to reset the model twice at start-up
   }
 
   public java.util.List<String> getWindowsList() {

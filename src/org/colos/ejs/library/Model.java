@@ -252,24 +252,6 @@ public abstract class Model { //implements ExternalClient {
 
   public boolean _readDefaultState() { return _getSimulation().readDefaultState(); }
 
-  public boolean _saveDefaultStateToJar() { return _saveDefaultStateToJar(null); }
-
-  public boolean _saveDefaultStateToJar(String filenames) {
-    if (_getSimulation().isUnderEjs()) return false;  
-    File jarFile=null; 
-    try {
-      URL url = Simulation.class.getProtectionDomain().getCodeSource().getLocation();
-      jarFile = new File(url.toURI());
-    }
-    catch (Exception exc) { 
-      exc.printStackTrace(); 
-      JFileChooser chooser=OSPRuntime.createChooser("JAR",new String[]{"jar"});
-      String filename = OSPRuntime.chooseFilename(chooser,_getSimulation().getParentComponent(),false); // true = to save
-      if (filename==null) return false;
-      jarFile = new File(filename);
-    }
-    return _getSimulation().saveDefaultStateToJar(jarFile, filenames); 
-  }
   
   public boolean _saveState (String _filename) { return _getSimulation().saveState (_filename); }
 

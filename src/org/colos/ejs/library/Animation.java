@@ -398,16 +398,11 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
    */
   abstract protected void userDefinedViewUpdate();
 
-  /**
-   * User-defined update view (such as video capture) 
-   */
-  abstract protected void resetDescriptionPages();
 
   /**
    * Resets the simulation to a complete initial state
    */
   /*final*/ public synchronized void reset() { //CJB for collaborative (remove final)
-    resetDescriptionPages();
     pause();
     if (model!=null) {
       model._resetModel();
