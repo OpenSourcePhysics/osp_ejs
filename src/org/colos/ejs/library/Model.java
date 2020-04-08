@@ -21,7 +21,6 @@ public abstract class Model { //implements ExternalClient {
   static private GraphicsConfiguration __graphicConfiguration=null; 
 
   protected String[] __theArguments = null;
-  protected LauncherApplet __theApplet = null;
   public org.opensourcephysics.tools.ToolForData _tools = org.opensourcephysics.tools.ToolForData.getTool(); // Table, Data, and Fourier tool
   // List of possible external applications
 //  protected ExternalAppsHandler _external = new ExternalAppsHandler(this);
@@ -151,8 +150,6 @@ public abstract class Model { //implements ExternalClient {
   //---- End of Control of the Thread ----
 
   // --- Utilities ---
-  
-  public LauncherApplet _getApplet() { return __theApplet; }
 
   public void _play() { _getSimulation().play(); }
 
@@ -193,8 +190,6 @@ public abstract class Model { //implements ExternalClient {
 //    _external.reset(); 
     _getSimulation().initialize(); 
   }
-
-  public boolean _isApplet()  { return __theApplet!=null; }
   
   public boolean _isPlaying() { return _getSimulation().isPlaying(); }
 
@@ -271,7 +266,6 @@ public abstract class Model { //implements ExternalClient {
 
   public boolean _readVariables (String _filename,java.util.List<String> _varList) {
     java.net.URL codebase = null;
-    if (__theApplet!=null) codebase = __theApplet.getCodeBase();
     return _getSimulation().readVariables (_filename,codebase,_varList);
   }
 
@@ -324,9 +318,6 @@ public abstract class Model { //implements ExternalClient {
 
   public void _clearMessages() { if (_getView()!=null) _getView().clearMessages(); }
 
-  
-  public boolean _isMoodleConnected() { return _getSimulation().isMoodleConnected(); }
-
   private Map<String, Object> userData = new HashMap<String,Object>();
 
   public void setUserData(String name, Object element) {
@@ -339,7 +330,6 @@ public abstract class Model { //implements ExternalClient {
 
 
   public String _getParameter(String _name) {
-    if (__theApplet!=null) return __theApplet.getParameter(_name);
     if (__theArguments==null) return null;
     for (int i=0; i<__theArguments.length;i++) {
       if (__theArguments[i].equals("-"+_name) && (i+1)<__theArguments.length) return __theArguments[i+1];

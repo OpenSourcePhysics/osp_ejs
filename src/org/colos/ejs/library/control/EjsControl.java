@@ -1275,8 +1275,7 @@ public class EjsControl {
     editorPane.addHyperlinkListener(new HyperlinkListener() {
       public void hyperlinkUpdate(HyperlinkEvent e) {
         if (e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
-          getSimulation().openURL(e.getSource(),e.getURL(),getSimulation().getView().getComponent(getSimulation().getMainWindow()), 
-              getSimulation().getModel()._getApplet()!=null);
+          getSimulation().openURL(e.getSource(),e.getURL(),getSimulation().getView().getComponent(getSimulation().getMainWindow()), false);
         }
       }
     });

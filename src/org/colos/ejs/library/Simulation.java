@@ -58,8 +58,6 @@ public abstract class Simulation extends Animation {
   static private AWTEventListener focusListener=null;
 
   static private String homeDir=null, userDir=null;
-
-  private boolean isUnderEjs = false;
   private Component parentComponent=null;
   private String parentComponentName=null;
   private String captureElement=null; // The element that will be captured as GIF or in video
@@ -305,13 +303,13 @@ public abstract class Simulation extends Animation {
 //---------------------------------------------------
 
   public boolean hasDefaultState() {
-    if (JSUtil.isJS || isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
+    if (JSUtil.isJS) return false; // Otherwise, loading the applet takes ages!
     Resource res = ResourceLoader.getResource(DEFAULT_STATE_FILENAME);
     return res!=null;
   }
 
   public boolean readDefaultState() {
-    if (JSUtil.isJS || isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
+    if (JSUtil.isJS) return false; // Otherwise, loading the applet takes ages!
     else if (hasDefaultState()) return readVariables(DEFAULT_STATE_FILENAME,(List<String>) null);
     else return false;
   }
@@ -327,12 +325,6 @@ public abstract class Simulation extends Animation {
    */
   protected void userDefinedReset() {
   	if(JSUtil.isJS) return;
-    if (resetFile!=null && !isMoodleConnected()) {
-//      System.out.println ("Must read state "+resetFile);
-      if (resetFile.equals(DEFAULT_STATE_FILENAME)) readVariables(DEFAULT_STATE_FILENAME,(List<String>) null);
-      else readState (resetFile);
-      if (view!=null) view.reset();
-    }
   }
 
   /**
@@ -647,7 +639,7 @@ public abstract class Simulation extends Animation {
       editorPane.addHyperlinkListener(new HyperlinkListener() {
         public void hyperlinkUpdate(HyperlinkEvent e) {
           if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
-            openURL(e.getSource(),e.getURL(),getView().getComponent(getMainWindow()), model._getApplet()!=null);
+            openURL(e.getSource(),e.getURL(),getView().getComponent(getMainWindow()), false);
           }
         }
       });
@@ -1055,82 +1047,11 @@ public abstract class Simulation extends Animation {
 
   static private Hashtable<String, Object> memory = new Hashtable<String, Object>();
 
-  protected MoodleLink moodle=null;
   private MethodWithOneParameter _init_=null;//FKH20060417
 
-  /**
-   * Initializes the applet
-   * @return true if teh applet is non-null
-   */
-  public LauncherApplet initMoodle () {
-    LauncherApplet applet = model._getApplet();
-    if (applet==null) return null;
-    try {// FKH 20060417
-        String s = applet.getParameter("init");
-        if(s != null)
-        {
-            _init_ = new MethodWithOneParameter(0, applet._model, s, null, null, applet);
-            _init_.invoke(0, applet);
-        }
-    } catch(Exception exception){
-        exception.printStackTrace();
-    }//END FKH 20060417
-    return applet;
-  }
-
-  public boolean isMoodleConnected () {
-    if (moodle==null) return false;
-    return moodle.isConnected();
-  }
-
   
-  // -------------------------------- FKH 20060415 for javascript and java connection
-  // Search also for FKH in Model.java
-  
-  private LauncherApplet javascriptControledApplet=null;
   private boolean javascriptControlMode() { return false; }
 
-  /*
-  public void ejsPopup(String url){// works for IE, but it is not working for netscape
-        String command = "window.open('"+url+"', 'ejspopup', 'menubar=0,location=0,scrollbars,resizable,width=100,height=100');";
-        ejsEval(command);
-  }
-  protected netscape.javascript.JSObject htmlWindow=null;//FKH 20060731
-  public void ejsEval(String command){// call html window to exec command
-    if(javascriptControlMode(false)){// valid even for signed applet
-      if(htmlWindow==null)htmlWindow = netscape.javascript.JSObject.getWindow(javascriptControledApplet);
-      htmlWindow.eval(command);
-    }
-  }
-  public void ejsCommand(String Args[]){// call Javascript function from ejs generated simulations
-    ejsCommand("ejsCommand",Args);
-  }
-  public void ejsCommand(String JScriptFunctionName,String Args[]){
-    if(javascriptControlMode(false)){
-      if(htmlWindow==null)htmlWindow = netscape.javascript.JSObject.getWindow(javascriptControledApplet);
-      htmlWindow.call(JScriptFunctionName,Args);
-    }
-  }
-  private boolean javascriptControlMode(){
-    return javascriptControlMode(true);
-  }
-  private boolean javascriptControlMode(boolean localMode){
-    if(javascriptControledApplet==null)javascriptControledApplet = model._getApplet();
-    if(javascriptControledApplet==null || isMoodleConnected())return false;
-    if(localMode){
-    boolean canUseLocalFile=true;// signed applet
-    try {
-     System.getProperty("user.dir");
-      }
-      catch (Exception exc) {
-        canUseLocalFile = false;
-      }
-    return !canUseLocalFile;
-  }
-    return true;
-  }
-
-  */
   // -------------------------------------------------- END FKH
   
   static public boolean isImageFormatSupported (String _format) {// for applet mode saveImage
@@ -1171,10 +1092,7 @@ public abstract class Simulation extends Animation {
   private JMenu elementsMenu=null;
   private AbstractList<Object> popupMenuExtraEntries=null;
   private Component popupTriggeredBy=null;
-
-  protected void setUnderEjs (boolean value) { isUnderEjs = value; }
   
-  public boolean isUnderEjs() { return isUnderEjs; }
   
   public void addMenuEntries (List<Object> _entries) {
     if (popupMenuExtraEntries==null) popupMenuExtraEntries = new ArrayList<Object>();
@@ -1236,8 +1154,7 @@ public abstract class Simulation extends Animation {
       //LDLTorre for Moodle support
       //A�adida la condici�n de conexi�n a Moodle (No es necesario que el applet
       //est� firmado cuando manda ficheros a Moodle porque no se hace acceso al disco).
-      if (canAccessDisk || isMoodleConnected()) { //if (canAccessDisk) {
-      //LDLTorre for Moodle support
+      if (canAccessDisk) { //if (canAccessDisk) {
         
         JMenu snapshotMenu = new JMenu(getMenuText("ejs_res:MenuItem.SnapshotTools"));
         snapshotMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.Snapshot")){
@@ -1291,7 +1208,7 @@ public abstract class Simulation extends Animation {
         boolean isLauncherMode;
         try { isLauncherMode = OSPRuntime.isLauncherMode(); }
         catch (Exception exc) { isLauncherMode = false; }
-        if ( ! (isUnderEjs || isLauncherMode || isMoodleConnected())) ioStateMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.SaveDefaultState")){
+        if ( ! (isLauncherMode)) ioStateMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.SaveDefaultState")){
           public void actionPerformed(ActionEvent e) {
             File jarFile=null; 
             try {
@@ -1358,20 +1275,9 @@ public abstract class Simulation extends Animation {
             catch (Exception _exc) { systemPassword = null; } // do nothing
 //            System.err.println("System password is "+systemPassword);
             boolean quit = EjsTool.runEjs(getModel().getClass(),systemPassword);
-            if (!(model._isApplet() || OSPRuntime.isLauncherMode()) && quit) {
-              try {
-                Thread.sleep(1000);
-              } catch (InterruptedException e1) {
-                e1.printStackTrace();
-              }
-              System.exit(0);
-            }
           }
         });
       }
-      if (!isUnderEjs && canAccessDisk && !model._isApplet()) popupMenu.add(new AbstractAction(Memory.getResource("CreateHTMLPage")){
-        public void actionPerformed(ActionEvent e) { createHTMLpage(getJarName()); }
-      });
 
       if (canAccessDisk) { // Diagnostics submenu
         JMenu diagnosticsMenu = new JMenu(Memory.getResource("Diagnostics.Menu"));
@@ -1733,54 +1639,6 @@ public abstract class Simulation extends Animation {
       return false;
     }
     Component comp = ctrlEl.getComponent();
-    // Special case : Moodle
-    if (isMoodleConnected () || javascriptControlMode() ) {
-      if      (comp instanceof javax.swing.JFrame)  comp = ((javax.swing.JFrame)  comp).getContentPane();
-      else if (comp instanceof javax.swing.JDialog) comp = ((javax.swing.JDialog) comp).getContentPane();
-      // Generate the image
-      BufferedImage bi = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
-      if (ctrlEl instanceof SpecialRender) ( (SpecialRender) ctrlEl).render(bi);
-      else {
-        java.awt.Graphics g = bi.getGraphics();
-        comp.paint(g);
-        g.dispose();
-      }
-      //LDLTorre for consistency
-      //Simplemente he cambiado el nombre por defecto del fichero de la imagen para ajustarlo al que
-      //ya se pon�a como nombre por defecto para grabar un fichero de texto.
-      if (_filename==null) _filename = getModelClassname()+".gif"; //_filename = "default.gif"
-      if(isMoodleConnected ())return moodle.saveImage(_filename,"GIF image", bi)!=null;
-      //LDLTorre for consistency
-      //applet mode starts here 20061201, use previously code
-      try { // Save it to memory or disk
-        String format = "jpg";
-        int index = _filename.lastIndexOf('.');
-        if (index>=0) format = _filename.substring(index+1).toLowerCase();
-        else _filename = _filename + "." + format;
-        boolean supported = isImageFormatSupported (format);
-        if ( ! (supported || (videoUtil.isFullClass() && "gif".equalsIgnoreCase(format)) ) ) {
-          System.err.println("Format not supported : "+format);
-          return false;
-        }
-        java.io.OutputStream out = null;
-
-        // FKH 200600415 add javascriptControlMode() for javascript control applet mode
-        if (javascriptControlMode() || _filename.startsWith("ejs:")) out = new java.io.ByteArrayOutputStream();
-        else out = new java.io.FileOutputStream(_filename);
-        boolean result=true;
-        if (supported) result = javax.imageio.ImageIO.write(bi, format, out);
-        else result = videoUtil.writeGIF(out,bi); // use GIFEncoder
-        out.close();
-        if (!result) return false;
-        if (_filename.startsWith("ejs:")) memory.put(_filename,((java.io.ByteArrayOutputStream) out).toByteArray());
-        else if(javascriptControlMode()){
-          javascriptControledApplet.setImageByteArray( ( (java.io.ByteArrayOutputStream) out).toByteArray());
-        }
-      }
-      catch (Exception _exc) { _exc.printStackTrace(); return false; }
-      return true;
-
-    }
       return SnapshotTool.getTool().saveImage (_filename,comp,null);
   }
 
@@ -1789,17 +1647,7 @@ public abstract class Simulation extends Animation {
 // --------------------------------------------------------
 
   public void processArguments (String[] _args) {
-    LauncherApplet applet = model._getApplet();
     boolean stateRead = false;
-    if (applet!=null) {
-      try {
-        // Try to read a default file with an initial state
-        String arg0 = applet.getParameter("initialState");
-        if (arg0 != null) stateRead = readState(arg0,applet.getCodeBase());
-      } 
-      catch (Exception exception){ exception.printStackTrace(); }
-    }
-    else {
       if (_args != null && _args.length > 0) {
         for (int i = 0; i < _args.length; i++) {
           if (_args[i].toLowerCase().endsWith(".xml")) {
@@ -1813,7 +1661,7 @@ public abstract class Simulation extends Animation {
           }
         }
       }
-    }
+   
   }
 
   static public List<String> toArrayList (String _list) {
@@ -1875,13 +1723,6 @@ public abstract class Simulation extends Animation {
    */
   public boolean readState (String _filename) {
     return readVariables (_filename,stateVariablesList);
-//    if (_filename==null) return readVariables (_filename,null,stateVariablesList);
-//    java.net.URL theCodebase = null;
-//    if (model._getApplet()!=null) { // running as an applet: get the codebase
-//      if (_filename.startsWith("url:") || _filename.toLowerCase().startsWith("http:")); // do nothing
-//      else theCodebase = model._getApplet().getCodeBase();
-//    }
-//    return readVariables (_filename,theCodebase,stateVariablesList);
   }
 
   /**
@@ -1968,19 +1809,12 @@ public abstract class Simulation extends Animation {
       _filename = OSPRuntime.chooseFilename(chooser,popupTriggeredBy,false); // false = to read
       if (_filename==null) return false;
     }*/
-    if (isMoodleConnected()){
-      //When working in Moodle, it checks if filename is null. In that case, it connects to Moodle 
-      //php and obtains the list of xml files, created with this EJS lab, as a string. 
-      _filename = moodle.readXML(_filename);
-      if (_filename.equals("url:")) return false;
-    }
-    else if (_filename==null) { // Choose a filename, preferably an ".xml" file
+    if (_filename==null) { // Choose a filename, preferably an ".xml" file
       JFileChooser chooser=OSPRuntime.createChooser("XML",new String[]{"xml"});
       chooser.setSelectedFile(new File(this.getModelClassname()+"_Variables.xml"));
       _filename = OSPRuntime.chooseFilename(chooser,popupTriggeredBy,false); // false = to read
       if (_filename==null) return false;
     }
-    //LDLTorre for Moodle support
     boolean success = justReadVariables (_filename, _varList);
     if (success) {
       if (view!=null) {
@@ -2038,7 +1872,6 @@ public abstract class Simulation extends Animation {
         }
         else { // Either memory or a file
           if (_filename.startsWith("ejs:")) in = new java.io.CharArrayReader( (char[])memory.get(_filename));
-          else if (isMoodleConnected()) xmlString = moodle.readXML(_filename);
           else in = reader;
         }
         if (in!=null) {
@@ -2142,12 +1975,6 @@ public abstract class Simulation extends Animation {
     if (model==null) return false;
     boolean saveAsXML = true;
     if (_filename==null) { // Choose a filename, preferably an ".xml" file
-      //LDLTorre for Moodle support and consistency.
-      //Introducido un if para hacer la verificaci�n de conexi�n a Moodle a fin de evitar en este 
-      //caso la aparici�n del panel de navegaci�n por el disco duro. Tambi�n se introduce un nombre
-      //por defecto para cuando no se est� conectado a Moodle.
-      if (isMoodleConnected()) _filename = getModelClassname()+"_Variables.xml";
-      else {
         JFileChooser chooser=OSPRuntime.createChooser("XML",new String[]{"xml"});
         chooser.setSelectedFile(new File(getModelClassname()+"_Variables.xml"));
         final MyXMLAccessory accesory = new MyXMLAccessory(chooser);
@@ -2181,7 +2008,7 @@ public abstract class Simulation extends Animation {
         _filename = OSPRuntime.chooseFilename(chooser,popupTriggeredBy,true); // true = to save
         if (_filename==null) return false;
         saveAsXML = accesory.saveAsXML();
-      }
+
     }
     else saveAsXML = _filename.toLowerCase().endsWith(".xml");
     try {
@@ -2191,8 +2018,7 @@ public abstract class Simulation extends Animation {
       if (saveAsXML) control = new XMLControlElement(this.getClass()); // save as XML
       else { // Save in binary form
         // FKH 20060415 add javascriptcontrolMode()
-        if (javascriptControlMode() || _filename.startsWith("ejs:") || isMoodleConnected ()) out = new ByteArrayOutputStream ();
-        else out = new java.io.FileOutputStream (_filename);
+        out = new java.io.FileOutputStream (_filename);
         java.io.BufferedOutputStream bout = new java.io.BufferedOutputStream (out);
         dout = new java.io.ObjectOutputStream (bout);
       }
@@ -2236,7 +2062,6 @@ public abstract class Simulation extends Animation {
         control.write(writer);
         if (_filename.startsWith("ejs:")) memory.put(_filename,((java.io.CharArrayWriter) writer).toCharArray());
         */
-        if (isMoodleConnected()) return moodle.saveXML(_filename, "XML file", control.toXML()) != null;
         if (_filename.startsWith("ejs:")) writer = new java.io.CharArrayWriter ();
         else writer = new java.io.FileWriter (_filename);
         control.write(writer);
@@ -2246,16 +2071,7 @@ public abstract class Simulation extends Animation {
       else {  // Save the binary
         if (dout!=null) dout.close();
         if (out!=null) {
-          //LDLTorre for Moodle support
-          /*
           if (_filename.startsWith("ejs:")) memory.put(_filename,((ByteArrayOutputStream) out).toByteArray());
-          else if (isMoodleConnected ()) return moodle.saveBinary(_filename,"Binary data",( (ByteArrayOutputStream) out).toByteArray())!=null;
-          else if(javascriptControlMode()) javascriptControledApplet.setStateByteArray(((java.io.ByteArrayOutputStream) out).toByteArray());
-          */
-          if (isMoodleConnected()) return moodle.saveBinary(_filename,"Binary data",( (ByteArrayOutputStream) out).toByteArray())!=null;
-          if (_filename.startsWith("ejs:")) memory.put(_filename,((ByteArrayOutputStream) out).toByteArray());
-          else if(javascriptControlMode()) javascriptControledApplet.setStateByteArray(((java.io.ByteArrayOutputStream) out).toByteArray());
-          //LDLTorre for Moodle support
         }
       }
       return true;
@@ -2265,17 +2081,6 @@ public abstract class Simulation extends Animation {
       ioe.printStackTrace(System.err);
       return false;
     }
-  }
-  
-  
-  private void addFileToJar(JarOutputStream _jarOut, String _name, File _file) throws Exception{
-    byte[] buf = new byte[1024];
-    InputStream in = new FileInputStream(_file);
-    _jarOut.putNextEntry(new JarEntry(_name));
-    int len;
-    while ((len = in.read(buf)) > 0) { _jarOut.write(buf, 0, len); }
-    in.close();
-    _jarOut.closeEntry();  
   }
   
   static public boolean isDisplayable(String filename) {
@@ -2431,12 +2236,6 @@ public abstract class Simulation extends Animation {
     try {
       java.io.Writer out;
       if (_filename.startsWith("ejs:")) out = new java.io.CharArrayWriter ();
-      // LDLTorre for Moodle support
-      else if (isMoodleConnected()) {
-        if (_filename.toLowerCase().endsWith(".xml")) return moodle.saveXML(_filename, "XML file", _text) != null;
-        return moodle.saveText(_filename, _type, _text) != null;
-      }
-      // LDLTorre for Moodle support
       else out = new java.io.FileWriter (_filename);
       java.io.BufferedWriter bout = new java.io.BufferedWriter (out);
       bout.write(_text);
@@ -2540,13 +2339,9 @@ public abstract class Simulation extends Animation {
    */
   public String readText (String _filename, String _type, java.net.URL _codebase) {
     // LDLTorre for Moodle support
-    if (isMoodleConnected () || _filename.startsWith("url:")) {
+    if (_filename.startsWith("url:")) {
       String url = "";
-      if (isMoodleConnected ()) {
-        if (_filename.toLowerCase().endsWith(".xml")) url = moodle.readXML(_filename);
-        else url = moodle.readText(_filename, _type);
-        if (url.equals("url:")) return null;
-      } else if (_filename.startsWith("url:")) {
+    if (_filename.startsWith("url:")) {
         url = _filename.substring(4);
         if (_codebase==null || url.startsWith("http:")); // Do nothing
         else url = _codebase+url;

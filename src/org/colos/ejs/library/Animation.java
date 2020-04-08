@@ -64,29 +64,8 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 
   final public void setModel (Model _aModel) {
     model = _aModel; 
-    LauncherApplet applet = model._getApplet();
 //    System.out.println ("Setting the model : applet = "+applet);
 //    System.out.println ("parameter _initialState = "+applet.getParameter("initialState")); 
-    if (applet!=null) {
-//      System.out.println ("applet is not null "); 
-      String initFile = applet.getParameter("initialStateFromURL"); 
-      if (initFile!=null) {
-        resetFile = initFile.trim();
-        if (!resetFile.startsWith("http://")) { // files starting with http:// are considered absolute
-          if (resetFile.startsWith("./")) resetFile = resetFile.substring(2);
-          resetFile = applet.getCodeBase() + resetFile;
-        }
-        resetFile = "url:"+ resetFile;
-//        System.out.println ("Init file from "+resetFile);
-      }
-      else {
-        initFile = applet.getParameter("initialState"); 
-        if (initFile!=null) { 
-          resetFile = initFile.trim();
-//          System.out.println ("Init file : "+resetFile);
-        }
-      }
-    }
   }
 
   final public View getView () {
@@ -197,7 +176,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
     if(animationThread!=null) {
         return; // animation is running
      }
-     animationThread = model._isApplet() ? new Thread(this) : new Thread(sEJSThreadGroup,this);
+     animationThread = new Thread(sEJSThreadGroup,this);
      // debug WC: animationThread = new Thread(this);
      animationThread.setPriority(Thread.MIN_PRIORITY);
      animationThread.setDaemon(true);
@@ -344,12 +323,6 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
     }
 
     if(JSUtil.isJS) return;
-    
-    if (model._isApplet()) {
-      view.onExit();
-      model._freeMemory();
-    }
-    else {
       Thread onExitThread = new Thread(sEJSThreadGroup,new Runnable() {
         public void run() {
           view.onExit();
@@ -360,29 +333,8 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
       onExitThread.setDaemon(true);
       onExitThread.start(); // start the animation
       try { Thread.sleep(500); } 
-      catch(InterruptedException ie) {}
-
-//      SwingUtilities.invokeLater(new Runnable() {
-//        public void run () { 
-//          view.onExit();
-//          model._freeMemory();
-//        }
-//      });
-//        try { Thread.sleep(500); } 
-//        catch(InterruptedException ie) {}
-//        view.onExit();
-//        model._freeMemory();
-    }
+      catch(InterruptedException ie) {} 
   }
-//      javax.swing.Timer timer = new javax.swing.Timer(500, new ActionListener(){
-//        public void actionPerformed(ActionEvent evt) {
-//          view.onExit();
-//          model._freeMemory();
-//        }
-//      });
-//      timer.setRepeats(false);
-//      timer.setCoalesce(true);
-//      timer.start();
 
 // ------------------------------------
 // Simulation logic based on the model
@@ -406,9 +358,6 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
     pause();
     if (model!=null) {
       model._resetModel();
-//      model._initializeSolvers();
-      //if(_init_!=null)_init_.invoke(0, model._getApplet());//FKH 20060417
-// It was here before      userDefinedReset(); //      if (resetFile!=null) readVariablesFromFile (resetFile,stateVariablesList);
     }
     if (view!=null) {
      view.setUpdateSimulation(false);

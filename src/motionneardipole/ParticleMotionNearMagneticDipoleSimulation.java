@@ -17,14 +17,11 @@ class ParticleMotionNearMagneticDipoleSimulation extends org.colos.ejs.library.S
 
   public ParticleMotionNearMagneticDipoleSimulation (ParticleMotionNearMagneticDipole _model, String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, boolean _allowAutoplay) {
     videoUtil = new org.colos.ejs.library.utils.VideoUtil();
-    try { setUnderEjs("true".equals(System.getProperty("osp_ejs"))); }
-    catch (Exception exc) { setUnderEjs(false); } // in case of applet security
     setCodebase (_codebase);
     setModel (_model);
     _model._simulation = this;
     mMainView = _model._view = new ParticleMotionNearMagneticDipoleView(this,_replaceName, _replaceOwnerFrame);
     setView (_model._view);
-    if (_model._isApplet()) _model._getApplet().captureWindow (_model,"frame");
     setFPS(20);
     setStepsPerDisplay(_model._getPreferredStepsPerDisplay()); 
     if (_allowAutoplay) { setAutoplay(false); reset(); }

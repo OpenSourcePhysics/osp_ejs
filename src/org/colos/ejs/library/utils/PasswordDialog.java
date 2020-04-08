@@ -159,15 +159,7 @@ public class PasswordDialog {
 //        super.paintComponent(g2);
 //      }
     };
-//    editorPane.putClientProperty(com.sun.java.swing.SwingUtilities2.AA_TEXT_PROPERTY_KEY,Boolean.TRUE );
     editorPane.setEditable(false);
-//    editorPane.addHyperlinkListener(new HyperlinkListener() {
-//      public void hyperlinkUpdate(HyperlinkEvent e) {
-//        if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
-//          openURL(e.getSource(),e.getURL(),getView().getComponent(getMainWindow()), model._getApplet()!=null);
-//        }
-//      }
-//    });
 
     Resource htmlRes = ResourceLoader.getResource(_htmlPage);
     //    System.out.println ("Loading html page = "+_htmlPage);

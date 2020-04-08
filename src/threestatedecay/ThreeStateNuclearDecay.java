@@ -10,6 +10,8 @@ package threestatedecay;
 
 import java.awt.*;
 
+import javax.swing.JApplet;
+
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.tools.ResourceLoader;
 
@@ -131,10 +133,9 @@ static public void main (String[] _args) {
 
   public ThreeStateNuclearDecay (String[] _args) { this (null, null, null,null,_args,true); }
 
-  public ThreeStateNuclearDecay (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, org.colos.ejs.library.LauncherApplet _anApplet, String[] _args, boolean _allowAutoplay) {
+  public ThreeStateNuclearDecay (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, JApplet _anApplet, String[] _args, boolean _allowAutoplay) {
     org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(true);
     __theArguments = _args;
-    __theApplet = _anApplet;
     java.text.NumberFormat _Ejs_format = java.text.NumberFormat.getInstance();
     if (_Ejs_format instanceof java.text.DecimalFormat) {
       ((java.text.DecimalFormat) _Ejs_format).getDecimalFormatSymbols().setDecimalSeparator('.');
