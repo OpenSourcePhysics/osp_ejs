@@ -40,6 +40,7 @@ import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.DisplayRes;
 import org.opensourcephysics.display.dialogs.DialogsRes;
+import org.opensourcephysics.js.JSUtil;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.controls.OSPLog;
 import org.opensourcephysics.desktop.OSPDesktop;
@@ -48,7 +49,7 @@ import org.opensourcephysics.desktop.OSPDesktop;
  * A base interface for a simulation
  */
 
-public abstract class Simulation extends Animation implements LocaleListener {
+public abstract class Simulation extends Animation {
   static public ResourceBundle ejsRes = ResourceBundle.getBundle("org.colos.ejs.library.resources.ejs_res", Locale.getDefault());
 
   static private final String DEFAULT_STATE_FILENAME = "DefaultState.out";
@@ -57,8 +58,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
   static private AWTEventListener focusListener=null;
 
   static private String homeDir=null, userDir=null;
-
-  private boolean isUnderEjs = false;
   private Component parentComponent=null;
   private String parentComponentName=null;
   private String captureElement=null; // The element that will be captured as GIF or in video
@@ -304,13 +303,13 @@ public abstract class Simulation extends Animation implements LocaleListener {
 //---------------------------------------------------
 
   public boolean hasDefaultState() {
-    if (isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
+    if (JSUtil.isJS) return false; // Otherwise, loading the applet takes ages!
     Resource res = ResourceLoader.getResource(DEFAULT_STATE_FILENAME);
     return res!=null;
   }
 
   public boolean readDefaultState() {
-    if (isMoodleConnected()) return false; // Otherwise, loading the applet takes ages!
+    if (JSUtil.isJS) return false; // Otherwise, loading the applet takes ages!
     else if (hasDefaultState()) return readVariables(DEFAULT_STATE_FILENAME,(List<String>) null);
     else return false;
   }
@@ -325,12 +324,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * Reset to a user-defined default state 
    */
   protected void userDefinedReset() {
-    if (resetFile!=null && !isMoodleConnected()) {
-//      System.out.println ("Must read state "+resetFile);
-      if (resetFile.equals(DEFAULT_STATE_FILENAME)) readVariables(DEFAULT_STATE_FILENAME,(List<String>) null);
-      else readState (resetFile);
-      if (view!=null) view.reset();
-    }
+  	if(JSUtil.isJS) return;
   }
 
   /**
@@ -439,46 +433,12 @@ public abstract class Simulation extends Animation implements LocaleListener {
     return Model._getTranslatorUtil().translateString(_property); 
   }
 
-  /**
-   * Sets the locale item for the simulation
-   */
-  public void setLocaleItem (LocaleItem _item) {
-    setLocaleItem(_item, true);
-  }
-
-  /**
-   * Sets the locale item for the simulation but lets you not reset the model
-   */
-  protected void setLocaleItem (LocaleItem _item, boolean _resetModel) {
-    currentLocaleItem = _item;
-    Locale locale = _item.getLocale();
-    if (locale==null) locale = Locale.getDefault();
-    ToolsRes.setLocale(locale);
-    DisplayRes.setLocale(locale);
-    DialogsRes.setLocale(locale);
-    ejsRes = ResourceBundle.getBundle("org.colos.ejs.library.resources.ejs_res", locale);
-    Model._getTranslatorUtil().setLocaleItem(currentLocaleItem);
-    setViewLocale();
-    popupMenu = null;
-    resetDescriptionPages();
-    if (_resetModel) model._reset();
-  }
-
   public LocaleItem getLocaleItem() {
     return currentLocaleItem;
   }
 
-  public void setLocale (String _language) {
-//    System.out.println("Setting to locale "+_language);
-    LocaleItem item = LocaleItem.getLocaleItem(_language);
-    if (item!=null) setLocaleItem(item);
-    else {
-      System.out.println("Warning! Html editor is ignoring unrecognized locale name : "+_language+"\n");
-      setLocaleItem(LocaleItem.getDefaultItem());
-    }
-  }
-
   public Locale getLocale() {
+  	if(JSUtil.isJS)return Locale.getDefault();
     Locale locale = currentLocaleItem.getLocale();
     if (locale==null) locale = Locale.getDefault();
     return locale;
@@ -636,6 +596,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * @param _height
    */
   public void addDescriptionPage (String _htmlPage, int _width, int _height, boolean _visible) {
+  	if(JSUtil.isJS) return;
     HtmlPageInfo pageInfo = model._getHtmlPageInfo(_htmlPage, currentLocaleItem);
     if (pageInfo==null) {
       JOptionPane.showMessageDialog(popupTriggeredBy,"Html file not found: "+_htmlPage,"Description Error",JOptionPane.ERROR_MESSAGE);
@@ -678,7 +639,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
       editorPane.addHyperlinkListener(new HyperlinkListener() {
         public void hyperlinkUpdate(HyperlinkEvent e) {
           if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
-            openURL(e.getSource(),e.getURL(),getView().getComponent(getMainWindow()), model._getApplet()!=null);
+            openURL(e.getSource(),e.getURL(),getView().getComponent(getMainWindow()), false);
           }
         }
       });
@@ -713,72 +674,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
 //  }
   
   /**
-   * Old form for backwards compatibility
-   * @param _title
-   * @param _htmlPage
-   * @param width
-   * @param height
-   */
-  public void addDescriptionPage (String _title, String _htmlPage, int width, int height) { addDescriptionPage (_htmlPage, width, height,true); }
-
-  public void setDescriptionPageVisible(String _name, boolean _visible) {
-    if (descriptionPagesList==null) return;
-    for (EditorAndScroll pane : descriptionPagesList) {
-      if (pane.name.equals(_name)) {
-        if (pane.isVisible()!=_visible) {
-          pane.setVisible(_visible);
-          recreateDescriptionPanel();
-        }
-        break;
-      }
-    }  
-  }
-
-  /**
-   * Recreates the description panel 
-   */
-  protected void recreateDescriptionPanel() {
-    if (descriptionPanel==null) return;
-    descriptionPanel.removeAll();
-    for (EditorAndScroll pane : descriptionPagesList) {
-      if (!pane.isVisible()) continue;
-      HtmlPageInfo pageInfo = model._getHtmlPageInfo(pane.name, currentLocaleItem);
-      if (pageInfo!=null) descriptionPanel.add(pageInfo.getTitle(),pane.scrollPane);
-    }
-    descriptionDialog.pack();
-    if (descriptionPanel.getTabCount()<=0) {
-      descriptionDialog.setVisible(false);
-      showDescriptionOnStart = false;
-    }
-  }
-  
-  /**
-   * Resets the description pages after a change of locale, mainly
-   */
-  protected void resetDescriptionPages() {
-    if (descriptionPagesList==null) return;
-    try {
-      for (EditorAndScroll pane : descriptionPagesList) {
-        HtmlPageInfo pageInfo = model._getHtmlPageInfo(pane.name, currentLocaleItem);
-        if (pageInfo!=null) {
-          Resource htmlRes = ResourceLoader.getResource(pageInfo.getLink());
-          URL url = htmlRes.getURL();
-          if (pane.editorPane.getPage()!=url) {
-            pane.editorPane.setPage(url);
-            descriptionPanel.setTitleAt(descriptionPanel.indexOfComponent(pane.scrollPane), pageInfo.getTitle());
-          }
-        }
-      }
-    } catch (Exception exc) { exc.printStackTrace(); }
-    if (increaseFontButton!=null) {
-      descriptionDialog.setTitle(Memory.getResource("DescriptionFor")+" "+getModelClassname());
-      increaseFontButton.setToolTipText(DisplayRes.getString("DrawingFrame.IncreaseFontSize_menu_item"));
-      decreaseFontButton.setToolTipText(DisplayRes.getString("DrawingFrame.DecreaseFontSize_menu_item"));
-      openPageButton.setToolTipText(Memory.getResource("DescriptionPages.OpenExternalBrowser"));
-    }
-  }
-  
-  /**
    * Whether the description dialog should show at start-up (true by default)
    * @param _show
    */
@@ -803,6 +698,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * @return
    */
   public URL getDescriptionPageURL (String _htmlPage) {
+  	if(JSUtil.isJS) return null;
     HtmlPageInfo pageInfo = model._getHtmlPageInfo(_htmlPage, currentLocaleItem);
     if (pageInfo==null) return null;
     return ResourceLoader.getResource(pageInfo.getLink()).getURL();
@@ -812,6 +708,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * Extracts the description pages (if not yet done) and opens them in the system browser 
    */
   public boolean openDescriptionPagesInBrowser() {
+  	if(JSUtil.isJS) return true;
     File tempDir = extractResources();
     if (tempDir==null) return false;
     boolean failed = false;
@@ -830,6 +727,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
    * Extracts the description pages and opens the required page in the system browser 
    */
   public boolean openDescriptionPageInBrowser(String _name) {
+  	if(JSUtil.isJS) return false;
     File tempDir = extractResources();
     if (tempDir==null) {
       return false;
@@ -1149,82 +1047,11 @@ public abstract class Simulation extends Animation implements LocaleListener {
 
   static private Hashtable<String, Object> memory = new Hashtable<String, Object>();
 
-  protected MoodleLink moodle=null;
   private MethodWithOneParameter _init_=null;//FKH20060417
 
-  /**
-   * Initializes the applet
-   * @return true if teh applet is non-null
-   */
-  public LauncherApplet initMoodle () {
-    LauncherApplet applet = model._getApplet();
-    if (applet==null) return null;
-    try {// FKH 20060417
-        String s = applet.getParameter("init");
-        if(s != null)
-        {
-            _init_ = new MethodWithOneParameter(0, applet._model, s, null, null, applet);
-            _init_.invoke(0, applet);
-        }
-    } catch(Exception exception){
-        exception.printStackTrace();
-    }//END FKH 20060417
-    return applet;
-  }
-
-  public boolean isMoodleConnected () {
-    if (moodle==null) return false;
-    return moodle.isConnected();
-  }
-
   
-  // -------------------------------- FKH 20060415 for javascript and java connection
-  // Search also for FKH in Model.java
-  
-  private LauncherApplet javascriptControledApplet=null;
   private boolean javascriptControlMode() { return false; }
 
-  /*
-  public void ejsPopup(String url){// works for IE, but it is not working for netscape
-        String command = "window.open('"+url+"', 'ejspopup', 'menubar=0,location=0,scrollbars,resizable,width=100,height=100');";
-        ejsEval(command);
-  }
-  protected netscape.javascript.JSObject htmlWindow=null;//FKH 20060731
-  public void ejsEval(String command){// call html window to exec command
-    if(javascriptControlMode(false)){// valid even for signed applet
-      if(htmlWindow==null)htmlWindow = netscape.javascript.JSObject.getWindow(javascriptControledApplet);
-      htmlWindow.eval(command);
-    }
-  }
-  public void ejsCommand(String Args[]){// call Javascript function from ejs generated simulations
-    ejsCommand("ejsCommand",Args);
-  }
-  public void ejsCommand(String JScriptFunctionName,String Args[]){
-    if(javascriptControlMode(false)){
-      if(htmlWindow==null)htmlWindow = netscape.javascript.JSObject.getWindow(javascriptControledApplet);
-      htmlWindow.call(JScriptFunctionName,Args);
-    }
-  }
-  private boolean javascriptControlMode(){
-    return javascriptControlMode(true);
-  }
-  private boolean javascriptControlMode(boolean localMode){
-    if(javascriptControledApplet==null)javascriptControledApplet = model._getApplet();
-    if(javascriptControledApplet==null || isMoodleConnected())return false;
-    if(localMode){
-    boolean canUseLocalFile=true;// signed applet
-    try {
-     System.getProperty("user.dir");
-      }
-      catch (Exception exc) {
-        canUseLocalFile = false;
-      }
-    return !canUseLocalFile;
-  }
-    return true;
-  }
-
-  */
   // -------------------------------------------------- END FKH
   
   static public boolean isImageFormatSupported (String _format) {// for applet mode saveImage
@@ -1265,10 +1092,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
   private JMenu elementsMenu=null;
   private AbstractList<Object> popupMenuExtraEntries=null;
   private Component popupTriggeredBy=null;
-
-  protected void setUnderEjs (boolean value) { isUnderEjs = value; }
   
-  public boolean isUnderEjs() { return isUnderEjs; }
   
   public void addMenuEntries (List<Object> _entries) {
     if (popupMenuExtraEntries==null) popupMenuExtraEntries = new ArrayList<Object>();
@@ -1330,8 +1154,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
       //LDLTorre for Moodle support
       //A�adida la condici�n de conexi�n a Moodle (No es necesario que el applet
       //est� firmado cuando manda ficheros a Moodle porque no se hace acceso al disco).
-      if (canAccessDisk || isMoodleConnected()) { //if (canAccessDisk) {
-      //LDLTorre for Moodle support
+      if (canAccessDisk) { //if (canAccessDisk) {
         
         JMenu snapshotMenu = new JMenu(getMenuText("ejs_res:MenuItem.SnapshotTools"));
         snapshotMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.Snapshot")){
@@ -1385,7 +1208,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
         boolean isLauncherMode;
         try { isLauncherMode = OSPRuntime.isLauncherMode(); }
         catch (Exception exc) { isLauncherMode = false; }
-        if ( ! (isUnderEjs || isLauncherMode || isMoodleConnected())) ioStateMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.SaveDefaultState")){
+        if ( ! (isLauncherMode)) ioStateMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.SaveDefaultState")){
           public void actionPerformed(ActionEvent e) {
             File jarFile=null; 
             try {
@@ -1398,7 +1221,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
               if (filename==null) return;
               jarFile = new File(filename);
             }
-            saveDefaultStateToJar(jarFile,null); 
+            //saveDefaultStateToJar(jarFile,null); //jar files not supported in JS
           }
         });
         ioStateMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.ReadState")){
@@ -1452,20 +1275,9 @@ public abstract class Simulation extends Animation implements LocaleListener {
             catch (Exception _exc) { systemPassword = null; } // do nothing
 //            System.err.println("System password is "+systemPassword);
             boolean quit = EjsTool.runEjs(getModel().getClass(),systemPassword);
-            if (!(model._isApplet() || OSPRuntime.isLauncherMode()) && quit) {
-              try {
-                Thread.sleep(1000);
-              } catch (InterruptedException e1) {
-                e1.printStackTrace();
-              }
-              System.exit(0);
-            }
           }
         });
       }
-      if (!isUnderEjs && canAccessDisk && !model._isApplet()) popupMenu.add(new AbstractAction(Memory.getResource("CreateHTMLPage")){
-        public void actionPerformed(ActionEvent e) { createHTMLpage(getJarName()); }
-      });
 
       if (canAccessDisk) { // Diagnostics submenu
         JMenu diagnosticsMenu = new JMenu(Memory.getResource("Diagnostics.Menu"));
@@ -1827,54 +1639,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
       return false;
     }
     Component comp = ctrlEl.getComponent();
-    // Special case : Moodle
-    if (isMoodleConnected () || javascriptControlMode() ) {
-      if      (comp instanceof javax.swing.JFrame)  comp = ((javax.swing.JFrame)  comp).getContentPane();
-      else if (comp instanceof javax.swing.JDialog) comp = ((javax.swing.JDialog) comp).getContentPane();
-      // Generate the image
-      BufferedImage bi = new BufferedImage(comp.getWidth(), comp.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
-      if (ctrlEl instanceof SpecialRender) ( (SpecialRender) ctrlEl).render(bi);
-      else {
-        java.awt.Graphics g = bi.getGraphics();
-        comp.paint(g);
-        g.dispose();
-      }
-      //LDLTorre for consistency
-      //Simplemente he cambiado el nombre por defecto del fichero de la imagen para ajustarlo al que
-      //ya se pon�a como nombre por defecto para grabar un fichero de texto.
-      if (_filename==null) _filename = getModelClassname()+".gif"; //_filename = "default.gif"
-      if(isMoodleConnected ())return moodle.saveImage(_filename,"GIF image", bi)!=null;
-      //LDLTorre for consistency
-      //applet mode starts here 20061201, use previously code
-      try { // Save it to memory or disk
-        String format = "jpg";
-        int index = _filename.lastIndexOf('.');
-        if (index>=0) format = _filename.substring(index+1).toLowerCase();
-        else _filename = _filename + "." + format;
-        boolean supported = isImageFormatSupported (format);
-        if ( ! (supported || (videoUtil.isFullClass() && "gif".equalsIgnoreCase(format)) ) ) {
-          System.err.println("Format not supported : "+format);
-          return false;
-        }
-        java.io.OutputStream out = null;
-
-        // FKH 200600415 add javascriptControlMode() for javascript control applet mode
-        if (javascriptControlMode() || _filename.startsWith("ejs:")) out = new java.io.ByteArrayOutputStream();
-        else out = new java.io.FileOutputStream(_filename);
-        boolean result=true;
-        if (supported) result = javax.imageio.ImageIO.write(bi, format, out);
-        else result = videoUtil.writeGIF(out,bi); // use GIFEncoder
-        out.close();
-        if (!result) return false;
-        if (_filename.startsWith("ejs:")) memory.put(_filename,((java.io.ByteArrayOutputStream) out).toByteArray());
-        else if(javascriptControlMode()){
-          javascriptControledApplet.setImageByteArray( ( (java.io.ByteArrayOutputStream) out).toByteArray());
-        }
-      }
-      catch (Exception _exc) { _exc.printStackTrace(); return false; }
-      return true;
-
-    }
       return SnapshotTool.getTool().saveImage (_filename,comp,null);
   }
 
@@ -1883,17 +1647,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
 // --------------------------------------------------------
 
   public void processArguments (String[] _args) {
-    LauncherApplet applet = model._getApplet();
     boolean stateRead = false;
-    if (applet!=null) {
-      try {
-        // Try to read a default file with an initial state
-        String arg0 = applet.getParameter("initialState");
-        if (arg0 != null) stateRead = readState(arg0,applet.getCodeBase());
-      } 
-      catch (Exception exception){ exception.printStackTrace(); }
-    }
-    else {
       if (_args != null && _args.length > 0) {
         for (int i = 0; i < _args.length; i++) {
           if (_args[i].toLowerCase().endsWith(".xml")) {
@@ -1907,26 +1661,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
           }
         }
       }
-    }
-    if (!stateRead) {
-      if ((!isMoodleConnected()) && ResourceLoader.getResource(DEFAULT_STATE_FILENAME)!=null) {
-        OSPLog.fine("Reading default state from jar "+DEFAULT_STATE_FILENAME);
-        readVariables(DEFAULT_STATE_FILENAME, (List<String>) null);
-        resetFile = DEFAULT_STATE_FILENAME;
-        if (view!=null) view.reset();
-      }
-//      else System.out.println ("No default state to read");
-    }
-    if (applet==null) { // decide whether or not to show the description
-      boolean showIt = !isUnderEjs;
-      // Check if under Launcher
-      if (org.opensourcephysics.display.OSPRuntime.isLauncherMode()) showIt = false;
-      else try {
-        if ("true".equals(System.getProperty("osp_launcher"))) showIt = false;
-      } catch (Exception exc) {}; // Do not complain
-      if (showIt && showDescriptionOnStart) showDescription();
-    }
-
+   
   }
 
   static public List<String> toArrayList (String _list) {
@@ -1988,13 +1723,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
    */
   public boolean readState (String _filename) {
     return readVariables (_filename,stateVariablesList);
-//    if (_filename==null) return readVariables (_filename,null,stateVariablesList);
-//    java.net.URL theCodebase = null;
-//    if (model._getApplet()!=null) { // running as an applet: get the codebase
-//      if (_filename.startsWith("url:") || _filename.toLowerCase().startsWith("http:")); // do nothing
-//      else theCodebase = model._getApplet().getCodeBase();
-//    }
-//    return readVariables (_filename,theCodebase,stateVariablesList);
   }
 
   /**
@@ -2081,19 +1809,12 @@ public abstract class Simulation extends Animation implements LocaleListener {
       _filename = OSPRuntime.chooseFilename(chooser,popupTriggeredBy,false); // false = to read
       if (_filename==null) return false;
     }*/
-    if (isMoodleConnected()){
-      //When working in Moodle, it checks if filename is null. In that case, it connects to Moodle 
-      //php and obtains the list of xml files, created with this EJS lab, as a string. 
-      _filename = moodle.readXML(_filename);
-      if (_filename.equals("url:")) return false;
-    }
-    else if (_filename==null) { // Choose a filename, preferably an ".xml" file
+    if (_filename==null) { // Choose a filename, preferably an ".xml" file
       JFileChooser chooser=OSPRuntime.createChooser("XML",new String[]{"xml"});
       chooser.setSelectedFile(new File(this.getModelClassname()+"_Variables.xml"));
       _filename = OSPRuntime.chooseFilename(chooser,popupTriggeredBy,false); // false = to read
       if (_filename==null) return false;
     }
-    //LDLTorre for Moodle support
     boolean success = justReadVariables (_filename, _varList);
     if (success) {
       if (view!=null) {
@@ -2151,7 +1872,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
         }
         else { // Either memory or a file
           if (_filename.startsWith("ejs:")) in = new java.io.CharArrayReader( (char[])memory.get(_filename));
-          else if (isMoodleConnected()) xmlString = moodle.readXML(_filename);
           else in = reader;
         }
         if (in!=null) {
@@ -2255,12 +1975,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
     if (model==null) return false;
     boolean saveAsXML = true;
     if (_filename==null) { // Choose a filename, preferably an ".xml" file
-      //LDLTorre for Moodle support and consistency.
-      //Introducido un if para hacer la verificaci�n de conexi�n a Moodle a fin de evitar en este 
-      //caso la aparici�n del panel de navegaci�n por el disco duro. Tambi�n se introduce un nombre
-      //por defecto para cuando no se est� conectado a Moodle.
-      if (isMoodleConnected()) _filename = getModelClassname()+"_Variables.xml";
-      else {
         JFileChooser chooser=OSPRuntime.createChooser("XML",new String[]{"xml"});
         chooser.setSelectedFile(new File(getModelClassname()+"_Variables.xml"));
         final MyXMLAccessory accesory = new MyXMLAccessory(chooser);
@@ -2294,7 +2008,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
         _filename = OSPRuntime.chooseFilename(chooser,popupTriggeredBy,true); // true = to save
         if (_filename==null) return false;
         saveAsXML = accesory.saveAsXML();
-      }
+
     }
     else saveAsXML = _filename.toLowerCase().endsWith(".xml");
     try {
@@ -2304,8 +2018,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
       if (saveAsXML) control = new XMLControlElement(this.getClass()); // save as XML
       else { // Save in binary form
         // FKH 20060415 add javascriptcontrolMode()
-        if (javascriptControlMode() || _filename.startsWith("ejs:") || isMoodleConnected ()) out = new ByteArrayOutputStream ();
-        else out = new java.io.FileOutputStream (_filename);
+        out = new java.io.FileOutputStream (_filename);
         java.io.BufferedOutputStream bout = new java.io.BufferedOutputStream (out);
         dout = new java.io.ObjectOutputStream (bout);
       }
@@ -2349,7 +2062,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
         control.write(writer);
         if (_filename.startsWith("ejs:")) memory.put(_filename,((java.io.CharArrayWriter) writer).toCharArray());
         */
-        if (isMoodleConnected()) return moodle.saveXML(_filename, "XML file", control.toXML()) != null;
         if (_filename.startsWith("ejs:")) writer = new java.io.CharArrayWriter ();
         else writer = new java.io.FileWriter (_filename);
         control.write(writer);
@@ -2359,16 +2071,7 @@ public abstract class Simulation extends Animation implements LocaleListener {
       else {  // Save the binary
         if (dout!=null) dout.close();
         if (out!=null) {
-          //LDLTorre for Moodle support
-          /*
           if (_filename.startsWith("ejs:")) memory.put(_filename,((ByteArrayOutputStream) out).toByteArray());
-          else if (isMoodleConnected ()) return moodle.saveBinary(_filename,"Binary data",( (ByteArrayOutputStream) out).toByteArray())!=null;
-          else if(javascriptControlMode()) javascriptControledApplet.setStateByteArray(((java.io.ByteArrayOutputStream) out).toByteArray());
-          */
-          if (isMoodleConnected()) return moodle.saveBinary(_filename,"Binary data",( (ByteArrayOutputStream) out).toByteArray())!=null;
-          if (_filename.startsWith("ejs:")) memory.put(_filename,((ByteArrayOutputStream) out).toByteArray());
-          else if(javascriptControlMode()) javascriptControledApplet.setStateByteArray(((java.io.ByteArrayOutputStream) out).toByteArray());
-          //LDLTorre for Moodle support
         }
       }
       return true;
@@ -2380,162 +2083,11 @@ public abstract class Simulation extends Animation implements LocaleListener {
     }
   }
   
-  
-  private void addFileToJar(JarOutputStream _jarOut, String _name, File _file) throws Exception{
-    byte[] buf = new byte[1024];
-    InputStream in = new FileInputStream(_file);
-    _jarOut.putNextEntry(new JarEntry(_name));
-    int len;
-    while ((len = in.read(buf)) > 0) { _jarOut.write(buf, 0, len); }
-    in.close();
-    _jarOut.closeEntry();  
-  }
-  
   static public boolean isDisplayable(String filename) {
     if (filename.toLowerCase().startsWith("http://")) return false; // ignore web files
     return true;
   }
-  
-  /**
-   * Saves a default file with default state into the simulation JAR file
-   * @return
-   */
-  public boolean saveDefaultStateToJar (File _jarFile, String _filenames) {
-    if (OSPRuntime.isLauncherMode()) {
-      OSPLog.warning("Simulation cannot save state to JAR when in Launcher mode. Ignored!");
-      return false;
-    }
-    try {
-      File tempFile = File.createTempFile(DEFAULT_STATE_FILENAME, null);
-      tempFile.delete();
-      boolean savedOk = saveVariables (tempFile.getAbsolutePath(), (List<String>) null); 
-      if (!savedOk) {
-        JOptionPane.showMessageDialog(getParentComponent(),"Cannot save data file","Could not create temp file",JOptionPane.ERROR_MESSAGE);
-        return false;
-      }
-//      System.out.println ("Saved OK "+tempFile.getAbsolutePath());
-
-      java.util.Set<File> extraFilesSet=new java.util.HashSet<File>();
-      if (_filenames!=null) {
-        StringTokenizer tkn = new StringTokenizer(_filenames,";,");
-        while (tkn.hasMoreTokens()) {
-          String extraFileName = tkn.nextToken();
-          if (!isDisplayable(extraFileName)) continue;
-//          System.err.println ("Trying "+extraFileName);
-          Resource res = ResourceLoader.getResource(extraFileName);          
-          File extraFile = null;
-          if (res!=null) extraFile = res.getFile();
-//          System.err.println ("res = "+res+" , FIle = "+extraFile);
-          // See if the file exists
-          if (extraFile==null || !extraFile.exists()) {
-            if (res==null || res.openReader()==null) JOptionPane.showMessageDialog(getParentComponent(),ejsRes.getString("Simulation.CantFindExtraFile")+" "+extraFileName,ejsRes.getString("Simulation.IgnoringExtraFile"),JOptionPane.WARNING_MESSAGE);
-            else JOptionPane.showMessageDialog(getParentComponent(),ejsRes.getString("Simulation.ExtraFileAlreadyIn")+" "+extraFileName+"\n"+ejsRes.getString("Simulation.RenameDocument"),ejsRes.getString("Simulation.IgnoringExtraFile"),JOptionPane.WARNING_MESSAGE);
-          }
-          else extraFilesSet.add(extraFile);
-        }        
-      }
-      
-      JPanel accesoryPanel = new JPanel(new BorderLayout());
-      JCheckBox htmlCheckBox = new JCheckBox(Memory.getResource("CreateHTMLPage"),false);
-      accesoryPanel.add(htmlCheckBox,BorderLayout.NORTH);
-
-      String proposedName = FileUtils.getPlainName(_jarFile) + "_StateAdded.jar";
-      File proposedFile = new File(proposedName);
-      int counter = 2;
-      while (proposedFile.exists()) {
-        proposedName = FileUtils.getPlainName(_jarFile) + "_StateAdded_"+counter+".jar";
-        proposedFile = new File(proposedName);
-        counter++;
-      }
-      File newJarFile = new File (_jarFile.getParentFile(),proposedName);
-      JFileChooser chooser=OSPRuntime.createChooser("JAR",new String[]{"jar"});
-      chooser.setSelectedFile(newJarFile);
-      chooser.setAccessory(accesoryPanel);
-      String filename = OSPRuntime.chooseFilename(chooser,getParentComponent(),true); // true = to save      
-      if (filename==null) return false;
-      if (filename.lastIndexOf('.')<0) filename += ".jar";
-
-      newJarFile = new File(filename);
-
-      JarInputStream  jarIn = new JarInputStream(new FileInputStream(_jarFile));
-      JarFile tmpJarFile = new JarFile(_jarFile);
-      JarOutputStream jarOut = new JarOutputStream(new FileOutputStream(newJarFile),tmpJarFile.getManifest());
-
-      java.util.Set<File> extraFilesRemoveSet=new java.util.HashSet<File>();
-      // Copy the old jar
-      JarEntry entry = jarIn.getNextJarEntry();
-      while (entry != null) {
-        String name = entry.getName();
-        if (name.equals(DEFAULT_STATE_FILENAME)) {
-          OSPLog.fine("Saving state to JAR : removing previous state file "+name);
-          entry = jarIn.getNextJarEntry();
-          continue; // Do not copy this one
-        }
-        String lowercaseName = name.toLowerCase();
-        if (lowercaseName.startsWith("meta-inf/") && (lowercaseName.endsWith(".sf") || lowercaseName.endsWith(".rsa") || lowercaseName.endsWith(".dsa")) ) {
-//        if ( lowercaseName.endsWith(".sf") || lowercaseName.endsWith(".rsa") || lowercaseName.endsWith(".dsa")) {
-          OSPLog.fine("Saving state to JAR : Ignoring signature file : "+name);
-          entry = jarIn.getNextJarEntry();
-          continue; // Do not copy this one
-        }
-//        System.out.println ("Copying file : "+name);
-        boolean overwrite = false;
-        for (File extraFile : extraFilesSet) {
-          if (extraFile.getName().equals(name)) {
-            int option = JOptionPane.showConfirmDialog(getParentComponent(),
-                "File already exists in JAR:"+name+"\nDo you want to overwrite it?", "Conflict with existing file", JOptionPane.YES_NO_OPTION);
-            if (option==JOptionPane.NO_OPTION) extraFilesRemoveSet.add(extraFile);
-            else overwrite = true;
-            break;
-          }
-        }
-        if (overwrite) {
-          entry = jarIn.getNextJarEntry();
-          continue;
-        }
-        byte[] buf = new byte[1024];
-        jarOut.putNextEntry(new JarEntry(name));
-        int len;
-        while ((len = jarIn.read(buf)) > 0) { jarOut.write(buf, 0, len); }
-        entry = jarIn.getNextJarEntry();
-      }
-      jarIn.close();
-      
-      // Exclude those already in JAR
-      extraFilesSet.removeAll(extraFilesRemoveSet);
-
-//      XMLControlElement control = null;       // Used to save XML
-//      java.io.OutputStream out = null;        // Used to save binary
-//      java.io.ObjectOutputStream dout = null; // Used to save binary
-//      control = new XMLControlElement(this.getClass());
-      
-      // Add the state
-      addFileToJar(jarOut, DEFAULT_STATE_FILENAME, tempFile);
-      tempFile.delete();
-      // Add the extra files
-      for (File extraFile : extraFilesSet) addFileToJar(jarOut, extraFile.getName(), extraFile);
-
-//      jarOut.putNextEntry(new JarEntry(DEFAULT_STATE_FILENAME));
-//      java.io.BufferedOutputStream bout = new java.io.BufferedOutputStream (jarOut);
-//      java.io.ObjectOutputStream dout = new java.io.ObjectOutputStream (bout);
-//      java.lang.reflect.Field[] fields = model.getClass().getFields();
-//      for (int i=0; i<fields.length; i++) {
-//        if (!(fields[i].get(model) instanceof java.io.Serializable)) continue; // Ignore these ones
-//        dout.writeObject(fields[i].get(model));
-//      }
-//      jarOut.closeEntry();
-
-      jarOut.close();
-      tmpJarFile.close();
-      if (htmlCheckBox.isSelected()) createHTMLpage(newJarFile.getName());
-      return true;
-    }
-    catch (java.lang.Exception ioe) {
-      errorMessage ("Error when trying to save state to "+_jarFile.getName());
-      ioe.printStackTrace(System.err);
-      return false;
-    }
-  }
+ 
 
 
   static private class MyXMLAccessory extends JPanel { //implements java.beans.PropertyChangeListener {
@@ -2684,12 +2236,6 @@ public abstract class Simulation extends Animation implements LocaleListener {
     try {
       java.io.Writer out;
       if (_filename.startsWith("ejs:")) out = new java.io.CharArrayWriter ();
-      // LDLTorre for Moodle support
-      else if (isMoodleConnected()) {
-        if (_filename.toLowerCase().endsWith(".xml")) return moodle.saveXML(_filename, "XML file", _text) != null;
-        return moodle.saveText(_filename, _type, _text) != null;
-      }
-      // LDLTorre for Moodle support
       else out = new java.io.FileWriter (_filename);
       java.io.BufferedWriter bout = new java.io.BufferedWriter (out);
       bout.write(_text);
@@ -2793,13 +2339,9 @@ public abstract class Simulation extends Animation implements LocaleListener {
    */
   public String readText (String _filename, String _type, java.net.URL _codebase) {
     // LDLTorre for Moodle support
-    if (isMoodleConnected () || _filename.startsWith("url:")) {
+    if (_filename.startsWith("url:")) {
       String url = "";
-      if (isMoodleConnected ()) {
-        if (_filename.toLowerCase().endsWith(".xml")) url = moodle.readXML(_filename);
-        else url = moodle.readText(_filename, _type);
-        if (url.equals("url:")) return null;
-      } else if (_filename.startsWith("url:")) {
+    if (_filename.startsWith("url:")) {
         url = _filename.substring(4);
         if (_codebase==null || url.startsWith("http:")); // Do nothing
         else url = _codebase+url;

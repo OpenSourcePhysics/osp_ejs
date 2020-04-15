@@ -147,10 +147,9 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
 
   public GraphsAndTracks (String[] _args) { this (null, null, null,null,_args,true); }
 
-  public GraphsAndTracks (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, org.colos.ejs.library.LauncherApplet _anApplet, String[] _args, boolean _allowAutoplay) {
+  public GraphsAndTracks (String _replaceName, java.awt.Frame _replaceOwnerFrame, java.net.URL _codebase, JApplet _anApplet, String[] _args, boolean _allowAutoplay) {
     org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(true);
     __theArguments = _args;
-    __theApplet = _anApplet;
     java.text.NumberFormat _Ejs_format = java.text.NumberFormat.getInstance();
     if (_Ejs_format instanceof java.text.DecimalFormat) {
       ((java.text.DecimalFormat) _Ejs_format).getDecimalFormatSymbols().setDecimalSeparator('.');
@@ -904,7 +903,7 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
     } else {  // > Custom.Save State:8
        if(fileName==null)fileName="";  // > Custom.Save State:9
        fileName=fileName.trim();  // > Custom.Save State:10
-      _saveDefaultStateToJar(fileName);  // > Custom.Save State:11
+      //_saveDefaultStateToJar(fileName);  // not supported in JS
     }  // > Custom.Save State:12
   }  // > Custom.Save State:13
 
