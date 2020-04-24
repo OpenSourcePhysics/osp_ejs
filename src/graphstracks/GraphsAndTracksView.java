@@ -315,9 +315,22 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
     _model._resetModel();
     initialize();
     setUpdateSimulation(false);
+    
+    // The following is used by the JNLP file for the simulation to help find resources
+  	/** @j2sNative console.log('codebase breakpoint'); debugger; */
+    try { 
+    	String base = System.getProperty("jnlp.codebase");
+    	if (base != null) {
+    		java.net.URL url=new java.net.URL(base);
+    		setUserCodebase(url); 
+    	}
+    } catch (Exception exc) { } // Do nothing and keep quiet if it fails
+    
+    /*
     // The following is used by the JNLP file for the simulation to help find resources
     try { setUserCodebase(new java.net.URL(System.getProperty("jnlp.codebase"))); }
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
+    */
     update();
     if (javax.swing.SwingUtilities.isEventDispatchThread()) createControl();
     else try {
