@@ -8,10 +8,6 @@ package org.colos.ejs.library;
 
 import java.io.*;
 import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.jar.JarInputStream;
-import java.util.jar.JarOutputStream;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -22,7 +18,6 @@ import java.awt.AWTEvent;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.net.URL;
 import java.lang.reflect.*;
@@ -41,7 +36,6 @@ import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.DisplayRes;
 import org.opensourcephysics.display.dialogs.DialogsRes;
 import org.opensourcephysics.js.JSUtil;
-import org.opensourcephysics.media.xuggle.DiagnosticsForXuggle;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.controls.OSPLog;
 import org.opensourcephysics.desktop.OSPDesktop;
@@ -1308,9 +1302,10 @@ public abstract class Simulation extends Animation {
           public void actionPerformed(ActionEvent e) { Diagnostics.aboutJava3D(); }
         });
 
+        /**
         diagnosticsMenu.add(new AbstractAction(getMenuText("xuggle_res:Xuggle.Dialog.AboutXuggle.Title")){
           public void actionPerformed(ActionEvent e) { DiagnosticsForXuggle.aboutXuggle(); }
-        });
+        }); **/
 
 //        diagnosticsMenu.add(new AbstractAction(getMenuText("tools_res:Diagnostics.QTJava.About.Title")){
 //          public void actionPerformed(ActionEvent e) { Diagnostics.aboutQTJava(); }
