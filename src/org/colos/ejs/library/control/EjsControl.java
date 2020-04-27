@@ -21,6 +21,7 @@ import org.colos.ejs.library.control.value.*;
 import org.colos.ejs.library.utils.LocaleItem;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.desktop.OSPDesktop;
+import org.opensourcephysics.js.JSUtil;
 
 /**
  * A base class to group several ControlElements, connect them
@@ -66,6 +67,7 @@ public class EjsControl {
     org.opensourcephysics.tools.ResourceLoader.setCacheEnabled(true);
     try { _RETURN_ = System.getProperty("line.separator"); }
 	  catch (Exception e) { _RETURN_ = "\n"; }
+ 
   }
 
   /**
@@ -131,6 +133,7 @@ public class EjsControl {
   public EjsControl () {
     setValue (ControlElement.METHOD_TRIGGER,Value.VALUE_FALSE); // AMAVP
     methodTriggerVariable = variableTable.get(ControlElement.METHOD_TRIGGER); // AMAVP
+    if(JSUtil.isJS)System.setProperty("jnlp.codebase","./");
   }
 
  /**

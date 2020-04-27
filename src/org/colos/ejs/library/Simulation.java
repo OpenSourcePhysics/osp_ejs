@@ -6,100 +6,46 @@
 
 package org.colos.ejs.library;
 
-import java.awt.AWTEvent;
+import java.io.*;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.jar.JarInputStream;
+import java.util.jar.JarOutputStream;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.AWTEvent;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.AWTEventListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.net.URL;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
-import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import java.net.URL;
+import java.lang.reflect.*;
+import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.text.JTextComponent;
 import javax.swing.text.html.HTMLEditorKit;
 
-import org.colos.ejs.library.control.ControlElement;
-import org.colos.ejs.library.control.EjsControl;
-import org.colos.ejs.library.control.MethodWithOneParameter;
-import org.colos.ejs.library.utils.FileUtils;
-import org.colos.ejs.library.utils.HtmlPageInfo;
-import org.colos.ejs.library.utils.LocaleItem;
-import org.colos.ejs.library.utils.VideoUtil;
-import org.opensourcephysics.controls.OSPLog;
+import org.colos.ejs.library.control.*;
+import org.colos.ejs.library.utils.*;
 import org.opensourcephysics.controls.XMLControlElement;
-import org.opensourcephysics.desktop.OSPDesktop;
-import org.opensourcephysics.display.DisplayRes;
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.OSPRuntime;
+import org.opensourcephysics.display.DisplayRes;
+import org.opensourcephysics.display.dialogs.DialogsRes;
 import org.opensourcephysics.js.JSUtil;
 import org.opensourcephysics.media.mov.MovieFactory;
-import org.opensourcephysics.tools.Diagnostics;
-import org.opensourcephysics.tools.DiagnosticsForSystem;
-import org.opensourcephysics.tools.DiagnosticsForThreads;
-import org.opensourcephysics.tools.EjsTool;
-import org.opensourcephysics.tools.FontSizer;
-import org.opensourcephysics.tools.Resource;
-import org.opensourcephysics.tools.ResourceLoader;
-import org.opensourcephysics.tools.SnapshotTool;
-import org.opensourcephysics.tools.ToolsRes;
+import org.opensourcephysics.media.xuggle.DiagnosticsForXuggle;
+import org.opensourcephysics.tools.*;
+import org.opensourcephysics.controls.OSPLog;
+import org.opensourcephysics.desktop.OSPDesktop;
 
 /**
  * A base interface for a simulation
@@ -1363,9 +1309,9 @@ public abstract class Simulation extends Animation {
           public void actionPerformed(ActionEvent e) { Diagnostics.aboutJava3D(); }
         });
 
-        diagnosticsMenu.add(new AbstractAction(getMenuText("xuggle_res:Xuggle.Dialog.AboutXuggle.Title")){
-          public void actionPerformed(ActionEvent e) { MovieFactory.getVideoProperty("about:Simulation"); }
-        });
+//        diagnosticsMenu.add(new AbstractAction(getMenuText("xuggle_res:Xuggle.Dialog.AboutXuggle.Title")){
+//          public void actionPerformed(ActionEvent e) { MovieFactory.getVideoProperty("about:Simulation"); }
+//        });
 
 //        diagnosticsMenu.add(new AbstractAction(getMenuText("tools_res:Diagnostics.QTJava.About.Title")){
 //          public void actionPerformed(ActionEvent e) { Diagnostics.aboutQTJava(); }
