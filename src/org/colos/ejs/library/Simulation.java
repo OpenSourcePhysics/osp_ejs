@@ -42,7 +42,6 @@ import org.opensourcephysics.display.DisplayRes;
 import org.opensourcephysics.display.dialogs.DialogsRes;
 import org.opensourcephysics.js.JSUtil;
 import org.opensourcephysics.media.mov.MovieFactory;
-import org.opensourcephysics.media.xuggle.DiagnosticsForXuggle;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.controls.OSPLog;
 import org.opensourcephysics.desktop.OSPDesktop;
