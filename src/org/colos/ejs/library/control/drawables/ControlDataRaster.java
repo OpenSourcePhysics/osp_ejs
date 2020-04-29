@@ -14,6 +14,7 @@ import org.colos.ejs.library.control.value.*;
 import org.opensourcephysics.display2d.DataRaster;
 import org.opensourcephysics.display.Drawable;
 
+// BH 2020.04.29 -- never used?
 public class ControlDataRaster extends ControlDrawable2D implements 
 org.colos.ejs.library.control.Resetable,
 org.colos.ejs.library.control.DataCollector{
