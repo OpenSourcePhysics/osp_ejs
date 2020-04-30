@@ -1469,7 +1469,7 @@ public abstract class Simulation extends Animation {
     if (name.startsWith("ejs_res:")) text = ejsRes.getString(name.substring(name.indexOf(':')+1));
     else if (name.startsWith("tools_res:")) text = ToolsRes.getString(name.substring(name.indexOf(':')+1));
     else if (name.startsWith("display_res:")) text = DisplayRes.getString(name.substring(name.indexOf(':')+1));
-    else if (name.startsWith("xuggle_res:")) text = (String) MovieFactory.getVideoProperty(name);
+ //   else if (name.startsWith("xuggle_res:")) text = (String) MovieFactory.getVideoProperty(name);
     else text = ToolsRes.getString(name);
     if (text.startsWith("!") && text.endsWith("!")) text = DisplayRes.getString(name);
     if (text.startsWith("!") && text.endsWith("!")) text = name;
