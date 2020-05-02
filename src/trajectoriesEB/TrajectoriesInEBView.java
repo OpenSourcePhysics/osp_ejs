@@ -18,6 +18,7 @@ import java.io.*;
 import java.lang.*;
 
 import org.colos.ejs.library.View;
+import org.opensourcephysics.display.OSPRuntime;
 
 class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private TrajectoriesInEBSimulation _simulation=null;
@@ -98,15 +99,11 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
     try { setUserCodebase(new java.net.URL(System.getProperty("jnlp.codebase"))); }
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
     update();
-    if (javax.swing.SwingUtilities.isEventDispatchThread()) createControl();
-    else try {
-      javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-        public void run () { 
-          createControl();
-        }
+	OSPRuntime.dispatchEventWait(new Runnable() {
+			public void run() {
+				createControl();
+			}
       });
-    } catch (java.lang.reflect.InvocationTargetException it_exc) { it_exc.printStackTrace(); 
-    } catch (InterruptedException i_exc) { i_exc.printStackTrace(); };
     addElementsMenuEntries();
     update();
     setUpdateSimulation(true);

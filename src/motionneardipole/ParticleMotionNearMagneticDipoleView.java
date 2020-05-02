@@ -5,6 +5,8 @@
 
 package motionneardipole;
 
+import org.opensourcephysics.display.OSPRuntime;
+
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
@@ -72,15 +74,11 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
     try { setUserCodebase(new java.net.URL(System.getProperty("jnlp.codebase"))); }
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
     update();
-    if (javax.swing.SwingUtilities.isEventDispatchThread()) createControl();
-    else try {
-      javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
+	OSPRuntime.dispatchEventWait(new Runnable() {
         public void run () { 
           createControl();
         }
       });
-    } catch (java.lang.reflect.InvocationTargetException it_exc) { it_exc.printStackTrace(); 
-    } catch (InterruptedException i_exc) { i_exc.printStackTrace(); };
     addElementsMenuEntries();
     update();
     setUpdateSimulation(true);

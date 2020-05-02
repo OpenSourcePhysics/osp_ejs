@@ -7,6 +7,8 @@ package graphstracks;
 
 import java.awt.Color;
 
+import org.opensourcephysics.display.OSPRuntime;
+
 class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private GraphsAndTracksSimulation _simulation=null;
   private GraphsAndTracks _model=null;
@@ -332,15 +334,11 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
     */
     update();
-    if (javax.swing.SwingUtilities.isEventDispatchThread()) createControl();
-    else try {
-      javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-        public void run () { 
+	OSPRuntime.dispatchEventWait(new Runnable() {
+		public void run () { 
           createControl();
         }
       });
-    } catch (java.lang.reflect.InvocationTargetException it_exc) { it_exc.printStackTrace(); 
-    } catch (InterruptedException i_exc) { i_exc.printStackTrace(); };
     addElementsMenuEntries();
     update();
     setUpdateSimulation(true);

@@ -21,6 +21,7 @@ import org.colos.ejs.library.control.value.*;
 import org.colos.ejs.library.utils.LocaleItem;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.desktop.OSPDesktop;
+import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.js.JSUtil;
 
 /**
@@ -705,44 +706,34 @@ public class EjsControl {
     for (NeedsUpdate nu : updateList) nu.update();
   }
 
-	private Runnable doPropagate = new Runnable() {
-		public synchronized void run() {
-			propagateValues();
-		}
-	};
-	
 	/**
 	 * Refresh all elements
 	 */
 	public void update() {
-//    System.out.println ("Calling update");
-		if (javax.swing.SwingUtilities.isEventDispatchThread())
-			propagateValues();
-		else
-			try {
-				javax.swing.SwingUtilities.invokeAndWait(doPropagate);
-			} catch (InterruptedException exc) {
-			} catch (java.lang.reflect.InvocationTargetException exc2) {
+    	OSPRuntime.dispatchEventWait(new Runnable() {
+
+			@Override
+			public void run() {
+				propagateValues();
 			}
+    		
+    	});
 		doTheUpdate();
 	}
 
-  /**
-   * Update elements that collect data, but do no graphic work at all
-   */
-   public void collectData() {
-     justCollectingData = true;
-     if(javax.swing.SwingUtilities.isEventDispatchThread()) propagateValues();
-     else try {
-       javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-         public synchronized void run() { propagateValues(); }
-       });
-     } 
-     catch (InterruptedException exc) {}
-     catch (java.lang.reflect.InvocationTargetException exc2) {}
-     doTheUpdate();
-     justCollectingData = false;
-   }
+	/**
+	 * Update elements that collect data, but do no graphic work at all
+	 */
+	public void collectData() {
+		justCollectingData = true;
+		OSPRuntime.dispatchEventWait(new Runnable() {
+			public synchronized void run() {
+				propagateValues();
+			}
+		});
+		doTheUpdate();
+		justCollectingData = false;
+	}
 
 
   /** 

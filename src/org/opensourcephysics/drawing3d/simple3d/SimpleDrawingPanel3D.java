@@ -15,6 +15,8 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.print.*;
 import javax.swing.*;
+
+import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.drawing3d.*;
 import org.opensourcephysics.drawing3d.utils.*;
 import org.opensourcephysics.tools.ResourceLoader;
@@ -125,17 +127,11 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
       }
       // the offscreenImage is now ready to be copied to the screen
       // always update a Swing component from the event thread
-      if(SwingUtilities.isEventDispatchThread()) {
-        paintImmediately(getVisibleRect()); // we are already within the event thread so DO IT!
-      } 
-      else {                               // paint within the event thread
-        Runnable doNow = new Runnable() {   // runnable object will be called by invokeAndWait
-          public void run() { paintImmediately(getVisibleRect()); }
-        };
-        try {  SwingUtilities.invokeAndWait(doNow); } // wait for the paint operation to finish; should be fast
-        catch(InvocationTargetException ex) {}
-        catch(InterruptedException ex) {}
-      }
+		OSPRuntime.dispatchEventWait(new Runnable() {
+			public void run() {
+				paintImmediately(getVisibleRect());
+			}
+		});
       org.opensourcephysics.tools.VideoTool vidCap = panel3D.getVideoTool();
       if (vidCap!=null && offscreenImage!=null && vidCap.isRecording()) { // buffered image should exists so use it.
         vidCap.addFrame(offscreenImage);

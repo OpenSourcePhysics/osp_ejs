@@ -10,6 +10,8 @@ package org.colos.ejs.library.control.swing;
 import org.colos.ejs.library.control.ConstantParser;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.value.*;
+import org.opensourcephysics.display.OSPRuntime;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.text.Document;
@@ -92,20 +94,13 @@ public class ControlNumberField extends ControlSwingElement {
 
   private void setTheValue (double _value) {
     if (_value!=internalValue.value) {
-      internalValue.value = _value;
-      if (javax.swing.SwingUtilities.isEventDispatchThread()) {
-        textfield.setText (format.format (_value));
-        getVisual().setBackground (defaultColor);
-      }
-      else { // Same thing, but delayed
-        final String str = format.format (_value);
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-          public synchronized void run() {
-            textfield.setText (str);
-            getVisual().setBackground (defaultColor);
-          }
-        });
-      }
+      internalValue.value = _value;		
+      OSPRuntime.postEvent(new Runnable() {
+				public void run() {
+					textfield.setText(format.format(_value));
+					getVisual().setBackground(defaultColor);
+				}
+      });
     }
   }
 
@@ -150,81 +145,89 @@ public class ControlNumberField extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
-    // System.out.println (getComponent().getName()+": NumberField setting value "+_index + " to "+_value.toString());
-    switch (_index) {
-      case VARIABLE : setTheValue (_value.getDouble()); break;
-      case 1 :
-        defaultValueSet = true; defaultValue = _value.getDouble();
-        setActive (false); reset (); setActive(true);
-        break;
-      case 2 : 
-        if (_value.getBoolean()) {
-          textfield.setEditable(true);
-          if (!foregroundSet) textfield.setForeground(Color.BLACK);
-        }
-        else {
-          textfield.setEditable(false);
-          if (!foregroundSet) textfield.setForeground(Color.GRAY);
-        }
+	public void setValue(int _index, Value _value) {
+		// System.out.println (getComponent().getName()+": NumberField setting value
+		// "+_index + " to "+_value.toString());
+		switch (_index) {
+		case VARIABLE:
+			setTheValue(_value.getDouble());
+			break;
+		case 1:
+			defaultValueSet = true;
+			defaultValue = _value.getDouble();
+			setActive(false);
+			reset();
+			setActive(true);
+			break;
+		case 2:
+			if (_value.getBoolean()) {
+				textfield.setEditable(true);
+				if (!foregroundSet)
+					textfield.setForeground(Color.BLACK);
+			} else {
+				textfield.setEditable(false);
+				if (!foregroundSet)
+					textfield.setForeground(Color.GRAY);
+			}
 //        setColor(defaultColor);
-        break;
-      case 3 :
-        {
-          DecimalFormat newFormat=null;
-          if (_value.getObject() instanceof DecimalFormat) {
-            newFormat = (DecimalFormat) _value.getObject();
-            fixTheFormat(newFormat);
+			break;
+		case 3: {
+			DecimalFormat newFormat = null;
+			if (_value.getObject() instanceof DecimalFormat) {
+				newFormat = (DecimalFormat) _value.getObject();
+				fixTheFormat(newFormat);
 //            newFormat.setDecimalFormatSymbols(new java.text.DecimalFormatSymbols(new java.util.Locale("en")));
-            formatStr = null;
-          }
-          else {
-            String newFormatStr = org.opensourcephysics.display.TeXParser.parseTeX(_value.getString());
-            if (newFormatStr.equals(formatStr)) return;
-            formatStr = newFormatStr;
-            newFormat = (DecimalFormat) ConstantParser.formatConstant(formatStr).getObject();
-            fixTheFormat(newFormat);
+				formatStr = null;
+			} else {
+				String newFormatStr = org.opensourcephysics.display.TeXParser.parseTeX(_value.getString());
+				if (newFormatStr.equals(formatStr))
+					return;
+				formatStr = newFormatStr;
+				newFormat = (DecimalFormat) ConstantParser.formatConstant(formatStr).getObject();
+				fixTheFormat(newFormat);
 //            newFormat.setDecimalFormatSymbols(new java.text.DecimalFormatSymbols(new java.util.Locale("en")));
-          }
-          if (newFormat.equals(format)) return;
-          format = newFormat;
-          /*  Is this needed?
-          setActive (false);
-          try { setInternalValue (format.parse(textfield.getText()).doubleValue()); }
-          catch (Exception exc) {}
-          setActive (true);
-          */
-          
-          if (javax.swing.SwingUtilities.isEventDispatchThread()) textfield.setText (format.format (internalValue.value)); 
-          else {
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-              public synchronized void run() { textfield.setText (format.format (internalValue.value)); }
-            });
-          }
-        }
-        break;
-      case 4 : // action
-        removeAction (ControlElement.VARIABLE_CHANGED,getProperty("action"));
-        addAction(ControlElement.VARIABLE_CHANGED,_value.getString());
-        break;
-      case 5 : 
-        if (_value.getInteger()!=textfield.getColumns()) {
-          textfield.setColumns(_value.getInteger());
-          if (textfield.getParent()!=null) textfield.getParent().validate();
-        }
-        break;
-      case FIELD_BACKGROUND :
-        super.setValue (ControlSwingElement.BACKGROUND,_value);
-        decideColors (getVisual().getBackground());
-        setColor(defaultColor);
-        break;
-      case FIELD_FOREGROUND :
-        super.setValue (ControlSwingElement.FOREGROUND,_value);
-        foregroundSet = true;
-        break;
-      default: super.setValue(_index-NUMBER_FIELD_ADDED,_value); break;
-    }
-  }
+			}
+			if (newFormat.equals(format))
+				return;
+			format = newFormat;
+			/*
+			 * Is this needed? setActive (false); try { setInternalValue
+			 * (format.parse(textfield.getText()).doubleValue()); } catch (Exception exc) {}
+			 * setActive (true);
+			 */
+			OSPRuntime.postEvent(new Runnable() {
+
+				public synchronized void run() {
+					textfield.setText(format.format(internalValue.value));
+				}
+			});
+		}
+		break;
+		case 4: // action
+			removeAction(ControlElement.VARIABLE_CHANGED, getProperty("action"));
+			addAction(ControlElement.VARIABLE_CHANGED, _value.getString());
+			break;
+		case 5:
+			if (_value.getInteger() != textfield.getColumns()) {
+				textfield.setColumns(_value.getInteger());
+				if (textfield.getParent() != null)
+					textfield.getParent().validate();
+			}
+			break;
+		case FIELD_BACKGROUND:
+			super.setValue(ControlSwingElement.BACKGROUND, _value);
+			decideColors(getVisual().getBackground());
+			setColor(defaultColor);
+			break;
+		case FIELD_FOREGROUND:
+			super.setValue(ControlSwingElement.FOREGROUND, _value);
+			foregroundSet = true;
+			break;
+		default:
+			super.setValue(_index - NUMBER_FIELD_ADDED, _value);
+			break;
+		}
+	}
 
   public String getDefaultValueString (int _index) {
     switch (_index) {
@@ -252,11 +255,11 @@ public class ControlNumberField extends ControlSwingElement {
       case 3 :
         format = defaultFormat;
         formatStr=null;
-        Runnable refreshScreen = new Runnable() {
-          public synchronized void run() { textfield.setText (format.format (internalValue.value)); }
-        };
-        if (javax.swing.SwingUtilities.isEventDispatchThread()) refreshScreen.run();
-        else javax.swing.SwingUtilities.invokeLater(refreshScreen);
+			OSPRuntime.postEvent(new Runnable() {
+				public synchronized void run() {
+					textfield.setText(format.format(internalValue.value));
+				}
+			});
         break;
       case 4 : removeAction (ControlElement.VARIABLE_CHANGED,getProperty("action")); break;
       case 5 : 

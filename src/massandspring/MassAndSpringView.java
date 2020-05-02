@@ -8,6 +8,8 @@ package massandspring;
 
 import static org.colos.ejs.library.control.swing.ControlParsedNumberField.SIMPLE_DOCUMENT;
 
+import org.opensourcephysics.display.OSPRuntime;
+
 class MassAndSpringView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private MassAndSpringSimulation _simulation=null;
   private MassAndSpring _model=null;
@@ -49,48 +51,46 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
 
 // ---------- Class constructor -------------------
 
-  public MassAndSpringView (MassAndSpringSimulation _sim, String _replaceName, java.awt.Frame _replaceOwnerFrame) {
-    super(_sim,_replaceName,_replaceOwnerFrame);
-    _simulation = _sim;
-    _model = (MassAndSpring) _sim.getModel();
-    _model._view = this;
-    addTarget("_simulation",_simulation);
-    addTarget("_model",_model);
-    _model._resetModel();
-    initialize();
-    setUpdateSimulation(false);
-    // The following is used by the JNLP file for the simulation to help find resources
-    try { 
-    	String base = System.getProperty("jnlp.codebase");
-    	if (base != null)
-    		setUserCodebase(new java.net.URL(base)); }
-    catch (Exception exc) { } // Do nothing and keep quiet if it fails
-    update();
-    if (javax.swing.SwingUtilities.isEventDispatchThread()) createControl();
-    else try {
-      javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-        public void run () { 
-          createControl();
-        }
-      });
-    } catch (java.lang.reflect.InvocationTargetException it_exc) { it_exc.printStackTrace(); 
-    } catch (InterruptedException i_exc) { i_exc.printStackTrace(); };
-    addElementsMenuEntries();
-    update();
-    setUpdateSimulation(true);
-    addListener("x"); // Variables.Dynamical Vars:1
-    addListener("vx"); // Variables.Dynamical Vars:2
-    addListener("t"); // Variables.Dynamical Vars:3
-    addListener("dt"); // Variables.Dynamical Vars:4
-    addListener("showPlot"); // Variables.Constants:1
-    addListener("y"); // Variables.Constants:2
-    addListener("m"); // Variables.Constants:3
-    addListener("k"); // Variables.Constants:4
-    addListener("L"); // Variables.Constants:5
-    addListener("T"); // Variables.Constrained Vars:1
-    addListener("V"); // Variables.Constrained Vars:2
-    addListener("E"); // Variables.Constrained Vars:3
-  }
+	public MassAndSpringView(MassAndSpringSimulation _sim, String _replaceName, java.awt.Frame _replaceOwnerFrame) {
+		super(_sim, _replaceName, _replaceOwnerFrame);
+		_simulation = _sim;
+		_model = (MassAndSpring) _sim.getModel();
+		_model._view = this;
+		addTarget("_simulation", _simulation);
+		addTarget("_model", _model);
+		_model._resetModel();
+		initialize();
+		setUpdateSimulation(false);
+		// The following is used by the JNLP file for the simulation to help find
+		// resources
+		try {
+			String base = System.getProperty("jnlp.codebase");
+			if (base != null)
+				setUserCodebase(new java.net.URL(base));
+		} catch (Exception exc) {
+		} // Do nothing and keep quiet if it fails
+		update();
+		OSPRuntime.dispatchEventWait(new Runnable() {
+			public void run() {
+				createControl();
+			}
+		});
+		addElementsMenuEntries();
+		update();
+		setUpdateSimulation(true);
+		addListener("x"); // Variables.Dynamical Vars:1
+		addListener("vx"); // Variables.Dynamical Vars:2
+		addListener("t"); // Variables.Dynamical Vars:3
+		addListener("dt"); // Variables.Dynamical Vars:4
+		addListener("showPlot"); // Variables.Constants:1
+		addListener("y"); // Variables.Constants:2
+		addListener("m"); // Variables.Constants:3
+		addListener("k"); // Variables.Constants:4
+		addListener("L"); // Variables.Constants:5
+		addListener("T"); // Variables.Constrained Vars:1
+		addListener("V"); // Variables.Constrained Vars:2
+		addListener("E"); // Variables.Constrained Vars:3
+	}
 
 // ---------- Implementation of View -------------------
 

@@ -16,6 +16,7 @@ import javax.swing.text.Document;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
+import org.opensourcephysics.display.OSPRuntime;
 
  /**
   * <code>ControlSwingElement</code> is a base class for an object that
@@ -150,12 +151,11 @@ public abstract class ControlSwingElement extends ControlElement {
      if (newVisual instanceof JComponent) ((JComponent)newVisual).setToolTipText(tooltipText);
      final ControlElement parent = myGroup.getElement(getProperty("parent"));
      if (parent!=null) {
-       if (javax.swing.SwingUtilities.isEventDispatchThread()) ((ControlContainer) parent).remove(ControlSwingElement.this);
-       else try { javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-         public synchronized void run() { ((ControlContainer) parent).remove(ControlSwingElement.this); }
-         });
-       }
-       catch(Exception exc) {}
+			OSPRuntime.dispatchEventWait(new Runnable() {
+				public synchronized void run() {
+					((ControlContainer) parent).remove(ControlSwingElement.this);
+				}
+			});
      }
      // Now, do the change
      myObject = myVisual = newVisual;
@@ -164,18 +164,13 @@ public abstract class ControlSwingElement extends ControlElement {
      myDefaultFont = myVisual.getFont();
      mySize = myVisual.getPreferredSize();
      if (parent!=null) {
-       if (javax.swing.SwingUtilities.isEventDispatchThread()) {
-         ((ControlContainer) parent).add(ControlSwingElement.this);
-         ((ControlContainer) parent).adjustSize();
-       }
-       else try { javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-         public synchronized void run() { 
-           ((ControlContainer) parent).add(ControlSwingElement.this);
-           ((ControlContainer) parent).adjustSize();
-         }});
-       }
-       catch(Exception exc) {}
-     }
+			OSPRuntime.dispatchEventWait(new Runnable() {
+				public synchronized void run() {
+					((ControlContainer) parent).add(ControlSwingElement.this);
+					((ControlContainer) parent).adjustSize();
+				}
+			});
+ 		}
    }
 
    private String getPrintTarget () {
@@ -470,18 +465,17 @@ public abstract class ControlSwingElement extends ControlElement {
       case ENABLED : getVisual().setEnabled (true); break;
       case VISIBLE : getVisual().setVisible (true); break;
       case SIZE : // Size (getComponent() is necessarily a JComponent)
-        Runnable doIt = new Runnable() {
-          public synchronized void run() {
-            getComponent().setPreferredSize(mySize = myDefaultSize);
-            if (ControlSwingElement.this instanceof ControlContainer) ((ControlContainer) ControlSwingElement.this).getContainer().validate();
-            ControlElement parentElement = myGroup.getElement(getProperty("parent"));
-            if (parentElement!=null) ((ControlContainer) parentElement).adjustSize();
-          }
-        };
-        if (javax.swing.SwingUtilities.isEventDispatchThread()) doIt.run();
-        else try { javax.swing.SwingUtilities.invokeAndWait(doIt); }
-        catch(Exception exc) { doIt.run(); }
-        break;
+  		OSPRuntime.dispatchEventWait(new Runnable() {
+				public synchronized void run() {
+					getComponent().setPreferredSize(mySize = myDefaultSize);
+					if (ControlSwingElement.this instanceof ControlContainer)
+						((ControlContainer) ControlSwingElement.this).getContainer().validate();
+					ControlElement parentElement = myGroup.getElement(getProperty("parent"));
+					if (parentElement != null)
+						((ControlContainer) parentElement).adjustSize();
+				}
+         });
+	    break;
       case FOREGROUND : getVisual().setForeground(myDefaultFrgd); break;
       case BACKGROUND : getVisual().setBackground(myDefaultBkgd); break;
       case FONT :       getVisual().setFont(myDefaultFont);       break;

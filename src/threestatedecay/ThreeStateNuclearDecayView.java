@@ -9,6 +9,8 @@ import static org.colos.ejs.library.control.swing.ControlSwingElement.SIMPLE_DOC
 
 import java.awt.Color;
 
+import org.opensourcephysics.display.OSPRuntime;
+
 class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private ThreeStateNuclearDecaySimulation _simulation=null;
   private ThreeStateNuclearDecay _model=null;
@@ -129,21 +131,11 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
 		} catch (Exception exc) {
 		} // Do nothing and keep quiet if it fails
 		update();
-		if (javax.swing.SwingUtilities.isEventDispatchThread())
-			createControl();
-		else
-			try {
-				javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-					public void run() {
-						createControl();
-					}
-				});
-			} catch (java.lang.reflect.InvocationTargetException it_exc) {
-				it_exc.printStackTrace();
-			} catch (InterruptedException i_exc) {
-				i_exc.printStackTrace();
+		OSPRuntime.dispatchEventWait(new Runnable() {
+			public void run() {
+				createControl();
 			}
-		;
+		});
 		addElementsMenuEntries();
 		update();
 		setUpdateSimulation(true);
