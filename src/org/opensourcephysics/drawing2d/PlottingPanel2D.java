@@ -7,6 +7,10 @@
 
 package org.opensourcephysics.drawing2d;
 
+import java.util.ArrayList;
+
+import org.opensourcephysics.display.Drawable;
+
 /**
  *
  * <p>Title: DrawingPanel2D</p>
@@ -60,21 +64,30 @@ public class PlottingPanel2D extends org.opensourcephysics.display.PlottingPanel
     super.addDrawableAtIndex(_index,drawable);
   }
   
-  @Override
-  public void invalidateImage() {
-       super.invalidateImage();
-    // Instruct all child elements that they need to re-project themselves
-    for (Object drawable : super.getDrawables()) 
-      if (drawable instanceof Element) ((Element)drawable).setNeedToProject(true);
-  }
+	@Override
+	public void invalidateImage() {
+		super.invalidateImage();
+		// Instruct all child elements that they need to re-project themselves
+		ArrayList<Drawable> dlist = super.getDrawablesNoClone();
+		for (int i = 0, n = dlist.size(); i < n; i++) {
+			Drawable drawable = dlist.get(i);
+			if (drawable instanceof Element)
+				((Element) drawable).setNeedToProject(true);
+		}
+	}
 
-  @Override
-  protected boolean isValidImage() {
-    if (!super.isValidImage()) return false;
-    for (Object drawable : super.getDrawables()) 
-      if (drawable instanceof Element && ((Element)drawable).hasChanged()) return false;
-    return true;
-  }
+	@Override
+	protected boolean isValidImage() {
+		if (!super.isValidImage())
+			return false;
+		ArrayList<Drawable> dlist = super.getDrawablesNoClone();
+		for (int i = 0, n = dlist.size(); i < n; i++) {
+			Drawable drawable = dlist.get(i);
+			if (drawable instanceof Element && ((Element) drawable).hasChanged())
+				return false;
+		}
+		return true;
+	}
  
 }
 

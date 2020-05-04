@@ -224,7 +224,7 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 
   private java.util.List<Data> getAllData(DrawingPanel _panel) {
     java.util.List<Data> dataList = new ArrayList<Data>();
-    for (Drawable drawable : _panel.getDrawables()) {
+    for (Drawable drawable : _panel.getDrawablesNoClone()) {
       if (drawable instanceof Data) dataList.add((Data)drawable);
     }
     return dataList;

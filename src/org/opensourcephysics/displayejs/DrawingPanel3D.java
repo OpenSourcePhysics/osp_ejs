@@ -614,9 +614,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
 
 
   public void paintDrawableList(Graphics g, ArrayList<Drawable> tempList) {
-    Graphics2D g2        = (Graphics2D) g;
+    Graphics2D g2 = (Graphics2D) g.create();
     Iterator<Drawable> it = tempList.iterator();
-    Shape      clipShape = g2.getClip();
     int w = getWidth()-leftGutter-rightGutter;
     int h = getHeight()-bottomGutter-topGutter;
     if((w<0)||(h<0)) {
@@ -661,7 +660,7 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
         }
       }
     }
-    g2.setClip(clipShape);
+    g2.dispose();
   }
 
 /**
