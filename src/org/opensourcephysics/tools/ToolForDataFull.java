@@ -1,6 +1,7 @@
 package org.opensourcephysics.tools;
 
 import java.awt.Component;
+import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -108,19 +109,19 @@ public class ToolForDataFull extends ToolForData {
     return dataTool; 
   }
   
-  @Override
-  public String openData(Component _component, String _filename) { 
-    if (dataTool==null) {
-      dataTool = new DataTool();
-      dataTool.setKeepHidden(false);
-    }
-    String value = dataTool.open(_filename);
-    if (!dataTool.isVisible()) {
-      dataTool.setLocationRelativeTo(_component);
-      dataTool.setVisible(true);
-    }
-    return value;
-  }
+	@Override
+	public String openData(Component _component, String _filename) {
+		if (dataTool == null) {
+			dataTool = new DataTool();
+			dataTool.setKeepHidden(false);
+		}
+		dataTool.open(new File(_filename));
+		if (!dataTool.isVisible()) {
+			dataTool.setLocationRelativeTo(_component);
+			dataTool.setVisible(true);
+		}
+		return null;
+	}
   
 //  @Override
 //  public Object showFourierTool (Component _component, java.util.List<Data> _data) {

@@ -177,32 +177,32 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
     return DATATOOL;
   }
 
-  /**
-   * Main entry point when used as application.
-   *
-   * @param args args[0] may be a data or xml file name
-   */
-  public static void main(String[] args) {
-    DATATOOL.exitOnClose = true;
-    DATATOOL.saveChangesOnClose = true;
-    if((args!=null)&&(args.length>0)&&(args[0]!=null)) {
-      DATATOOL.setVisible(true);
-      DATATOOL.open(args[0]);
-    } else {
-    	DATATOOL.addWindowListener(new WindowAdapter() {
-    		@Override
-        public void windowOpened(WindowEvent e) {
-        	if (DATATOOL.getTabCount()==0) {
-            DataToolTab tab = DATATOOL.createTab(null);
-            tab.setUserEditable(true);
-            DATATOOL.addTab(tab);
-        	}
-        }
-    	});
-      DATATOOL.setVisible(true);
-    }
-    
-  }
+	/**
+	 * Main entry point when used as application.
+	 *
+	 * @param args args[0] may be a data or xml file name
+	 */
+	public static void main(String[] args) {
+		DATATOOL.exitOnClose = true;
+		DATATOOL.saveChangesOnClose = true;
+		if ((args != null) && (args.length > 0) && (args[0] != null)) {
+			DATATOOL.setVisible(true);
+			DATATOOL.open(new File(args[0]));
+		} else {
+			DATATOOL.addWindowListener(new WindowAdapter() {
+				@Override
+				public void windowOpened(WindowEvent e) {
+					if (DATATOOL.getTabCount() == 0) {
+						DataToolTab tab = DATATOOL.createTab(null);
+						tab.setUserEditable(true);
+						DATATOOL.addTab(tab);
+					}
+				}
+			});
+			DATATOOL.setVisible(true);
+		}
+
+	}
   
   /**
    * Constructs a blank DataTool.
@@ -218,7 +218,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
    */
   public DataTool(String fileName) {
     this();
-    open(fileName);
+    open(new File(fileName));
   }
 
   /**
@@ -477,54 +477,49 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
     return tabs;
   }
 
-  /**
-   * Opens an xml or data file specified by name.
-   *
-   * @param fileName the file name
-   * @return the file name, if successfully opened (datasets loaded)
-   */
-  public String open(String fileName) {
-    OSPLog.fine("opening "+fileName); //$NON-NLS-1$
-    Resource res = ResourceLoader.getResource(fileName);
-    if(res!=null) {
-      Reader in = res.openReader();
-      String firstLine = readFirstLine(in);
-      // if xml, read the file into an XML control and add tab
-      if(firstLine.startsWith("<?xml")) { //$NON-NLS-1$
-        XMLControlElement control = new XMLControlElement(fileName);
-        ArrayList<DataToolTab> tabs = addTabs(control);
-        if(!tabs.isEmpty()) {
-          for(DataToolTab tab : tabs) {
-            refreshDataBuilder();
-            if(tabs.size()==1) {
-              tab.fileName = fileName;
-            }
-            tab.tabChanged(false);
-          }
-          try {
-			in.close();
-		  } catch (IOException e) {
-			//e.printStackTrace();
-		   }
-          return fileName;
-        }
-      }
-      // if not xml, attempt to import data and add tab
-      else if(res.getString()!=null) {
-        Data data = parseData(res.getString(), fileName);
-        if(data!=null) {
-        	DataToolTab tab = createTab(data);
-          addTab(tab);
-          refreshDataBuilder();
-          tab.fileName = fileName;
-          tab.tabChanged(false);
-          return fileName;
-        }
-      }
-    }
-    OSPLog.finest("no data found"); //$NON-NLS-1$
-    return null;
-  }
+	/**
+	 * Opens an xml or data file specified by name.
+	 *
+	 * @param fileName the file name
+	 * @return the file name, if successfully opened (datasets loaded)
+	 */
+	public void open(File file) {
+		OSPLog.fine("opening " + file); //$NON-NLS-1$
+		Resource res = new Resource(file);
+		Reader in = res.openReader();
+		String firstLine = readFirstLine(in);
+		// if xml, read the file into an XML control and add tab
+		if (firstLine.startsWith("<?xml")) { //$NON-NLS-1$
+			XMLControlElement control = new XMLControlElement(file);
+			ArrayList<DataToolTab> tabs = addTabs(control);
+			if (!tabs.isEmpty()) {
+				for (DataToolTab tab : tabs) {
+					refreshDataBuilder();
+					if (tabs.size() == 1) {
+						tab.fileName = file.getAbsolutePath();
+					}
+					tab.tabChanged(false);
+				}
+				try {
+					in.close();
+				} catch (IOException e) {
+					// e.printStackTrace();
+				}
+			}
+		}
+		// if not xml, attempt to import data and add tab
+		else if (res.getString() != null) {
+			Data data = parseData(res.getString(), file.toString());
+			if (data != null) {
+				DataToolTab tab = createTab(data);
+				addTab(tab);
+				refreshDataBuilder();
+				tab.fileName = file.getAbsolutePath();
+				tab.tabChanged(false);
+			}
+		}
+		OSPLog.finest("no data found"); //$NON-NLS-1$
+	}
 
 	/**
 	 * Imports an xml or data file into an existing tab.
@@ -1880,16 +1875,14 @@ public void setFontLevel(int level) {
    *
    * @return the name of the opened file
    */
-  protected String open() {
-    @SuppressWarnings("deprecation")
-	int result = OSPRuntime.getChooser().showOpenDialog(null);
-    if(result==JFileChooser.APPROVE_OPTION) {
-      OSPRuntime.chooserDir = OSPRuntime.getChooser().getCurrentDirectory().toString();
-      String fileName = OSPRuntime.getChooser().getSelectedFile().getAbsolutePath();
-      fileName = XML.getRelativePath(fileName);
-      return open(fileName);
-    }
-    return null;
+  protected void open() {
+	OSPRuntime.getChooser().showOpenDialog(null, new Runnable() {
+
+		@Override
+		public void run() {
+		      OSPRuntime.chooserDir = OSPRuntime.getChooser().getCurrentDirectory().toString();
+		      open(OSPRuntime.getChooser().getSelectedFile());
+		}}, null);
   }
 
   /**

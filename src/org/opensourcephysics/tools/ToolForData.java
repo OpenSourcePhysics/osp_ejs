@@ -1,6 +1,8 @@
 package org.opensourcephysics.tools;
 
 import java.awt.Component;
+import java.io.File;
+
 import javax.swing.JOptionPane;
 import org.colos.ejs.library.Simulation;
 import org.opensourcephysics.display.Data;
@@ -45,9 +47,15 @@ public class ToolForData {
 
   public Object getDataTool() { return null; }
   
-  public String openData(String _filename) { return openData(null, _filename); }
-  
+  @Deprecated
+  public String openData(String _filename) { openData(null, _filename); return null; }
+
+  @Deprecated
   public String openData(Component _component, String _filename) { return null; }
+  
+  public void openData(File file) { openData(null, file); }
+
+  public void openData(Component _component, File file ) { }
   
 //  public Object showFourierTool (Component _component, java.util.List<Data> _data) { 
 //    JOptionPane.showMessageDialog(_component,Simulation.ejsRes.getString("DataInformation.NotAvailable"), 
