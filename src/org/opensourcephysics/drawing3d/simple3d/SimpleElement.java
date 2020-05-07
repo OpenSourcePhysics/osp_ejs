@@ -39,13 +39,17 @@ public abstract class SimpleElement implements ImplementingObject {
   // Implementation of ImplementingObject
   // --------------------------------------
 
-  final public void addToScene() {} // Does nothing
+  @Override
+final public void addToScene() {} // Does nothing
 
-  final public void removeFromScene() {} // Does nothing
+  @Override
+final public void removeFromScene() {} // Does nothing
 
-  abstract public void processChanges(int _change, int _cummulativeChange);
+  @Override
+abstract public void processChanges(int _change, int _cummulativeChange);
 
-  public void styleChanged(int _change) {
+  @Override
+public void styleChanged(int _change) {
     switch(_change) {
       case Style.CHANGED_RELATIVE_POSITION: element.addChange(Element.CHANGE_POSITION); break;
       case Style.CHANGED_RESOLUTION: element.addChange(Element.CHANGE_RESOLUTION); break;

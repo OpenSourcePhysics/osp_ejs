@@ -31,11 +31,13 @@ public class ControlRootPane extends ControlContainer {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     panel = new JRootPane();
     panel.getContentPane().addKeyListener (
         new java.awt.event.KeyAdapter() {
-          public void keyPressed  (java.awt.event.KeyEvent _e) {
+          @Override
+		public void keyPressed  (java.awt.event.KeyEvent _e) {
             if (_e.isControlDown() && getSimulation()!=null) {
               if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_M) getPopupMenu(0,0);
               else if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_P) printScreen();
@@ -45,7 +47,8 @@ public class ControlRootPane extends ControlContainer {
     );
     panel.getContentPane().addMouseListener (
         new MouseAdapter() {
-          public void mousePressed  (MouseEvent _evt) {
+          @Override
+		public void mousePressed  (MouseEvent _evt) {
             if (getSimulation()!=null && OSPRuntime.isPopupTrigger(_evt)) { //) {SwingUtilities.isRightMouseButton(_evt) 
               getPopupMenu(_evt.getX(),_evt.getY());
             }
@@ -55,9 +58,11 @@ public class ControlRootPane extends ControlContainer {
     return panel;
   }
 
-  public java.awt.Component getComponent () { return panel; }
+  @Override
+public java.awt.Component getComponent () { return panel; }
 
-  public java.awt.Container getContainer () { return panel.getContentPane(); }
+  @Override
+public java.awt.Container getContainer () { return panel.getContentPane(); }
 
 // ------------------------------------------------
 // Properties
@@ -65,7 +70,8 @@ public class ControlRootPane extends ControlContainer {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("layout");
@@ -74,7 +80,8 @@ public class ControlRootPane extends ControlContainer {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("layout"))         return "Layout|Object NO_RESET";
     return super.getPropertyInfo(_property);
   }
@@ -83,7 +90,8 @@ public class ControlRootPane extends ControlContainer {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : // layout
         if (_value.getObject() instanceof java.awt.LayoutManager) {
@@ -99,7 +107,8 @@ public class ControlRootPane extends ControlContainer {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 :
         getContainer().setLayout(myLayout = new java.awt.BorderLayout());
@@ -110,14 +119,16 @@ public class ControlRootPane extends ControlContainer {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "BORDER";
       default : return super.getDefaultValueString(_index-1);
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 :
         return null;
@@ -125,11 +136,13 @@ public class ControlRootPane extends ControlContainer {
     }
   }
 
-  public void add(final ControlElement _child) {
+  @Override
+public void add(final ControlElement _child) {
     if (! (_child.getVisual() instanceof JMenuBar)) { super.add(_child); return; }
     children.add(_child);
     SwingUtilities.invokeLater(new Runnable() {
-      public void run () { 
+      @Override
+	public void run () { 
         panel.setJMenuBar(menubar = (JMenuBar) _child.getVisual());
         adjustSize();
       }
@@ -140,7 +153,8 @@ public class ControlRootPane extends ControlContainer {
     propagateProperty (_child,"background",getPropagatedProperty("background"));
   }
 
-  public void remove(ControlElement _child) {
+  @Override
+public void remove(ControlElement _child) {
     if (! (_child.getVisual() instanceof JMenuBar)) { super.remove(_child); return; }
     children.remove(_child);
     panel.setJMenuBar(menubar = null);

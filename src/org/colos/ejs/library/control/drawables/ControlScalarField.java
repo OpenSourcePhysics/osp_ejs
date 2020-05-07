@@ -82,7 +82,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
   }
 
   // A particular feature of SurfacePlot, which requires a listener to be rotated with the mouse
-  public void setParent (org.colos.ejs.library.control.swing.ControlParentOfDrawables _dp) {
+  @Override
+public void setParent (org.colos.ejs.library.control.swing.ControlParentOfDrawables _dp) {
     if (myParent!=null && controller!=null) { // Specific
       myParent.getDrawingPanel().removeMouseListener(controller);
       myParent.getDrawingPanel().removeMouseMotionListener(controller);
@@ -107,7 +108,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumX");
@@ -136,7 +138,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumX"))      return "int|double ";
     if (_property.equals("maximumX"))      return "int|double ";
     if (_property.equals("minimumY"))      return "int|double ";
@@ -160,7 +163,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("Plot2DType")>=0) {
       _value = _value.trim().toLowerCase();
@@ -176,7 +180,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (minX!=_value.getDouble()) { minX = _value.getDouble(); mustUpdate = true; } break;
       case 1 : if (maxX!=_value.getDouble()) { maxX = _value.getDouble(); mustUpdate = true; } break;
@@ -259,7 +264,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
     if (isUnderEjs) plot.update();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : minX = Double.NaN; mustUpdate = true; break;
       case 1 : maxX = Double.NaN; mustUpdate = true; break;
@@ -301,7 +307,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
     if (isUnderEjs) preupdate();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : 
       case 1 : 
@@ -326,7 +333,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 :
       case 3 : case 4 : case 5 :
@@ -339,7 +347,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
     }
   }
 
-  public void destroy () {
+  @Override
+public void destroy () {
     if (legendFrame!=null) legendFrame.setVisible(false);
     super.destroy();
   }
@@ -348,7 +357,8 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
   // Updating the data
   // ---------------------------------------
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (!visibility) return;
     if (myParent==null) return;
     computeMinMax();
@@ -465,12 +475,14 @@ public class ControlScalarField extends ControlDrawable2D implements org.colos.e
     plot.update();
   }
 
-  public void addMenuEntries () {
+  @Override
+public void addMenuEntries () {
     if (getMenuNameEntry()==null) return;
     java.util.List<Object> list = new java.util.ArrayList<Object> ();
     list.add(new AbstractAction(org.colos.ejs.library.Simulation.getEjsString("InteractiveTrace.ShowDataTable")){
       private static final long serialVersionUID = 1L;
-      public void actionPerformed(java.awt.event.ActionEvent e) { showDataTable(true); }
+      @Override
+	public void actionPerformed(java.awt.event.ActionEvent e) { showDataTable(true); }
     });
     getSimulation().addElementMenuEntries (getMenuNameEntry(), list);
   }

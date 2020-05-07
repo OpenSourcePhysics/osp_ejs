@@ -26,13 +26,15 @@ public class ControlCheckBoxMenuItem extends ControlCheckBox {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     checkbox = new JCheckBoxMenuItem ();
     defaultStateSet = false;
     internalValue = new BooleanValue(defaultState=checkbox.isSelected());
     checkbox.addActionListener (
       new java.awt.event.ActionListener() {
-        public void actionPerformed (java.awt.event.ActionEvent _e) {
+        @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) {
           setInternalValue (checkbox.isSelected());
           if (isUnderEjs) setFieldListValueWithAlternative(getVariableIndex(), getValueIndex(),internalValue);
         }
@@ -41,8 +43,10 @@ public class ControlCheckBoxMenuItem extends ControlCheckBox {
     return checkbox;
   }
 
-  protected int getVariableIndex () { return ControlCheckBox.VARIABLE+1; }
-  protected int getValueIndex () { return ControlCheckBox.SELECTED+1; }
+  @Override
+protected int getVariableIndex () { return ControlCheckBox.VARIABLE+1; }
+  @Override
+protected int getValueIndex () { return ControlCheckBox.SELECTED+1; }
 
 // ------------------------------------------------
 // Properties
@@ -50,7 +54,8 @@ public class ControlCheckBoxMenuItem extends ControlCheckBox {
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("accelerator");
@@ -59,7 +64,8 @@ public class ControlCheckBoxMenuItem extends ControlCheckBox {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("accelerator")) return "String TRANSLATABLE";
       return super.getPropertyInfo(_property);
     }
@@ -68,21 +74,24 @@ public class ControlCheckBoxMenuItem extends ControlCheckBox {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 : ((JCheckBoxMenuItem)checkbox).setAccelerator(KeyStroke.getKeyStroke(_value.getString().charAt(0),java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); break;
         default: super.setValue(_index-1,_value); break;
       }
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : ((JCheckBoxMenuItem)checkbox).setAccelerator(null); break;
         default: super.setDefaultValue(_index-1); break;
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 :
           return null;
@@ -90,7 +99,8 @@ public class ControlCheckBoxMenuItem extends ControlCheckBox {
       }
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "<none>";
         default : return super.getDefaultValueString(_index-1);

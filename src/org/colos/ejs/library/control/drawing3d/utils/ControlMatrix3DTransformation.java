@@ -41,7 +41,8 @@ public class ControlMatrix3DTransformation extends ControlTransformation3D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("origin");
@@ -51,7 +52,8 @@ public class ControlMatrix3DTransformation extends ControlTransformation3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("origin"))  return "double[]";
     if (_property.equals("matrix"))  return "double[]|double[][]";
     return super.getPropertyInfo(_property);
@@ -61,7 +63,8 @@ public class ControlMatrix3DTransformation extends ControlTransformation3D {
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : 
         double[] newOrigin = null;
@@ -84,7 +87,8 @@ public class ControlMatrix3DTransformation extends ControlTransformation3D {
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : 
         matrix3DTr.setOrigin(origin = new double[]{0,0,0});
@@ -97,7 +101,8 @@ public class ControlMatrix3DTransformation extends ControlTransformation3D {
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "new double[]{0,0,0}";
       case 1 : return "new double[][]{{1,0,0}, {0,1,0}, {0,0,1}}";
@@ -105,7 +110,8 @@ public class ControlMatrix3DTransformation extends ControlTransformation3D {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 :
         return null;
@@ -117,7 +123,8 @@ public class ControlMatrix3DTransformation extends ControlTransformation3D {
 // Implementation of Transformation
 //------------------------------------------------
 
-  public Object clone() {
+  @Override
+public Object clone() {
     ControlMatrix3DTransformation ct = new ControlMatrix3DTransformation();
     ct.enabled = this.enabled;
     ct.transformation = (Matrix3DTransformation) this.transformation.clone();

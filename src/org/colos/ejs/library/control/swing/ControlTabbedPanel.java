@@ -34,12 +34,14 @@ public class ControlTabbedPanel extends ControlContainer {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     tabbedpanel=new JTabbedPane (SwingConstants.TOP);
     internalValue = new IntegerValue(-1);
 
     tabbedpanel.addChangeListener(new ChangeListener() {
-      public void stateChanged(ChangeEvent arg0) {
+      @Override
+	public void stateChanged(ChangeEvent arg0) {
         internalValue.value = tabbedpanel.getSelectedIndex();
         variableChanged (TABBEDPANEL_SELECTED_INDEX,internalValue);
 //        invokeActions ();
@@ -49,7 +51,8 @@ public class ControlTabbedPanel extends ControlContainer {
     return tabbedpanel;
   }
 
-  public void add(ControlElement _child) {
+  @Override
+public void add(ControlElement _child) {
     String header = _child.getProperty("name");
     if (tabTitles!=null) {
       int index = tabbedpanel.getTabCount();
@@ -97,7 +100,8 @@ public class ControlTabbedPanel extends ControlContainer {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("placement");
@@ -108,7 +112,8 @@ public class ControlTabbedPanel extends ControlContainer {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("placement")) return "Placement|int";
     if (_property.equals("tabTitles")) return "String|String[] TRANSLATABLE";
     if (_property.equals("tooltip"))   return "String|String[] TRANSLATABLE";
@@ -120,7 +125,8 @@ public class ControlTabbedPanel extends ControlContainer {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if (tabbedpanel.getTabPlacement()!=_value.getInteger()) tabbedpanel.setTabPlacement(_value.getInteger());
@@ -169,7 +175,8 @@ public class ControlTabbedPanel extends ControlContainer {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : tabbedpanel.setTabPlacement(javax.swing.SwingConstants.TOP); break;
       case 1 : tabTitles = null; refreshTitles(); break;
@@ -181,7 +188,8 @@ public class ControlTabbedPanel extends ControlContainer {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "TOP";
       case 1 : return "<none>";
@@ -190,7 +198,8 @@ public class ControlTabbedPanel extends ControlContainer {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 :
         return null;

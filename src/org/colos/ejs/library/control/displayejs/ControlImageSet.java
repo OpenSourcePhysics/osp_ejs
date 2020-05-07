@@ -25,13 +25,15 @@ public class ControlImageSet extends ControlElementSet {
 
   private String imageFile=null;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       elementSet = new ElementSet(1, InteractiveImage.class);
       elementSet.setEnabled(InteractiveElement.TARGET_POSITION,true);  // Backwards compatibility
     return elementSet;
   }
 
-  protected int getPropertiesDisplacement () { return IMAGE_SET_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return IMAGE_SET_ADDED; }
 
 // ------------------------------------------------
 // Properties
@@ -39,7 +41,8 @@ public class ControlImageSet extends ControlElementSet {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("trueSize");
@@ -48,7 +51,8 @@ public class ControlImageSet extends ControlElementSet {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("image"))            return "File|String|String[] TRANSLATABLE";
     if (_property.equals("trueSize"))         return "boolean|boolean[]";
     return super.getPropertyInfo(_property);
@@ -58,7 +62,8 @@ public class ControlImageSet extends ControlElementSet {
 // Variable properties
 // ------------------------------------------------
 int splitnx=0,splitny=0;//FKH20060728
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case  0 :
         if (_value.getObject() instanceof boolean[]) {
@@ -79,7 +84,8 @@ int splitnx=0,splitny=0;//FKH20060728
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  0 :
         for (int i=0, n=elementSet.getNumberOfElements(); i<n; i++)
@@ -90,7 +96,8 @@ int splitnx=0,splitny=0;//FKH20060728
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  0 : return "false";
       default : return super.getDefaultValueString(_index-IMAGE_SET_ADDED);
@@ -98,7 +105,8 @@ int splitnx=0,splitny=0;//FKH20060728
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return null;
       default: return super.getValue(_index-IMAGE_SET_ADDED);
@@ -286,7 +294,8 @@ int splitnx=0,splitny=0;//FKH20060728
          /**
            *	ImageObserver Method
            */
-         public synchronized boolean imageUpdate(Image img, int flags, int x, int y, int w, int h)
+         @Override
+		public synchronized boolean imageUpdate(Image img, int flags, int x, int y, int w, int h)
          {
                  boolean ret;
                  if ((flags&ImageObserver.ERROR)!=0)

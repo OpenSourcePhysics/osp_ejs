@@ -49,7 +49,8 @@ public class Qss implements ODESolverInterpolator {
     }
   }
   
-  final public ODE getODE() { return this.ode; }
+  @Override
+final public ODE getODE() { return this.ode; }
 
   /**
    * Allocates arrays. Separated from initialize() for easier overwriting.
@@ -68,13 +69,17 @@ public class Qss implements ODESolverInterpolator {
     tNext = new double[dimension];
   }
   
-  final public double[] getCurrentRate() { return dx; }
+  @Override
+final public double[] getCurrentRate() { return dx; }
   
-  final public void setEstimateFirstStep(boolean _estimate) {}
+  @Override
+final public void setEstimateFirstStep(boolean _estimate) {}
   
-  final public double getStepSize() { return this.stepSize; }
+  @Override
+final public double getStepSize() { return this.stepSize; }
   
-  final public void setStepSize(double _stepSize) {
+  @Override
+final public void setStepSize(double _stepSize) {
     this.stepSize = _stepSize;
     double oldInfinity = infinity;
     infinity = stepSize>0 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
@@ -84,9 +89,11 @@ public class Qss implements ODESolverInterpolator {
   /**
    * Does nothing
    */
-  public void setMaximumStepSize(double stepSize) {}
+  @Override
+public void setMaximumStepSize(double stepSize) {}
   
-  public void initialize(double _stepSize) {
+  @Override
+public void initialize(double _stepSize) {
     this.stepSize = _stepSize;
     infinity = _stepSize>0 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
     allocateArrays();
@@ -104,7 +111,8 @@ public class Qss implements ODESolverInterpolator {
     lastDt = dq[timeIndex];
   }
 
-  public void reinitialize(double[] state) {
+  @Override
+public void reinitialize(double[] state) {
     for (int i = 0; i < dimension; i++) {
       x[i] = q[i] = state[i];
       tLast[i] = state[timeIndex];
@@ -118,11 +126,14 @@ public class Qss implements ODESolverInterpolator {
     if (isAutonomous()) tNext[timeIndex] = infinity;
   }
 
-  public double getMaximumTime () { return max_t; }
+  @Override
+public double getMaximumTime () { return max_t; }
 
-  public double getInternalStepSize() { return Double.NaN; }
+  @Override
+public double getInternalStepSize() { return Double.NaN; }
   
-  public double internalStep() {
+  @Override
+public double internalStep() {
     q[max_index] = x[max_index] = findState(max_index, max_t);
     if (max_index!=timeIndex) dq[max_index] = Math.max(dqRel[max_index]*Math.abs(q[max_index]),dqAbs[max_index]);
 
@@ -168,14 +179,17 @@ public class Qss implements ODESolverInterpolator {
     return max_t;
   }
   
-  public void setMemoryLength(double length) {}
+  @Override
+public void setMemoryLength(double length) {}
   
   // No memory state for this class
-  public org.opensourcephysics.numerics.dde_solvers.interpolation.StateMemory getStateMemory() {
+  @Override
+public org.opensourcephysics.numerics.dde_solvers.interpolation.StateMemory getStateMemory() {
     return null;
   }
 
-  public double[] interpolate (double time, boolean useLeftApproximation, double[] state) {
+  @Override
+public double[] interpolate (double time, boolean useLeftApproximation, double[] state) {
     for (int i=0; i<timeIndex; i++) state[i] = findState(i,time);
     state[timeIndex] = time;
     return state;
@@ -190,7 +204,8 @@ public class Qss implements ODESolverInterpolator {
     return findState(index,time);
   }
 
-  public double[] bestInterpolate(double _time, double[] _state) {
+  @Override
+public double[] bestInterpolate(double _time, double[] _state) {
     return interpolate(_time,false,_state);  
   }
   
@@ -245,7 +260,8 @@ public class Qss implements ODESolverInterpolator {
    * Sets the same relative and absolute tolerances for all states
    * @param tol double
    */
-  final public void setTolerances(double absTol, double relTol) {
+  @Override
+final public void setTolerances(double absTol, double relTol) {
     if (this.absoluteTolerance==absTol && this.relativeTolerance==relTol) return;
     this.absoluteTolerance = absTol;
     this.relativeTolerance = relTol;
@@ -299,7 +315,8 @@ public class Qss implements ODESolverInterpolator {
     return (multirate_ode==null) ? false : multirate_ode.getInverseIncidenceMatrix()[timeIndex].length==0;
   }
 
-  public long getCounter() { return -1; }
+  @Override
+public long getCounter() { return -1; }
 
 } // End of class
 

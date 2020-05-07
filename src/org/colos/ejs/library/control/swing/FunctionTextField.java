@@ -21,7 +21,8 @@ public class FunctionTextField extends JTextField implements org.opensourcephysi
 
 //  public void setVerbose(boolean verbose) { wrapper.setVerbose(verbose); }
  
-  public double evaluate (double x) { return wrapper.evaluate(x); }
+  @Override
+public double evaluate (double x) { return wrapper.evaluate(x); }
 
   public double evaluate (double x, double y) { return wrapper.evaluate (new double[] {x, y}); }
 
@@ -47,7 +48,8 @@ public class FunctionTextField extends JTextField implements org.opensourcephysi
     return wrapper.setTheFunction (function);
   }
   
-  public void setText (String txt) {
+  @Override
+public void setText (String txt) {
     if (wrapper!=null) wrapper.setTheFunction(txt);
     else super.setText(txt);
   }

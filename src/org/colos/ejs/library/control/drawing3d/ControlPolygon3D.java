@@ -24,15 +24,18 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
   private double[] xArray=null, yArray=null,zArray=null, xFixed={ 0.0 }, yFixed={ 0.0 }, zFixed={ 0.0 };
   private boolean dataSet=false;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPolygon"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPolygon"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     polygon = new ElementPolygon();
     polygon.setData(new double[][]{ {0.0,0.0,0.0}, {0.1,0.0,0.0}, {0.1,0.1,0.0} });
     return polygon;
   }
 
-  protected int getPropertiesDisplacement () { return POLYGON_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return POLYGON_PROPERTIES_ADDED; }
 
   @Override
   public void addMenuEntries () {
@@ -40,7 +43,8 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
      getSimulation().addElementMenuEntries(getMenuNameEntry(), getDataInformationMenuEntries(getTopWindow(),polygon));
   }
 
-  public void preupdate() {
+  @Override
+public void preupdate() {
     if (dataSet) return;
     if (xArray==null) {
       if (yArray==null) {
@@ -70,7 +74,8 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("closed");
@@ -84,7 +89,8 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("closed"))  return "boolean";
     if (_property.equals("data"))    return "double[][]";
     if (_property.equals("indexSelected")) return "int";
@@ -99,7 +105,8 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : polygon.setClosed  (_value.getBoolean()); break;
       case 1 : polygon.setData((double[][])_value.getObject()); dataSet = true; break;
@@ -130,7 +137,8 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : polygon.setClosed (true); break;
       case 1 : dataSet = false; break; // Do nothing
@@ -152,7 +160,8 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "true";
       case 1 : return "<none>";
@@ -164,7 +173,8 @@ public class ControlPolygon3D extends ControlElement3D implements org.colos.ejs.
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : return null;

@@ -8,7 +8,6 @@
 package org.opensourcephysics.drawing3d.simple3d;
 
 import java.util.*;
-import java.lang.reflect.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
@@ -56,7 +55,8 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
      setLayout(new BorderLayout());
      add(messagesPanel, BorderLayout.CENTER);
      addComponentListener(new java.awt.event.ComponentAdapter() {
-       public void componentResized(java.awt.event.ComponentEvent e) {
+       @Override
+	public void componentResized(java.awt.event.ComponentEvent e) {
          needResize = true;
          dirtyImage = true;
        }
@@ -67,33 +67,41 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
    // Implementation of ImplementingPanel
    // ------------------------------------
 
-   public Component getComponent() { return this; }
+   @Override
+public Component getComponent() { return this; }
 
-   public void forceRefresh() { 
+   @Override
+public void forceRefresh() { 
      needsToRecompute = true;
      dirtyImage = true;
    }
 
-   public void update() {
+   @Override
+public void update() {
      dirtyImage = true;
      updatePanel();
    }
 
-   public void setFastRedraw(boolean fast) {
+   @Override
+public void setFastRedraw(boolean fast) {
      fastRedraw = fast;
    }
    
-   public void cameraChanged(int howItChanged) {} // Does nothing
+   @Override
+public void cameraChanged(int howItChanged) {} // Does nothing
    
-   public void setMessage(String msg) { messagesPanel.setMessage(msg); }
+   @Override
+public void setMessage(String msg) { messagesPanel.setMessage(msg); }
 
-   public void setMessage(String msg, int location) { messagesPanel.setMessage(msg,location); }
+   @Override
+public void setMessage(String msg, int location) { messagesPanel.setMessage(msg,location); }
 
    // ------------------------------------
    // Implementation of Renderable
    // ------------------------------------
 
-   public BufferedImage render(BufferedImage image) {
+   @Override
+public BufferedImage render(BufferedImage image) {
      Graphics g = image.getGraphics();
      paintEverything(g, image.getWidth(null), image.getHeight(null));
      Rectangle thisViewRect = this.viewRect; // reference for thread safety
@@ -108,7 +116,8 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
      return image;
    }
 
-   public BufferedImage render() {
+   @Override
+public BufferedImage render() {
       if (!isShowing()||isIconified()) { // don't render if panel cannot be seen
          needsToRecompute = true;       // make sure we recompute later when we are showing
          return null;                   // no need to render if the frame is not visible
@@ -128,6 +137,7 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
       // the offscreenImage is now ready to be copied to the screen
       // always update a Swing component from the event thread
 		OSPRuntime.dispatchEventWait(new Runnable() {
+			@Override
 			public void run() {
 				paintImmediately(getVisibleRect());
 			}
@@ -147,7 +157,8 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
     * Performs an action for the update timer by rendering a new background image
     * @param  evt
     */
-   public void actionPerformed(ActionEvent evt) { // render a new image if the current image is dirty
+   @Override
+public void actionPerformed(ActionEvent evt) { // render a new image if the current image is dirty
       if (dirtyImage || needsUpdate()) render(); // renders the scene from within the timer thread
    }
 
@@ -323,7 +334,8 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
    // Printable interface
    // ----------------------------------------------------
    
-   public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
+   @Override
+public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
       if(pageIndex>=1) {
          return Printable.NO_SUCH_PAGE;
       }
@@ -340,7 +352,8 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
       return Printable.PAGE_EXISTS;
    }
 
-   public void visualizationChanged(int _change){
+   @Override
+public void visualizationChanged(int _change){
      switch(_change){
        case VisualizationHints.HINT_BACKGROUND_IMAGE:
          if (panel3D.getVisualizationHints().getBackgroundImageFilename()!=null) {
@@ -356,7 +369,8 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
    /***************************************************Andres*******************************************************
     * DO nothing with simple3D
     **************************************************************************************************************/
-   public void setEyeDistance(double d) {
+   @Override
+public void setEyeDistance(double d) {
      // do nothing   
    }
    //*************************************************************************************************************+

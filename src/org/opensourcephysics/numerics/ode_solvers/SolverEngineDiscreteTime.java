@@ -78,7 +78,8 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
    */
   abstract protected IntervalData computeFinalRateAndCreateIntervalData(); 
 
-  public String toString() {
+  @Override
+public String toString() {
     return this.getClass().getSimpleName();
   }
   
@@ -87,7 +88,8 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
   // Initialization
   // --------------------------------------------
 
-  public void setODE(InterpolatorEventSolver eventSolver, ODE ode) { 
+  @Override
+public void setODE(InterpolatorEventSolver eventSolver, ODE ode) { 
     mEventSolver = eventSolver;
     mODE = ode;
     double[] state = mODE.getState();
@@ -104,7 +106,8 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
   // Implementation of SolverEngine
   //------------------------------------------------
   
-  final public void initialize(double stepSize) {
+  @Override
+final public void initialize(double stepSize) {
     mStepSize = stepSize;
     double[] state = mODE.getState();
     if (mInitialState==null || mInitialState.length!=state.length) {
@@ -126,7 +129,8 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
     reinitialize(state);
   }
 
-  public void reinitialize(double[] state) {
+  @Override
+public void reinitialize(double[] state) {
     mInitialTime = state[mTimeIndex];
     System.arraycopy(state, 0, mInitialState, 0, mDimension);
     mODE.getRate(mInitialState, mInitialRate);
@@ -135,9 +139,11 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
     mErrorCode = ERROR.NO_ERROR;
   }
 
-  public double[] getCurrentRate() { return mInitialRate; }
+  @Override
+public double[] getCurrentRate() { return mInitialRate; }
 
-  final public void setStepSize(double stepSize) { 
+  @Override
+final public void setStepSize(double stepSize) { 
     mStepSize = stepSize; 
     if (mODE instanceof DelayDifferentialEquation) {
       DelayDifferentialEquation dde = (DelayDifferentialEquation) mODE;
@@ -146,17 +152,23 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
     else mStateHistory.setMinimumLength(stepSize); // Make sure we have enough memory for events
   }
 
-  public void setMaximumStepSize(double stepSize) { mMaximumStepSize = Math.abs(stepSize); }
+  @Override
+public void setMaximumStepSize(double stepSize) { mMaximumStepSize = Math.abs(stepSize); }
 
-  final public double getStepSize() { return mStepSize; }
+  @Override
+final public double getStepSize() { return mStepSize; }
   
-  final public double getInternalStepSize() { return mFinalTime-mInitialTime; }
+  @Override
+final public double getInternalStepSize() { return mFinalTime-mInitialTime; }
   
-  public void setEstimateFirstStep(boolean estimate) {}
+  @Override
+public void setEstimateFirstStep(boolean estimate) {}
   
-  public void setTolerances(double absTol, double relTol) {}
+  @Override
+public void setTolerances(double absTol, double relTol) {}
 
-  final public double getMaximumTime(boolean withDiscontinuities) {
+  @Override
+final public double getMaximumTime(boolean withDiscontinuities) {
     if (mErrorCode!=ERROR.NO_ERROR) return Double.NaN;
     if (Double.isNaN(mFinalTime)) {
       computeOneStep(withDiscontinuities);
@@ -164,7 +176,8 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
     return mFinalTime; 
   }
 
-  final public double internalStep(boolean withDiscontinuities) {
+  @Override
+final public double internalStep(boolean withDiscontinuities) {
     mInitialTime = mFinalTime;
     mErrorCode = ERROR.NO_ERROR;
     System.arraycopy(mFinalState, 0, mInitialState, 0, mDimension);
@@ -173,18 +186,22 @@ public abstract class SolverEngineDiscreteTime implements SolverEngine {
     return mFinalTime;  // the final time that was computed
   }
 
-  final public long getCounter()  { return mAccumulatedEvaluations; }
+  @Override
+final public long getCounter()  { return mAccumulatedEvaluations; }
   
-  public StateHistory getStateHistory() { return mStateHistory; }
+  @Override
+public StateHistory getStateHistory() { return mStateHistory; }
 
-  public double[] interpolate(double time, double[] state) {
+  @Override
+public double[] interpolate(double time, double[] state) {
     return mStateHistory.interpolate(time, state);
   }
 
   /*
    * Provides 'brute-force' interpolation by re-stepping from the initial time every time
    */
-  public double[] bestInterpolate(double time, double[] state) {
+  @Override
+public double[] bestInterpolate(double time, double[] state) {
     if (Double.isNaN(mFinalTime)) return null;
     if (time==mFinalTime) {
       System.arraycopy(mFinalState, 0, state, 0, mDimension);

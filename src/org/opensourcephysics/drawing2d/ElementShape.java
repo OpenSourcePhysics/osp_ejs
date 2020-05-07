@@ -284,7 +284,8 @@ public class ElementShape extends Element {
     setNeedToProject(false);
   }
   
-  public String toString() {
+  @Override
+public String toString() {
 	  return "["+getClass().getName()+ " type=" + shapeType + "]";
   }
 

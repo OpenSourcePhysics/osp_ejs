@@ -19,18 +19,21 @@ public class ControlTextSet3D extends ControlSet3D {
 
   private Font defaultElementFont;
 
-  protected int getPropertiesAddedToSet () { return TEXTSET_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return TEXTSET_PROPERTIES_ADDED; }
 
   public ControlTextSet3D () {
     super ();
     defaultElementFont = ((ElementText)elements[0]).getFont();
   }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     return new ElementText();
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
       super.copyAnElement(oldElement,newElement);
       ((ElementText) newElement).setText(((ElementText) oldElement).getText());
       ((ElementText) newElement).setFont(((ElementText) oldElement).getFont());
@@ -43,7 +46,8 @@ public class ControlTextSet3D extends ControlSet3D {
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("text");
@@ -55,7 +59,8 @@ public class ControlTextSet3D extends ControlSet3D {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
         if (_property.equals("text")) return "String|String[] TRANSLATABLE";
         if (_property.equals("font")) return "Font|Object|Object[]";
         if (_property.equals("pixelSize")) return "boolean|boolean[]";
@@ -68,7 +73,8 @@ public class ControlTextSet3D extends ControlSet3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
       case 0 :
           if (_value.getObject() instanceof String[]) {
@@ -123,7 +129,8 @@ public class ControlTextSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : for (int i=0; i<numElements; i++) ((ElementText)elements[i]).setText(""); break;
         case 1 : for (int i=0; i<numElements; i++) ((ElementText)elements[i]).setFont(defaultElementFont); break;
@@ -134,7 +141,8 @@ public class ControlTextSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "<none>";
         case 1 : return "<none>";
@@ -144,7 +152,8 @@ public class ControlTextSet3D extends ControlSet3D {
       }
     }
     
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 : return null;
         default: return super.getValue (_index-TEXTSET_PROPERTIES_ADDED);

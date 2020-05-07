@@ -35,7 +35,8 @@ public abstract class ControlRotation3DTransformation extends ControlTransformat
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("origin");
@@ -45,7 +46,8 @@ public abstract class ControlRotation3DTransformation extends ControlTransformat
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("origin"))  return "double[]";
     if (_property.equals("angle")) return "int|double";
     return super.getPropertyInfo(_property);
@@ -55,7 +57,8 @@ public abstract class ControlRotation3DTransformation extends ControlTransformat
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : 
         double[] newOrigin = null;
@@ -78,7 +81,8 @@ public abstract class ControlRotation3DTransformation extends ControlTransformat
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : rotation.setOrigin(origin = new double[]{0,0,0}); break;
       case 1 : rotation.setAngle(0); break;
@@ -87,7 +91,8 @@ public abstract class ControlRotation3DTransformation extends ControlTransformat
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "new double[]{0,0,0}";
       case 1 : return "0";
@@ -95,7 +100,8 @@ public abstract class ControlRotation3DTransformation extends ControlTransformat
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 :
         return null;

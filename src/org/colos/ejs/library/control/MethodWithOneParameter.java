@@ -220,7 +220,8 @@ public boolean equals  (int _type, Object _target, String _name) {
     return methodName.equals(_name);
   }
 
-  public String toString () { return methodName; }
+  @Override
+public String toString () { return methodName; }
 
   static public Method resolveMethod (Object _target, String _name, Class<?>[] _classList) {
       java.lang.reflect.Method[] allMethods = _target.getClass().getMethods();

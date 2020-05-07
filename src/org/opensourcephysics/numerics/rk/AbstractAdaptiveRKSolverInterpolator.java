@@ -77,7 +77,8 @@ public abstract class AbstractAdaptiveRKSolverInterpolator extends AbstractExpli
     estimate = _estimate;
   }
 
-  public void setMaximumStepSize(double stepSize) {
+  @Override
+public void setMaximumStepSize(double stepSize) {
     super.setMaximumStepSize(stepSize);
     actualStepSize = limitStepSize(actualStepSize);
   }

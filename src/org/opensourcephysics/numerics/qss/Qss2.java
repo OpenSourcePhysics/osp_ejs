@@ -28,7 +28,8 @@ public class Qss2 extends Qss {
     super(ode);
   }
 
-  protected void allocateArrays () {
+  @Override
+protected void allocateArrays () {
     super.allocateArrays();
     der_dx = new double[dimension];
     der_q = new double[dimension];
@@ -37,7 +38,8 @@ public class Qss2 extends Qss {
     q_after = new double[dimension];
   }
 
-  final public void initialize(double _stepSize) {
+  @Override
+final public void initialize(double _stepSize) {
     this.stepSize = _stepSize;
     infinity = _stepSize>0 ? Double.POSITIVE_INFINITY : Double.NEGATIVE_INFINITY;
     allocateArrays();
@@ -46,7 +48,8 @@ public class Qss2 extends Qss {
     
   }
 
-  public void reinitialize(double[] state) {
+  @Override
+public void reinitialize(double[] state) {
     for (int i = 0; i < dimension; i++) {
       x[i] = q[i] = state[i];
       tLast[i] = state[timeIndex];
@@ -67,7 +70,8 @@ public class Qss2 extends Qss {
     der_q[timeIndex] = 1.0;
   }
 
-    public double internalStep() {
+    @Override
+	public double internalStep() {
       double dt = Math.max( (max_t - tLast[max_index]) / COEFF, 1.e-9); // Used to compute der_dx
       q[max_index] = x[max_index] = findState(max_index, max_t);
       der_q[max_index] = dx[max_index] = findDerState(max_index, max_t);
@@ -119,7 +123,8 @@ public class Qss2 extends Qss {
 
   // QSS2 order-dependent methods
 
-  protected double findNextTime(int index, double t) {
+  @Override
+protected double findNextTime(int index, double t) {
     if (der_q[index]==dx[index]) {
       if (der_dx[index] == 0.0) return infinity;
       return t + Math.sqrt(Math.abs(2 * dq[index] / der_dx[index]));
@@ -155,7 +160,8 @@ public class Qss2 extends Qss {
    * @param t double
    * @return double
    */
-  protected double recomputeNextTime(int index, double t) {
+  @Override
+protected double recomputeNextTime(int index, double t) {
     if (Math.abs(x[index]-q[index])>dq[index]) return t;
     double a = der_dx[index]/2;
     double b = dx[index]-der_q[index];
@@ -164,7 +170,8 @@ public class Qss2 extends Qss {
     return t + Math.min(minimumPositiveRoot(a,b,c1),minimumPositiveRoot(a,b,c2));
   }
 
-  protected double findState(int index, double t) {
+  @Override
+protected double findState(int index, double t) {
     double dt = t-tLast[index];
     return x[index] +dt*dx[index] +dt*dt*der_dx[index]/2;
   }

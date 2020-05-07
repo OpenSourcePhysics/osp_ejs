@@ -141,11 +141,14 @@ public class ElementPolygon extends Element implements Data {
   protected int datasetID = hashCode();
 //  Dataset dataset = null;
 
-  public void setID(int id) { datasetID = id; }
+  @Override
+public void setID(int id) { datasetID = id; }
 
-  public int getID() { return datasetID; }
+  @Override
+public int getID() { return datasetID; }
   
-  public double[][] getData2D() { 
+  @Override
+public double[][] getData2D() { 
     double[][] data = new double[2][coordinates.length];
     for (int i = 0, n = coordinates.length;i<n;i++) { 
       data[0][i] = coordinates[i][0];
@@ -154,23 +157,29 @@ public class ElementPolygon extends Element implements Data {
     return data;
   }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() { return new String[]{"x","y"}; }
+  @Override
+public String[] getColumnNames() { return new String[]{"x","y"}; }
 
-  public Color[] getLineColors() { 
+  @Override
+public Color[] getLineColors() { 
     return new Color[] { Color.BLACK, getStyle().getLineColor()}; 
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     Paint fill = getStyle().getFillColor();
     if (fill instanceof Color) return new Color[] { Color.BLACK, (Color) fill };
     return new Color[] { Color.BLACK, Color.BLUE };
   }
 
-  public java.util.List<Data> getDataList() { return null; }
+  @Override
+public java.util.List<Data> getDataList() { return null; }
 
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; }
 
   // -------------------------------------
   // Abstract part of Element or Parent methods overwritten
@@ -188,7 +197,8 @@ public class ElementPolygon extends Element implements Data {
     }
   }
 
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
     if (listener!=null) listener.actionPerformed(null);
     if (!isReallyVisible() || coordinates.length==0) return;
     if (hasChanged() || needsToProject()) projectPoints(_panel);
@@ -296,7 +306,8 @@ public class ElementPolygon extends Element implements Data {
     }
   }
 
-  public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
     if (! (targetPosition.isEnabled() || targetSize.isEnabled())) return null;
     if (!isReallyVisible() || coordinates.length==0) return null;
     if (hasChanged() || needsToProject()) projectPoints(_panel);

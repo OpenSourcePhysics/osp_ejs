@@ -77,7 +77,8 @@ public class IRKSimplifiedNewton extends IRKSimplifiedNewtonStep implements Alge
      * @throws NewtonLastIterationErrorIsTooLarge the predicted error on last interation
      *         exceeds the tolerance.
      */
-    public double resolve ()
+    @Override
+	public double resolve ()
             throws NewtonLostOfConvergence, NewtonLastIterationErrorIsTooLarge{
 // TODO: if LU.decomp made an error ??? ... -> stepsize/2
         double incrementNorm;
@@ -118,7 +119,8 @@ public class IRKSimplifiedNewton extends IRKSimplifiedNewtonStep implements Alge
      * @param dataArray a some verctors array
      * @return the inversly weigthed by tolerance vectors array norm
      */
-    protected double estimateIncrementNorm(double [][] dataArray){
+    @Override
+	protected double estimateIncrementNorm(double [][] dataArray){
         double incrementNorm = 0.0;
         for (int i = 0; i < numEqn; i++)
             for (int j = 0; j < 3; j++){
@@ -148,11 +150,13 @@ public class IRKSimplifiedNewton extends IRKSimplifiedNewtonStep implements Alge
 
     void setFNewton (double _value) { fnewt = _value; }
     
-    public double getTolerance(int index) {
+    @Override
+	public double getTolerance(int index) {
         return tolerance[index];
     }
 
-    public void setTolerance(int index, double tolerance) {
+    @Override
+	public void setTolerance(int index, double tolerance) {
         this.tolerance[index] = tolerance;
     }
 
@@ -201,7 +205,8 @@ class NewtonLostOfConvergence extends RuntimeException {
      * Generates the error comment string
      * @return the error comment string
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return "NewtonLostOfConvergence: rate of convergence "+convergenceRate+". Iteration # "+iterationNumber; //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

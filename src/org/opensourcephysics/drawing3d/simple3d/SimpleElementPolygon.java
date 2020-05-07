@@ -55,7 +55,8 @@ public class SimpleElementPolygon extends SimpleElement {
     return objects;
   }
 
-  public void draw(Graphics2D _g2, int _index) {
+  @Override
+public void draw(Graphics2D _g2, int _index) {
     DrawingPanel3D panel = element.getPanel();
     if (_index<0) { // Interior ==> closed = true and fillPattern!=null
       if (style.isDrawingFill()) {
@@ -79,7 +80,8 @@ public class SimpleElementPolygon extends SimpleElement {
     else _g2.drawLine(aPoints[sides], bPoints[sides], aPoints[0], bPoints[0]);                 // if (_index==sides) { // Last closing segment
   }
 
-  public void drawQuickly(Graphics2D _g2) {
+  @Override
+public void drawQuickly(Graphics2D _g2) {
     _g2.setStroke(style.getLineStroke());
     _g2.setColor(style.getLineColor());
     _g2.drawPolyline(aPoints, bPoints, aPoints.length);

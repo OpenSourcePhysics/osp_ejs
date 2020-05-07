@@ -45,7 +45,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     drawingPanel3D = new DrawingPanel3D ();
     // drawingPanel3D.removeOptionController();
     minX = Double.NaN; // drawingPanel.getXMin();
@@ -79,14 +80,16 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
 
     drawingPanel3D.addKeyListener (
       new java.awt.event.KeyAdapter() {
-        public void keyPressed  (java.awt.event.KeyEvent _e) {
+        @Override
+		public void keyPressed  (java.awt.event.KeyEvent _e) {
           keyPressedValue.value = _e.getKeyCode();
           if (reportKey) {
             variableChanged (KEY_INDEX,keyPressedValue);
             invokeActions (ControlSwingElement.KEY_ACTION);
           }
         }
-        public void keyReleased (java.awt.event.KeyEvent _e) {
+        @Override
+		public void keyReleased (java.awt.event.KeyEvent _e) {
 //          keyPressedValue.value = -1;
           if (reportKey) variableChanged (KEY_INDEX,keyPressedValue);
         }
@@ -98,7 +101,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
   @Override
   public void addMenuEntries() {} // Override its parent and do nothing: 3D panels can't zoom
     
-  protected void updateAutoscale () {
+  @Override
+protected void updateAutoscale () {
     if (!isZoomed) {
       DrawingPanel dPanel = ((DrawingPanel) getVisual());
       dPanel.setAutoscaleX(autoX);
@@ -108,7 +112,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
     }
   }
 
-  protected void updateExtrema () {
+  @Override
+protected void updateExtrema () {
     if (!isZoomed) {
       DrawingPanel dPanel = ((DrawingPanel) getVisual());
       if (dPanel.isAutoscaleX()) {
@@ -126,7 +131,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
     }
   }
 
-  protected void checkAutoscaling () {
+  @Override
+protected void checkAutoscaling () {
     DrawingPanel dPanel = ((DrawingPanel) getVisual());
     if (dPanel.isAutoscaleX() || dPanel.isAutoscaleY() || drawingPanel3D.isAutoscaleZ()) {
       isZoomed = true;
@@ -157,7 +163,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("autoscaleX");
@@ -207,7 +214,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("angle")) return "rotationAngle";
     if (_property.equals("displayMode")) return "projectionMode";
     if (_property.equals("hideLines"))  return "removeHiddenLines";
@@ -219,7 +227,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("autoscaleX"))     return "boolean";
     if (_property.equals("autoscaleY"))     return "boolean";
     if (_property.equals("autoscaleZ"))     return "boolean";
@@ -267,7 +276,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
     return super.getPropertyInfo(_property);
   }
 
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("x") || _property.equals("y") || _property.equals("z") || _property.equals("dragaction")) {
       if (_value!=null) {
@@ -291,7 +301,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
   }
 
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("DisplayMode")>=0) {
       _value = _value.trim().toLowerCase();
@@ -332,7 +343,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     double angle;
     switch (_index) {
       case 0 :  autoX = _value.getBoolean(); updateAutoscale(); break;
@@ -434,7 +446,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  0 : drawingPanel3D.setAutoscaleX(false); drawingPanel3D.setPreferredMinMaxX(minX,maxX); break;
       case  1 : drawingPanel3D.setAutoscaleY(false); drawingPanel3D.setPreferredMinMaxY(minY,maxY); break;
@@ -480,7 +493,8 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case  0 : case  1 : case  2 : case  3 :
       case  4 : case  5 : case  6 : case  7 :
@@ -513,13 +527,15 @@ public class ControlDrawingPanel3D extends ControlDrawablesParent implements Int
 
   private ControlDrawable selectedDrawable = null;
 
-  public ControlDrawable getSelectedDrawable() { return selectedDrawable; }
+  @Override
+public ControlDrawable getSelectedDrawable() { return selectedDrawable; }
 
   public void setSelectedDrawable (ControlDrawable _dr) { selectedDrawable = _dr; }
 
   private InteractionSource sourceLingered=null;
 
-  @SuppressWarnings("fallthrough")
+  @Override
+@SuppressWarnings("fallthrough")
   public void interactionPerformed(InteractionEvent _event) {
     if (_event.getTarget()==null) {
       if (_event.getID()==InteractionEvent.MOUSE_ENTERED) {

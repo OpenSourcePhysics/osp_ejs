@@ -17,13 +17,15 @@ public class ControlBox extends ControlInteractiveTile {
 
   private InteractiveBox box;
   
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     box = new InteractiveBox();
     box.setOrigin(0,0,0,true);
     return box;
   }
 
- protected int getPropertiesDisplacement () { return PROPERTIES_BOX; }
+ @Override
+protected int getPropertiesDisplacement () { return PROPERTIES_BOX; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -31,7 +33,8 @@ public class ControlBox extends ControlInteractiveTile {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("closedBottom");
@@ -41,21 +44,24 @@ public class ControlBox extends ControlInteractiveTile {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("color"))          return "lineColor";
     if (_property.equals("secondaryColor")) return "fillColor";
     return super.getPropertyCommonName(_property);
   }
 
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("closedBottom"))  return "boolean";
     if (_property.equals("closedTop"))     return "boolean";
     return super.getPropertyInfo(_property);
   }
 
   // Backwards compatibility
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("dx")) return super.setProperty ("sizex",_value);
     if (_property.equals("dy")) return super.setProperty ("sizey",_value);
@@ -68,7 +74,8 @@ public class ControlBox extends ControlInteractiveTile {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case  0 : box.setClosedBottom(_value.getBoolean()); break;
       case  1 : box.setClosedTop(_value.getBoolean());    break;
@@ -76,7 +83,8 @@ public class ControlBox extends ControlInteractiveTile {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  0 : box.setClosedBottom(true); break;
       case  1 : box.setClosedTop(true);    break;
@@ -84,7 +92,8 @@ public class ControlBox extends ControlInteractiveTile {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  0 :
       case  1 : return "true";
@@ -92,7 +101,8 @@ public class ControlBox extends ControlInteractiveTile {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : return null;
       default: return getValue (_index-2);

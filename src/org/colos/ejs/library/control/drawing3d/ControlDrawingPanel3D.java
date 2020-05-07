@@ -77,15 +77,18 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
   private KeyListener keyListener;
   private MouseListener mouseListener;
 
-  public Object getObject() { return drawingPanel3D; }
+  @Override
+public Object getObject() { return drawingPanel3D; }
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.DrawingPanel3D"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.DrawingPanel3D"; }
 
 // ------------------------------------------------
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     drawingPanel3D = new DrawingPanel3D();
     // Drawing Panel
     minX = drawingPanel3D.getPreferredMinX();
@@ -118,7 +121,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     drawingPanel3D.render();
 
     keyListener = new java.awt.event.KeyAdapter() {
-      public void keyPressed  (java.awt.event.KeyEvent _e) {
+      @Override
+	public void keyPressed  (java.awt.event.KeyEvent _e) {
         if (_e.isControlDown() && getSimulation()!=null) {
           if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_M) {
             getPopupMenu(0,0);
@@ -131,7 +135,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
           invokeActions (ControlSwingElement.KEY_ACTION);
         }
       }
-      public void keyReleased (java.awt.event.KeyEvent _e) {
+      @Override
+	public void keyReleased (java.awt.event.KeyEvent _e) {
         keyPressedValue.value = -1;
         if (reportKey) variableChanged (KEY_INDEX,keyPressedValue);
       }
@@ -139,7 +144,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     };
 
     mouseListener = new MouseAdapter() {
-      public void mousePressed  (MouseEvent _e) {
+      @Override
+	public void mousePressed  (MouseEvent _e) {
         if ((_e.isPopupTrigger() || _e.getModifiers() == InputEvent.BUTTON3_MASK) && getSimulation()!=null) {
           getPopupMenu(_e.getX(), _e.getY());
         }
@@ -150,7 +156,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     return drawingPanel3D.getComponent();
   }
   
-  public void implementationChanged(int toImplementation) {
+  @Override
+public void implementationChanged(int toImplementation) {
     setListeners();
     super.changeVisual(drawingPanel3D.getComponent());
   }
@@ -164,22 +171,26 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     comp.addMouseListener (mouseListener);
   }
 
-  public void addMenuEntries() {
+  @Override
+public void addMenuEntries() {
     JMenuItem cameraMenuItem = new JMenuItem ("CameraInspector.Camera");
     cameraMenuItem.addActionListener(new ActionListener() {
-      public void actionPerformed (ActionEvent _evt) { showCameraInspector(); }
+      @Override
+	public void actionPerformed (ActionEvent _evt) { showCameraInspector(); }
     });
     cameraMenuItem.setActionCommand("CameraInspector.Camera");
 
     JRadioButtonMenuItem simple3DItem = new JRadioButtonMenuItem("Simple 3D", drawingPanel3D.getImplementation()==DrawingPanel3D.IMPLEMENTATION_SIMPLE3D);
     simple3DItem.addItemListener(new ItemListener() {
-      public void itemStateChanged(ItemEvent evt) {
+      @Override
+	public void itemStateChanged(ItemEvent evt) {
         if (evt.getStateChange()==ItemEvent.SELECTED) drawingPanel3D.setImplementation(DrawingPanel3D.IMPLEMENTATION_SIMPLE3D);
       }
     });
     JRadioButtonMenuItem java3DItem = new JRadioButtonMenuItem("Java 3D", drawingPanel3D.getImplementation()==DrawingPanel3D.IMPLEMENTATION_JAVA3D);
     java3DItem.addItemListener(new ItemListener() {
-      public void itemStateChanged(ItemEvent evt) {
+      @Override
+	public void itemStateChanged(ItemEvent evt) {
         if (evt.getStateChange()==ItemEvent.SELECTED) drawingPanel3D.setImplementation(DrawingPanel3D.IMPLEMENTATION_JAVA3D);
       }
     });
@@ -207,16 +218,19 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     getSimulation().addElementMenuEntries (getMenuNameEntry(), menuEntries);
   }
 
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child instanceof org.colos.ejs.library.control.drawing3d.utils.Control3DChild) return true;
     return false;
   }
   
-  public java.awt.image.BufferedImage render(java.awt.image.BufferedImage image) {
+  @Override
+public java.awt.image.BufferedImage render(java.awt.image.BufferedImage image) {
       return drawingPanel3D.render(image);
   }
 
-  public void showEditor (String editor) {
+  @Override
+public void showEditor (String editor) {
     if ("camera".equalsIgnoreCase(editor)) showCameraInspector();
 //      camera.reset();
 //      reportCameraMotion();
@@ -231,7 +245,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
   private void createCameraInspector() {
       cameraInspector = new CameraInspector(drawingPanel3D);
       cameraInspector.addActionListener(new ActionListener() {
-          public void actionPerformed (ActionEvent _evt) {
+          @Override
+		public void actionPerformed (ActionEvent _evt) {
               if (isUnderEjs) updateCameraFields();
           }
       });
@@ -247,7 +262,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
   // List of children that need to do something before repainting the panel
   private Vector<NeedsPreUpdate> preupdateList = new Vector<NeedsPreUpdate>();
 
-  public void update () { // Ensure it will be updated
+  @Override
+public void update () { // Ensure it will be updated
     // First prepare children that need to do something
     for (Enumeration<NeedsPreUpdate> e=preupdateList.elements(); e.hasMoreElements(); ) e.nextElement().preupdate();
   }
@@ -258,7 +274,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
 //    drawingPanel3D.update(); // It was render() before!
 //  }
 //  
-  public void finalUpdate() {
+  @Override
+public void finalUpdate() {
     if (javax.swing.SwingUtilities.isEventDispatchThread()||Thread.currentThread().getName().equals("main")) {
       Simulation sim = getSimulation();
       if (sim==null || sim.isPaused()) {
@@ -270,23 +287,29 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     }
   }
 
-  public void addToPreupdateList (NeedsPreUpdate _child) { preupdateList.add(_child); }
+  @Override
+public void addToPreupdateList (NeedsPreUpdate _child) { preupdateList.add(_child); }
 
-  public void removeFromPreupdateList (NeedsPreUpdate _child) {
+  @Override
+public void removeFromPreupdateList (NeedsPreUpdate _child) {
     preupdateList.remove(_child);
   }
 
-  public void addElement (Element _element) { drawingPanel3D.addElement(_element); }
+  @Override
+public void addElement (Element _element) { drawingPanel3D.addElement(_element); }
 
-  public void removeElement (Element _element) { drawingPanel3D.removeElement(_element); }
+  @Override
+public void removeElement (Element _element) { drawingPanel3D.removeElement(_element); }
 
-  public DrawingPanel3D getDrawingPanel3D() { return drawingPanel3D; }
+  @Override
+public DrawingPanel3D getDrawingPanel3D() { return drawingPanel3D; }
 
 // ------------------------------------------
 // Printing when pressing ctrl-p
 // ------------------------------------------
 
-  protected void getPopupMenu (int _x, int _y) {
+  @Override
+protected void getPopupMenu (int _x, int _y) {
     if(cameraInspectorFrame==null) createCameraInspector();
     super.getPopupMenu(_x, _y);
   }
@@ -297,7 +320,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       // The panel itself
@@ -365,7 +389,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumX"))       return "int|double";
     if (_property.equals("maximumX"))       return "int|double";
     if (_property.equals("minimumY"))       return "int|double";
@@ -457,7 +482,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
   }
 
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("3DCameraMode")>=0) {
       _value = _value.trim().toLowerCase();
@@ -532,7 +558,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
 //    if (_index==7) 
 //      System.err.println ("Setting "+_index+" to "+_value);
     double angle;
@@ -680,7 +707,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  0 : minX=-1.0; resetExtrema(); break;
       case  1 : maxX= 1.0; resetExtrema(); break;
@@ -756,7 +784,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  0 : return "-1.0";
       case  1 : return "1.0";
@@ -823,7 +852,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case  0 : case  1 : case  2 : case  3 :
       case  4 : case  5 : case  6 : case  PROJECTION :
@@ -949,7 +979,8 @@ public class ControlDrawingPanel3D  extends ControlSwingElement implements Needs
     if (isUnderEjs) setFieldListValues(POSITION_INDEXES, posValues);
   }
 
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
 //     System.out.println("Event ID "+_event.getID());
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_ENTERED  : invokeActions (ControlSwingElement.MOUSE_ENTERED_ACTION); break;

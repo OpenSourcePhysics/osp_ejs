@@ -14,13 +14,15 @@ import org.opensourcephysics.display.Drawable;
 public class ControlPlane extends ControlInteractiveTile {
   static final int PROPERTIES_PLANE=PROPERTIES_ADDED+2;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     InteractivePlane plane = new InteractivePlane();
     plane.setOrigin(0,0,0,true);
     return plane;
   }
 
-  protected int getPropertiesDisplacement () { return PROPERTIES_PLANE; }
+  @Override
+protected int getPropertiesDisplacement () { return PROPERTIES_PLANE; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -28,7 +30,8 @@ public class ControlPlane extends ControlInteractiveTile {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("direction1");
@@ -38,7 +41,8 @@ public class ControlPlane extends ControlInteractiveTile {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("color"))          return "lineColor";
     if (_property.equals("secondaryColor")) return "fillColor";
     if (_property.equals("direction1")) return "firstDirection";
@@ -46,13 +50,15 @@ public class ControlPlane extends ControlInteractiveTile {
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("direction1"))       return "double[]"; // Vector3D|double[]";
     if (_property.equals("direction2"))       return "double[]"; // Vector3D|double[]";
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     /*
     if (_propertyType.indexOf("Vector3D")>=0) {
@@ -77,7 +83,8 @@ public class ControlPlane extends ControlInteractiveTile {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if (_value.getObject() instanceof double[]) {
@@ -95,7 +102,8 @@ public class ControlPlane extends ControlInteractiveTile {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : ((InteractivePlane) myElement).setVectorU(1.0,0.0,0.0); break;
       case 1 : ((InteractivePlane) myElement).setVectorV(0.0,1.0,0.0); break;
@@ -103,7 +111,8 @@ public class ControlPlane extends ControlInteractiveTile {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "{1.0,0.0,0.0}";
       case 1 : return "{0.0,1.0,0.0}";
@@ -111,7 +120,8 @@ public class ControlPlane extends ControlInteractiveTile {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : return null;
       default: return getValue (_index-2);

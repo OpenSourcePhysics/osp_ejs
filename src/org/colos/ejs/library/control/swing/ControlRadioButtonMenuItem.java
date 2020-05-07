@@ -28,13 +28,15 @@ public class ControlRadioButtonMenuItem extends ControlRadioButton implements Ra
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     radioButton = new JRadioButtonMenuItem ();
     internalValue = new BooleanValue (radioButton.isSelected());
     defaultStateSet = false;
     radioButton.addActionListener (
       new java.awt.event.ActionListener() {
-        public void actionPerformed (java.awt.event.ActionEvent _e) {
+        @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) {
           if (cantUnselectItself) {
             if (internalValue.getBoolean() && !radioButton.isSelected()) {
               radioButton.setSelected(true);
@@ -49,7 +51,8 @@ public class ControlRadioButtonMenuItem extends ControlRadioButton implements Ra
     return radioButton;
   }
 
-  public int getVariableIndex() { return VARIABLE+ADDED; }
+  @Override
+public int getVariableIndex() { return VARIABLE+ADDED; }
 
 // ------------------------------------------------
 // Properties
@@ -57,7 +60,8 @@ public class ControlRadioButtonMenuItem extends ControlRadioButton implements Ra
 
       static private java.util.List<String> infoList=null;
 
-      public java.util.List<String> getPropertyList() {
+      @Override
+	public java.util.List<String> getPropertyList() {
         if (infoList==null) {
           infoList = new java.util.ArrayList<String> ();
           infoList.add ("accelerator");
@@ -66,7 +70,8 @@ public class ControlRadioButtonMenuItem extends ControlRadioButton implements Ra
         return infoList;
       }
 
-      public String getPropertyInfo(String _property) {
+      @Override
+	public String getPropertyInfo(String _property) {
         if (_property.equals("accelerator")) return "String TRANSLATABLE";
         return super.getPropertyInfo(_property);
       }
@@ -75,21 +80,24 @@ public class ControlRadioButtonMenuItem extends ControlRadioButton implements Ra
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-      public void setValue (int _index, Value _value) {
+      @Override
+	public void setValue (int _index, Value _value) {
         switch (_index) {
           case 0 : ((JRadioButtonMenuItem)radioButton).setAccelerator(KeyStroke.getKeyStroke(_value.getString().charAt(0),java.awt.Toolkit.getDefaultToolkit().getMenuShortcutKeyMask())); break;
           default: super.setValue(_index-ADDED,_value); break;
         }
       }
 
-      public void setDefaultValue (int _index) {
+      @Override
+	public void setDefaultValue (int _index) {
         switch (_index) {
           case 0 : ((JRadioButtonMenuItem)radioButton).setAccelerator(null); break;
           default: super.setDefaultValue(_index-ADDED); break;
         }
       }
       
-      public String getDefaultValueString (int _index) {
+      @Override
+	public String getDefaultValueString (int _index) {
         switch (_index) {
           case 0 : return "<none>";
           default : return super.getDefaultValueString(_index-ADDED);
@@ -97,7 +105,8 @@ public class ControlRadioButtonMenuItem extends ControlRadioButton implements Ra
       }
       
 
-      public Value getValue (int _index) {
+      @Override
+	public Value getValue (int _index) {
         switch (_index) {
           case 0 :
             return null;

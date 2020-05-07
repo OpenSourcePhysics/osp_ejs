@@ -20,15 +20,19 @@ import org.opensourcephysics.drawing3d.Group;
 public class ControlGroup3D extends ControlElement3D implements NeedsPreUpdate, ControlParentOfElement3D {
   private Group group;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.Group"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.Group"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     return group = new Group();
   }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child instanceof ControlElement3D) return true;
     return super.acceptsChild(_child);
   }
@@ -40,18 +44,24 @@ public class ControlGroup3D extends ControlElement3D implements NeedsPreUpdate, 
     // List of children that need to do something before repainting the panel
     private Vector<NeedsPreUpdate> preupdateList = new Vector<NeedsPreUpdate>();
 
-    public void preupdate () { // Pass it over to children
+    @Override
+	public void preupdate () { // Pass it over to children
       for (Enumeration<NeedsPreUpdate> e=preupdateList.elements(); e.hasMoreElements(); ) e.nextElement().preupdate();
     }
 
-    public void addToPreupdateList (NeedsPreUpdate _child) { preupdateList.add(_child); }
+    @Override
+	public void addToPreupdateList (NeedsPreUpdate _child) { preupdateList.add(_child); }
 
-    public void removeFromPreupdateList (NeedsPreUpdate _child) { preupdateList.remove(_child); }
+    @Override
+	public void removeFromPreupdateList (NeedsPreUpdate _child) { preupdateList.remove(_child); }
 
-    public void addElement (Element _element) { group.addElement(_element); }
+    @Override
+	public void addElement (Element _element) { group.addElement(_element); }
 
-    public void removeElement (Element _element) { group.removeElement(_element); }
+    @Override
+	public void removeElement (Element _element) { group.removeElement(_element); }
 
-    public DrawingPanel3D getDrawingPanel3D() { return myParent.getDrawingPanel3D(); }
+    @Override
+	public DrawingPanel3D getDrawingPanel3D() { return myParent.getDrawingPanel3D(); }
 
 } // End of class

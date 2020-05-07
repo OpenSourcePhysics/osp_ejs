@@ -29,7 +29,8 @@ public class Pipe extends InteractivePoligon {
     closed = false;
   }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof Pipe) {
       setWidth(((Pipe) _element).getWidth());
@@ -42,14 +43,17 @@ public class Pipe extends InteractivePoligon {
 // -------------------------------------
 
   // Overwrites its parent
-  public void setClosed (boolean _closed) { closed = false; }
+  @Override
+public void setClosed (boolean _closed) { closed = false; }
 
   // Overwrites its parent
-  public void setConnections (boolean[] _c) {
+  @Override
+public void setConnections (boolean[] _c) {
     for (int i=0; i<numPoints; i++)  connect[i] = true;
   }
 
-  public void setNumberOfPoints (int _n) {
+  @Override
+public void setNumberOfPoints (int _n) {
     if (_n==numPoints) return;
     if (_n<1) return;
     super.setNumberOfPoints(_n);
@@ -80,7 +84,8 @@ public class Pipe extends InteractivePoligon {
 
   private int[] pieceA = new int[4], pieceB = new int[4];
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     if (_index<(numPoints-1)) { // Only regular segments
       int left = _index, right = 2*numPoints-1-_index;
       Paint theFillPattern = null;
@@ -106,7 +111,8 @@ public class Pipe extends InteractivePoligon {
     }
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!(numPoints>0 && visible)) return;
     Graphics2D g2 = (Graphics2D) _g;
     // if (hasChanged || _panel!=panelWithValidProjection)
@@ -143,7 +149,8 @@ public class Pipe extends InteractivePoligon {
   protected double[] origin  = new double[6];
   protected double[] pixelOrigin  = new double[5];
 
-  protected void projectPoints (DrawingPanel _panel) {
+  @Override
+protected void projectPoints (DrawingPanel _panel) {
     super.projectPoints(_panel);
     // Compute the real width of the pipe
     origin[0] = (_panel.getXMin() + _panel.getXMax()) / 2;

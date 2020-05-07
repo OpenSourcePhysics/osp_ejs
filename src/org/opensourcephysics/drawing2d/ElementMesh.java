@@ -65,7 +65,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
    * Provides the array of points that conform the mesh and its boundary
    * @param points The double[nPoints][2] where nPoints is the number of points in the mesh
    */
-  public void setPoints(double[][] points) {
+  @Override
+public void setPoints(double[][] points) {
     mPoints = points;
     setElementChanged();
   }
@@ -74,7 +75,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
    * Provides the field value for each point in the mesh
    * @param values The double[nPoints][dimension] array with the value for each mesh vertex
    */
-  public void setFieldAtPoints(double[][] values) {
+  @Override
+public void setFieldAtPoints(double[][] values) {
     mValues = values;
     mDimension = (mValues==null) ? 1 : mValues[0].length;
     mCellValues = null;
@@ -87,7 +89,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
    * @param tiles the int[nCells][nPoints] array with the points in each cell.
    * For example,if the first cell is a triangle joining points 0,3,7, one gets: cells[0] = { 0, 3, 7 }; 
    */
-  public void setCells(int[][] cells) {
+  @Override
+public void setCells(int[][] cells) {
     mCellsGeometry = cells;
   }
 
@@ -95,7 +98,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
    * Provides the field value for the points in each tile
    * @param values The double[nTiles][nPointsPerTile][dimension] array with the value for each cell vertex
    */
-  public void setFieldAtCells(double[][][] values) {
+  @Override
+public void setFieldAtCells(double[][][] values) {
     mCellValues = values;
     mDimension = (mCellValues==null) ? 1 : mCellValues[0][0].length;
     mValues = null;
@@ -119,7 +123,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
    * <li>Second index = nPointsInSegment : the points in this segment</li>
    * </ul>
    */
-  public void setBoundary(int[][] boundary) {
+  @Override
+public void setBoundary(int[][] boundary) {
     mBoundaryGeometry = boundary;
   }
 
@@ -127,7 +132,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
    * Provides the label for each boundary segment
    * @param values The int[nOfSegments] array with the label for each boundary segment
    */
-  public void setBoundaryLabels(int[] labels) {
+  @Override
+public void setBoundaryLabels(int[] labels) {
     mBoundaryLabels = labels;
   }
 
@@ -137,7 +143,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
    * If not enough colors are given, or colors is null, the element draw color is used
    * @param colors
    */
-  public void setBoundaryColors(Color[] colors) {
+  @Override
+public void setBoundaryColors(Color[] colors) {
     mBoundaryColors = colors;
   }
   
@@ -201,7 +208,8 @@ public class ElementMesh extends Element implements org.opensourcephysics.displa
     return null; // Not interactive
   }
 
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
     if (!isReallyVisible()) return;
     if (mPoints==null) return;
     

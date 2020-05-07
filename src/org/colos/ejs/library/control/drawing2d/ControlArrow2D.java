@@ -18,14 +18,17 @@ public class ControlArrow2D extends ControlElement2D {
 
   private ElementArrow arrow;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementArrow"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementArrow"; }
 
-  protected org.opensourcephysics.display.Drawable createDrawable () {
+  @Override
+protected org.opensourcephysics.display.Drawable createDrawable () {
     arrow = new ElementArrow();
     return arrow;
   }
 
-  protected int getPropertiesDisplacement () { return ARROW_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return ARROW_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -33,7 +36,8 @@ public class ControlArrow2D extends ControlElement2D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("style");
@@ -43,7 +47,8 @@ public class ControlArrow2D extends ControlElement2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("style")) return "NewArrowStyle|int";
     if (_property.equals("elementposition"))return "ArrowPosition|int";
     return super.getPropertyInfo(_property);
@@ -53,7 +58,8 @@ public class ControlArrow2D extends ControlElement2D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getInteger()!=arrow.getArrowType()) arrow.setArrowType(_value.getInteger()); break;
       case 1 : if (_value.getInteger()!=arrow.getStyle().getRelativePosition()) arrow.getStyle().setRelativePosition(_value.getInteger()); break; 
@@ -61,7 +67,8 @@ public class ControlArrow2D extends ControlElement2D {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : arrow.setArrowType(ElementArrow.ARROW); break;
       case 1 : arrow.getStyle().setRelativePosition(Style.NORTH_EAST); break; 
@@ -69,7 +76,8 @@ public class ControlArrow2D extends ControlElement2D {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "ARROW";
       case 1 : return "NORTH_EAST";
@@ -77,7 +85,8 @@ public class ControlArrow2D extends ControlElement2D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 :
         return null;

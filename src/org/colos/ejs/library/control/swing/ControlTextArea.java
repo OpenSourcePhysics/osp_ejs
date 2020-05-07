@@ -34,7 +34,8 @@ public class ControlTextArea extends ControlSwingElement {
     catch (Exception e) { _RETURN_ = "\n"; }
   }
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
       textarea = new JTextArea(5, 5);
       textarea.setEditable(true);
     panel = new javax.swing.JScrollPane(textarea);
@@ -45,13 +46,17 @@ public class ControlTextArea extends ControlSwingElement {
     return textarea;
   }
 
-  public String getObjectClassname () { return "javax.swing.JTextArea"; }
+  @Override
+public String getObjectClassname () { return "javax.swing.JTextArea"; }
 
-  public Object getObject () { return textarea; }
+  @Override
+public Object getObject () { return textarea; }
 
-  public java.awt.Component getComponent () { return panel; }
+  @Override
+public java.awt.Component getComponent () { return panel; }
 
-  public void reset () { textarea.setText(""); }
+  @Override
+public void reset () { textarea.setText(""); }
 
 // ------------------------------------------------
 // Properties
@@ -59,7 +64,8 @@ public class ControlTextArea extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("title");
@@ -69,7 +75,8 @@ public class ControlTextArea extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("title"))          return "String TRANSLATABLE";
     if (_property.equals("editable"))       return "boolean";
     return super.getPropertyInfo(_property);
@@ -79,7 +86,8 @@ public class ControlTextArea extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : // title
         if (!_value.getString().equals(titledBorder.getTitle())) {
@@ -95,7 +103,8 @@ public class ControlTextArea extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : // title
         panel.setBorder (etchedBorder);
@@ -108,7 +117,8 @@ public class ControlTextArea extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "true";
@@ -116,7 +126,8 @@ public class ControlTextArea extends ControlSwingElement {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 :
         return null;

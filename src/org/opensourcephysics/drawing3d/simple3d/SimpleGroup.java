@@ -31,13 +31,15 @@ public class SimpleGroup extends SimpleElement {
   // Implementation of ImplementingObject
   // --------------------------------------
 
-  public void processChanges(int _change, int _cummulativeChange) {} // Does nothing in this implementation
+  @Override
+public void processChanges(int _change, int _cummulativeChange) {} // Does nothing in this implementation
 
   // --------------------------------------
   // Methods for the painter's algorithm
   // --------------------------------------
 
-  public Object3D[] getObjects3D() {
+  @Override
+public Object3D[] getObjects3D() {
     list3D.clear();
     for (Element el : group.getElements()) {
       if (!el.isVisible()) continue; 
@@ -48,11 +50,13 @@ public class SimpleGroup extends SimpleElement {
     return list3D.toArray(minimalObjects);
   }
 
-  public void draw(java.awt.Graphics2D _g2, int _index) {
+  @Override
+public void draw(java.awt.Graphics2D _g2, int _index) {
     System.err.println("Group draw (i): I should not be called!"); //$NON-NLS-1$
   }
 
-  public void drawQuickly(java.awt.Graphics2D _g2) {
+  @Override
+public void drawQuickly(java.awt.Graphics2D _g2) {
     for (Element el : group.getElements()) if (el.isVisible()) ((SimpleElement) el.getImplementingObject()).drawQuickly(_g2);
   }
 

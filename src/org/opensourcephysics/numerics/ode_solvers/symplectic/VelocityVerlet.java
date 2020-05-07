@@ -26,7 +26,8 @@ public class VelocityVerlet extends SolverEngineDiscreteTime {
   private boolean accelerationIndependentOfVelocity;
 	private double[] mRate2;
 	
-  public void setODE(InterpolatorEventSolver eventSolver, ODE ode) { 
+  @Override
+public void setODE(InterpolatorEventSolver eventSolver, ODE ode) { 
 		super.setODE(eventSolver,ode);
     if (ode instanceof VelocityVerletSavvy) {
       accelerationIndependentOfVelocity = ((VelocityVerletSavvy) ode).isAccelerationIndependentOfVelocity();

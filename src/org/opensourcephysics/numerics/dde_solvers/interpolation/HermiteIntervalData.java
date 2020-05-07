@@ -33,6 +33,7 @@ public class HermiteIntervalData extends IntervalData {
 		mDeltaTime = mRight-mLeft;		
 	}
 	
+	@Override
 	public double interpolate(double time, int index) {
 	  double theta = (time - mLeft)/mDeltaTime;
 	  double minus1 = theta - 1;
@@ -45,6 +46,7 @@ public class HermiteIntervalData extends IntervalData {
 	  return coefX0*mLeftState[index] + coefX1*mRightState[index] + coefF0*mLeftRate[index] + coefF1*mRightRate[index];
 	}
 	
+	@Override
 	public double[] interpolate(double time, double[] state, int beginIndex, int length) {
 		hermite((time - mLeft)/mDeltaTime, state, beginIndex, length);
 		return state;

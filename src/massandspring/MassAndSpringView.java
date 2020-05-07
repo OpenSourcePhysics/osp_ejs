@@ -71,6 +71,7 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
 		} // Do nothing and keep quiet if it fails
 		update();
 		OSPRuntime.dispatchEventWait(new Runnable() {
+			@Override
 			public void run() {
 				createControl();
 			}
@@ -94,11 +95,13 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
 
 // ---------- Implementation of View -------------------
 
-  public void read() {
+  @Override
+public void read() {
     // Ejs requires no read(). Actually, having it might cause problems!
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("x".equals(_variable)) {
       _model.x = getDouble("x"); // Variables.Dynamical Vars:1
@@ -150,7 +153,8 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
     }
   }
 
-  public void propagateValues () {
+  @Override
+public void propagateValues () {
     setValue ("_isPlaying",_simulation.isPlaying());
     setValue ("_isPaused", _simulation.isPaused());
     if(__x_canBeChanged__) setValue("x",_model.x); // Variables.Dynamical Vars:1
@@ -167,7 +171,8 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
     if(__E_canBeChanged__) setValue("E",_model.E); // Variables.Constrained Vars:3
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("x".equals(_variable)) __x_canBeChanged__ = false; // Variables.Dynamical Vars:1
     if ("vx".equals(_variable)) __vx_canBeChanged__ = false; // Variables.Dynamical Vars:2
@@ -380,7 +385,8 @@ class MassAndSpringView extends org.colos.ejs.library.control.EjsControl impleme
 
 // ---------- Resetting the interface  -------------------
 
-  public void reset() {
+  @Override
+public void reset() {
     getElement("frame")
       .setProperty("title","Mass and Spring")
       .setProperty("visible","true");

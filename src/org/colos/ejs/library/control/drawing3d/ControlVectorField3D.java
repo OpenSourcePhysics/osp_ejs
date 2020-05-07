@@ -59,7 +59,8 @@ public class ControlVectorField3D extends ControlElement3D { //implements NeedsP
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumX");
@@ -114,7 +115,8 @@ public class ControlVectorField3D extends ControlElement3D { //implements NeedsP
 //    return super.parseConstant (_propertyType,_value);
 //  }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("VectorColorMapper")>=0) {
       _value = _value.trim().toLowerCase();
@@ -129,7 +131,8 @@ public class ControlVectorField3D extends ControlElement3D { //implements NeedsP
     return super.parseConstant (_propertyType,_value);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     
     if (_property.equals("minimumX"))   return "int|double";
     if (_property.equals("maximumX"))   return "int|double";
@@ -168,7 +171,8 @@ public class ControlVectorField3D extends ControlElement3D { //implements NeedsP
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case X_MINIMUM : field.setMinimumX(_value.getDouble()); break;
       case X_MAXIMUM : field.setMaximumX(_value.getDouble()); break;
@@ -233,7 +237,8 @@ public class ControlVectorField3D extends ControlElement3D { //implements NeedsP
   
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : field.setMinimumX(-1.0); break;
         case 1 : field.setMaximumX(1.0); break;
@@ -272,7 +277,8 @@ public class ControlVectorField3D extends ControlElement3D { //implements NeedsP
       if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "-1";
       case 1 : return "1";
@@ -309,7 +315,8 @@ public class ControlVectorField3D extends ControlElement3D { //implements NeedsP
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :

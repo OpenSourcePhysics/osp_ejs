@@ -40,7 +40,8 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
     tank.addListener(this);
   }
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       tank = new Tank();
       tank.setEnabled(true);
       tank.setMovable(true);
@@ -56,7 +57,8 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("height");
@@ -79,14 +81,16 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
   }
 
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("movable"))     return "enabledPosition";
     if (_property.equals("resizable"))   return "enabledSize";
     if (_property.equals("closedOnTop"))   return "closedTop";
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("height"))    return "int|double";
     if (_property.equals("width"))     return "int|double";
     if (_property.equals("level"))     return "int|double";
@@ -108,12 +112,14 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public Object getObject (String _name) {
+  @Override
+public Object getObject (String _name) {
     if (_name.equals("diameter")) return tank.diameterFunction;
     return null;
   }
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : tank.setHeight(_value.getDouble()); break;
       case 1 : tank.setWidth(_value.getDouble()); break;
@@ -141,7 +147,8 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : tank.setHeight(0.5); break;
       case 1 : tank.setWidth(0.2); break;
@@ -161,7 +168,8 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0.5";
       case 1 : return "0.2";
@@ -181,7 +189,8 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return magnitudesValue[0];
       case 1 : return magnitudesValue[1];
@@ -200,7 +209,8 @@ public class ControlTank extends ControlGroupDrawable implements InteractionList
       TANK_ADDED+ControlGroupDrawable.POSITION_Y,
       TANK_ADDED+ControlGroupDrawable.POSITION_Z};
 
-  @SuppressWarnings("fallthrough")
+  @Override
+@SuppressWarnings("fallthrough")
   public void interactionPerformed(InteractionEvent _event) {
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_EXITED :

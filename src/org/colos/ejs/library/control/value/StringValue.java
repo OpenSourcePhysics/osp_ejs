@@ -20,20 +20,25 @@ public class StringValue extends Value {
 		value = _val;
 	}
 
-  public boolean getBoolean() { return value.equals("true"); }
+  @Override
+public boolean getBoolean() { return value.equals("true"); }
 
-  public int getInteger() {
+  @Override
+public int getInteger() {
     return (int) Math.round(getDouble());
   }
 
-  public double  getDouble()  {
+  @Override
+public double  getDouble()  {
     try { return Double.valueOf(value).doubleValue(); }
     catch (Exception exc) { return 0.0; }
   }
 
-  public String  getString()  { return value; }
+  @Override
+public String  getString()  { return value; }
 
-  public Object  getObject()  { return null; }
+  @Override
+public Object  getObject()  { return null; }
 
 }
 

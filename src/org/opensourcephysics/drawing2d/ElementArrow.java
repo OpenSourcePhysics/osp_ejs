@@ -66,7 +66,8 @@ public class ElementArrow extends ElementSegment {
   // Super methods overwritten
   // -------------------------------------
 
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
     if (!isReallyVisible()) return;
     if (hasChanged() || needsToProject()) projectPoints();
     drawHead((java.awt.Graphics2D)_g);

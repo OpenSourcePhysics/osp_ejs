@@ -90,13 +90,15 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
     java.util.ArrayList<Object> list = new java.util.ArrayList<Object> ();
     list.add(new javax.swing.AbstractAction(org.colos.ejs.library.Simulation.getEjsString("InteractiveTrace.ShowDataTable")){
       private static final long serialVersionUID = 1L;
-      public void actionPerformed(java.awt.event.ActionEvent e) { 
+      @Override
+	public void actionPerformed(java.awt.event.ActionEvent e) { 
         org.opensourcephysics.tools.ToolForData.getTool().showTable(_parent,_data);
       }
     });
     list.add(new javax.swing.AbstractAction(org.colos.ejs.library.Simulation.getEjsString("InteractiveTrace.ShowDatasetTool")){
       private static final long serialVersionUID = 1L;
-      public void actionPerformed(java.awt.event.ActionEvent e) { 
+      @Override
+	public void actionPerformed(java.awt.event.ActionEvent e) { 
         org.opensourcephysics.tools.ToolForData.getTool().showDataTool(_parent, _data);
       }
     });
@@ -304,7 +306,8 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
     }
     if (changeInControl) 
       SwingUtilities.invokeLater(new Runnable() {
-        public void run() { myEjsVariableEditor.updateControlValues(false); }
+        @Override
+		public void run() { myEjsVariableEditor.updateControlValues(false); }
       });
   }
 
@@ -489,7 +492,8 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
   */
   // This one is not final because a few of the subclasses
   // (f. i. ControlContainer and ControlTrace) need to overwrite it
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     return setProperty(_property, _value, true);
   }
 
@@ -865,7 +869,8 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
   * Reports its  name, if it has been set. If not, returns
   * a standard value.
   */
-  public String toString() {
+  @Override
+public String toString() {
     String name = myPropertiesTable.get("name");
     if (name!=null) return name;
     String text = this.getClass().getName();
@@ -1188,7 +1193,8 @@ public abstract class ControlElement implements org.colos.ejs.library.Configurab
     
 //    private Value invoke() { return method.invoke(type, object); }
 
-    public void performAction() { method.invoke(type, object); }
+    @Override
+	public void performAction() { method.invoke(type, object); }
     
   }
  

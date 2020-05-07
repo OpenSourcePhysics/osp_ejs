@@ -35,9 +35,11 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
   protected double[] magnitude;
   protected Color[] colors;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.Group"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.Group"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     group = new Group();
     arrows = new ElementArrow[0];
     maxColor = Color.RED;
@@ -47,7 +49,8 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
     return group;
   }
 
-  protected int getPropertiesDisplacement () { return FIELD_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return FIELD_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -55,7 +58,8 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -72,7 +76,8 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))          return "double[][][][]";
     if (_property.equals("autoscale"))     return "boolean";
     if (_property.equals("minimum"))       return "int|double";
@@ -89,7 +94,8 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getObject() instanceof double[][][][]) setDataArray((double[][][][])_value.getObject()); break;
       case 1 : setAutoscaleMagnitude(_value.getBoolean()); break;
@@ -104,7 +110,8 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : setDataArray((double[][][][])null); break;
         case 1 : setAutoscaleMagnitude(true); break;
@@ -119,7 +126,8 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :
@@ -132,7 +140,8 @@ public class ControlVectorField3DOld extends ControlElement3D implements NeedsPr
   // Preupdating and convenience methods
   // ------------------------------------------------
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (dataChanged && data!=null) {
       for (int el=0, i=0,m=data.length; i<m; i++) {
         for (int j=0, n=data[0].length; j<n; j++) {

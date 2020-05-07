@@ -15,13 +15,16 @@ import org.opensourcephysics.drawing3d.*;
 public class ControlPlaneSet3D extends ControlSet3D {
   static final private int PLANESET_PROPERTIES_ADDED=4;
 
-  protected int getPropertiesAddedToSet () { return PLANESET_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return PLANESET_PROPERTIES_ADDED; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     return new ElementPlane();
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
       super.copyAnElement(oldElement,newElement);
       ((ElementPlane) newElement).setFirstDirection(((ElementPlane) oldElement).getFirstDirection());
       ((ElementPlane) newElement).setSecondDirection(((ElementPlane) oldElement).getSecondDirection());
@@ -33,7 +36,8 @@ public class ControlPlaneSet3D extends ControlSet3D {
 
     static java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("firstDirection");
@@ -45,7 +49,8 @@ public class ControlPlaneSet3D extends ControlSet3D {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
         if (_property.equals("firstDirection"))  return "double[]|double[][]";
         if (_property.equals("secondDirection")) return "double[]|double[][]";
         if (_property.equals("firstSize"))  return "int|double|double[]";
@@ -58,7 +63,8 @@ public class ControlPlaneSet3D extends ControlSet3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
     
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 :
             if (_value.getObject() instanceof double[][]) {
@@ -105,7 +111,8 @@ public class ControlPlaneSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 :
           {
@@ -131,7 +138,8 @@ public class ControlPlaneSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "new double[] {1,0,0}";
         case 1 : return "new double[] {0,1,0}";
@@ -141,7 +149,8 @@ public class ControlPlaneSet3D extends ControlSet3D {
       }
     }
     
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 : return null;
         default: return super.getValue (_index-PLANESET_PROPERTIES_ADDED);

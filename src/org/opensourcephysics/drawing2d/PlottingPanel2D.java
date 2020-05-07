@@ -34,15 +34,18 @@ public class PlottingPanel2D extends org.opensourcephysics.display.PlottingPanel
   // Implementation of DrawingPanel
   // ---------------------------------
 
-  public java.awt.Component getComponent() { return this; }
+  @Override
+public java.awt.Component getComponent() { return this; }
   
-  public double[] projectPosition(double[] p, double[] pixel) {
+  @Override
+public double[] projectPosition(double[] p, double[] pixel) {
     pixel[0] = super.xToPix(p[0]);
     pixel[1] = super.yToPix(p[1]);
     return pixel;
   }
 
-  public double[] projectSize(double[] p, double[] size, double[] pixelSize) {
+  @Override
+public double[] projectSize(double[] p, double[] size, double[] pixelSize) {
     pixelSize[0] = xPixPerUnit*size[0];
     pixelSize[1] = yPixPerUnit*size[1];
     return pixelSize;

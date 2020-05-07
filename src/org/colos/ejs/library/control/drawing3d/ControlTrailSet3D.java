@@ -61,7 +61,8 @@ public class ControlTrailSet3D extends ControlSet3D implements org.colos.ejs.lib
     for (int i=0; i<numElements; i++) ((MultiTrail)elements[i]).initialize();
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (isSet) {
       for (int i=0; i<numElements; i++) {
         MultiTrail trail = (MultiTrail) elements[i];
@@ -107,7 +108,8 @@ public class ControlTrailSet3D extends ControlSet3D implements org.colos.ejs.lib
 
     static java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("maximumPoints");
@@ -130,7 +132,8 @@ public class ControlTrailSet3D extends ControlSet3D implements org.colos.ejs.lib
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
         if (_property.equals("maximumPoints")) return "int|int[]";
         if (_property.equals("connected")) return "boolean|boolean[]";
         if (_property.equals("inputX")) return "int|double|double[]|double[][]";
@@ -167,7 +170,8 @@ public class ControlTrailSet3D extends ControlSet3D implements org.colos.ejs.lib
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 :
           if (_value.getObject() instanceof int[]) {
@@ -307,7 +311,8 @@ public class ControlTrailSet3D extends ControlSet3D implements org.colos.ejs.lib
     if (isUnderEjs) updatePanel();
   }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : for (int i=0; i<numElements; i++) ((MultiTrail)elements[i]).setMaximumPoints(0); break;
         case 1 : for (int i=0; i<numElements; i++) ((MultiTrail)elements[i]).setConnectionType(ElementTrail.LINE_CONNECTION); break;
@@ -326,7 +331,8 @@ public class ControlTrailSet3D extends ControlSet3D implements org.colos.ejs.lib
       if (isUnderEjs) updatePanel();
    }
     
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "0";
         case 1 : return "true";
@@ -345,7 +351,8 @@ public class ControlTrailSet3D extends ControlSet3D implements org.colos.ejs.lib
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 : 
         case 4 : case 5 : case 6 : case 7 :

@@ -48,11 +48,13 @@ public class ControlPanel extends ControlContainer {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     panel = new JPanel();
     panel.addKeyListener (
         new java.awt.event.KeyAdapter() {
-          public void keyPressed  (java.awt.event.KeyEvent _e) {
+          @Override
+		public void keyPressed  (java.awt.event.KeyEvent _e) {
             if (_e.isControlDown() && getSimulation()!=null) {
               if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_M) getPopupMenu(0,0);
               else if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_P) printScreen();
@@ -62,7 +64,8 @@ public class ControlPanel extends ControlContainer {
       );
     panel.addMouseListener (
         new MouseAdapter() {
-          public void mousePressed  (MouseEvent _evt) {
+          @Override
+		public void mousePressed  (MouseEvent _evt) {
             if (getSimulation()!=null && org.opensourcephysics.display.OSPRuntime.isPopupTrigger(_evt)) { //) {SwingUtilities.isRightMouseButton(_evt) 
               getPopupMenu(_evt.getX(),_evt.getY());
             }
@@ -96,7 +99,8 @@ public class ControlPanel extends ControlContainer {
     panel.setBorder(border);
   }
 
-  public ControlElement setProperty (String _property, String _value, boolean _store) {
+  @Override
+public ControlElement setProperty (String _property, String _value, boolean _store) {
     ControlElement returnValue = super.setProperty (_property,_value,_store);
     if (_property.equals("font") || _property.equals("foreground")) setBorder();
     return returnValue;
@@ -108,7 +112,8 @@ public class ControlPanel extends ControlContainer {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("layout");
@@ -123,7 +128,8 @@ public class ControlPanel extends ControlContainer {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("layout"))         return "Layout|Object NO_RESET";
     if (_property.equals("border"))         return "Margins|Object";
     if (_property.equals("borderType"))     return "BorderType|int";
@@ -134,7 +140,8 @@ public class ControlPanel extends ControlContainer {
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("BorderType")>=0) {
       _value = _value.trim().toLowerCase();
@@ -171,7 +178,8 @@ public class ControlPanel extends ControlContainer {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : // layout
         if (_value.getObject() instanceof java.awt.LayoutManager) {
@@ -212,7 +220,8 @@ public class ControlPanel extends ControlContainer {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 :
         getContainer().setLayout(myLayout = new java.awt.BorderLayout());
@@ -230,7 +239,8 @@ public class ControlPanel extends ControlContainer {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "BORDER";
       case 1 : return "0,0,0,0";
@@ -242,7 +252,8 @@ public class ControlPanel extends ControlContainer {
       default : return super.getDefaultValueString(_index-PANEL_ADDED);
     }
   }
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 :

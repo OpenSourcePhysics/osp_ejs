@@ -21,28 +21,33 @@ public class BooleanValue extends Value {
 		value = _val;
 	}
 
+	@Override
 	public boolean getBoolean() {
 		return value;
 	}
 
+	@Override
 	public int getInteger() {
 		if (value)
 			return 1;
 		return 0;
 	}
 
+	@Override
 	public double getDouble() {
 		if (value)
 			return 1.0;
 		return 0.0;
 	}
 
+	@Override
 	public String getString() {
 		if (value)
 			return "true";
 		return "false";
 	}
 
+	@Override
 	public Object getObject() {
 		return null;
 	}

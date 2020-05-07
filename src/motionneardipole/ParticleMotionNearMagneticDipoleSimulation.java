@@ -5,12 +5,6 @@
 
 package motionneardipole;
 
-import org.colos.ejs.library._EjsConstants;
-
-import org.opensourcephysics.numerics.Matrix3DTransformation;
-// Imports suggested by Model Elements:
-// End of imports from Model Elements
-
 class ParticleMotionNearMagneticDipoleSimulation extends org.colos.ejs.library.Simulation { 
 
   private ParticleMotionNearMagneticDipoleView mMainView;
@@ -28,17 +22,20 @@ class ParticleMotionNearMagneticDipoleSimulation extends org.colos.ejs.library.S
     else { reset(); setAutoplay(false); }
   }
 
-  public java.util.List<String> getWindowsList() {
+  @Override
+public java.util.List<String> getWindowsList() {
     java.util.List<String> windowList = new java.util.ArrayList<String>();
     windowList.add("frame");
     return windowList;
   }
 
-  public String getMainWindow() {
+  @Override
+public String getMainWindow() {
     return "frame";
   }
 
-  protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
+  @Override
+protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
     mMainView.getConfigurableElement("frame")
       .setProperty("title","Charged Particle Motion Near a Magnetic Dipole")
       .setProperty("size","579,685");

@@ -21,12 +21,14 @@ public class ControlScrollPanel extends ControlPanel {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     java.awt.Component panel = super.createVisual();
     scrollPanel = new JScrollPane(panel);
     return panel;
   }
 
-  public java.awt.Component getComponent () { return scrollPanel; }
+  @Override
+public java.awt.Component getComponent () { return scrollPanel; }
 
 } // End of class

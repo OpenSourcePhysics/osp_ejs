@@ -53,7 +53,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
   protected Color[] colors;
   protected double[][] vectorLength; // used as default magnitude
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     elementSet = new ElementSet(1, InteractiveArrow.class);
     elementSet.setEnabled(InteractiveElement.TARGET_POSITION, false);
     elementSet.setEnabled(InteractiveElement.TARGET_SIZE, false);
@@ -67,9 +68,11 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
     return elementSet;
   }
 
-  public String getObjectClassname () { return "org.opensourcephysics.displayejs.ElementSet"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.displayejs.ElementSet"; }
 
-  public void setParent (org.colos.ejs.library.control.swing.ControlParentOfDrawables _dp) {
+  @Override
+public void setParent (org.colos.ejs.library.control.swing.ControlParentOfDrawables _dp) {
     super.setParent(_dp);
     if (Double.isNaN(xmin) || Double.isNaN(xmax) || Double.isNaN(ymin) || Double.isNaN(ymax)) {
       positionChanged = true;
@@ -83,7 +86,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumX");
@@ -115,7 +119,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumX"))   return "int|double";
     if (_property.equals("maximumX"))   return "int|double";
     if (_property.equals("minimumY"))   return "int|double";
@@ -143,7 +148,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ArrowStyle")>=0) {
       _value = _value.trim().toLowerCase();
@@ -158,7 +164,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (xmin!=_value.getDouble()) { xmin = _value.getDouble(); positionChanged=true; } break;
       case 1 : if (xmax!=_value.getDouble()) { xmax = _value.getDouble(); positionChanged=true; } break;
@@ -227,7 +234,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
     if (isUnderEjs) preupdate();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : xmin = Double.NaN; positionChanged=true; break;
         case 1 : xmax = Double.NaN; positionChanged=true; break;
@@ -270,7 +278,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
       if (isUnderEjs) preupdate();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : 
       case 1 : 
@@ -299,7 +308,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :
@@ -315,7 +325,8 @@ public class ControlVectorField extends ControlDrawable implements NeedsPreUpdat
   // Preupdating and convenience methods
   // ------------------------------------------------
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (!visible) return;
     if (myParent==null) return;
     int nx=-1, ny=-1;

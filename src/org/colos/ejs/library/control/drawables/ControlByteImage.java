@@ -34,7 +34,8 @@ public class ControlByteImage extends ControlDrawable2D {
   private int nx, ny;
   private Color[] palette=new Color[1];
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     raster = new ByteImage(DEFAULT_DATA);
     nx = DEFAULT_DATA.length;
     ny = DEFAULT_DATA[0].length;
@@ -55,7 +56,8 @@ public class ControlByteImage extends ControlDrawable2D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumX");
@@ -70,7 +72,8 @@ public class ControlByteImage extends ControlDrawable2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumX"))      return "int|double";
     if (_property.equals("maximumX"))      return "int|double";
     if (_property.equals("minimumY"))      return "int|double";
@@ -85,7 +88,8 @@ public class ControlByteImage extends ControlDrawable2D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getDouble()!=minX) raster.setXMin(minX=_value.getDouble()); break;
       case 1 : if (_value.getDouble()!=maxX) raster.setXMax(maxX=_value.getDouble()); break;
@@ -121,7 +125,8 @@ public class ControlByteImage extends ControlDrawable2D {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : raster.setXMin(minX=-1.0); break;
       case 1 : raster.setXMax(maxX=1.0); break;
@@ -134,7 +139,8 @@ public class ControlByteImage extends ControlDrawable2D {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "-1";
       case 1 : return "1";
@@ -147,7 +153,8 @@ public class ControlByteImage extends ControlDrawable2D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 :
       case 3 : case 4 : case 5 :

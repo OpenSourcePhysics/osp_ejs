@@ -85,7 +85,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
          * Gets the same dimension for both linear equation systems
          * @return mNumEqn the count of equations
          */
-        public int getDimension() {
+        @Override
+		public int getDimension() {
             return numEqn;
         }
 
@@ -94,7 +95,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
          * related to the real eigenvalue.
          * @param matrix the left hand matix of linear equations system
          */
-        public void getMatrix(double[][] matrix) {
+        @Override
+		public void getMatrix(double[][] matrix) {
             for (int i = 0 ; i < numEqn; i++ ){
                 for(int j = 0; j < numEqn; j++)
                     matrix[i][j] = - jac[i][j];
@@ -108,7 +110,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
          * @param matrixRe the real part of the left hand matix of linear equations system
          * @param matrixIm the imaginary part of the left hand matix of linear equations system
          */
-        public void getMatrixes(double[][] matrixRe, double [][] matrixIm) {
+        @Override
+		public void getMatrixes(double[][] matrixRe, double [][] matrixIm) {
             for (int i = 0 ; i < numEqn; i++ ){
                 for(int j = 0; j < numEqn; j++){
                     matrixRe[i][j] = - jac[i][j];
@@ -123,7 +126,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
          * related to the real eigenvalue.
          * @param vector the left hand vector of linear equations system
          */
-        public void getVector(double[] vector) {
+        @Override
+		public void getVector(double[] vector) {
             for (int i = 0; i < numEqn; i++){
                 double lambdaN = multiplier*realEigenvalues[0];
                 vector[i] = substitutedNonLinearComponent[0][i] - lambdaN*substitutedApproximation[0][i];
@@ -136,7 +140,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
          * @param vectorRe the real part of the left hand vector of linear equations system
          * @param vectorIm the imaginary part of the left hand vector of linear equations system
          */
-        public void getVectors(double[] vectorRe, double[] vectorIm) {
+        @Override
+		public void getVectors(double[] vectorRe, double[] vectorIm) {
             for (int i = 0; i < numEqn; i++){
                 double alphaN = multiplier*complexEigenvalues[0];
                 double betaN = multiplier*complexEigenvalues[1];
@@ -200,7 +205,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
      * Synchronize the change of approximation vertor and updated by user
      * the approximation vector.
      */
-    public void updateInitialValue(){
+    @Override
+	public void updateInitialValue(){
         eqn.directChangeOfVariables(this.approximation, substitutedApproximation);
     }
     /**
@@ -210,7 +216,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
      *        the command to refresh the Jacobian, otherwise Jacobian matrix will
      *        stay as is.
      */
-    public void restart(boolean _bestConvergenceRequired){
+    @Override
+	public void restart(boolean _bestConvergenceRequired){
         refreshLAEsMatrixes = (multiplier != eqn.getScalarMultiplier());
 // TODO: may be isn't necessary:
         eqn.directChangeOfVariables(this.approximation, substitutedApproximation);
@@ -269,7 +276,8 @@ public class IRKSimplifiedNewtonStep implements AlgebraicEquationSimpleSolver{
      * simplified Newton iterations method.
      * @return the current convergence rate
      */
-    public double resolve(){
+    @Override
+	public double resolve(){
         double convergenceRate = singleStep();
         commitStep();
         return convergenceRate;

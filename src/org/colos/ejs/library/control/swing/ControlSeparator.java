@@ -23,7 +23,8 @@ public class ControlSeparator extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     return sep = new JSeparator ();
   }
 
@@ -33,7 +34,8 @@ public class ControlSeparator extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("orientation");
@@ -42,7 +44,8 @@ public class ControlSeparator extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("orientation"))    return "Orientation|int";
     return super.getPropertyInfo(_property);
   }
@@ -51,28 +54,32 @@ public class ControlSeparator extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : sep.setOrientation(_value.getInteger()); break;
       default: super.setValue(_index-1,_value); break;
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : sep.setOrientation(SwingConstants.HORIZONTAL); break;
       default: super.setDefaultValue(_index-1); break;
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "HORIZONTAL";
       default : return super.getDefaultValueString(_index-1);
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 :
         return null;

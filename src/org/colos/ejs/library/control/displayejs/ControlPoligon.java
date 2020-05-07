@@ -52,7 +52,8 @@ public class ControlPoligon extends ControlInteractiveElement {
     myFullSize     = SIZE    +POLIGON_ADDED+disp;
   }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
   final public int[] getMyPosSpot () { return myPosSpot; }
   final public int[] getMySizeSpot () { return mySizeSpot; }
@@ -62,9 +63,11 @@ public class ControlPoligon extends ControlInteractiveElement {
 
   final private int[] getCoordinatesSpot ()  { return coordinatesSpot; }
 
-  protected void setName (String _name) { poligon.setName(_name); } // To be overwritten
+  @Override
+protected void setName (String _name) { poligon.setName(_name); } // To be overwritten
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     poligon = new InteractivePoligon();
     double[][]data = poligon.getData();
     coordinatesValues     = new ObjectValue[3];
@@ -89,7 +92,8 @@ public class ControlPoligon extends ControlInteractiveElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("maxpoints");
@@ -115,12 +119,14 @@ public class ControlPoligon extends ControlInteractiveElement {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("maxpoints"))        return "points";
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("maxpoints")) return "int PREVIOUS";
     if (_property.equals("x"))         return "int|double|double[]";
     if (_property.equals("y"))         return "int|double|double[]";
@@ -151,13 +157,15 @@ public class ControlPoligon extends ControlInteractiveElement {
   }
 
   // Backwards compatibility
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("linecolor")) return super.setProperty ("secondaryColor",_value);
     return super.setProperty(_property,_value);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ExtremeType")>=0 || _propertyType.indexOf("PoligonShape")>=0 ) {
       _value = _value.trim().toLowerCase();
@@ -180,7 +188,8 @@ public class ControlPoligon extends ControlInteractiveElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if (poligon.getNumberOfPoints()!=_value.getInteger()) {
@@ -280,7 +289,8 @@ public class ControlPoligon extends ControlInteractiveElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : poligon.setNumberOfPoints (0); break;
       case 1 : poligon.setConnections(null);  break;
@@ -320,7 +330,8 @@ public class ControlPoligon extends ControlInteractiveElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0";
       case 1 : return "<none>";
@@ -357,7 +368,8 @@ public class ControlPoligon extends ControlInteractiveElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case INPUT_X : return coordinatesValues[0];
       case INPUT_Y : return coordinatesValues[1];
@@ -389,7 +401,8 @@ public class ControlPoligon extends ControlInteractiveElement {
     return -1;
   }
 
-  @SuppressWarnings("fallthrough")
+  @Override
+@SuppressWarnings("fallthrough")
   public void interactionPerformed(InteractionEvent _event) {
   switch (_event.getID()) {
     case InteractionEvent.MOUSE_EXITED :

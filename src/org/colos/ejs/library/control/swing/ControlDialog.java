@@ -31,22 +31,28 @@ public class ControlDialog extends ControlWindow {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () { return createDialog(null); }
+  @Override
+protected java.awt.Component createVisual () { return createDialog(null); }
 
-  public String getObjectClassname () { return "javax.swing.JDialog"; }
+  @Override
+public String getObjectClassname () { return "javax.swing.JDialog"; }
 
-  public Object getObject () { return dialog; }
+  @Override
+public Object getObject () { return dialog; }
   
   public JDialog getJDialog() { return dialog; }
 
-  protected javax.swing.JRootPane getRootPane () { return dialog.getRootPane(); }
+  @Override
+protected javax.swing.JRootPane getRootPane () { return dialog.getRootPane(); }
 
-  public javax.swing.JMenuBar getJMenuBar() { return dialog.getJMenuBar(); }
+  @Override
+public javax.swing.JMenuBar getJMenuBar() { return dialog.getJMenuBar(); }
   
 //  protected javax.swing.JLayeredPane getLayeredPane () { return dialog.getLayeredPane(); }
 
   // This is a very special case
-  public void replaceVisual (java.awt.Frame _owner) {
+  @Override
+public void replaceVisual (java.awt.Frame _owner) {
     dialog.dispose();
     myVisual = createDialog (_owner); 
     adjustBorder();
@@ -63,7 +69,8 @@ public class ControlDialog extends ControlWindow {
     dialog.getContentPane().setLayout (new java.awt.BorderLayout());
     dialog.getContentPane().addKeyListener (
         new java.awt.event.KeyAdapter() {
-          public void keyPressed  (java.awt.event.KeyEvent _e) {
+          @Override
+		public void keyPressed  (java.awt.event.KeyEvent _e) {
             if (_e.isControlDown() && getSimulation()!=null) {
               if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_M) getPopupMenu(0,0);
               else if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_P) printScreen();
@@ -73,7 +80,8 @@ public class ControlDialog extends ControlWindow {
     );
     dialog.getContentPane().addMouseListener (
         new MouseAdapter() {
-          public void mousePressed  (MouseEvent _evt) {
+          @Override
+		public void mousePressed  (MouseEvent _evt) {
             if (getSimulation()!=null && OSPRuntime.isPopupTrigger(_evt)) { //) {SwingUtilities.isRightMouseButton(_evt) 
               getPopupMenu(_evt.getX(),_evt.getY());
             }
@@ -88,19 +96,26 @@ public class ControlDialog extends ControlWindow {
     return dialog.getContentPane();
   }
 
-  protected int getVisibleIndex () { return ControlWindow.WINDOW_VISIBLE+DIALOG_ADDED; }
-  protected int getLocationIndex () { return ControlWindow.WINDOW_LOCATION+DIALOG_ADDED; }
-  protected int getSizeIndex () { return ControlWindow.WINDOW_SIZE+DIALOG_ADDED; }
+  @Override
+protected int getVisibleIndex () { return ControlWindow.WINDOW_VISIBLE+DIALOG_ADDED; }
+  @Override
+protected int getLocationIndex () { return ControlWindow.WINDOW_LOCATION+DIALOG_ADDED; }
+  @Override
+protected int getSizeIndex () { return ControlWindow.WINDOW_SIZE+DIALOG_ADDED; }
 
-  public java.awt.Component getComponent () { return dialog; }
+  @Override
+public java.awt.Component getComponent () { return dialog; }
 
-  public java.awt.Container getContainer () { return dialog.getContentPane(); }
+  @Override
+public java.awt.Container getContainer () { return dialog.getContentPane(); }
 
-  public void add(final ControlElement _child) {
+  @Override
+public void add(final ControlElement _child) {
     if (! (_child.getVisual() instanceof JMenuBar)) { super.add(_child); return; }
     children.add(_child);
     SwingUtilities.invokeLater(new Runnable() {
-      public void run () { 
+      @Override
+	public void run () { 
         dialog.setJMenuBar(menubar = (JMenuBar) _child.getVisual());
         adjustSize();
       }
@@ -113,7 +128,8 @@ public class ControlDialog extends ControlWindow {
     propagateProperty (_child,"background",getPropagatedProperty("background"));
   }
 
-  public void remove(ControlElement _child) {
+  @Override
+public void remove(ControlElement _child) {
     if (! (_child.getVisual() instanceof JMenuBar)) { super.remove(_child); return; }
     children.remove(_child);
     ((ControlSwingElement) _child).setControlWindow (null);
@@ -129,7 +145,8 @@ public class ControlDialog extends ControlWindow {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("title");
@@ -141,7 +158,8 @@ public class ControlDialog extends ControlWindow {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("title"))     return "String TRANSLATABLE";
     if (_property.equals("resizable")) return "boolean";
     if (_property.equals("closable"))  return "boolean";
@@ -149,7 +167,8 @@ public class ControlDialog extends ControlWindow {
     return super.getPropertyInfo(_property);
   }
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : // title
         String ejsWindow = getProperty("_ejs_window_");
@@ -165,7 +184,8 @@ public class ControlDialog extends ControlWindow {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : // title
         String ejsWindow = getProperty("_ejs_window_");
@@ -179,7 +199,8 @@ public class ControlDialog extends ControlWindow {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "true";
@@ -189,7 +210,8 @@ public class ControlDialog extends ControlWindow {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
         return null;

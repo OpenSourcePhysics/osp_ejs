@@ -36,7 +36,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
   protected int indexOfxInAngleStr, indexOfyInAngleStr;
   protected int indexOfxInMagStr, indexOfyInMagStr;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     Drawable drawable = super.createDrawable();
     nx = ny = 0;
     variableX = "x";
@@ -57,7 +58,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("points1");
@@ -72,7 +74,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("minimumX")) return "min1";
     if (_property.equals("maximumX")) return "max1";
     if (_property.equals("minimumY")) return "min2";
@@ -80,7 +83,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("xcomponent")) return "String";
     if (_property.equals("ycomponent")) return "String";
     if (_property.equals("angles"))     return "String";
@@ -102,7 +106,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : nx = _value.getInteger(); break;
       case 1 : ny = _value.getInteger(); break;
@@ -147,7 +152,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
     if (isUnderEjs) preupdate();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : nx = 0; break;
         case 1 : ny = 0; break;
@@ -170,7 +176,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
       if (isUnderEjs) preupdate();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 :
       case 1 : return "0";
@@ -189,7 +196,8 @@ public class ControlAnalyticVectorField extends ControlVectorField {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 :

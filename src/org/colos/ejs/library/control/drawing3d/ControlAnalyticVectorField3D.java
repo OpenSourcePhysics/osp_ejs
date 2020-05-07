@@ -70,7 +70,8 @@ public class ControlAnalyticVectorField3D extends ControlVectorField3D implement
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("points1");
@@ -87,7 +88,8 @@ public class ControlAnalyticVectorField3D extends ControlVectorField3D implement
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     
     if (_property.equals("points1"))    return "int";
     if (_property.equals("points2"))    return "int";
@@ -116,7 +118,8 @@ public class ControlAnalyticVectorField3D extends ControlVectorField3D implement
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : nx = _value.getInteger(); break;
       case 1 : ny = _value.getInteger(); break;
@@ -159,7 +162,8 @@ public class ControlAnalyticVectorField3D extends ControlVectorField3D implement
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : nx = 5; break;
       case 1 : ny = 5; break;
@@ -194,7 +198,8 @@ public class ControlAnalyticVectorField3D extends ControlVectorField3D implement
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 :
       case 1 : 
@@ -218,7 +223,8 @@ public class ControlAnalyticVectorField3D extends ControlVectorField3D implement
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 : case 8 :
@@ -241,7 +247,8 @@ public class ControlAnalyticVectorField3D extends ControlVectorField3D implement
     return false;
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (!field.isVisible()) return; // save time
     if (nx<1 || ny<1 || nz<1) return;
     if (myParent==null) return;

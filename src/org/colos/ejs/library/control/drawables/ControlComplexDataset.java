@@ -26,7 +26,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
   protected Color reColor, imColor;
   protected int isSet = -1; // -1 not set, 0 = double, 1 = double[]
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     x = re = im = 0.0;
     reColor=Color.BLACK;
     imColor= Color.BLUE;
@@ -37,19 +38,23 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
     return dataset;
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     dataset.clear();
   }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
       dataset.clear();
   }
 
-  public void onExit () { // free memory
+  @Override
+public void onExit () { // free memory
      dataset.clear();
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (!enabled) return;
     switch (isSet) {
       case 0 :
@@ -70,7 +75,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("x");
@@ -94,7 +100,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("x"))       return "int|double|double[]";
     if (_property.equals("real"))    return "int|double|double[]";
     if (_property.equals("imag"))    return "int|double|double[]";
@@ -115,7 +122,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ComplexMarkerShape")>=0) {
       _value = _value.trim().toLowerCase();
@@ -132,7 +140,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
 // Variable properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
           if (_value.getObject() instanceof double[]) { xArray = (double[]) _value.getObject(); isSet = 1; }
@@ -164,7 +173,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
     case 0 : x  = 0.0; isSet = -1; break;
     case 1 : re = 0.0; isSet = -1; break;
@@ -187,7 +197,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 :
       case 1 :
@@ -208,7 +219,8 @@ public class ControlComplexDataset extends ControlDrawable implements org.colos.
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 :
       case 5 : case 6 : case 7 : case 8 : case 9 :

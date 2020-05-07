@@ -41,7 +41,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
     pat.addListener(this);
   }
 
-  protected abstract Drawable createDrawable ();
+  @Override
+protected abstract Drawable createDrawable ();
 
 // ------------------------------------------------
 // Definition of Properties
@@ -49,7 +50,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       // For the poligons
@@ -81,7 +83,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("angle")) return "rotationAngle";
     if (_property.equals("pressaction")) return "pressAction";
     if (_property.equals("dragaction"))  return "dragAction";
@@ -95,7 +98,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("type"))         return "int";
     if (_property.equals("angle"))        return "int|double";
     if (_property.equals("lineColor"))    return "Color|Object";
@@ -127,7 +131,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : pat.setType(_value.getInteger()); break;
       case 1 :
@@ -180,7 +185,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : pat.setType(0); break;
       case 1 : pat.setAngle(0.0); break;
@@ -210,7 +216,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0";
       case 1 : return "0";
@@ -239,7 +246,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case  0 : case  1 : case  2 : case  3 :
       case  4 : case  5 : case  FILLCOLOR2 : case  7 :
@@ -262,7 +270,8 @@ public abstract class ControlPoligonsAndTexts extends ControlGroupDrawable imple
     int[] getPosSpot ()  { return posSpot; }
     int getValueIndex ()  { return VALUE; }
 
-    @SuppressWarnings("fallthrough")
+    @Override
+	@SuppressWarnings("fallthrough")
     public void interactionPerformed(InteractionEvent _event) {
       switch (_event.getID()) {
         case InteractionEvent.MOUSE_EXITED :

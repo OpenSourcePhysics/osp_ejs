@@ -27,7 +27,8 @@ public abstract class ControlInteractiveTile extends ControlInteractiveElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("displacementFactor");
@@ -42,7 +43,8 @@ public abstract class ControlInteractiveTile extends ControlInteractiveElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("displacementFactor")) return "int|double";
     if (_property.equals("colorOrigin"))        return "double[]";
     if (_property.equals("colorDirection"))     return "double[]";
@@ -57,7 +59,8 @@ public abstract class ControlInteractiveTile extends ControlInteractiveElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case  0 : ((AbstractInteractiveTile) myElement).setDisplacementFactor(_value.getDouble()); break;
       case  1 :
@@ -103,7 +106,8 @@ public abstract class ControlInteractiveTile extends ControlInteractiveElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  0 : ((AbstractInteractiveTile) myElement).setDisplacementFactor(1.0); break;
       case  1 :
@@ -125,7 +129,8 @@ public abstract class ControlInteractiveTile extends ControlInteractiveElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  0 : return "1";
       case  1 : return "{0.0,0.0,0.0}";
@@ -138,7 +143,8 @@ public abstract class ControlInteractiveTile extends ControlInteractiveElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 : case 5 : case 6 : return null;
       default: return getValue (_index-7);

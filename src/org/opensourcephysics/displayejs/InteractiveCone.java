@@ -29,7 +29,8 @@ public class InteractiveCone extends InteractiveCylinder {
 //  Private or protected methods
 // -------------------------------------
 
-  protected synchronized void computeCorners () {
+  @Override
+protected synchronized void computeCorners () {
 //    System.out.println("Computing cone");
     double dx = sizex/2, dy = sizey/2, dz = sizez;
     int theNr = 1, theNu = 1, theNz = 1;

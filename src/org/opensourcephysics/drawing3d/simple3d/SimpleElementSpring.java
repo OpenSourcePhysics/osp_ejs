@@ -43,13 +43,15 @@ public class SimpleElementSpring extends SimpleElementSegment {
   // Implementation of SimpleElement
   // -------------------------------------
 
-  public void draw(Graphics2D _g2, int _index) {
+  @Override
+public void draw(Graphics2D _g2, int _index) {
     _g2.setStroke(style.getLineStroke());
     _g2.setColor(element.getPanel().projectColor(style.getLineColor(), objects[_index].getDistance()));
     _g2.drawLine(aCoord[_index], bCoord[_index], aCoord[_index+1], bCoord[_index+1]);
   }
 
-  public void drawQuickly(Graphics2D _g2) {
+  @Override
+public void drawQuickly(Graphics2D _g2) {
     _g2.setStroke(style.getLineStroke());
     _g2.setColor(style.getLineColor());
     _g2.drawPolyline(aCoord, bCoord, aCoord.length);

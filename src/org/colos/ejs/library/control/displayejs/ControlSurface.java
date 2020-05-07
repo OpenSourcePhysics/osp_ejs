@@ -19,7 +19,8 @@ public class ControlSurface extends ControlInteractiveTile {
   static final int MY_PRIMARY_COLOR=PRIMARY_COLOR+PROPERTIES_SURFACE;
   static final int MY_SECONDARY_COLOR=SECONDARY_COLOR+PROPERTIES_SURFACE;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     InteractiveSurface surface = new InteractiveSurface();
       // setDemoData (surface);
     surface.setOrigin(0,0,0,true);
@@ -27,7 +28,8 @@ public class ControlSurface extends ControlInteractiveTile {
     return surface;
   }
 
- protected int getPropertiesDisplacement () { return PROPERTIES_SURFACE; }
+ @Override
+protected int getPropertiesDisplacement () { return PROPERTIES_SURFACE; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -35,7 +37,8 @@ public class ControlSurface extends ControlInteractiveTile {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -44,13 +47,15 @@ public class ControlSurface extends ControlInteractiveTile {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))         return "double[][][]";
     return super.getPropertyInfo(_property);
   }
 
   // Backwards compatibility
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("linecolor")) return super.setProperty ("secondaryColor",_value);
     return super.setProperty(_property,_value);
@@ -60,7 +65,8 @@ public class ControlSurface extends ControlInteractiveTile {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getObject() instanceof double[][][]) ((InteractiveSurface) myElement).setData((double[][][])_value.getObject()); break;
       case MY_PRIMARY_COLOR   :
@@ -78,7 +84,8 @@ public class ControlSurface extends ControlInteractiveTile {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : ((InteractiveSurface) myElement).setData(null); /* setDemoData ((InteractiveSurface) myElement); */    break;
       case MY_PRIMARY_COLOR : myElement.getStyle().setFillPattern(java.awt.Color.blue); break;
@@ -87,7 +94,8 @@ public class ControlSurface extends ControlInteractiveTile {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case MY_PRIMARY_COLOR : return "BLUE";
@@ -96,7 +104,8 @@ public class ControlSurface extends ControlInteractiveTile {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return null;
       default: return getValue (_index-1);

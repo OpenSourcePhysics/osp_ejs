@@ -175,15 +175,18 @@ public class Radau5Light {
          * as approximation to the solution of system of equations.
          * @return array of vectors of increment to the current intermediate stages
          */
-        public double[][] getApproximation() {
+        @Override
+		public double[][] getApproximation() {
           return mIntermediateStagesIncrement;
         }
 
-        public double[] getComplexEigenvalues() {
+        @Override
+		public double[] getComplexEigenvalues() {
           return complexEigenvalues;
         }
 
-        public double[] getRealEigenvalues() {
+        @Override
+		public double[] getRealEigenvalues() {
           return realEigenvalues;
         }
 
@@ -192,7 +195,8 @@ public class Radau5Light {
          * stepSize in role of scalar multiplier value is returned
          * @return the scalar multiplier
          */
-        public double getScalarMultiplier() {
+        @Override
+		public double getScalarMultiplier() {
           return 1.0 / mActualStepSize;
         }
 
@@ -203,7 +207,8 @@ public class Radau5Light {
          * @param freeVariable the arguments vector
          * @param functionValue the result function vector
          */
-        public void evaluateNonLinearComponent(double[] freeVariable, double[] functionValue) {
+        @Override
+		public void evaluateNonLinearComponent(double[] freeVariable, double[] functionValue) {
           for (int i = 0; i < mDimension; i++)
             someState[i] = mState[i] + freeVariable[i];
           if (mDDE!=null) mWrapper.prepareStep(someState[mDimension-1], mDDE.getDelays(someState)); // hace falta?
@@ -217,7 +222,8 @@ public class Radau5Light {
          * @param freeVariable the arguments vector
          * @param jacobian the result jacobian matrix
          */
-        public void evaluateNonLinearComponentJacobian(double[] freeVariable, double[][] jacobian) {
+        @Override
+		public void evaluateNonLinearComponentJacobian(double[] freeVariable, double[][] jacobian) {
           System.arraycopy(mState, 0, someState, 0, mDimension);
           for(int i = 0; i < mDimension; i++) {
             double delta = Math.sqrt(uRound * Math.max(1.0e-5, Math.abs(mState[i])));
@@ -232,7 +238,8 @@ public class Radau5Light {
           mJacobianAge = 0;
         }
 
-        public void directChangeOfVariables(double[][] freeVariable, double[][] substitutedVariable) {
+        @Override
+		public void directChangeOfVariables(double[][] freeVariable, double[][] substitutedVariable) {
           for (int k = 0; k < mDimension; k ++)
             for (int i = 0; i < nStgs; i++){
               substitutedVariable[i][k] = 0;
@@ -241,7 +248,8 @@ public class Radau5Light {
             }
         }
 
-        public void inverseChangeOfVariables(double[][] substitutedVariable, double[][] freeVariable) {
+        @Override
+		public void inverseChangeOfVariables(double[][] substitutedVariable, double[][] freeVariable) {
           for (int k = 0; k < mDimension; k ++)
             for (int i = 0; i < nStgs; i++){
               freeVariable[i][k] = 0;
@@ -323,9 +331,11 @@ public class Radau5Light {
 
     public WrapperODE(ODE ode) { mODE = ode; }
 
-    public void prepareStep (double time, double[] delays) { } // Does nothing
+    @Override
+	public void prepareStep (double time, double[] delays) { } // Does nothing
 
-    public void evaluateRate(double[] state, double[] rate) { mODE.getRate(state, rate); }
+    @Override
+	public void evaluateRate(double[] state, double[] rate) { mODE.getRate(state, rate); }
   }
 
   static public class WrapperDDE implements Wrapper {
@@ -339,12 +349,14 @@ public class Radau5Light {
       mIntervals = new IntervalData[dde.getDelays(state).length];
     }
 
-    public void prepareStep (double time, double[] delays) {
+    @Override
+	public void prepareStep (double time, double[] delays) {
       //        if (delays.length!=mIntervals.length) mIntervals = new IntervalData[delays.length];
       for (int i=0; i<delays.length; i++) mIntervals[i] = mSolver.mStateMemory.findInterval(time-delays[i], false);
     }
 
-    public void evaluateRate(double[] state, double[] rate) {
+    @Override
+	public void evaluateRate(double[] state, double[] rate) {
       mDDE.getRate(state, mIntervals,rate);
     }
 

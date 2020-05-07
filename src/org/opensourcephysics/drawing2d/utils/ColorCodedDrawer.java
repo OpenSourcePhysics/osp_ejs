@@ -280,8 +280,8 @@ public class ColorCodedDrawer {
 			arrowB[3] = (int) (q0-a);
 			arrowA[4] = (int) p0;
 			arrowB[4] = (int) q0;
-			arrowA[5] = (int) xOrigin;
-			arrowB[5] = (int) yOrigin;
+			arrowA[5] = xOrigin;
+			arrowB[5] = yOrigin;
 			g2.setPaint(valueColor);
 			g2.fillPolygon(arrowA, arrowB, 5);
 			if (color!=null) g2.setColor(color);

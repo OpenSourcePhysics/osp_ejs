@@ -132,6 +132,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
 		} // Do nothing and keep quiet if it fails
 		update();
 		OSPRuntime.dispatchEventWait(new Runnable() {
+			@Override
 			public void run() {
 				createControl();
 			}
@@ -174,11 +175,13 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
 
 // ---------- Implementation of View -------------------
 
-  public void read() {
+  @Override
+public void read() {
     // Ejs requires no read(). Actually, having it might cause problems!
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("N10".equals(_variable)) {
       _model.N10 = getInt("N10"); // Variables.Stochastic Vars:1
@@ -321,7 +324,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
     }
   }
 
-  public void propagateValues () {
+  @Override
+public void propagateValues () {
     setValue ("_isPlaying",_simulation.isPlaying());
     setValue ("_isPaused", _simulation.isPaused());
     if(__N10_canBeChanged__) setValue("N10",_model.N10); // Variables.Stochastic Vars:1
@@ -357,7 +361,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
     if(__particleDiameter_canBeChanged__) setValue("particleDiameter",_model.particleDiameter); // Variables.Aux Vars:13
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("N10".equals(_variable)) __N10_canBeChanged__ = false; // Variables.Stochastic Vars:1
     if ("N20".equals(_variable)) __N20_canBeChanged__ = false; // Variables.Stochastic Vars:2
@@ -994,7 +999,8 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
 
 // ---------- Resetting the interface  -------------------
 
-  public void reset() {
+  @Override
+public void reset() {
     getElement("mainFrame")
       .setProperty("title","Three-State Radioactive Decay")
       .setProperty("visible","true");

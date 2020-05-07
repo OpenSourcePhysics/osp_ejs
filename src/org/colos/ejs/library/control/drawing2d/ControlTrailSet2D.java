@@ -22,14 +22,17 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
   private double[] x, y;
   private double[][] xArray=null, yArray=null;
 
-  protected int getPropertiesAddedToSet () { return PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return PROPERTIES_ADDED; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     Element el = new ElementTrail();
     return el;
   }
 
-  protected int setNumberOfElements(int newNumber) {
+  @Override
+protected int setNumberOfElements(int newNumber) {
     int number = super.setNumberOfElements(newNumber);
     x = new double[number];
     y = new double[number];
@@ -37,7 +40,8 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
   }
   
     
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
     super.copyAnElement(oldElement, newElement);
     ((ElementTrail)newElement).setMaximumPoints(((ElementTrail)oldElement).getMaximumPoints());
     ((ElementTrail)newElement).setConnectionType(((ElementTrail)oldElement).getConnectionType());
@@ -46,15 +50,18 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
     ((ElementTrail)newElement).setNoRepeat(((ElementTrail)oldElement).isNoRepeat());
   }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
     for (int i=0; i<elements.length; i++) ((ElementTrail)elements[i]).clear();
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     for (int i=0; i<elements.length; i++) ((ElementTrail)elements[i]).initialize();
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (isSet) {
       for (int i=0; i<elements.length; i++) {
         ElementTrail trail = (ElementTrail) elements[i];
@@ -97,7 +104,8 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
 
   static java.util.ArrayList<String> infoList=null;
 
-  public java.util.ArrayList<String> getPropertyList() {
+  @Override
+public java.util.ArrayList<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("maximumPoints");
@@ -118,7 +126,8 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("maximumPoints")) return "int|int[]";
     if (_property.equals("connected")) return "boolean|boolean[]";
     if (_property.equals("inputX")) return "int|double|double[]|double[][]";
@@ -151,7 +160,8 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
   //Set and Get the values of the properties
   //------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : 
         if (_value.getObject() instanceof int[]) {
@@ -273,7 +283,8 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : for (int i=0; i<elements.length; i++) ((ElementTrail)elements[i]).setMaximumPoints(0); break;
       case 1 : for (int i=0; i<elements.length; i++) ((ElementTrail)elements[i]).setConnectionType(ElementTrail.LINE_CONNECTION); break;
@@ -289,7 +300,8 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0";
       case 1 : return "true";
@@ -305,7 +317,8 @@ public class ControlTrailSet2D extends ControlSet2D implements org.colos.ejs.lib
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :

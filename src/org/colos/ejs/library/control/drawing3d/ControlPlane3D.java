@@ -20,11 +20,14 @@ public class ControlPlane3D extends ControlElement3D {
 
   private ElementPlane plane;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPlane"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPlane"; }
 
-  protected Element createElement () { return plane = new ElementPlane(); }
+  @Override
+protected Element createElement () { return plane = new ElementPlane(); }
 
-  protected int getPropertiesDisplacement () { return PLANE_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return PLANE_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -32,7 +35,8 @@ public class ControlPlane3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("firstDirection");
@@ -44,7 +48,8 @@ public class ControlPlane3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("firstDirection"))  return "double[]";
     if (_property.equals("secondDirection")) return "double[]";
     if (_property.equals("firstSize"))  return "int|double";
@@ -57,7 +62,8 @@ public class ControlPlane3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getObject() instanceof double[]) plane.setFirstDirection((double[]) _value.getObject());  break;
       case 1 : if (_value.getObject() instanceof double[]) plane.setSecondDirection((double[]) _value.getObject()); break;
@@ -68,7 +74,8 @@ public class ControlPlane3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : plane.setFirstDirection(new double[] {1,0,0});  break;
       case 1 : plane.setSecondDirection(new double[] {0,1,0}); break;
@@ -79,7 +86,8 @@ public class ControlPlane3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "new double[] {1,0,0}";
       case 1 : return "new double[] {0,1,0}";
@@ -89,7 +97,8 @@ public class ControlPlane3D extends ControlElement3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : return null;
       default: return super.getValue (_index-PLANE_PROPERTIES_ADDED);

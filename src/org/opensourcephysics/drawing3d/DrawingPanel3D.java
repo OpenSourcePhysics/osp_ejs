@@ -219,7 +219,8 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
 //      System.err.println ("The panel is not yet showing. Delaying it");
       canRender = false;
       firstTimeThread = new Thread(new Runnable() {
-        public void run () { 
+        @Override
+		public void run () { 
           while (!implementingPanel.getComponent().isShowing()) {
             try {
               Thread.sleep(10);
@@ -265,7 +266,8 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
     }
 
     getComponent().addComponentListener(new java.awt.event.ComponentAdapter() {
-      public void componentResized(java.awt.event.ComponentEvent e) { 
+      @Override
+	public void componentResized(java.awt.event.ComponentEvent e) { 
         computeConstants(getComponent().getWidth(), getComponent().getHeight());
         for (Element el : elementList) el.addChange(Element.CHANGE_PROJECTION);
         for (Element el : decoration.getElementList()) el.addChange(Element.CHANGE_PROJECTION);
@@ -281,8 +283,10 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
     getComponent().addMouseListener(mouseController);
     getComponent().addMouseMotionListener(mouseController);
     getComponent().addKeyListener(new java.awt.event.KeyAdapter() {
-      public void keyPressed(java.awt.event.KeyEvent _e)  { keyPressed = _e.getKeyCode(); }
-      public void keyReleased(java.awt.event.KeyEvent _e) { keyPressed = -1; }
+      @Override
+	public void keyPressed(java.awt.event.KeyEvent _e)  { keyPressed = _e.getKeyCode(); }
+      @Override
+	public void keyReleased(java.awt.event.KeyEvent _e) { keyPressed = -1; }
     });
     getComponent().setFocusable(true);
     getComponent().setPreferredSize(new Dimension(300, 300));
@@ -570,9 +574,11 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
 
   public boolean canRender() { return canRender; }
 
-  public BufferedImage render(BufferedImage image) { return implementingPanel.render(image); }
+  @Override
+public BufferedImage render(BufferedImage image) { return implementingPanel.render(image); }
 
-  public BufferedImage render() { return implementingPanel.render(); }
+  @Override
+public BufferedImage render() { return implementingPanel.render(); }
 
   public void update() { 
     if (canRender) implementingPanel.update(); 
@@ -582,11 +588,14 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
   // Implementation of InteractionSource
   // ---------------------------------
 
-  public InteractionTarget getInteractionTarget(int target) { return myTarget; }
+  @Override
+public InteractionTarget getInteractionTarget(int target) { return myTarget; }
 
-  public void addInteractionListener(InteractionListener listener) { listeners.add(listener); }
+  @Override
+public void addInteractionListener(InteractionListener listener) { listeners.add(listener); }
 
-  public void removeInteractionListener(InteractionListener listener) { listeners.remove(listener); }
+  @Override
+public void removeInteractionListener(InteractionListener listener) { listeners.remove(listener); }
 
   public void addImplementationChangeListener(ImplementationChangeListener listener) { implementationListeners.add(listener); }
 
@@ -1251,7 +1260,8 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
    */
   private class IADMouseController extends MouseInputAdapter {
 
-    public void mousePressed(MouseEvent _evt) {
+    @Override
+	public void mousePressed(MouseEvent _evt) {
       implementingPanel.getComponent().requestFocus();
       if (_evt.isPopupTrigger() || _evt.getModifiers() == InputEvent.BUTTON3_MASK) return;
       //         quickRedrawOn = visHints.isAllowQuickRedraw() || keyPressed==83;  // 's' is pressed
@@ -1300,7 +1310,8 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
       //         updatePanel();
     }
 
-    public void mouseReleased(MouseEvent _evt) {
+    @Override
+	public void mouseReleased(MouseEvent _evt) {
       if (_evt.isPopupTrigger() || _evt.getModifiers() == InputEvent.BUTTON3_MASK) return;
       if(targetHit!=null) {
         Element el = targetHit.getElement();
@@ -1320,7 +1331,8 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
       // setMouseCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
     }
 
-    public void mouseDragged(MouseEvent _evt) {
+    @Override
+	public void mouseDragged(MouseEvent _evt) {
       if (_evt.isPopupTrigger() || _evt.getModifiers() == InputEvent.BUTTON3_MASK) return;
       implementingPanel.setFastRedraw(visHints.isAllowQuickRedraw() && keyPressed!=83);
       if (targetHit!=null) { // Moving or sizing an element
@@ -1351,7 +1363,8 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
       implementingPanel.update();
     }
 
-    public void mouseEntered(MouseEvent _evt) {
+    @Override
+	public void mouseEntered(MouseEvent _evt) {
       setMouseCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
       if(myTarget.isEnabled()) {
         invokeActions(new InteractionEvent(DrawingPanel3D.this, InteractionEvent.MOUSE_ENTERED,
@@ -1360,7 +1373,8 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
       targetHit = targetEntered = null;
     }
 
-    public void mouseExited(MouseEvent _evt) {
+    @Override
+	public void mouseExited(MouseEvent _evt) {
       setMouseCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
       if(myTarget.isEnabled()) {
         invokeActions(new InteractionEvent(DrawingPanel3D.this, InteractionEvent.MOUSE_EXITED,
@@ -1369,11 +1383,13 @@ public class DrawingPanel3D implements InteractionSource, org.opensourcephysics.
       targetHit = targetEntered = null;
     }
 
-    public void mouseClicked(MouseEvent _evt) {
+    @Override
+	public void mouseClicked(MouseEvent _evt) {
       if (_evt.isMetaDown()){} //Right click
     }
 
-    public void mouseMoved(MouseEvent _evt) {
+    @Override
+	public void mouseMoved(MouseEvent _evt) {
       InteractionTarget target = getTargetHit(_evt.getX(), _evt.getY());
       if(target!=null) {
         if(targetEntered==null) {

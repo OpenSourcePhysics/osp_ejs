@@ -78,7 +78,8 @@ abstract public class ControlTransformation3D extends ControlElement implements 
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("name");
@@ -89,7 +90,8 @@ abstract public class ControlTransformation3D extends ControlElement implements 
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("name"))    return "String CONSTANT";
     if (_property.equals("parent"))  return "ControlElement CONSTANT";
     if (_property.equals("enabled"))  return "boolean";
@@ -100,7 +102,8 @@ abstract public class ControlTransformation3D extends ControlElement implements 
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case TR3D_NAME :
           super.setValue (ControlElement.NAME,_value); 
@@ -125,7 +128,8 @@ abstract public class ControlTransformation3D extends ControlElement implements 
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case TR3D_NAME : 
         super.setDefaultValue (ControlElement.NAME); 
@@ -139,7 +143,8 @@ abstract public class ControlTransformation3D extends ControlElement implements 
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case TR3D_NAME : 
       case TR3D_PARENT : return "<none>";
@@ -148,7 +153,8 @@ abstract public class ControlTransformation3D extends ControlElement implements 
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     return null;
   }
   
@@ -156,12 +162,16 @@ abstract public class ControlTransformation3D extends ControlElement implements 
 // Implementation of TransformationWrapper
 //------------------------------------------------
 
-  final public boolean isEnabled() { return enabled; }
+  @Override
+final public boolean isEnabled() { return enabled; }
   
-  final public void setEnabled(boolean _enabled) { this.enabled = _enabled; }
+  @Override
+final public void setEnabled(boolean _enabled) { this.enabled = _enabled; }
 
-  final public Transformation getTransformation() { return transformation; }
+  @Override
+final public Transformation getTransformation() { return transformation; }
 
-  abstract public Object clone();
+  @Override
+abstract public Object clone();
   
 } // End of interface

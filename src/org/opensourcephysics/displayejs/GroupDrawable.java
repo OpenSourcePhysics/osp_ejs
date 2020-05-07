@@ -48,23 +48,28 @@ public class GroupDrawable extends Group implements Interactive, Drawable3D, Mea
 //  Interaction
 // -----------------------------------------
 
-  public void setEnabled (boolean _enabled) {
+  @Override
+public void setEnabled (boolean _enabled) {
     for (Iterator<InteractiveElement> it = list.iterator(); it.hasNext(); ) it.next().setEnabled(_enabled);
   }
-  public boolean isEnabled () {
+  @Override
+public boolean isEnabled () {
     for (Iterator<InteractiveElement> it = list.iterator(); it.hasNext(); ) if (it.next().isEnabled()) return true;
     return false;
   }
 
-  public void setEnabled (int _target, boolean _enabled) {
+  @Override
+public void setEnabled (int _target, boolean _enabled) {
     for (Iterator<InteractiveElement> it = list.iterator(); it.hasNext(); ) it.next().setEnabled(_target, _enabled);
   }
-  public boolean isEnabled (int _target) {
+  @Override
+public boolean isEnabled (int _target) {
     for (Iterator<InteractiveElement> it = list.iterator(); it.hasNext(); ) if (it.next().isEnabled(_target)) return true;
     return false;
   }
 
-  public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix){
+  @Override
+public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix){
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) {
       InteractiveElement element = it.next();
       Interactive iad = element.findInteractive (_panel,_xpix,_ypix);
@@ -79,12 +84,14 @@ public class GroupDrawable extends Group implements Interactive, Drawable3D, Mea
 //  Implementation of Drawable3D
 // -----------------------------------------
 
-  public void needsToProject(DrawingPanel _panel) {
+  @Override
+public void needsToProject(DrawingPanel _panel) {
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) it.next().needsToProject(_panel);
   }
 
   /* Drawable3D */
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     list3D.clear();
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) {
       Object3D[] objects = it.next().getObjects3D(_panel);
@@ -94,15 +101,18 @@ public class GroupDrawable extends Group implements Interactive, Drawable3D, Mea
     return list3D.toArray(minimalObjects);
   }
 
-  public void draw (DrawingPanel3D _panel, java.awt.Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, java.awt.Graphics2D _g2, int _index) {
     System.out.println ("Group draw (i): I should not be called!");
   }
 
-  public void drawQuickly (DrawingPanel3D _panel, java.awt.Graphics2D _g2) {
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, java.awt.Graphics2D _g2) {
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) it.next().drawQuickly(_panel, _g2);
   }
 
-  public void draw (DrawingPanel _panel, java.awt.Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, java.awt.Graphics _g) {
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) it.next().draw(_panel, _g);
   }
 
@@ -110,33 +120,40 @@ public class GroupDrawable extends Group implements Interactive, Drawable3D, Mea
 //  Implementation of Measurable3D
 // -----------------------------------------
 
-  public boolean isMeasured () { return !list.isEmpty(); }
-  public double getXMin () {
+  @Override
+public boolean isMeasured () { return !list.isEmpty(); }
+  @Override
+public double getXMin () {
     double min = Double.MAX_VALUE;
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) min = Math.min(min,it.next().getXMin());
     return min;
   }
-  public double getXMax () {
+  @Override
+public double getXMax () {
     double max = -Double.MAX_VALUE;
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) max = Math.max(max,it.next().getXMax());
     return max;
   }
-  public double getYMin () {
+  @Override
+public double getYMin () {
     double min = Double.MAX_VALUE;
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) min = Math.min(min,it.next().getYMin());
     return min;
   }
-  public double getYMax () {
+  @Override
+public double getYMax () {
     double max = -Double.MAX_VALUE;
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) max = Math.max(max,it.next().getYMax());
     return max;
   }
-  public double getZMin () {
+  @Override
+public double getZMin () {
     double min = Double.MAX_VALUE;
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) min = Math.min(min,it.next().getZMin());
     return min;
   }
-  public double getZMax () {
+  @Override
+public double getZMax () {
     double max = -Double.MAX_VALUE;
     for (Iterator<InteractiveElement>  it = list.iterator(); it.hasNext(); ) max = Math.max(max,it.next().getZMax());
     return max;
@@ -148,16 +165,20 @@ public class GroupDrawable extends Group implements Interactive, Drawable3D, Mea
 
   private List<InteractionListener> listeners = new ArrayList<InteractionListener>();
 
-  public void addListener (InteractionListener _listener) {
+  @Override
+public void addListener (InteractionListener _listener) {
     if (_listener==null || listeners.contains(_listener)) return;
     listeners.add(_listener);
   }
 
-  public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
+  @Override
+public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
 
-  public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
+  @Override
+public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
 
-  public void invokeActions (InteractionEvent _event) {
+  @Override
+public void invokeActions (InteractionEvent _event) {
     Iterator<InteractionListener>  it = listeners.iterator();
     while(it.hasNext()) it.next().interactionPerformed (_event);
   }

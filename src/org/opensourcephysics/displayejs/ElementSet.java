@@ -181,13 +181,17 @@ public class ElementSet extends AbstractInteractionSource implements Interactive
     for (int i=0; i<n; i++) elements[i].setVisible(_vis[i]);
   }
 
-  public void setEnabled(boolean _enabled) { for (int i=0; i<numElements; i++) elements[i].setEnabled(_enabled); }
-  public boolean isEnabled() {
+  @Override
+public void setEnabled(boolean _enabled) { for (int i=0; i<numElements; i++) elements[i].setEnabled(_enabled); }
+  @Override
+public boolean isEnabled() {
     for (int i=0; i<numElements; i++) if (elements[i].isEnabled()) return true;
     return false;
   }
-  public void setEnabled(int _target, boolean _enabled) { for (int i=0; i<numElements; i++) elements[i].setEnabled(_target,_enabled); }
-  public boolean isEnabled(int _target) {
+  @Override
+public void setEnabled(int _target, boolean _enabled) { for (int i=0; i<numElements; i++) elements[i].setEnabled(_target,_enabled); }
+  @Override
+public boolean isEnabled(int _target) {
     for (int i=0; i<numElements; i++) if (elements[i].isEnabled(_target)) return true;
     return false;
   }
@@ -213,7 +217,8 @@ public class ElementSet extends AbstractInteractionSource implements Interactive
 
   public int getInteractedIndex() { return elementInteracted; }
 
-  public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix){
+  @Override
+public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix){
     for (int i=0; i<numElements; i++) {
       Interactive iad = elements[i].findInteractive (_panel,_xpix,_ypix);
       if (iad!=null) {
@@ -230,10 +235,12 @@ public class ElementSet extends AbstractInteractionSource implements Interactive
 //  Implementation of interfaces
 // -----------------------------------------
 
-  public void needsToProject(DrawingPanel _panel) { for (int i=0; i<numElements; i++) elements[i].needsToProject(_panel); }
+  @Override
+public void needsToProject(DrawingPanel _panel) { for (int i=0; i<numElements; i++) elements[i].needsToProject(_panel); }
 
   /* Drawable3D */
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (numElements<=0) return null;
     list3D.clear();
     for (int i=0; i<numElements; i++) {
@@ -244,16 +251,19 @@ public class ElementSet extends AbstractInteractionSource implements Interactive
     return list3D.toArray(minimalObjects);
   }
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     System.out.println ("ElementSet draw (i): I should not be called!");
   }
 
-  public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
     // Reverse order so that interaction is more natural
     for (int i=numElements-1; i>=0; i--) elements[i].drawQuickly(_panel, _g2);
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     //System.out.println ("Drawing "+numElements);
     // Reverse order so that interaction is more natural
     for (int i=numElements-1; i>=0; i--) elements[i].draw(_panel, _g);
@@ -267,43 +277,55 @@ public class ElementSet extends AbstractInteractionSource implements Interactive
    */
   public void canBeMeasured (boolean _canBe) { this.canBeMeasured = _canBe; }
 
-  final public boolean isMeasured () { return (numElements > 0) && canBeMeasured; }
+  @Override
+final public boolean isMeasured () { return (numElements > 0) && canBeMeasured; }
   
-  public double getXMin () {
+  @Override
+public double getXMin () {
     double min = Double.MAX_VALUE, aux;
     for (int i=0; i<numElements; i++) if ((aux=elements[i].getXMin())<min) min = aux;
     return min;
   }
-  public double getXMax () {
+  @Override
+public double getXMax () {
     double max = -Double.MAX_VALUE, aux;
     for (int i=0; i<numElements; i++) if ((aux=elements[i].getXMax())>max) max = aux;
     return max;
   }
-  public double getYMin () {
+  @Override
+public double getYMin () {
     double min = Double.MAX_VALUE, aux;
     for (int i=0; i<numElements; i++) if ((aux=elements[i].getYMin())<min) min = aux;
     return min;
   }
-  public double getYMax () {
+  @Override
+public double getYMax () {
     double max = -Double.MAX_VALUE, aux;
     for (int i=0; i<numElements; i++) if ((aux=elements[i].getYMax())>max) max = aux;
     return max;
   }
-  public double getZMin () {
+  @Override
+public double getZMin () {
     double min = Double.MAX_VALUE, aux;
     for (int i=0; i<numElements; i++) if ((aux=elements[i].getZMin())<min) min = aux;
     return min;
   }
-  public double getZMax () {
+  @Override
+public double getZMax () {
     double max = -Double.MAX_VALUE, aux;
     for (int i=0; i<numElements; i++) if ((aux=elements[i].getZMax())>max) max = aux;
     return max;
   }
   /* A dummy interactive  */
-   public void setXY(double _x, double _y) { }
-   public void setX(double _x){ }
-   public void setY(double _y){ }
-   public double getX(){ return Double.NaN; }
-   public double getY(){ return Double.NaN; }
+   @Override
+public void setXY(double _x, double _y) { }
+   @Override
+public void setX(double _x){ }
+   @Override
+public void setY(double _y){ }
+   @Override
+public double getX(){ return Double.NaN; }
+   @Override
+public double getY(){ return Double.NaN; }
 
 }

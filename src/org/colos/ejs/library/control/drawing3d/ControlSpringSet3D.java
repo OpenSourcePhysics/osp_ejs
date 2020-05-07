@@ -15,13 +15,16 @@ import org.opensourcephysics.drawing3d.*;
 public class ControlSpringSet3D extends ControlSet3D {
   static final private int SPRINGSET_PROPERTIES_ADDED=1;
 
-  protected int getPropertiesAddedToSet () { return SPRINGSET_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return SPRINGSET_PROPERTIES_ADDED; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     return new ElementSpring();
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
       super.copyAnElement(oldElement,newElement);
       ((ElementSpring)newElement).setRadius(((ElementSpring)oldElement).getRadius());
       ((ElementSpring)newElement).setSolenoid(((ElementSpring)oldElement).getSolenoid());
@@ -35,7 +38,8 @@ public class ControlSpringSet3D extends ControlSet3D {
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("radius");
@@ -49,7 +53,8 @@ public class ControlSpringSet3D extends ControlSet3D {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("radius"))          return "int|double|double[]";
       if (_property.equals("solenoid"))        return "int|double|double[]";
       if (_property.equals("thinExtremes"))    return "boolean|boolean[]";
@@ -63,7 +68,8 @@ public class ControlSpringSet3D extends ControlSet3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 : 
           if (_value.getObject() instanceof double[]) {
@@ -132,7 +138,8 @@ public class ControlSpringSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : for (int i=0; i<numElements; i++) ((ElementSpring)elements[i]).setRadius(ElementSpring.DEF_RADIUS); break;
         case 1 : for (int i=0; i<numElements; i++) ((ElementSpring)elements[i]).setSolenoid(0.0); break;
@@ -152,7 +159,8 @@ public class ControlSpringSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
    }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return Double.toString(ElementSpring.DEF_RADIUS);
         case 1 : return "0.0";
@@ -163,7 +171,8 @@ public class ControlSpringSet3D extends ControlSet3D {
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 : case 4 : 
           return null;

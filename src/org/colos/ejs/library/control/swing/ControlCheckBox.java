@@ -33,13 +33,15 @@ public class ControlCheckBox extends ControlSwingElement {
   protected int getVariableIndex () { return ControlCheckBox.VARIABLE; }
   protected int getValueIndex () { return ControlCheckBox.SELECTED; }
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     checkbox = new JCheckBox ();
     defaultStateSet = false;
     internalValue = new BooleanValue(defaultState=checkbox.isSelected());
     checkbox.addActionListener (
       new java.awt.event.ActionListener() {
-        public void actionPerformed (java.awt.event.ActionEvent _e) {
+        @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) {
           setInternalValue (checkbox.isSelected());
           if (isUnderEjs) setFieldListValueWithAlternative(getVariableIndex(), getValueIndex(),internalValue);
         }
@@ -48,7 +50,8 @@ public class ControlCheckBox extends ControlSwingElement {
     return checkbox;
   }
 
-  public void reset() {
+  @Override
+public void reset() {
     if (defaultStateSet) {
       checkbox.setSelected(defaultState);
       setInternalValue (defaultState); // This can cause cyclic behaviour
@@ -71,7 +74,8 @@ public class ControlCheckBox extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("text");
@@ -89,7 +93,8 @@ public class ControlCheckBox extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("text"))           return "String NotTrimmed TRANSLATABLE";
     if (_property.equals("image"))          return "File|String TRANSLATABLE";
     if (_property.equals("selectedimage"))  return "File|String TRANSLATABLE";
@@ -107,6 +112,7 @@ public class ControlCheckBox extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
+	@Override
 	public void setValue(int _index, Value _value) {
 		switch (_index) {
 		case 0:
@@ -161,7 +167,8 @@ public class ControlCheckBox extends ControlSwingElement {
 		}
 	}
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : checkbox.setText(labelString = ""); break;
       case 1 : checkbox.setIcon(null); imageFile=null; break;
@@ -177,7 +184,8 @@ public class ControlCheckBox extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case VARIABLE : return internalValue;
       case 0 : case 1 : case 2 : case 3 :
@@ -188,7 +196,8 @@ public class ControlCheckBox extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : 
       case 1 : 

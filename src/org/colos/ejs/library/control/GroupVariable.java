@@ -39,7 +39,8 @@ public class GroupVariable {
 
   public String getName () { return name; }
 
-  public String toString() { return name; }
+  @Override
+public String toString() { return name; }
 
   public void setValue (Value _aValue) {
     // This can be optimized by removing the check

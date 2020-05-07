@@ -64,7 +64,8 @@ public abstract class ControlDrawable extends ControlElement {
   }
   final public ControlParentOfDrawables getParent () { return myParent; }
   
-  public void destroy () {
+  @Override
+public void destroy () {
     super.destroy();
     if (myParent instanceof ControlDrawablesParent) ((ControlDrawablesParent) myParent).getDrawingPanel().render();
   }
@@ -75,7 +76,8 @@ public abstract class ControlDrawable extends ControlElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("name");
@@ -85,7 +87,8 @@ public abstract class ControlDrawable extends ControlElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("name"))     return "String CONSTANT";
     if (_property.equals("parent"))   return "ControlElement CONSTANT";
     if (_property.equals("menuName")) return "String TRANSLATABLE";
@@ -104,7 +107,8 @@ public abstract class ControlDrawable extends ControlElement {
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case DRAWABLE_NAME : setName (_value.getString()); super.setValue (ControlElement.NAME,_value); break;
       case PARENT :
@@ -124,7 +128,8 @@ public abstract class ControlDrawable extends ControlElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case DRAWABLE_NAME : setName (""); super.setDefaultValue (ControlElement.NAME); break;
       case PARENT :
@@ -139,7 +144,8 @@ public abstract class ControlDrawable extends ControlElement {
   }
 
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case DRAWABLE_NAME : return "";
       case PARENT : return "null";
@@ -148,7 +154,8 @@ public abstract class ControlDrawable extends ControlElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       default: return null;
     }

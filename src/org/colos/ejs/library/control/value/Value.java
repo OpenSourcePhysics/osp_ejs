@@ -124,7 +124,8 @@ public abstract class Value {
     return null;
   }
 
-  public String  toString()  { return getString(); }
+  @Override
+public String  toString()  { return getString(); }
 
   static public Value parseConstantOrArray (String _input, boolean _silentMode) {
     String inputTrimmed = _input.trim();

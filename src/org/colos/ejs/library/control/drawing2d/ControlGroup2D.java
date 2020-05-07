@@ -21,17 +21,21 @@ import org.opensourcephysics.drawing2d.*;
 public class ControlGroup2D extends ControlElement2D implements NeedsPreUpdate, ControlParentOfDrawables {
   private Group group;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.Group"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.Group"; }
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     return group = new Group();
   }
 
   final Group getGroup2D () { return group; }
   
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child instanceof ControlElement2D) return true;
     return false;
   }
@@ -43,28 +47,35 @@ public class ControlGroup2D extends ControlElement2D implements NeedsPreUpdate, 
    // List of children that need to do something before repainting the panel
    private Vector<NeedsPreUpdate> preupdateList = new Vector<NeedsPreUpdate>();
 
-   public DrawingPanel getDrawingPanel() { return (DrawingPanel) group.getPanel().getComponent(); }
+   @Override
+public DrawingPanel getDrawingPanel() { return (DrawingPanel) group.getPanel().getComponent(); }
    
-   public void preupdate () { // Pass it over to children
+   @Override
+public void preupdate () { // Pass it over to children
      for (Enumeration<NeedsPreUpdate> e=preupdateList.elements(); e.hasMoreElements(); ) e.nextElement().preupdate();
    }
 
-   public void addToPreupdateList (NeedsPreUpdate _child) { preupdateList.add(_child); }
+   @Override
+public void addToPreupdateList (NeedsPreUpdate _child) { preupdateList.add(_child); }
 
-   public void removeFromPreupdateList (NeedsPreUpdate _child) { preupdateList.remove(_child); }
+   @Override
+public void removeFromPreupdateList (NeedsPreUpdate _child) { preupdateList.remove(_child); }
 
-   public void addDrawable (Drawable _element) { 
+   @Override
+public void addDrawable (Drawable _element) { 
      group.addElement((Element)_element); 
      if (isUnderEjs && group.getPanel()!=null) getDrawingPanel().render();
    }
 
-   public void addDrawableAtIndex(int _index, Drawable _element) { 
+   @Override
+public void addDrawableAtIndex(int _index, Drawable _element) { 
      group.addElementAtIndex(_index,(Element)_element);
      if (isUnderEjs && group.getPanel()!=null) getDrawingPanel().render();
    }
 
    
-   public void removeDrawable (Drawable _element) { 
+   @Override
+public void removeDrawable (Drawable _element) { 
      group.removeElement((Element)_element);
      if (isUnderEjs && group.getPanel()!=null) getDrawingPanel().render();
    }

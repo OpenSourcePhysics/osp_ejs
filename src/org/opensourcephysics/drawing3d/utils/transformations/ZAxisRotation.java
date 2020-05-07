@@ -28,7 +28,8 @@ public class ZAxisRotation extends AxisRotation {
   /**
    * Provides a copy of this transformation.
    */
-  public Object clone() {
+  @Override
+public Object clone() {
     ZAxisRotation m = new ZAxisRotation();
     m.setAngle(angle);
     m.origin = origin.clone();

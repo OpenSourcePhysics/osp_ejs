@@ -39,13 +39,15 @@ public class Bootstrap2IntervalData extends BootstrapIntervalData {
     prepareSecondBootstrap(); // this must be done here or there can be conflicts when asking for interpolation
   }
 
-  public double interpolate(double time, int index) {
+  @Override
+public double interpolate(double time, int index) {
     double step = (time - mLeft)/mDeltaTime;
 //    if (!mBootStrap2Ready) prepareSecondBootstrap();
     return mLeftState[index] + step*(mDeltaTime*mLeftRate[index] + step*(bt2_c2[index] + step*(bt2_c3[index] + step*(bt2_c4[index]+step*bt2_c5[index]))));
   }
 
-  public double[] interpolate(double time, double[] state, int beginIndex, int length) {
+  @Override
+public double[] interpolate(double time, double[] state, int beginIndex, int length) {
     bootstrap2((time - mLeft)/mDeltaTime, state, beginIndex, length);
     return state;
   }

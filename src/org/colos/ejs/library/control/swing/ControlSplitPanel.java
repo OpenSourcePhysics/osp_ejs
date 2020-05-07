@@ -23,16 +23,19 @@ public class ControlSplitPanel extends ControlContainer {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
       splitpanel = new JSplitPane ();
       splitpanel.setOneTouchExpandable(true);
       splitpanel.setDividerLocation(-1);
     return splitpanel;
   }
 
-  public void reset() { splitpanel.setDividerLocation(-1); }
+  @Override
+public void reset() { splitpanel.setDividerLocation(-1); }
 
-  public void add(ControlElement _child) {
+  @Override
+public void add(ControlElement _child) {
     if (hasOne) {
       splitpanel.setBottomComponent(_child.getComponent());
       splitpanel.setDividerLocation(-1);
@@ -54,7 +57,8 @@ public class ControlSplitPanel extends ControlContainer {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("orientation");
@@ -64,12 +68,14 @@ public class ControlSplitPanel extends ControlContainer {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("orientation"))    return "Orientation|int";
     if (_property.equals("expandable"))     return "boolean";
     return super.getPropertyInfo(_property);
   }
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("Orientation")>=0) {
       _value = _value.trim().toLowerCase();
@@ -83,7 +89,8 @@ public class ControlSplitPanel extends ControlContainer {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if (splitpanel.getOrientation()!=_value.getInteger()) splitpanel.setOrientation(_value.getInteger());
@@ -93,7 +100,8 @@ public class ControlSplitPanel extends ControlContainer {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : splitpanel.setOrientation(JSplitPane.HORIZONTAL_SPLIT); break;
       case 1 : splitpanel.setOneTouchExpandable(true); break;
@@ -101,7 +109,8 @@ public class ControlSplitPanel extends ControlContainer {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "HORIZONTAL";
       case 1 : return "true";
@@ -109,7 +118,8 @@ public class ControlSplitPanel extends ControlContainer {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 :
       case 1 :

@@ -50,7 +50,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("points1");
@@ -66,7 +67,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("minimumX")) return "min1";
     if (_property.equals("maximumX")) return "max1";
     if (_property.equals("minimumY")) return "min2";
@@ -74,7 +76,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("z"))             return "String";
 
     if (_property.equals("points1"))    return "int";
@@ -90,7 +93,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("CoordinateSystem")>=0) {
       _value = _value.trim().toLowerCase();
@@ -104,7 +108,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : nx = _value.getInteger(); break;
       case 1 : ny = _value.getInteger(); break;
@@ -145,7 +150,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : nx = 0; break;
         case 1 : ny = 0; break;
@@ -168,7 +174,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 :
       case 1 : return "0";
@@ -184,7 +191,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :
@@ -206,7 +214,8 @@ public class ControlAnalyticScalarField extends ControlScalarField {
     return false;
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (!visibility) return;
     if (myParent==null) return;
     DrawingPanel panel = myParent.getDrawingPanel();

@@ -76,7 +76,8 @@ public class Dopri5 extends AbstractAdaptiveRKSolverInterpolator {
     // Done already
   }
 
-  protected double[] computeIntermediateStep(double _step, double[] _state) {
+  @Override
+protected double[] computeIntermediateStep(double _step, double[] _state) {
     for (int i=0; i<dimension; i++) _state[i] = initialState[i]+_step*A_11*initialRate[i];
     ode.getRate(_state, rate2);
     for (int i=0; i<dimension; i++) _state[i] = initialState[i]+_step*(A_21*initialRate[i]+A_22*rate2[i]);
@@ -94,7 +95,8 @@ public class Dopri5 extends AbstractAdaptiveRKSolverInterpolator {
     return _state;
   }
  
-  public double[] interpolate(double _time, boolean useLeftApproximation, double[] _state) {
+  @Override
+public double[] interpolate(double _time, boolean useLeftApproximation, double[] _state) {
 //    if (_time==initialTime) {
 //      System.arraycopy(initialState, 0, _state, 0, dimension);
 //      return _state;

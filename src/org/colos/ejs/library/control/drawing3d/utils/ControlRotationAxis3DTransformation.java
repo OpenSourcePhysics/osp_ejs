@@ -32,7 +32,8 @@ public class ControlRotationAxis3DTransformation extends ControlRotation3DTransf
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("position"); // backwards compatibility
@@ -42,13 +43,15 @@ public class ControlRotationAxis3DTransformation extends ControlRotation3DTransf
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("position"))  return "double[]";
     if (_property.equals("axis"))  return "int[]|double[]";
     return super.getPropertyInfo(_property);
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("position")) return "origin";
     return super.getPropertyCommonName(_property);
   }
@@ -57,7 +60,8 @@ public class ControlRotationAxis3DTransformation extends ControlRotation3DTransf
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : super.setValue(ControlRotation3DTransformation.ORIGIN, _value); break; // pass it over to "origin" 
       case 1 : 
@@ -77,7 +81,8 @@ public class ControlRotationAxis3DTransformation extends ControlRotation3DTransf
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : super.setDefaultValue(ControlRotation3DTransformation.ORIGIN); break;
       case 1 : axisRotation.setAxis(new double[]{1.0,0.0,0.0}); break;
@@ -86,7 +91,8 @@ public class ControlRotationAxis3DTransformation extends ControlRotation3DTransf
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return super.getDefaultValueString(ControlRotation3DTransformation.ORIGIN);
       case 1 : return "new double[]{1,0,0}";
@@ -94,7 +100,8 @@ public class ControlRotationAxis3DTransformation extends ControlRotation3DTransf
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : 
         return null;
@@ -106,7 +113,8 @@ public class ControlRotationAxis3DTransformation extends ControlRotation3DTransf
 // Implementation of Transformation
 //------------------------------------------------
 
-  public Object clone() {
+  @Override
+public Object clone() {
     ControlRotationAxis3DTransformation ct = new ControlRotationAxis3DTransformation();
     ct.enabled = this.enabled;
     ct.transformation = (Matrix3DTransformation) this.transformation.clone();

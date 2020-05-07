@@ -46,7 +46,8 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
     div = -1;
   }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveArrow) {
       InteractiveArrow old = (InteractiveArrow) _element;
@@ -72,7 +73,8 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
 // Implementation of Interactive and Drawable3D
 // ----------------------------------------------
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible) return null;
     if (hasChanged) { computeDivisions(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
@@ -83,7 +85,8 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
     return null;
    }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!visible) return null;
 //    if (!hideLines) { hasChanged = true; hideLines = true; }
     if (hasChanged) { computeDivisions(); projectPoints(_panel); }
@@ -91,7 +94,8 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
     return objects;
   }
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     // Allow the panel to adjust color according to depth
     Color theColor = _panel.projectColor(style.edgeColor,objects[_index].distance);
     if (_index<(div-1) || arrowType==SEGMENT) {
@@ -107,7 +111,8 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
     drawHead (_panel,_g2,aCoord[_index],bCoord[_index],theColor,theFillPattern);
   }
 
-  public synchronized void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
+  @Override
+public synchronized void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
     if (!visible) return;
 //    if (hideLines) { hasChanged = true; hideLines = false; }
     if (hasChanged) { computeDivisions(); projectPoints(_panel); }
@@ -115,7 +120,8 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
     drawHead (_panel,_g2,aCoord[0], bCoord[0],style.edgeColor,style.fillPattern);
   }
 
-  public synchronized void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public synchronized void draw (DrawingPanel _panel, Graphics _g) {
     if (!visible) return;
 //    if (hideLines) { hasChanged = true; hideLines = false; }
     if (hasChanged) { computeDivisions(); projectPoints(_panel); }
@@ -129,24 +135,28 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
 // Implementation of Body
 // ----------------------------------------------
 
-  public void setOrigin (double ox, double oy, double oz, boolean relativeToSize) {
+  @Override
+public void setOrigin (double ox, double oy, double oz, boolean relativeToSize) {
     originx = ox; originy = oy; originz = oz;
     originIsRelative = relativeToSize;
     hasChanged = true;
   }
 
-  public void setTransformation (Transformation transformation) {
+  @Override
+public void setTransformation (Transformation transformation) {
     if (transformation==null) this.transformation = null;
     else this.transformation = (Transformation) transformation.clone();
     hasChanged = true;
   }
 
-  public void toSpaceFrame (double[] vector) {
+  @Override
+public void toSpaceFrame (double[] vector) {
     if (transformation!=null) transformation.direct(vector);
     vector[0] += x; vector[1] += y; vector[2] += z;
   }
 
-  public void toBodyFrame (double[] vector) throws UnsupportedOperationException {
+  @Override
+public void toBodyFrame (double[] vector) throws UnsupportedOperationException {
     vector[0] -= x; vector[1] -= y; vector[2] -= z;
     if (transformation!=null) transformation.inverse(vector);
   }
@@ -156,12 +166,18 @@ public class InteractiveArrow extends AbstractInteractiveElement implements Body
 // Implementation of Measured3D
 // -------------------------------------
 
-  public double getXMin () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(xmin)) computeExtrema(); return xmin; }
-  public double getXMax () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(xmax)) computeExtrema(); return xmax; }
-  public double getYMin () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(ymin)) computeExtrema(); return ymin; }
-  public double getYMax () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(ymax)) computeExtrema(); return ymax; }
-  public double getZMin () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(zmin)) computeExtrema(); return zmin; }
-  public double getZMax () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(zmax)) computeExtrema(); return zmax; }
+  @Override
+public double getXMin () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(xmin)) computeExtrema(); return xmin; }
+  @Override
+public double getXMax () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(xmax)) computeExtrema(); return xmax; }
+  @Override
+public double getYMin () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(ymin)) computeExtrema(); return ymin; }
+  @Override
+public double getYMax () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(ymax)) computeExtrema(); return ymax; }
+  @Override
+public double getZMin () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(zmin)) computeExtrema(); return zmin; }
+  @Override
+public double getZMax () { if (hasChanged) { computeDivisions(); computeExtrema(); } else if (Double.isNaN(zmax)) computeExtrema(); return zmax; }
 
 /*
   public double getXMin () {

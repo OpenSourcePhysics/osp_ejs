@@ -21,7 +21,8 @@ public class ControlPump extends ControlPoligonsAndTexts {
 
   protected Pump pump;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     return pump = new Pump();
   }
 
@@ -31,7 +32,8 @@ public class ControlPump extends ControlPoligonsAndTexts {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       // For the poligons
@@ -41,13 +43,15 @@ public class ControlPump extends ControlPoligonsAndTexts {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("rotorAngle"))     return "int|double";
     if (_property.equals("type"))           return "int|PumpType";
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("PumpType")>=0) {
       _value = _value.trim().toLowerCase();
@@ -61,7 +65,8 @@ public class ControlPump extends ControlPoligonsAndTexts {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 :
           if (_value instanceof IntegerValue) pump.setRotorAngle(_value.getInteger()*ControlDrawingPanel3D.TO_RAD);
@@ -71,7 +76,8 @@ public class ControlPump extends ControlPoligonsAndTexts {
       }
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : pump.setRotorAngle(Double.NaN); break;
         default: super.setDefaultValue(_index-PUMP_ADDED); break;
@@ -79,7 +85,8 @@ public class ControlPump extends ControlPoligonsAndTexts {
       }
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "NaN";
         default : return super.getDefaultValueString(_index-PUMP_ADDED);
@@ -87,7 +94,8 @@ public class ControlPump extends ControlPoligonsAndTexts {
       }
    }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case  0 :
           return null;
@@ -102,7 +110,9 @@ public class ControlPump extends ControlPoligonsAndTexts {
     static private final int[] posSpot = {POSITION_X+PAT_ADDED+PUMP_ADDED,
                                           POSITION_Y+PAT_ADDED+PUMP_ADDED,
                                           POSITION_Z+PAT_ADDED+PUMP_ADDED};
-    int[] getPosSpot ()  { return posSpot; }
-    int getValueIndex ()  { return VALUE+PUMP_ADDED; }
+    @Override
+	int[] getPosSpot ()  { return posSpot; }
+    @Override
+	int getValueIndex ()  { return VALUE+PUMP_ADDED; }
 
 } // End of class

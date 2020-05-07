@@ -63,9 +63,11 @@ public class InteractiveTrace extends AbstractInteractiveElement implements Data
   }
 
   public void setName (String _name) { this.name = _name; }
-  public String getName () { return this.name; }
+  @Override
+public String getName () { return this.name; }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveTrace) {
       setMaximumPoints(((InteractiveTrace)_element).getMaximumPoints());
@@ -295,7 +297,8 @@ public class InteractiveTrace extends AbstractInteractiveElement implements Data
    *
    * @param id the ID number
    */
-  public void setID(int id) {
+  @Override
+public void setID(int id) {
     datasetID = id;
   }
 
@@ -304,11 +307,13 @@ public class InteractiveTrace extends AbstractInteractiveElement implements Data
    *
    * @return the ID number
    */
-  public int getID() {
+  @Override
+public int getID() {
     return datasetID;
   }
 
-  public double[][] getData2D() {
+  @Override
+public double[][] getData2D() {
     double[][] data;
     synchronized(list) {
       int n = list.size();
@@ -342,26 +347,32 @@ public class InteractiveTrace extends AbstractInteractiveElement implements Data
     return data;
   }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() { 
+  @Override
+public String[] getColumnNames() { 
     return showZ ? new String[]{xLabel, yLabel, zLabel} : new String[]{xLabel, yLabel};
   }
 
-  public Color[] getLineColors() { 
+  @Override
+public Color[] getLineColors() { 
     return new Color[] { Color.BLACK, getStyle().getEdgeColor()}; 
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     Color fillColor;
     if (getStyle().getFillPattern() instanceof Color) fillColor = (Color) getStyle().getFillPattern();
     else  fillColor = new Color (125,125,125);
     return new Color[] { Color.BLACK, fillColor};
   }
   
-  public java.util.List<Data> getDataList() { return null; }
+  @Override
+public java.util.List<Data> getDataList() { return null; }
 
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; }
   
 //    if (dataset==null) dataset = new Dataset();
 //    else dataset.clear();
@@ -395,7 +406,8 @@ public class InteractiveTrace extends AbstractInteractiveElement implements Data
 // Implementation of Drawable3D
 // -------------------------------------
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible)return null;
     if (_panel instanceof DrawingPanel3D) {
       if (hasChanged || _panel != panelWithValidProjection) projectPoints(_panel, true);
@@ -428,14 +440,16 @@ public class InteractiveTrace extends AbstractInteractiveElement implements Data
     return null;
   }
 
-  public Object3D[] getObjects3D (DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D (DrawingPanel3D _panel) {
     if (list.size()<=0 || !visible) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints(_panel,true);
     else if (pointsNotProjected>0) projectPoints(_panel,false);
     return displayList.toArray(minimalObjects);
   }
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g, int _index) {
     try {
       OnePoint onePoint = displayList.get(_index);
       Color theColor = _panel.projectColor(onePoint.pointStyle.edgeColor, onePoint.distance);
@@ -466,7 +480,8 @@ public class InteractiveTrace extends AbstractInteractiveElement implements Data
     } catch (Exception _e) { } // Ignore it
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (list.size()<=0 || !visible) return;
 //    if (pointsNotProjected>0 || hasChanged || _panel!=panelWithValidProjection)
     projectPoints(_panel,true);
@@ -677,6 +692,7 @@ private class OnePoint extends Object3D {
 //Implementation of LogMeasurable
 //-------------------------------------
 
+@Override
 public double getXMinLogscale(){
   double min = Double.MAX_VALUE;
   synchronized(list) {
@@ -701,6 +717,7 @@ public double getXMinLogscale(){
   return group.x + (x + min*sizex)*group.sizex;
 }
 
+@Override
 public double getXMaxLogscale(){
   double max = -Double.MAX_VALUE;
   synchronized(list) {
@@ -725,6 +742,7 @@ public double getXMaxLogscale(){
   return group.x + (x + max*sizex)*group.sizex;
 }
 
+@Override
 public double getYMinLogscale(){
   double min = Double.MAX_VALUE;
   synchronized(list) {
@@ -749,6 +767,7 @@ public double getYMinLogscale(){
   return group.y + (y + min*sizey)*group.sizey;
 }
 
+@Override
 public double getYMaxLogscale(){
   double max = -Double.MAX_VALUE;
   synchronized(list) {
@@ -777,9 +796,11 @@ public double getYMaxLogscale(){
 // Implementation of Measured3D
 // -------------------------------------
 
-  public boolean isMeasured () { return canBeMeasured && visible && !list.isEmpty();  }
+  @Override
+public boolean isMeasured () { return canBeMeasured && visible && !list.isEmpty();  }
 
-  public double getXMin () {
+  @Override
+public double getXMin () {
     double min = Double.MAX_VALUE;
     synchronized(list) {
       for (OnePoint onePoint : list) min = Math.min(min,onePoint.coordinates[0]);
@@ -792,7 +813,8 @@ public double getYMaxLogscale(){
     return group.x + (x + min*sizex)*group.sizex;
   }
 
-  public double getXMax () {
+  @Override
+public double getXMax () {
     double max = -Double.MAX_VALUE;
     synchronized(list) {
       for (OnePoint onePoint : list) max = Math.max(max,onePoint.coordinates[0]);
@@ -805,7 +827,8 @@ public double getYMaxLogscale(){
     return group.x + (x + max*sizex)*group.sizex;
   }
   
-  public double getYMin () {
+  @Override
+public double getYMin () {
     double min = Double.MAX_VALUE;
     synchronized(list) {
       for (OnePoint onePoint : list) min = Math.min(min,onePoint.coordinates[1]);
@@ -818,7 +841,8 @@ public double getYMaxLogscale(){
     return group.y + (y + min*sizey)*group.sizey;
   }
   
-  public double getYMax () {
+  @Override
+public double getYMax () {
     double max = -Double.MAX_VALUE;
     synchronized(list) {
       for (OnePoint onePoint : list) max = Math.max(max,onePoint.coordinates[1]);
@@ -831,7 +855,8 @@ public double getYMaxLogscale(){
     return group.y + (y + max*sizey)*group.sizey;
   }
   
-  public double getZMin () {
+  @Override
+public double getZMin () {
     double min = Double.MAX_VALUE;
     synchronized(list) {
       for (OnePoint onePoint : list) min = Math.min(min,onePoint.coordinates[2]);
@@ -844,7 +869,8 @@ public double getYMaxLogscale(){
     return group.z + (z + min*sizez)*group.sizez;
   }
   
-  public double getZMax () {
+  @Override
+public double getZMax () {
     double max = -Double.MAX_VALUE;
     synchronized(list) {
       for (OnePoint onePoint : list) max = Math.max(max,onePoint.coordinates[2]);

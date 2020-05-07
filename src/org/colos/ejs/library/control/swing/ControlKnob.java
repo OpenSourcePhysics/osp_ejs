@@ -30,7 +30,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     knob = new Knob();
     internalValue = new DoubleValue(knob.getValue());
     knob.addMouseListener  (new MyMouseListener());
@@ -44,7 +45,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("variable");
@@ -60,7 +62,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("variable"))       return "int|double";
     if (_property.equals("minimum"))        return "int|double";
     if (_property.equals("maximum"))        return "int|double";
@@ -76,7 +79,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case VARIABLE : 
         knob.setValue (internalValue.value = _value.getDouble()); 
@@ -108,7 +112,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case VARIABLE : break;
       case 1 : knob.setMinValue (-1); break;
@@ -122,7 +127,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "-1";
@@ -134,7 +140,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case VARIABLE : return internalValue;
       case 1 :  case 2 :  case 3 :  case 4 : case 5 :
@@ -149,7 +156,8 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
 // -------------------------------------
 
   
-  public void actionPerformed (ActionEvent _evt) { // The knob changed its value
+  @Override
+public void actionPerformed (ActionEvent _evt) { // The knob changed its value
     internalValue.value = knob.getValue();
     variableChanged (VARIABLE,internalValue);
     if (isUnderEjs) setFieldListValue(VARIABLE, internalValue);
@@ -157,11 +165,13 @@ public class ControlKnob extends ControlSwingElement implements ActionListener {
   
   private class MyMouseListener extends java.awt.event.MouseAdapter {
     
-    public void mousePressed (java.awt.event.MouseEvent evt) {
+    @Override
+	public void mousePressed (java.awt.event.MouseEvent evt) {
       if (knob.isEnabled()) invokeActions (ControlSwingElement.ACTION_PRESS);
     }
 
-    public void mouseReleased (java.awt.event.MouseEvent evt) {
+    @Override
+	public void mouseReleased (java.awt.event.MouseEvent evt) {
       if (knob.isEnabled()) invokeActions (ControlElement.ACTION);
     }
     

@@ -145,27 +145,32 @@ public class ElementImage extends Element {
     return this.trueSize; 
   }
 
-  public void setSizeX(double _sizeX) {
+  @Override
+public void setSizeX(double _sizeX) {
     if (trueSize) { tempSizeX = _sizeX; setElementChanged(); }
     else super.setSizeX(_sizeX);
   }
 
-  public void setSizeY(double _sizeY) {
+  @Override
+public void setSizeY(double _sizeY) {
     if (trueSize) { tempSizeY = _sizeY; setElementChanged(); }
     else super.setSizeY(_sizeY);
   }
 
-  public void setSizeXY(double _sizeX, double _sizeY) {
+  @Override
+public void setSizeXY(double _sizeX, double _sizeY) {
     if (trueSize) { tempSizeX = _sizeX; tempSizeY = _sizeY; setElementChanged(); }
     else super.setSizeXY(_sizeX,_sizeY);
   }
 
-  public void setSize(double[] _size) {
+  @Override
+public void setSize(double[] _size) {
     if (trueSize) { tempSizeX = _size[0]; tempSizeY = _size[0]; setElementChanged(); }
     else super.setSize(_size);
   }
 
-  protected void styleChanged(int styleThatChanged) {
+  @Override
+protected void styleChanged(int styleThatChanged) {
     if (styleThatChanged==Style.CHANGED_RELATIVE_POSITION) {
       setTheImage(this.image,getStyle().getRelativePosition());
     }
@@ -200,6 +205,7 @@ public class ElementImage extends Element {
     return 4;
   }
 
+	@Override
 	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
 		if (image == null || !isReallyVisible())
 			return;
@@ -226,6 +232,7 @@ public class ElementImage extends Element {
 	// Interaction
 	// -------------------------------------
 
+	@Override
 	public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel,
 			int _xpix, int _ypix) {
 		if (!targetPosition.isEnabled())

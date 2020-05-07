@@ -24,11 +24,13 @@ public class ControlButton extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     button = new JButton ();
     button.addActionListener (
       new java.awt.event.ActionListener() {
-        public void actionPerformed (java.awt.event.ActionEvent _e) { invokeActions (); }
+        @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) { invokeActions (); }
       }
     );
     return button;
@@ -40,7 +42,8 @@ public class ControlButton extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("text");
@@ -53,7 +56,8 @@ public class ControlButton extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("text"))      return "String NotTrimmed TRANSLATABLE";
     if (_property.equals("image"))     return "File|String TRANSLATABLE";
     if (_property.equals("alignment")) return "Alignment|int";
@@ -66,7 +70,8 @@ public class ControlButton extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
 //    if (_value!=null) System.err.println (getComponent().getName()+": Setting property #"+_index+" to "+_value.toString());
     switch (_index) {
       case 0 :
@@ -90,7 +95,8 @@ public class ControlButton extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : button.setText(labelString=""); break;
       case 1 : imageFile = null; button.setIcon(null); break;
@@ -101,7 +107,8 @@ public class ControlButton extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 :
         return null;
@@ -109,7 +116,8 @@ public class ControlButton extends ControlSwingElement {
     }
   }
   
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "<none>";

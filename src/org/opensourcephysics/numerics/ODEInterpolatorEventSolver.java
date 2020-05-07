@@ -194,17 +194,20 @@ public class ODEInterpolatorEventSolver implements ODEEventSolver, ODEAdaptiveSo
    * Equivalent to setTolerances (tol,0)
    * @param tol
    */
-  public void setTolerance(double tol) { setTolerances(tol,0); }
+  @Override
+public void setTolerance(double tol) { setTolerances(tol,0); }
 
   /**
    * Returns the maximum of the absolute and relative tolerances
    */
-  public double getTolerance () { return Math.max(absoluteTolerance, relativeTolerance); }
+  @Override
+public double getTolerance () { return Math.max(absoluteTolerance, relativeTolerance); }
   
   /**
    * Returns the error code after a step
    */
-  public int getErrorCode() { return errorCode; }
+  @Override
+public int getErrorCode() { return errorCode; }
   
   /**
    * Returns the error message
@@ -254,14 +257,16 @@ public class ODEInterpolatorEventSolver implements ODEEventSolver, ODEAdaptiveSo
 
   // --- Implementation of ODEEventSolver
 
-  public void addEvent(StateEvent event) {
+  @Override
+public void addEvent(StateEvent event) {
     GeneralStateEvent generalEvent;
     if (event instanceof GeneralStateEvent) generalEvent =  (GeneralStateEvent) event;
     else generalEvent = new GeneralStateEventAdapter(event);
     eventList.add(new EventData(generalEvent,interpolatorSolver.getODE().getState()));
   }
 
-  public void removeEvent(StateEvent event) {
+  @Override
+public void removeEvent(StateEvent event) {
     for (EventData data : eventList) {
       if (data.generalEvent instanceof GeneralStateEventAdapter) {
         if ( ((GeneralStateEventAdapter)data.generalEvent).getEvent()==event) {
@@ -292,7 +297,8 @@ public class ODEInterpolatorEventSolver implements ODEEventSolver, ODEAdaptiveSo
    * The interpolator's internal step size can be changed with setInternalStepSize(double).
    * Calls to setStepSize() will not affect the internal step size of the interpolator.
    */
-  public void initialize(double _stepSize) {
+  @Override
+public void initialize(double _stepSize) {
     this.stepSize = _stepSize;
     runsForwards = stepSize>0;
     interpolatorSolver.initialize(stepSize);
@@ -314,7 +320,8 @@ public class ODEInterpolatorEventSolver implements ODEEventSolver, ODEAdaptiveSo
    * Sets the reading step size. That is the step at which solutions are read from 
    * the equation. Most of the times, these solutions are obtained by interpolation.
    */
-  public void setStepSize(double _stepSize) {
+  @Override
+public void setStepSize(double _stepSize) {
     if (this.stepSize==_stepSize) return;
     this.stepSize = _stepSize;
     runsForwards = stepSize>0;
@@ -324,9 +331,11 @@ public class ODEInterpolatorEventSolver implements ODEEventSolver, ODEAdaptiveSo
   /**
    * Returns the reading step
    */
-  public double getStepSize() { return stepSize; }
+  @Override
+public double getStepSize() { return stepSize; }
     
-  public double step() {
+  @Override
+public double step() {
     if (eventList.isEmpty()) return stepWithoutEvents();
     return stepWithEvents();
   }
@@ -937,17 +946,23 @@ public class ODEInterpolatorEventSolver implements ODEEventSolver, ODEAdaptiveSo
     
     public StateEvent getEvent () { return event; }
     
-    public int getTypeOfEvent () { return GeneralStateEvent.STATE_EVENT; }
+    @Override
+	public int getTypeOfEvent () { return GeneralStateEvent.STATE_EVENT; }
     
-    public int getMaxIterations() { return 100; }
+    @Override
+	public int getMaxIterations() { return 100; }
     
-    public int getRootFindingMethod() { return GeneralStateEvent.BISECTION; }
+    @Override
+	public int getRootFindingMethod() { return GeneralStateEvent.BISECTION; }
     
-    public double getTolerance()  { return event.getTolerance(); }
+    @Override
+	public double getTolerance()  { return event.getTolerance(); }
     
-    public double evaluate(double[] state) { return event.evaluate(state); }
+    @Override
+	public double evaluate(double[] state) { return event.evaluate(state); }
     
-    public boolean action() { return event.action(); }
+    @Override
+	public boolean action() { return event.action(); }
     
   }
 

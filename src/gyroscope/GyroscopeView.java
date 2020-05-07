@@ -6,22 +6,7 @@
 package gyroscope;
 
 
-import org.colos.ejs.library._EjsConstants;
 import org.opensourcephysics.display.OSPRuntime;
-import org.opensourcephysics.numerics.*;
-// Imports suggested by Model Elements:
-// End of imports from Model Elements
-
-import javax.swing.event.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.*;
-
-import org.colos.ejs.library.View;
 
 class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
   private GyroscopeSimulation _simulation=null;
@@ -147,7 +132,8 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
     update();
 	OSPRuntime.dispatchEventWait(new Runnable() {
-        public void run () { 
+        @Override
+		public void run () { 
           createControl();
         }
       });
@@ -190,11 +176,13 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
 
 // ---------- Implementation of View -------------------
 
-  public void read() {
+  @Override
+public void read() {
     // Ejs requires no read(). Actually, having it might cause problems!
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("q".equals(_variable)) {
       double[] _data = (double[]) getValue("q").getObject();
@@ -356,7 +344,8 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
     }
   }
 
-  public void propagateValues () {
+  @Override
+public void propagateValues () {
     setValue ("_isPlaying",_simulation.isPlaying());
     setValue ("_isPaused", _simulation.isPaused());
     if(__q_canBeChanged__) setValue("q",_model.q); // Variables.Dynamic Vars:1
@@ -393,7 +382,8 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
     if(__shaftTip_canBeChanged__) setValue("shaftTip",_model.shaftTip); // Variables.Vector Vars:11
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("q".equals(_variable)) __q_canBeChanged__ = false; // Variables.Dynamic Vars:1
     if ("qDot".equals(_variable)) __qDot_canBeChanged__ = false; // Variables.Dynamic Vars:2
@@ -1064,7 +1054,8 @@ class GyroscopeView extends org.colos.ejs.library.control.EjsControl implements 
 
 // ---------- Resetting the interface  -------------------
 
-  public void reset() {
+  @Override
+public void reset() {
     getElement("mainFrame")
       .setProperty("title","Gyroscope")
       .setProperty("visible","true");

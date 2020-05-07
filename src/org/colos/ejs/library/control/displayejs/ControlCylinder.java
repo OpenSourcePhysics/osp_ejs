@@ -18,13 +18,15 @@ public class ControlCylinder extends ControlInteractiveTile {
   static final int MY_PRIMARY_COLOR=PRIMARY_COLOR+PROPERTIES_CYLINDER;
   static final int MY_SECONDARY_COLOR=SECONDARY_COLOR+PROPERTIES_CYLINDER;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     InteractiveCylinder cylinder = new InteractiveCylinder();
     cylinder.setOrigin(0.5,0.5,0,true);
     return cylinder;
   }
 
- protected int getPropertiesDisplacement () { return PROPERTIES_CYLINDER; }
+ @Override
+protected int getPropertiesDisplacement () { return PROPERTIES_CYLINDER; }
 
  // ------------------------------------------------
 // Definition of Properties
@@ -32,7 +34,8 @@ public class ControlCylinder extends ControlInteractiveTile {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("direction");
@@ -51,14 +54,16 @@ public class ControlCylinder extends ControlInteractiveTile {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("minangle")) return "minimumAngle";
     if (_property.equals("maxangle")) return "maximumAngle";
     return super.getPropertyCommonName(_property);
   }
 
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("direction"))  return "Axis|int";
     if (_property.equals("axes"))       return "double[]";
     if (_property.equals("minangle"))   return "int|double";
@@ -70,7 +75,8 @@ public class ControlCylinder extends ControlInteractiveTile {
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("Axis")>=0) {
       _value = _value.trim().toLowerCase();
@@ -84,7 +90,8 @@ public class ControlCylinder extends ControlInteractiveTile {
 
 
   // Backwards compatibility
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("dx")) return super.setProperty ("sizex","2*"+_value);
     if (_property.equals("dy")) return super.setProperty ("sizey","2*"+_value);
@@ -97,7 +104,8 @@ public class ControlCylinder extends ControlInteractiveTile {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : ((InteractiveCylinder) myElement).setDirection(_value.getInteger());      break;
       case 1 : if (_value.getObject() instanceof double[]) ((InteractiveCylinder) myElement).setCustomAxes((double[])_value.getObject()); break;
@@ -124,7 +132,8 @@ public class ControlCylinder extends ControlInteractiveTile {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : ((InteractiveCylinder) myElement).setDirection(InteractiveCylinder.Z_AXIS);      break;
       case 1 : break; // do nothing
@@ -142,7 +151,8 @@ public class ControlCylinder extends ControlInteractiveTile {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "Z_AXIS";
       case 1 : return "<none>";
@@ -160,7 +170,8 @@ public class ControlCylinder extends ControlInteractiveTile {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 :
       case 5 : case 6 : case 7 : case 8 : case 9 :

@@ -43,7 +43,8 @@ public abstract class ControlGroupDrawable extends ControlDrawable3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("x");
@@ -65,7 +66,8 @@ public abstract class ControlGroupDrawable extends ControlDrawable3D {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("pressaction")) return "pressAction";
     if (_property.equals("dragaction"))  return "dragAction";
     if (_property.equals("action"))      return "releaseAction";
@@ -75,7 +77,8 @@ public abstract class ControlGroupDrawable extends ControlDrawable3D {
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("x"))           return "int|double";
     if (_property.equals("y"))           return "int|double";
     if (_property.equals("z"))           return "int|double";
@@ -98,7 +101,8 @@ public abstract class ControlGroupDrawable extends ControlDrawable3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case  POSITION_X : myGroupDrawable.setX(posValues[0].value=_value.getDouble());  break;
       case  POSITION_Y : myGroupDrawable.setY(posValues[1].value=_value.getDouble());  break;
@@ -132,7 +136,8 @@ public abstract class ControlGroupDrawable extends ControlDrawable3D {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  POSITION_X : myGroupDrawable.setX(posValues[0].value=0.0);  break;
       case  POSITION_Y : myGroupDrawable.setY(posValues[1].value=0.0);  break;
@@ -151,7 +156,8 @@ public abstract class ControlGroupDrawable extends ControlDrawable3D {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  POSITION_X :
       case  POSITION_Y :
@@ -169,7 +175,8 @@ public abstract class ControlGroupDrawable extends ControlDrawable3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case POSITION_X : return posValues[0];
       case POSITION_Y : return posValues[1];

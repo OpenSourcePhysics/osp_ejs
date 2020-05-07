@@ -25,7 +25,8 @@ public abstract class ControlContainer extends ControlSwingElement {
 // Own methods
 // ------------------------------------------------
 
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child.getVisual() instanceof javax.swing.JMenuBar) return false;
     if (_child.getVisual() instanceof javax.swing.JMenuItem) return false;
     if (_child instanceof ControlSwingElement) return true;
@@ -164,7 +165,8 @@ public abstract class ControlContainer extends ControlSwingElement {
 
   // This is neccesary because otherwise setting a container background sets the
   // background of all children in Ejs
-  public ControlElement setProperty (String _property, String _value, boolean _store) {
+  @Override
+public ControlElement setProperty (String _property, String _value, boolean _store) {
     ControlElement returnValue = super.setProperty (_property,_value,_store);
     if (_property.equals("font") || _property.equals("foreground") || _property.equals("background"))
       propagateProperty (_property,_value);

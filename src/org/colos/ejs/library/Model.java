@@ -7,14 +7,10 @@
 package org.colos.ejs.library;
 
 import java.awt.GraphicsConfiguration;
-import java.io.File;
-import java.net.URL;
 import java.util.*;
 
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.colos.ejs.library.utils.TranslatorUtil;
-import org.opensourcephysics.display.OSPRuntime;
 
 public abstract class Model { //implements ExternalClient {
   static protected TranslatorUtil __translatorUtil;
@@ -44,7 +40,8 @@ public abstract class Model { //implements ExternalClient {
   static public final GraphicsConfiguration getGraphicsConfiguration() { return __graphicConfiguration; }
   
   static public final org.opensourcephysics.numerics.Function _ZERO_FUNCTION = new org.opensourcephysics.numerics.Function() {
-    public double evaluate(double x) {
+    @Override
+	public double evaluate(double x) {
       return 0;
     }
   };

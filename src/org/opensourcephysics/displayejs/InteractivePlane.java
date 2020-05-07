@@ -16,7 +16,8 @@ public class InteractivePlane extends AbstractInteractiveTile {
   protected int nu = -1, nv = -1; // Make sure arrays are allocated
   protected double vectorUSize = 1.0, vectorVSize = 1.0;
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractivePlane) {
       InteractivePlane old = (InteractivePlane) _element;
@@ -50,7 +51,8 @@ public class InteractivePlane extends AbstractInteractiveTile {
 //  Private or protected methods
 // -------------------------------------
 
-  protected void computeAbsoluteDifference (double[] result) {
+  @Override
+protected void computeAbsoluteDifference (double[] result) {
     double dx = originx*sizex, dy = originy*sizey; //, dz = originz*sizez;
     result[0] = dx*vectorU[0] + dy*vectorV[0]; // + dz*vectorz[0];
     result[1] = dx*vectorU[1] + dy*vectorV[1]; // + dz*vectorz[1];
@@ -58,7 +60,8 @@ public class InteractivePlane extends AbstractInteractiveTile {
   }
 
 
-  protected synchronized void computeCorners () {
+  @Override
+protected synchronized void computeCorners () {
 //    System.out.println("Computing plane");
     int theNu = 1, theNv = 1;
     if (resolution!=null) {

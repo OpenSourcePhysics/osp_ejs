@@ -48,7 +48,8 @@ public class Point3D {
 
   public double[] toArray() { return new double[] { x,y,z}; }
 
-  public String toString() {
+  @Override
+public String toString() {
     String msg;
     if((Math.abs(x) > 100) || (Math.abs(x) < 0.01) || (Math.abs(y) > 100) || (Math.abs(y) < 0.01)) {
       msg = "x=" + scientificFormat.format(x) + "  y=" + scientificFormat.format(y) + "  z=" + scientificFormat.format(z);

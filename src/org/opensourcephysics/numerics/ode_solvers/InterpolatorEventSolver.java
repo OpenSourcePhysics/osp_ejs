@@ -1141,15 +1141,20 @@ public class InterpolatorEventSolver {
       reset (state);           
     }
     
-    public double getTime() { return this.time; }
+    @Override
+	public double getTime() { return this.time; }
     
-    public double getMaxAdvance() { return this.maxAdvance; }
+    @Override
+	public double getMaxAdvance() { return this.maxAdvance; }
     
-    public boolean action() { return event.action(); }
+    @Override
+	public boolean action() { return event.action(); }
     
-    public Object getProblem() { return event; }
+    @Override
+	public Object getProblem() { return event; }
     
-    public void reset (double[] state) {
+    @Override
+	public void reset (double[] state) {
 //      System.out.println ("Resetting event at "+state[timeIndex] + " current h = "+hBefore);
       positiveFlag = negativeFlag = false;
       double h = event.evaluate(state);
@@ -1170,7 +1175,8 @@ public class InterpolatorEventSolver {
 //      System.err.println ("Reiniting event at "+state[timeIndex] + "new h = "+generalEvent.evaluate(state));
     }
 
-    public void findPosition (double _time, double hValue) {
+    @Override
+	public void findPosition (double _time, double hValue) {
       hBefore = hValue;
       if      (hBefore>= event.getTolerance()) { currentPosition = POSITIVE; positiveFlag = true; }
       else if (hBefore>0) currentPosition = SMALL_POSITIVE; 
@@ -1208,15 +1214,20 @@ public class InterpolatorEventSolver {
       reset (state);           
     }
     
-    public double getTime() { return this.time; }
+    @Override
+	public double getTime() { return this.time; }
     
-    public double getMaxAdvance() { return Double.NaN; }
+    @Override
+	public double getMaxAdvance() { return Double.NaN; }
     
-    public boolean action() { return discontinuity.action(); }
+    @Override
+	public boolean action() { return discontinuity.action(); }
     
-    public Object getProblem() { return discontinuity; }
+    @Override
+	public Object getProblem() { return discontinuity; }
 
-    public void reset (double[] state) {
+    @Override
+	public void reset (double[] state) {
 //      System.out.println ("Resetting event at "+state[timeIndex] + " current h = "+hBefore);
       positiveFlag = negativeFlag = false;
       double h = discontinuity.evaluate(state);
@@ -1232,7 +1243,8 @@ public class InterpolatorEventSolver {
 //      System.err.println ("Reiniting event at "+state[timeIndex] + "new h = "+generalEvent.evaluate(state));
     }
 
-    public void findPosition (double _time, double hValue) {
+    @Override
+	public void findPosition (double _time, double hValue) {
       hBefore = hValue;
       if      (hBefore>= discontinuity.getTolerance()) { currentPosition = POSITIVE; positiveFlag = true; }
       else if (hBefore>0) currentPosition = SMALL_POSITIVE; 
@@ -1325,7 +1337,8 @@ public class InterpolatorEventSolver {
     
     // implementation of Discontinuity
     
-    public double evaluate(double[] state) {
+    @Override
+	public double evaluate(double[] state) {
       double t = state[mTimeIndex];
       double[] delays = mDDE.getDelays(state);
       int n = delays.length;
@@ -1386,7 +1399,8 @@ public class InterpolatorEventSolver {
       return Double.NaN;
     }
     
-    public boolean action() {
+    @Override
+	public boolean action() {
       double[] state = mDDE.getState();
 //      System.err.println("Found delay discontinuity at "+state[1]+ " --------------------------------------");
 //      System.err.println ("Correct state should be "+correctTime(state));
@@ -1407,7 +1421,8 @@ public class InterpolatorEventSolver {
       return true; // implies reset
     }
     
-    public double getTolerance() { return mDDEdiscontinuityTolerance; }
+    @Override
+	public double getTolerance() { return mDDEdiscontinuityTolerance; }
 
   }
   

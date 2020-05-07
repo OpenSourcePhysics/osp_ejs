@@ -56,9 +56,11 @@ public abstract class ControlSet2D extends ControlElement2D {
     defElementFill = elements[0].getStyle().getFillColor();
   }
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.Set"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.Set"; }
 
-  protected org.opensourcephysics.display.Drawable createDrawable () {
+  @Override
+protected org.opensourcephysics.display.Drawable createDrawable () {
     set = new Set();
     return set;
   }
@@ -73,7 +75,8 @@ public abstract class ControlSet2D extends ControlElement2D {
    */
   protected abstract int getPropertiesAddedToSet ();
 
-  protected final int getPropertiesDisplacement () {
+  @Override
+protected final int getPropertiesDisplacement () {
     return getPropertiesAddedToSet () + SET2D_ADDED;
   }
 
@@ -154,15 +157,18 @@ public abstract class ControlSet2D extends ControlElement2D {
 
   public Element elementAt (int i) { return elements[i]; }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
     set.clear();
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     set.initialize();
   }
 
-  public void setName(String name) {
+  @Override
+public void setName(String name) {
     super.setName(name);
     for (int i=0,n=elements.length; i<n; i++) elements[i].setName(name+"["+i+"]");
   }
@@ -173,7 +179,8 @@ public abstract class ControlSet2D extends ControlElement2D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("numberOfElements");
@@ -184,7 +191,8 @@ public abstract class ControlSet2D extends ControlElement2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("numberOfElements")) return "int PREVIOUS";
     if (_property.equals("elementSelected"))  return "int";
 
@@ -247,7 +255,8 @@ public abstract class ControlSet2D extends ControlElement2D {
 // Variables
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case NUM_ELEMENTS : 
           if (_value.getInteger()!=numElements) checkNumberOfElements(_value.getInteger(),true);
@@ -539,7 +548,8 @@ public abstract class ControlSet2D extends ControlElement2D {
       }
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case NUM_ELEMENTS : checkNumberOfElements(1,true); numberOfElements_isSet = false; return;
         case ELEMENT_SELECTED : selectedValue.value = -1; return;
@@ -589,7 +599,8 @@ public abstract class ControlSet2D extends ControlElement2D {
 
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case NUM_ELEMENTS : return "1";
         case ELEMENT_SELECTED : return "-1";
@@ -609,7 +620,8 @@ public abstract class ControlSet2D extends ControlElement2D {
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case NUM_ELEMENTS : return null;
         case ELEMENT_SELECTED : return selectedValue;
@@ -687,7 +699,8 @@ public abstract class ControlSet2D extends ControlElement2D {
     }
   }
 
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
 //    System.out.println("Event ID "+_event.getID());
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_ENTERED  :

@@ -43,13 +43,15 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     super(ode);
   }
 
-  protected void allocateArrays(int n) {
+  @Override
+protected void allocateArrays(int n) {
     super.allocateArrays(n);
     initialState = new double[n];
     interpolationCoeffs = new double[4][n];
   }
 
-  public void reinitialize(double[] _state) {
+  @Override
+public void reinitialize(double[] _state) {
     super.reinitialize(_state);
     initialTime = _state[mDimension-1];
     System.arraycopy(_state, 0, initialState, 0, mDimension);
@@ -136,17 +138,21 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     return discFound; 
   }
 
-  public double[] getCurrentRate() { return mRate; }
+  @Override
+public double[] getCurrentRate() { return mRate; }
 
-  final public void setEstimateFirstStep(boolean _estimate) {}
+  @Override
+final public void setEstimateFirstStep(boolean _estimate) {}
 
-  final public double getMaximumTime() {
+  @Override
+final public double getMaximumTime() {
     if (error_code!=ODEAdaptiveSolver.NO_ERROR) return Double.NaN;
     if (Double.isNaN(finalTime)) return internalStep();
     return finalTime; 
   }
 
-  final public double internalStep() {
+  @Override
+final public double internalStep() {
     initialTime = mState[mDimension-1];
     System.arraycopy(mState, 0, initialState, 0, mDimension);
         
@@ -202,7 +208,8 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     return finalTime;  // the final time that was computed
   }    
 
-  public double getInternalStepSize() { return takenStepSize; }
+  @Override
+public double getInternalStepSize() { return takenStepSize; }
 
   /**
    * Constructs the interpolation coefficients.
@@ -226,7 +233,8 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
    * using the extrapolation
    * @param initialvalue the value to be adjusted
    */
-  protected void estimateNewtonInitialValue(double[][] initialvalue) {
+  @Override
+protected void estimateNewtonInitialValue(double[][] initialvalue) {
     double s = mActualStepSize / takenStepSize;
     double s1 = c1 * s;
     double s2 = c2 * s;

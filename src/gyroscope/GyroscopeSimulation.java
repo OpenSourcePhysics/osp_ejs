@@ -5,12 +5,6 @@
 
 package gyroscope;
 
-import org.colos.ejs.library._EjsConstants;
-
-import org.opensourcephysics.numerics.*;
-// Imports suggested by Model Elements:
-// End of imports from Model Elements
-
 class GyroscopeSimulation extends org.colos.ejs.library.Simulation { 
 
   private GyroscopeView mMainView;
@@ -28,18 +22,21 @@ class GyroscopeSimulation extends org.colos.ejs.library.Simulation {
     else { reset(); setAutoplay(false); }
   }
 
-  public java.util.List<String> getWindowsList() {
+  @Override
+public java.util.List<String> getWindowsList() {
     java.util.List<String> windowList = new java.util.ArrayList<String>();
     windowList.add("mainFrame");
     windowList.add("elevationDialog");
     return windowList;
   }
 
-  public String getMainWindow() {
+  @Override
+public String getMainWindow() {
     return "mainFrame";
   }
 
-  protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
+  @Override
+protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
     mMainView.getConfigurableElement("mainFrame")
       .setProperty("title","Gyroscope")
       .setProperty("size","554,540");

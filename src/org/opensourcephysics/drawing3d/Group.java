@@ -61,14 +61,16 @@ public class Group extends Element implements org.opensourcephysics.display.Data
   }
   
   //CJB
-  public void setPanel(DrawingPanel3D _panel) {
+  @Override
+public void setPanel(DrawingPanel3D _panel) {
 	  super.setPanel(_panel);
 	  for (Element element : elementList){ 
 		  if(element.getPanel()!=null)  element.setPanel(_panel);
 	  }
   }
   
-  public void removePanel(){
+  @Override
+public void removePanel(){
 	  super.removePanel();
 	  for (Element element : elementList) element.removePanel();
   }
@@ -267,37 +269,46 @@ public class Group extends Element implements org.opensourcephysics.display.Data
   /** an integer ID that identifies this object */
   protected int datasetID = hashCode();
 
-  public void setID(int id) { datasetID = id; }
+  @Override
+public void setID(int id) { datasetID = id; }
 
-  public int getID() { return datasetID; }
+  @Override
+public int getID() { return datasetID; }
 
-  public double[][] getData2D() { return null; }
+  @Override
+public double[][] getData2D() { return null; }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() {
+  @Override
+public String[] getColumnNames() {
     for (Element el : elementList) if (el instanceof Data) return ((Data) el).getColumnNames();
     return null; 
   }
 
-  public Color[] getLineColors() { 
+  @Override
+public Color[] getLineColors() { 
 //    return new Color[] { DisplayColors.getLineColor(0), DisplayColors.getLineColor(1), DisplayColors.getLineColor(2)};
     return new Color[] { DisplayColors.getLineColor(0), DisplayColors.getLineColor(1), getStyle().getLineColor()}; 
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     Paint fill = getStyle().getFillColor();
     if (fill instanceof Color) return new Color[] { DisplayColors.getLineColor(0), DisplayColors.getLineColor(1), (Color) fill };
     return new Color[] { DisplayColors.getLineColor(0), DisplayColors.getLineColor(1), DisplayColors.getLineColor(2)};
   }
 
-  public java.util.List<Data> getDataList() {
+  @Override
+public java.util.List<Data> getDataList() {
     java.util.List<Data> list = new java.util.ArrayList<Data>();
     for (Element el : elementList) if (el instanceof Data) list.add((Data)el);
     return list;
   }
 
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; }
 
 }
 

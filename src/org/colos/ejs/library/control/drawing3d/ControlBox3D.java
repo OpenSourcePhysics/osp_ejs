@@ -20,11 +20,14 @@ public class ControlBox3D extends ControlElement3D {
 
   private ElementBox box;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementBox"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementBox"; }
 
-  protected Element createElement () { return box = new ElementBox(); }
+  @Override
+protected Element createElement () { return box = new ElementBox(); }
 
-  protected int getPropertiesDisplacement () { return BOX_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return BOX_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -32,7 +35,8 @@ public class ControlBox3D extends ControlElement3D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("closedTop");
@@ -43,7 +47,8 @@ public class ControlBox3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("closedTop")) return "boolean";
     if (_property.equals("closedBottom")) return "boolean";
     if (_property.equals("sizeZreduction")) return "double";
@@ -55,7 +60,8 @@ public class ControlBox3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : box.setClosedTop(_value.getBoolean());    break;
       case 1 : box.setClosedBottom(_value.getBoolean()); break;
@@ -65,7 +71,8 @@ public class ControlBox3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
     case 0 : box.setClosedTop(true);    break;
     case 1 : box.setClosedBottom(true); break;
@@ -75,7 +82,8 @@ public class ControlBox3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : 
       case 1 : return "true";
@@ -84,7 +92,8 @@ public class ControlBox3D extends ControlElement3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : return null;
       default: return super.getValue (_index-BOX_PROPERTIES_ADDED);

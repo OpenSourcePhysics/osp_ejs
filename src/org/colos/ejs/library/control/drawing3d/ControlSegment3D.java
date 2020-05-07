@@ -11,10 +11,13 @@ import org.opensourcephysics.drawing3d.*;
 
 public class ControlSegment3D extends ControlElement3D {
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSegment"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSegment"; }
 
-  protected Element createElement () { return new ElementSegment(); }
+  @Override
+protected Element createElement () { return new ElementSegment(); }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
 } // End of class

@@ -45,7 +45,8 @@ public class Input extends Memory {
 
     JButton okButton = new JButton(getResource("Ok"));
     okButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed (java.awt.event.ActionEvent evt) {
+      @Override
+	public void actionPerformed (java.awt.event.ActionEvent evt) {
         ok = true;
         inputDialog.setVisible(false);
       }
@@ -53,7 +54,8 @@ public class Input extends Memory {
 
     JButton cancelButton = new JButton(getResource("Cancel"));
     cancelButton.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed (java.awt.event.ActionEvent evt) {
+      @Override
+	public void actionPerformed (java.awt.event.ActionEvent evt) {
         ok = false;
         inputDialog.setVisible(false);
       }

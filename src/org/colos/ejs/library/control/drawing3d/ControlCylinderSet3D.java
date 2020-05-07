@@ -15,13 +15,16 @@ import org.opensourcephysics.drawing3d.*;
 public class ControlCylinderSet3D extends ControlSet3D {
   static final private int CYLINDERSET_PROPERTIES_ADDED=6;
 
-  protected int getPropertiesAddedToSet () { return CYLINDERSET_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return CYLINDERSET_PROPERTIES_ADDED; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     return new ElementCylinder();
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
       super.copyAnElement(oldElement,newElement);
       ((ElementCylinder) newElement).setMinimumAngle(((ElementCylinder) oldElement).getMinimumAngle());
       ((ElementCylinder) newElement).setMaximumAngle(((ElementCylinder) oldElement).getMaximumAngle());
@@ -37,7 +40,8 @@ public class ControlCylinderSet3D extends ControlSet3D {
 
     static java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("minimumAngle");
@@ -51,7 +55,8 @@ public class ControlCylinderSet3D extends ControlSet3D {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
         if (_property.equals("minimumAngle")) return "int|int[]";
         if (_property.equals("maximumAngle")) return "int|int[]";
         if (_property.equals("closedTop"))    return "boolean|boolean[]";
@@ -67,7 +72,8 @@ public class ControlCylinderSet3D extends ControlSet3D {
 // ------------------------------------------------
 
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
       case 0 :
           if (_value.getObject() instanceof int[]) {
@@ -134,7 +140,8 @@ public class ControlCylinderSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : for (int i=0; i<numElements; i++) ((ElementCylinder) elements[i]).setMinimumAngle(0); break;
         case 1 : for (int i=0; i<numElements; i++) ((ElementCylinder) elements[i]).setMaximumAngle(360); break;
@@ -147,7 +154,8 @@ public class ControlCylinderSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "0";
         case 1 : return "360";
@@ -159,7 +167,8 @@ public class ControlCylinderSet3D extends ControlSet3D {
         default : return super.getDefaultValueString(_index-CYLINDERSET_PROPERTIES_ADDED);
       }
     }
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 :
         case 4 : case 5 :

@@ -53,7 +53,8 @@ public class InteractiveCylinder extends AbstractInteractiveTile {
 //    setOrigin (0.5,0.5,0,true);
   }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveCylinder) {
       InteractiveCylinder oldCylinder = (InteractiveCylinder) _element;
@@ -193,7 +194,8 @@ public class InteractiveCylinder extends AbstractInteractiveTile {
 // Implementation of Interactive and Drawable3D
 // ----------------------------------------------
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible) return null;
     if (hasChanged) { computeCorners(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
@@ -206,14 +208,16 @@ public class InteractiveCylinder extends AbstractInteractiveTile {
 //  Private or protected methods
 // -------------------------------------
 
-   protected void computeAbsoluteDifference (double[] result) {
+   @Override
+protected void computeAbsoluteDifference (double[] result) {
      double dx = (originx-0.5)*sizex, dy = (originy-0.5)*sizey, dz = originz*sizez;
      result[0] = dx*vectorx[0] + dy*vectory[0] + dz*vectorz[0];
      result[1] = dx*vectorx[1] + dy*vectory[1] + dz*vectorz[1];
      result[2] = dx*vectorx[2] + dy*vectory[2] + dz*vectorz[2];
    }
 
-   protected synchronized void computeCorners () {
+   @Override
+protected synchronized void computeCorners () {
 //    System.out.println("Computing Cylinder");
      double dx = sizex/2, dy = sizey/2, dz = sizez;
      int theNr = 1, theNu = 1, theNz = 1;

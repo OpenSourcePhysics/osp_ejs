@@ -26,15 +26,18 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
   private double[] xArray=null, yArray=null, xFixed={ 0.0 }, yFixed={ 0.0 };
   private boolean dataSet=false;
   
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementPolygon"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementPolygon"; }
 
-  protected org.opensourcephysics.display.Drawable createDrawable () {
+  @Override
+protected org.opensourcephysics.display.Drawable createDrawable () {
     polygon = new ElementPolygon();
     polygon.setData(new double[][]{ {0.0,0.0}, {0.1,0.0}, {0.1,0.1} });
     return polygon;
   }
 
-  protected int getPropertiesDisplacement () { return POLYGON2D_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return POLYGON2D_ADDED; }
 
   @Override
   public void addMenuEntries () {
@@ -42,7 +45,8 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
      getSimulation().addElementMenuEntries(getMenuNameEntry(), getDataInformationMenuEntries(getParent().getDrawingPanel(),polygon));
   }
   
-  public void preupdate() {
+  @Override
+public void preupdate() {
     if (dataSet) return;
     if (xArray==null) {
       if (yArray==null) polygon.setData(xFixed, yFixed); 
@@ -60,7 +64,8 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
 
   static java.util.ArrayList<String> infoList=null;
 
-  public java.util.ArrayList<String> getPropertyList() {
+  @Override
+public java.util.ArrayList<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("closed");
@@ -73,7 +78,8 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("closed"))  return "boolean";
     if (_property.equals("data"))    return "double[][]|Object";
     if (_property.equals("indexSelected")) return "int";
@@ -86,7 +92,8 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : polygon.setClosed(_value.getBoolean()); break;
       case 1 : polygon.setData((double[][])_value.getObject()); dataSet = true; break;
@@ -109,7 +116,8 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : polygon.setClosed(true); break;
       case 1 : polygon.setData(new double[][]{ {0.0,0.0}, {0.1,0.0}, {0.1,0.1} }); dataSet = false; break;
@@ -126,7 +134,8 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "true";
       case 1 : return "new double[][]{ {0.0,0.0}, {0.1,0.0}, {0.1,0.1} }";
@@ -137,7 +146,8 @@ public class ControlPolygon2D extends ControlElement2D implements org.colos.ejs.
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return null;
       case 1 : return new ObjectValue(polygon.getData());

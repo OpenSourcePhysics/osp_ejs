@@ -40,12 +40,14 @@ public class BootstrapIntervalData extends HermiteIntervalData {
 		prepareFirstBootstrap(); // this must be done here or there can be conflicts when asking for interpolation
 	}
 
+	@Override
 	public double interpolate(double time, int index) {
 	  double step = (time - mLeft)/mDeltaTime;
 //	  if (!mBootStrap1Ready) prepareFirstBootstrap();
 	  return mLeftState[index] + step*(mDeltaTime*mLeftRate[index] + step*(bt1_c2[index] + step*(bt1_c3[index] + step*bt1_c4[index])));
 	}
 
+	@Override
 	public double[] interpolate(double time, double[] state, int beginIndex, int length) {
 	  bootstrap1((time - mLeft)/mDeltaTime, state, beginIndex, length);
 	  return state;

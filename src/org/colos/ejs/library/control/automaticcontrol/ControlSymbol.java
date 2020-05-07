@@ -19,7 +19,8 @@ public class ControlSymbol extends ControlPoligonsAndTexts{
 
   protected Symbol symbol;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     return symbol = new Symbol();
   }
 
@@ -27,12 +28,14 @@ public class ControlSymbol extends ControlPoligonsAndTexts{
 // Definition of Properties
 // ------------------------------------------------
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("type"))      return "int|SymbolType";
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("SymbolType")>=0) {
       _value = _value.trim().toLowerCase();

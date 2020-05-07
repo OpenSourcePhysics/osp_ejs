@@ -32,14 +32,16 @@ public class EulerRichardsonIntervalData extends IntervalData {
 	}
 	
 	// Book by Bellen and Zenaro, pp. 125
-	 public double interpolate(double time, int index) {
+	 @Override
+	public double interpolate(double time, int index) {
 	    double theta = (time-mLeft)/mStepSize;
 	    double b2 = theta*theta*mStepSize;
 	    double b1 = mStepSize*theta - b2;
 	    return mLeftState[index]+ b1*mLeftRate[index] + b2*mK2[index];
 	  }
 
-	  public double[] interpolate(double time, double[] state, int beginIndex, int length) {
+	  @Override
+	public double[] interpolate(double time, double[] state, int beginIndex, int length) {
 	    double theta = (time-mLeft)/mStepSize;
 	    double b2 = theta*theta*mStepSize;
 	    double b1 = mStepSize*theta - b2;

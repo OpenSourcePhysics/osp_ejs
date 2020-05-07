@@ -146,15 +146,18 @@ public class Radau5Light {
      * as approximation to the solution of system of equations.
      * @return array of vectors of increment to the current intermediate stages
      */
-    public double[][] getApproximation() {
+    @Override
+	public double[][] getApproximation() {
       return intermediateStagesIncrement;
     }
 
-    public double[] getComplexEigenvalues() {
+    @Override
+	public double[] getComplexEigenvalues() {
       return complexEigenvalues;
     }
 
-    public double[] getRealEigenvalues() {
+    @Override
+	public double[] getRealEigenvalues() {
       return realEigenvalues;
     }
 
@@ -163,7 +166,8 @@ public class Radau5Light {
      * stepSize in role of scalar multiplier value is returned
      * @return the scalar multiplier
      */
-    public double getScalarMultiplier() {
+    @Override
+	public double getScalarMultiplier() {
       return 1.0 / actualStepSize;
     }
 
@@ -174,7 +178,8 @@ public class Radau5Light {
      * @param freeVariable the arguments vector
      * @param functionValue the result function vector
      */
-    public void evaluateNonLinearComponent(double[] freeVariable, double[] functionValue) {
+    @Override
+	public void evaluateNonLinearComponent(double[] freeVariable, double[] functionValue) {
       for (int i = 0; i < numEqn; i++)
         someState[i] = state[i] + freeVariable[i];
       ode.getRate(someState, functionValue);
@@ -187,7 +192,8 @@ public class Radau5Light {
      * @param freeVariable the arguments vector
      * @param jacobian the result jacobian matrix
      */
-    public void evaluateNonLinearComponentJacobian(double[] freeVariable, double[][] jacobian) {
+    @Override
+	public void evaluateNonLinearComponentJacobian(double[] freeVariable, double[][] jacobian) {
       System.arraycopy(state, 0, someState, 0, numEqn);
       for(int i = 0; i < numEqn; i++) {
         double delta = Math.sqrt(uRound * Math.max(1.0e-5, Math.abs(state[i])));
@@ -201,7 +207,8 @@ public class Radau5Light {
       jacobianAge = 0;
     }
 
-    public void directChangeOfVariables(double[][] freeVariable, double[][] substitutedVariable) {
+    @Override
+	public void directChangeOfVariables(double[][] freeVariable, double[][] substitutedVariable) {
       for (int k = 0; k < numEqn; k ++)
         for (int i = 0; i < nStgs; i++){
           substitutedVariable[i][k] = 0;
@@ -210,7 +217,8 @@ public class Radau5Light {
         }
     }
 
-    public void inverseChangeOfVariables(double[][] substitutedVariable, double[][] freeVariable) {
+    @Override
+	public void inverseChangeOfVariables(double[][] substitutedVariable, double[][] freeVariable) {
       for (int k = 0; k < numEqn; k ++)
         for (int i = 0; i < nStgs; i++){
           freeVariable[i][k] = 0;

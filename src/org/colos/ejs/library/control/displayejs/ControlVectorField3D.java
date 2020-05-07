@@ -23,7 +23,8 @@ public class ControlVectorField3D extends ControlDrawable3D {
   private int levels;
   private Color mincolor, maxcolor;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     vectorfield3d = new VectorField3D();
     minC = 0.0;
     maxC = 1.0;
@@ -40,7 +41,8 @@ public class ControlVectorField3D extends ControlDrawable3D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -62,7 +64,8 @@ public class ControlVectorField3D extends ControlDrawable3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))          return "double[][][][]|double[][][]";
     if (_property.equals("autoscale"))     return "boolean";
     if (_property.equals("minimum"))       return "int|double";
@@ -80,7 +83,8 @@ public class ControlVectorField3D extends ControlDrawable3D {
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ArrowStyle")>=0) {
       _value = _value.trim().toLowerCase();
@@ -95,7 +99,8 @@ public class ControlVectorField3D extends ControlDrawable3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if      (_value.getObject() instanceof double[][][][]) vectorfield3d.setDataArray((double[][][][])_value.getObject());
@@ -154,7 +159,8 @@ public class ControlVectorField3D extends ControlDrawable3D {
   }
 
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : vectorfield3d.setDataArray((double[][][])null); break;
       case 1 : vectorfield3d.setAutoscaleMagnitude(auto=true); break;
@@ -181,7 +187,8 @@ public class ControlVectorField3D extends ControlDrawable3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :

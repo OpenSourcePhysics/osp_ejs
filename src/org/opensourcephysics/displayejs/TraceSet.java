@@ -20,7 +20,8 @@ public class TraceSet extends ElementSet implements Data {
     for (int i=0; i<numElements; i++) ((InteractiveTrace) elements[i]).clear();
   }
 
-  public void setName (String _name) {
+  @Override
+public void setName (String _name) {
     super.setName(_name);
     for (int i=0; i<numElements; i++) ((InteractiveTrace) elements[i]).setName(_name+"_"+i);
   }
@@ -44,30 +45,39 @@ public class TraceSet extends ElementSet implements Data {
 
   protected int datasetID = hashCode();
 
-  public void setID(int id) { datasetID = id; }
+  @Override
+public void setID(int id) { datasetID = id; }
 
-  public int getID() { return datasetID; }
+  @Override
+public int getID() { return datasetID; }
 
-  public double[][] getData2D() { return null; }
+  @Override
+public double[][] getData2D() { return null; }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() { return null; }
+  @Override
+public String[] getColumnNames() { return null; }
 
-  public Color[] getLineColors() { 
+  @Override
+public Color[] getLineColors() { 
     return new Color[] { Color.BLACK, Color.BLUE}; 
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     return new Color[] { Color.BLACK, Color.RED};
   }
 
-  public java.util.List<Data> getDataList() {
+  @Override
+public java.util.List<Data> getDataList() {
     java.util.List<Data> list = new java.util.ArrayList<Data>();
     for (int i=0; i<numElements; i++) list.add((InteractiveTrace)elements[i]);
     return list;
   }
 
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; }
   
 }

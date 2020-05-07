@@ -42,7 +42,8 @@ public class InteractiveSpring extends AbstractInteractiveElement {
     resolution=new Resolution (8,15); // 8 loops, 15 points per loop
   }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveSpring) setRadius (((InteractiveSpring) _element).getRadius());
   }
@@ -70,7 +71,8 @@ public class InteractiveSpring extends AbstractInteractiveElement {
 // Implementation of Interactive and Drawable3D
 // ----------------------------------------------
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible) return null;
     if (hasChanged) { computePoints(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
@@ -79,14 +81,16 @@ public class InteractiveSpring extends AbstractInteractiveElement {
     return null;
    }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!visible) return null;
     if (hasChanged) { computePoints(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
     return objects;
   }
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     // Allow the panel to adjust color according to depth
     Color theColor = _panel.projectColor(style.edgeColor,objects[_index].distance);
     _g2.setStroke(style.edgeStroke);
@@ -94,7 +98,8 @@ public class InteractiveSpring extends AbstractInteractiveElement {
     _g2.drawLine(aPoints[_index],bPoints[_index],aPoints[_index+1],bPoints[_index+1]);
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!visible) return;
     if (hasChanged) { computePoints(); projectPoints(_panel); }
     else // if (_panel!=panelWithValidProjection)
@@ -110,27 +115,33 @@ public class InteractiveSpring extends AbstractInteractiveElement {
 // Implementation of Measured3D
 // -------------------------------------
 
-  public double getXMin () {
+  @Override
+public double getXMin () {
     if (group==null) return x + Math.min(sizex,0);
     return group.x + x + Math.min(sizex*group.sizex,0);
   }
-  public double getXMax () {
+  @Override
+public double getXMax () {
     if (group==null) return x + Math.max(sizex,0);
     return group.x + x + Math.max(sizex*group.sizex,0);
   }
-  public double getYMin () {
+  @Override
+public double getYMin () {
     if (group==null) return y + Math.min(sizey,0);
     return group.y + y + Math.min(sizey*group.sizey,0);
   }
-  public double getYMax () {
+  @Override
+public double getYMax () {
     if (group==null) return y + Math.max(sizey,0);
     return group.y + y + Math.max(sizey*group.sizey,0);
   }
-  public double getZMin () {
+  @Override
+public double getZMin () {
     if (group==null) return z + Math.min(sizez,0);
     return group.z + z + Math.min(sizez*group.sizez,0);
   }
-  public double getZMax () {
+  @Override
+public double getZMax () {
     if (group==null) return z + Math.max(sizez,0);
     return group.z + z + Math.max(sizez*group.sizez,0);
   }

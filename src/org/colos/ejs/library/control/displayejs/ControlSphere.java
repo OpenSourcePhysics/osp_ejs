@@ -14,7 +14,8 @@ import org.opensourcephysics.display.Drawable;
 
 public class ControlSphere extends ControlCylinder {
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     InteractiveSphere sphere = new InteractiveSphere();
     sphere.setOrigin(0.5,0.5,0.5,true);
     return sphere;
@@ -24,13 +25,15 @@ public class ControlSphere extends ControlCylinder {
 // Definition of Properties
 // ------------------------------------------------
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minanglev"))  return "int|double";
     if (_property.equals("maxanglev"))  return "int|double";
     return super.getPropertyInfo(_property);
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("minangle"))       return "minimumAngleU";
     if (_property.equals("maxangle"))       return "maximumAngleU";
     if (_property.equals("minanglev"))      return "minimumAngleV";
@@ -38,7 +41,8 @@ public class ControlSphere extends ControlCylinder {
     return super.getPropertyCommonName(_property);
   }
 
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("dx")) return super.setProperty ("sizex","2*"+_value);
     if (_property.equals("dy")) return super.setProperty ("sizey","2*"+_value);
@@ -51,7 +55,8 @@ public class ControlSphere extends ControlCylinder {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 4 : ((InteractiveSphere) myElement).setMinAngleV(_value.getInteger());      break;
       case 5 : ((InteractiveSphere) myElement).setMaxAngleV(_value.getInteger());      break;
@@ -59,7 +64,8 @@ public class ControlSphere extends ControlCylinder {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 4 : ((InteractiveSphere) myElement).setMinAngleV(0);      break;
       case 5 : ((InteractiveSphere) myElement).setMaxAngleV(360);      break;
@@ -67,7 +73,8 @@ public class ControlSphere extends ControlCylinder {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 4 : return "0";
       case 5 : return "360";

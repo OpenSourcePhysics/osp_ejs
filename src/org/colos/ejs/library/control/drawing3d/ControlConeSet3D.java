@@ -15,13 +15,16 @@ import org.opensourcephysics.drawing3d.*;
 public class ControlConeSet3D extends ControlSet3D {
   static final private int CONESET_PROPERTIES_ADDED=7;
 
-  protected int getPropertiesAddedToSet () { return CONESET_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return CONESET_PROPERTIES_ADDED; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     return new ElementCone();
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
       super.copyAnElement(oldElement,newElement);
       ((ElementCone) newElement).setTruncationHeight(((ElementCone) oldElement).getTruncationHeight());
       ((ElementCone) newElement).setMinimumAngle(((ElementCone) oldElement).getMinimumAngle());
@@ -38,7 +41,8 @@ public class ControlConeSet3D extends ControlSet3D {
 
     static java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("truncationHeight");
@@ -53,7 +57,8 @@ public class ControlConeSet3D extends ControlSet3D {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
         if (_property.equals("truncationHeight")) return "int|double|double[]";
         if (_property.equals("minimumAngle")) return "int|int[]";
         if (_property.equals("maximumAngle")) return "int|int[]";
@@ -70,7 +75,8 @@ public class ControlConeSet3D extends ControlSet3D {
 // ------------------------------------------------
 
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
       case 0 :
           if (_value.getObject() instanceof double[]) {
@@ -147,7 +153,8 @@ public class ControlConeSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : for (int i=0; i<numElements; i++) ((ElementCone) elements[i]).setTruncationHeight(Double.NaN);    break;
         case 1 : for (int i=0; i<numElements; i++) ((ElementCone) elements[i]).setMinimumAngle(0); break;
@@ -161,7 +168,8 @@ public class ControlConeSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "<none>"; 
         case 1 : return "0";
@@ -174,7 +182,8 @@ public class ControlConeSet3D extends ControlSet3D {
         default : return super.getDefaultValueString(_index-CONESET_PROPERTIES_ADDED);
       }
     }
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 :
         case 4 : case 5 : case 6 :

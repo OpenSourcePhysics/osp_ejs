@@ -44,7 +44,8 @@ public class ControlQuaternionTransformation extends ControlTransformation3D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("origin");
@@ -58,7 +59,8 @@ public class ControlQuaternionTransformation extends ControlTransformation3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("origin"))  return "double[]";
     if (_property.equals("q"))   return "double[]";
     if (_property.equals("q0"))  return "double";
@@ -72,7 +74,8 @@ public class ControlQuaternionTransformation extends ControlTransformation3D {
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : 
         double[] newOrigin = null;
@@ -119,7 +122,8 @@ public class ControlQuaternionTransformation extends ControlTransformation3D {
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : quaternion.setOrigin(origin = new double[]{0,0,0}); break;
       case 1 : // do nothing 
@@ -133,7 +137,8 @@ public class ControlQuaternionTransformation extends ControlTransformation3D {
     if (isUnderEjs && myParent!=null) myParent.updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "new double[]{0,0,0}";
       case 1 : return "<none>";
@@ -145,7 +150,8 @@ public class ControlQuaternionTransformation extends ControlTransformation3D {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 :
@@ -158,7 +164,8 @@ public class ControlQuaternionTransformation extends ControlTransformation3D {
 // Implementation of Transformation
 //------------------------------------------------
 
-  public Object clone() {
+  @Override
+public Object clone() {
     ControlQuaternionTransformation ct = new ControlQuaternionTransformation();
     ct.enabled = this.enabled;
     ct.transformation = (Transformation) this.transformation.clone();

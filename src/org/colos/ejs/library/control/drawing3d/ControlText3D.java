@@ -22,15 +22,18 @@ public class ControlText3D extends ControlElement3D {
   private ElementText text;
   private Font font, defaultFont;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementText"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementText"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     text = new ElementText();
     font = defaultFont = text.getFont();
     return text;
   }
 
-  protected int getPropertiesDisplacement () { return TEXT_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return TEXT_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -38,7 +41,8 @@ public class ControlText3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("text");
@@ -50,7 +54,8 @@ public class ControlText3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("text")) return "String TRANSLATABLE";
     if (_property.equals("font")) return "Font|Object";
     if (_property.equals("pixelSize")) return "boolean";
@@ -63,7 +68,8 @@ public class ControlText3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getString()!=text.getText()) text.setText(_value.getString()); break;
       case 1 : 
@@ -84,7 +90,8 @@ public class ControlText3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : text.setText(""); break;
       case 1 : text.setFont(defaultFont); break;
@@ -95,7 +102,8 @@ public class ControlText3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "<none>";
@@ -105,7 +113,8 @@ public class ControlText3D extends ControlElement3D {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
           return null;

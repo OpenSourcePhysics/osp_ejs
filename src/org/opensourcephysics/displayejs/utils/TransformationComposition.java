@@ -38,17 +38,20 @@ public class TransformationComposition implements Transformation {
     this.second = second;
   }
 
-  public Object clone () {
+  @Override
+public Object clone () {
     return new TransformationComposition ((Transformation)first.clone(), (Transformation)second.clone());
   }
 
-  public double[] direct (double[] input) {
+  @Override
+public double[] direct (double[] input) {
     first.direct(input);
     second.direct(input);
     return input;
   }
 
-  public double[] inverse (double[] input) {
+  @Override
+public double[] inverse (double[] input) {
     first.inverse(input);
     second.inverse(input);
     return input;

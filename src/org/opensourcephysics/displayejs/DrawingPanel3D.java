@@ -86,7 +86,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
 
     addComponentListener (
       new java.awt.event.ComponentAdapter () {
-       public void componentResized (java.awt.event.ComponentEvent e) { 
+       @Override
+	public void componentResized (java.awt.event.ComponentEvent e) { 
          computeConstants (1);
          if (!getIgnoreRepaint()) repaint();
        }
@@ -94,8 +95,10 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
     );
     addKeyListener (
       new java.awt.event.KeyAdapter() {
-        public void keyPressed  (java.awt.event.KeyEvent _e) { keyPressed = _e.getKeyCode(); }
-        public void keyReleased (java.awt.event.KeyEvent _e) { keyPressed = -1; }
+        @Override
+		public void keyPressed  (java.awt.event.KeyEvent _e) { keyPressed = _e.getKeyCode(); }
+        @Override
+		public void keyReleased (java.awt.event.KeyEvent _e) { keyPressed = -1; }
       }
     );
     /* Decoration of the scene */
@@ -156,7 +159,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
 /**
  * Whether to keep aspect ratio (in 2D modes)
  */
-  public void setSquareAspect(boolean _val) {
+  @Override
+public void setSquareAspect(boolean _val) {
     if(squareAspect==_val) {
       return;
     }
@@ -213,7 +217,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
    * Whether to display coordinates when interacting
    * @param value the desired value
    */
-  public void setShowCoordinates(boolean _val) { this.showPosition = _val; }
+  @Override
+public void setShowCoordinates(boolean _val) { this.showPosition = _val; }
   /**
    * Whether to display coordinates when interacting
    * @return the value
@@ -526,7 +531,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
   /**
    * Sets axis scales if autoscale is true using the max and min values of the objects in the given list.
    */
-  protected void scale(ArrayList<Drawable> tempList) {
+  @Override
+protected void scale(ArrayList<Drawable> tempList) {
     super.scale(tempList);
     if(autoscaleZ) {
       scaleZ(tempList);
@@ -537,22 +543,30 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
 // Implementation of InteractionSource
 // -------------------------------------
 
-  public void setEnabled (boolean _value) { this.respondToMouse = _value; } // Not yet implemented
-  public boolean isEnabled () { return true; } // { return respondToMouse; }
+  @Override
+public void setEnabled (boolean _value) { this.respondToMouse = _value; } // Not yet implemented
+  @Override
+public boolean isEnabled () { return true; } // { return respondToMouse; }
 
-  public void setEnabled (int _target, boolean _value) { this.respondToMouse = _value; } // Not yet implemented
-  public boolean isEnabled (int _target) { return true; } // { return respondToMouse; }
+  @Override
+public void setEnabled (int _target, boolean _value) { this.respondToMouse = _value; } // Not yet implemented
+  @Override
+public boolean isEnabled (int _target) { return true; } // { return respondToMouse; }
 
-  public void addListener (InteractionListener _listener) {
+  @Override
+public void addListener (InteractionListener _listener) {
     if (_listener==null || listeners.contains(_listener)) return;
     listeners.add(_listener);
   }
 
-  public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
+  @Override
+public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
 
-  public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
+  @Override
+public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
 
-  public void invokeActions (InteractionEvent _event) {
+  @Override
+public void invokeActions (InteractionEvent _event) {
     Iterator<InteractionListener>  it = listeners.iterator();
     while(it.hasNext()) it.next().interactionPerformed (_event);
   }
@@ -561,7 +575,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
 // Implementation changes for superclasses
 // -------------------------------------
 
-  public void setForeground (Color _color) {
+  @Override
+public void setForeground (Color _color) {
     super.setForeground(_color);
     if (xAxis!=null) {
       for (int i=0, n=boxSides.length; i<n; i++) boxSides[i].getStyle().setEdgeColor(_color);
@@ -573,7 +588,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
   }
 
   // This method doesn't look very elegant, but ....
-  public void setPixelScale() {
+  @Override
+public void setPixelScale() {
 //    boolean anyChange = true;
     double xm = xmin, xM = xmax, ym = ymin, yM = ymax, zm = zmin, zM = zmax;
     xmin = xminPreferred; // start with the preferred values.
@@ -603,7 +619,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
     if (xm!=xmin || xM!=xmax || ym!=ymin || yM!=ymax || zm!=zmin || zM!=zmax) computeConstants(9); // Saves time
   }
 
-  public void clear () {
+  @Override
+public void clear () {
     super.clear();  // line added by Wolfgang Christian
     for (int i=0, n=boxSides.length; i<n; i++) this.addDrawable(boxSides[i]);
     this.addDrawable(xAxis); this.addDrawable(xText);
@@ -613,7 +630,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
   }
 
 
-  public void paintDrawableList(Graphics g, ArrayList<Drawable> tempList) {
+  @Override
+public void paintDrawableList(Graphics g, ArrayList<Drawable> tempList) {
     Graphics2D g2 = (Graphics2D) g.create();
     Iterator<Drawable> it = tempList.iterator();
     int w = getWidth()-leftGutter-rightGutter;
@@ -685,7 +703,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
  * </itemize>
  * @return The coordinates of the point of the screen
  */
-  public double[] project (double[] coordinate, double[] pixel) {
+  @Override
+public double[] project (double[] coordinate, double[] pixel) {
     double x = coordinate[0] - centerX, y = coordinate[1] - centerY, z = 0.0;
     double xprime, yprime, zprime, factor;
     switch (coordinate.length) {
@@ -816,7 +835,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
   //public boolean isFocusTraversable () { return true; }
 
   // This is so that the panel accepts KeyEvents
-  public boolean isFocusable () { return true; }
+  @Override
+public boolean isFocusable () { return true; }
 
 //  public int getKeyPressed () { return keyPressed; }
 
@@ -883,7 +903,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
     repaint();
   }
 
-  public void handleMouseAction(InteractivePanel _panel, java.awt.event.MouseEvent _evt) {
+  @Override
+public void handleMouseAction(InteractivePanel _panel, java.awt.event.MouseEvent _evt) {
     switch (_panel.getMouseAction ()) {
       case InteractivePanel.MOUSE_PRESSED :
         requestFocus();
@@ -1150,7 +1171,8 @@ public class DrawingPanel3D extends InteractivePanel implements InteractionSourc
 }  // End of class DrawingPanel3D
 
 class Comparator3D implements java.util.Comparator<Object> {
-  public int compare(Object o1, Object o2) {
+  @Override
+public int compare(Object o1, Object o2) {
     try {
       if      ( ((Object3D)o1).distance > ((Object3D)o2).distance) return -1;
       else if ( ((Object3D)o1).distance < ((Object3D)o2).distance) return +1;

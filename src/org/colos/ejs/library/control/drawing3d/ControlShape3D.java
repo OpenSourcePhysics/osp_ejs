@@ -20,14 +20,17 @@ public class ControlShape3D extends ControlElement3D {
 
   private ElementShape shape;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementShape"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementShape"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     shape = new ElementShape();
     return shape;
   }
 
-  protected int getPropertiesDisplacement () { return SHAPE_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return SHAPE_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -35,7 +38,8 @@ public class ControlShape3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("style");
@@ -46,7 +50,8 @@ public class ControlShape3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("style")) return "MarkerShape|int";
     if (_property.equals("pixelSize")) return "boolean";
     if (_property.equals("rotationAngle")) return "int|double";
@@ -58,7 +63,8 @@ public class ControlShape3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : shape.setShapeType(_value.getInteger()); break;
       case 1 : shape.setPixelSize(_value.getBoolean()); break;
@@ -71,7 +77,8 @@ public class ControlShape3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : shape.setShapeType(ElementShape.ELLIPSE); break;
       case 1 : shape.setPixelSize(false); break;
@@ -81,7 +88,8 @@ public class ControlShape3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "ELLIPSE";
       case 1 : return "false";
@@ -90,7 +98,8 @@ public class ControlShape3D extends ControlElement3D {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 :
           return null;

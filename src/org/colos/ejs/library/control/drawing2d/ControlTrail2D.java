@@ -25,26 +25,33 @@ public class ControlTrail2D extends ControlElement2D  implements org.colos.ejs.l
   private volatile double x, y;
   private double[] xArray=null, yArray=null;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementTrail"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementTrail"; }
 
-  public String getServerClassname () { return "org.colos.ejs.library.server.drawing2d.ElementTrail"; }
+  @Override
+public String getServerClassname () { return "org.colos.ejs.library.server.drawing2d.ElementTrail"; }
 
-  protected org.opensourcephysics.display.Drawable createDrawable () {
+  @Override
+protected org.opensourcephysics.display.Drawable createDrawable () {
     trail = new ElementTrail();
     return trail;
   }
 
-  protected int getPropertiesDisplacement () { return TRAIL2D_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return TRAIL2D_PROPERTIES_ADDED; }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
     trail.clear();
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     trail.initialize();
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (!trail.isActive()) return;
     if (isSet) {
       if (xArray==null) {
@@ -71,7 +78,8 @@ public class ControlTrail2D extends ControlElement2D  implements org.colos.ejs.l
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("maximumPoints");
@@ -92,7 +100,8 @@ public class ControlTrail2D extends ControlElement2D  implements org.colos.ejs.l
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("maximumPoints")) return "int";
     if (_property.equals("connected")) return "boolean";
     if (_property.equals("inputX")) return "int|double|double[]";
@@ -125,7 +134,8 @@ public class ControlTrail2D extends ControlElement2D  implements org.colos.ejs.l
 // ------------------------------------------------
 
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : trail.setMaximumPoints(_value.getInteger()); break;
       case 1 : trail.setConnectionType(_value.getBoolean() ? ElementTrail.LINE_CONNECTION : ElementTrail.NO_CONNECTION); break;
@@ -149,7 +159,8 @@ public class ControlTrail2D extends ControlElement2D  implements org.colos.ejs.l
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : trail.setMaximumPoints(0);    break;
       case 1 : trail.setConnectionType(ElementTrail.LINE_CONNECTION); break;
@@ -165,7 +176,8 @@ public class ControlTrail2D extends ControlElement2D  implements org.colos.ejs.l
     }
   }
   
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0";
       case 1 : return "true";
@@ -182,7 +194,8 @@ public class ControlTrail2D extends ControlElement2D  implements org.colos.ejs.l
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :

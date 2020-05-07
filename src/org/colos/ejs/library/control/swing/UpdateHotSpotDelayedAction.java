@@ -29,7 +29,8 @@ class UpdateHotSpotDelayedAction implements org.colos.ejs.library.DelayedAction 
     point  = new Point3D(_point.x,_point.y,_point.z);
   }
   
-  public void performAction() { 
+  @Override
+public void performAction() { 
     target.updateHotspot(panel, point); 
     target.getSource().invokeActions (new InteractionEvent (target.getSource(),InteractionEvent.MOUSE_DRAGGED,null,target));
   }

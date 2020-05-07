@@ -31,9 +31,11 @@ public class ControlLight3D extends ControlElement3D {
 
   private ElementLight light; 
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementLight"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementLight"; }
 
-  protected Element createElement () { 
+  @Override
+protected Element createElement () { 
     light = new ElementLight();
     defType = light.getType();
     defAmbientFactor = light.getAmbientFactor();
@@ -43,7 +45,8 @@ public class ControlLight3D extends ControlElement3D {
     return light;
   }
 
-  protected int getPropertiesDisplacement () { return LIGHT_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return LIGHT_PROPERTIES_ADDED; }
   
 //------------------------------------------------
 //Definition of Properties
@@ -51,7 +54,8 @@ public class ControlLight3D extends ControlElement3D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("type");
@@ -65,7 +69,8 @@ public class ControlLight3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("type"))  return "3DLightType|int";
     if (_property.equals("on"))    return "boolean";
     if (_property.equals("ambientFactor"))  return "int|double";
@@ -75,12 +80,14 @@ public class ControlLight3D extends ControlElement3D {
     return super.getPropertyInfo(_property);
   }
 
-  public void updatePanel() {
+  @Override
+public void updatePanel() {
     DrawingPanel3D panel = light.getPanel();
     if (panel!=null) panel.update();
   }
   
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("3DLightType")>=0) {
       _value = _value.trim().toLowerCase();
@@ -95,7 +102,8 @@ public class ControlLight3D extends ControlElement3D {
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case TYPE : light.setType(_value.getInteger());	   break;
       case ON :   light.setOn(_value.getBoolean()); break;
@@ -116,7 +124,8 @@ public class ControlLight3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case TYPE: light.setType(defType); break;
       case ON : light.setOn(true); break;
@@ -131,7 +140,8 @@ public class ControlLight3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case TYPE : 
         switch (defType) {
@@ -151,7 +161,8 @@ public class ControlLight3D extends ControlElement3D {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case TYPE : 
       case ON : 

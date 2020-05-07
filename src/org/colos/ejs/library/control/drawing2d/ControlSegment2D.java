@@ -19,14 +19,17 @@ public class ControlSegment2D extends ControlElement2D {
 
   private ElementSegment segment;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementSegment"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementSegment"; }
 
-  protected org.opensourcephysics.display.Drawable createDrawable () { 
+  @Override
+protected org.opensourcephysics.display.Drawable createDrawable () { 
     return segment = new ElementSegment(); 
   }
 
   
-  protected int getPropertiesDisplacement () { return PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return PROPERTIES_ADDED; }
 
   //------------------------------------------------
   //Definition of Properties
@@ -34,7 +37,8 @@ public class ControlSegment2D extends ControlElement2D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("elementposition");
@@ -43,7 +47,8 @@ public class ControlSegment2D extends ControlElement2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("elementposition"))return "ArrowPosition|int";
     return super.getPropertyInfo(_property);
   }
@@ -52,28 +57,32 @@ public class ControlSegment2D extends ControlElement2D {
   //Set and Get the values of the properties
   //------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getInteger()!=segment.getStyle().getRelativePosition()) segment.getStyle().setRelativePosition(_value.getInteger()); break; 
       default : super.setValue(_index-PROPERTIES_ADDED,_value); break;
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : segment.getStyle().setRelativePosition(Style.NORTH_EAST); break; 
       default: super.setDefaultValue(_index-PROPERTIES_ADDED); break;
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "NORTH_EAST";
       default : return super.getDefaultValueString(_index-PROPERTIES_ADDED);
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : 
         return null;

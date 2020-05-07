@@ -13,14 +13,16 @@ public class InteractionTargetTracePoint extends InteractionTargetElementPositio
 
   InteractionTargetTracePoint(InteractiveElement _element, Point3D _point) { super(_element); this.point = _point; }
 
-  public Point3D getHotspot (DrawingPanel _panel) {
+  @Override
+public Point3D getHotspot (DrawingPanel _panel) {
     if (element.getGroup()==null) return new Point3D(element.getX()+point.x, element.getY()+point.y, element.getZ()+point.z);
     return new Point3D(element.getGroup().getX() + (element.getX()+point.x) * element.getGroup().getSizeX(),
                             element.getGroup().getY() + (element.getY()+point.y) * element.getGroup().getSizeY(),
                             element.getGroup().getZ() + (element.getZ()+point.z) * element.getGroup().getSizeZ());
   }
 
-  public void updateHotspot (DrawingPanel _panel, Point3D _point) {
+  @Override
+public void updateHotspot (DrawingPanel _panel, Point3D _point) {
     if (element.getGroup()==null) element.setXYZ (_point.x-point.x, _point.y-point.y, _point.z-point.z);
     else {
       if (element.isGroupEnabled(InteractiveElement.TARGET_POSITION))

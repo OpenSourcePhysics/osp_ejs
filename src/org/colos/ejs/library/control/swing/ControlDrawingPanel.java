@@ -48,7 +48,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     drawingPanel = new DrawingPanel2D ();
     drawingPanel.enableInspector (false); // OSP Update
     drawingPanel.setSquareAspect (false);
@@ -67,14 +68,16 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
 
     drawingPanel.addKeyListener (
       new KeyAdapter() {
-        public void keyPressed  (KeyEvent _e) {
+        @Override
+		public void keyPressed  (KeyEvent _e) {
           keyPressedValue.value = _e.getKeyCode();
           if (reportKey) {
             variableChanged (KEY_INDEX,keyPressedValue);
             invokeActions (ControlSwingElement.KEY_ACTION);
           }
         }
-        public void keyReleased (KeyEvent _e) {
+        @Override
+		public void keyReleased (KeyEvent _e) {
 //          keyPressedValue.value = -1;
           if (reportKey) variableChanged (KEY_INDEX,keyPressedValue);
         }
@@ -91,7 +94,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("autoscaleX");
@@ -133,7 +137,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("pressaction")) return "pressAction";
     if (_property.equals("dragaction"))  return "dragAction";
     if (_property.equals("action"))      return "releaseAction";
@@ -141,7 +146,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("autoscaleX"))     return "boolean";
     if (_property.equals("autoscaleY"))     return "boolean";
     if (_property.equals("minimumX"))       return "int|double";
@@ -176,7 +182,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
     return super.getPropertyInfo(_property);
   }
 
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("x") || _property.equals("y") || _property.equals("dragaction")) {
       if (_value!=null) {
@@ -198,7 +205,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     //System.out.println ("setting avlue of "+_index+" to "+_value.getDouble());
     switch (_index) {
       case 0 :  autoX = _value.getBoolean(); updateAutoscale(); break;
@@ -282,7 +290,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 :  autoX = false; updateAutoscale(); break;
       case 1 :  autoY = false; updateAutoscale(); break;
@@ -326,7 +335,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : case 1 : return "false";
       case 2 : case 3 : case 4 : case 5 : return "<none>";
@@ -349,7 +359,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case  2 : case  3 : case  4 : case  5 :
       case 8 : case 9 : case 10 : case 11 : case 12 : case 13 :
@@ -371,7 +382,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
   private InteractionSource sourceLingered=null;
   private org.opensourcephysics.drawing2d.interaction.InteractionTarget target2D=null, target2DEntered=null;
 
-  public  ControlDrawable getSelectedDrawable() {
+  @Override
+public  ControlDrawable getSelectedDrawable() {
     if (targetHit!=null && (targetHit.getSource() instanceof HasDataObjectInterface) ) {
       Object data = ((HasDataObjectInterface) targetHit.getSource()).getDataObject();
       if (data instanceof ControlDrawable) return (ControlDrawable) data;
@@ -391,7 +403,8 @@ public class ControlDrawingPanel extends ControlDrawablesParent implements Inter
   
   
 
-  public void handleMouseAction(final InteractivePanel _panel, MouseEvent _evt) {
+  @Override
+public void handleMouseAction(final InteractivePanel _panel, MouseEvent _evt) {
     switch (_panel.getMouseAction ()) {
       case InteractivePanel.MOUSE_PRESSED :
         Interactive interactiveDrawable=_panel.getInteractive ();

@@ -16,13 +16,16 @@ import org.opensourcephysics.drawing3d.*;
 public class ControlEllipsoidSet3D extends ControlSet3D {
   static final protected int ELSET_ROPERTIES_ADDED=8;
 
-  protected int getPropertiesAddedToSet () { return ELSET_ROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return ELSET_ROPERTIES_ADDED; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     return new ElementEllipsoid();
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
       super.copyAnElement(oldElement,newElement);
       ((ElementEllipsoid) newElement).setMinimumAngleU(((ElementEllipsoid) oldElement).getMinimumAngleU());
       ((ElementEllipsoid) newElement).setMaximumAngleU(((ElementEllipsoid) oldElement).getMaximumAngleU());
@@ -40,7 +43,8 @@ public class ControlEllipsoidSet3D extends ControlSet3D {
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("minimumAngleU");
@@ -56,7 +60,8 @@ public class ControlEllipsoidSet3D extends ControlSet3D {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
         if (_property.equals("minimumAngleU")) return "int|int[]";
         if (_property.equals("maximumAngleU")) return "int|int[]";
         if (_property.equals("minimumAngleV")) return "int|int[]";
@@ -74,7 +79,8 @@ public class ControlEllipsoidSet3D extends ControlSet3D {
 // ------------------------------------------------
 
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
       case 0 :
           if (_value.getObject() instanceof int[]) {
@@ -161,7 +167,8 @@ public class ControlEllipsoidSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : for (int i=0; i<numElements; i++) ((ElementEllipsoid) elements[i]).setMinimumAngleU(0); break;
         case 1 : for (int i=0; i<numElements; i++) ((ElementEllipsoid) elements[i]).setMaximumAngleU(360); break;
@@ -176,7 +183,8 @@ public class ControlEllipsoidSet3D extends ControlSet3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "0";
         case 1 : return "360";
@@ -191,7 +199,8 @@ public class ControlEllipsoidSet3D extends ControlSet3D {
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 :
         case 4 : case 5 : case 6 : case 7 :

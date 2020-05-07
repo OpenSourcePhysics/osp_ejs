@@ -14,23 +14,27 @@ package org.opensourcephysics.drawing3d.utils.mapping;
    */
   public class MappingZYX implements Mapping {
 
-    public double[] map(double[] point) {
+    @Override
+	public double[] map(double[] point) {
       double z = point[2];
       point[2] = point[0];
       point[0] = z;
       return point;
     }
 
-    public double[] inverse(double[] point) {
+    @Override
+	public double[] inverse(double[] point) {
       double z = point[0];
       point[0] = point[2];
       point[2] = z;
       return point;
     }
 
-    public boolean isPositivelyOriented() { return false; }
+    @Override
+	public boolean isPositivelyOriented() { return false; }
     
-    public double[] quatForPrimitives() { return new double[]{0.0,0.0,-Math.sin(Math.PI/4),Math.sin(Math.PI/4)}; }
+    @Override
+	public double[] quatForPrimitives() { return new double[]{0.0,0.0,-Math.sin(Math.PI/4),Math.sin(Math.PI/4)}; }
 
 }
 

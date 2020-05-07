@@ -25,12 +25,14 @@ public class EulerIntervalData extends IntervalData {
     mRight = right; 
 	}
 	
-  public double interpolate(double time, int index) {
+  @Override
+public double interpolate(double time, int index) {
     double step = time - mLeft;
     return mLeftState[index] + step*mLeftRate[index];
   }
 
-  public double[] interpolate(double time, double[] state, int beginIndex, int length) {
+  @Override
+public double[] interpolate(double time, double[] state, int beginIndex, int length) {
     double step = time - mLeft;
     for (int index=beginIndex, i=0; i<length; index++, i++) {
       state[i] = mLeftState[index] + step*mLeftRate[index];

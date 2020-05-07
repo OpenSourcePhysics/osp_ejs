@@ -8,10 +8,6 @@ package org.colos.ejs.library;
 
 import java.io.*;
 import java.util.*;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import java.util.jar.JarInputStream;
-import java.util.jar.JarOutputStream;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -22,7 +18,6 @@ import java.awt.AWTEvent;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.net.URL;
 import java.lang.reflect.*;
@@ -39,9 +34,7 @@ import org.opensourcephysics.controls.XMLControlElement;
 import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.DisplayRes;
-import org.opensourcephysics.display.dialogs.DialogsRes;
 import org.opensourcephysics.js.JSUtil;
-import org.opensourcephysics.media.mov.MovieFactory;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.controls.OSPLog;
 import org.opensourcephysics.desktop.OSPDesktop;
@@ -324,14 +317,16 @@ public abstract class Simulation extends Animation {
   /**
    * Reset to a user-defined default state 
    */
-  protected void userDefinedReset() {
+  @Override
+protected void userDefinedReset() {
   	if(JSUtil.isJS) return;
   }
 
   /**
    * User-defined update view (such as video capture) 
    */
-  protected void userDefinedViewUpdate() {
+  @Override
+protected void userDefinedViewUpdate() {
     videoUtil.captureVideoImage();
     getModel()._readFromViewAfterUpdate();
   }
@@ -485,16 +480,19 @@ public abstract class Simulation extends Animation {
     increaseFontButton.setCursor(handCursor);
     increaseFontButton.setToolTipText(DisplayRes.getString("DrawingFrame.IncreaseFontSize_menu_item")); //Memory.getResource("Increase font"));
     increaseFontButton.addMouseListener(new MouseAdapter() {
-      public void mousePressed(final MouseEvent _evt) {
+      @Override
+	public void mousePressed(final MouseEvent _evt) {
         ((JComponent) _evt.getComponent()).setBorder(clickedBorder);
         javax.swing.Timer timer = new javax.swing.Timer(1000,new ActionListener(){
-          public void actionPerformed(ActionEvent _actionEvent) { ((JComponent) _evt.getComponent()).setBorder(border); }
+          @Override
+		public void actionPerformed(ActionEvent _actionEvent) { ((JComponent) _evt.getComponent()).setBorder(border); }
         });
         timer.setRepeats(false);
         timer.start();
         if (SwingUtilities.isLeftMouseButton(_evt)) {
           SwingUtilities.invokeLater(new Runnable() {
-            public void run() { 
+            @Override
+			public void run() { 
               if (descriptionPagesList==null) return;
               for (EditorAndScroll eas : descriptionPagesList) {
                 Font oldFont = eas.editorPane.getFont();
@@ -511,16 +509,19 @@ public abstract class Simulation extends Animation {
     decreaseFontButton.setCursor(handCursor);
     decreaseFontButton.setToolTipText(DisplayRes.getString("DrawingFrame.DecreaseFontSize_menu_item"));
     decreaseFontButton.addMouseListener(new MouseAdapter() {
-      public void mousePressed(final MouseEvent _evt) {
+      @Override
+	public void mousePressed(final MouseEvent _evt) {
         ((JComponent) _evt.getComponent()).setBorder(clickedBorder);
         javax.swing.Timer timer = new javax.swing.Timer(1000,new ActionListener(){
-          public void actionPerformed(ActionEvent _actionEvent) { ((JComponent) _evt.getComponent()).setBorder(border); }
+          @Override
+		public void actionPerformed(ActionEvent _actionEvent) { ((JComponent) _evt.getComponent()).setBorder(border); }
         });
         timer.setRepeats(false);
         timer.start();
         if (SwingUtilities.isLeftMouseButton(_evt)) {
           SwingUtilities.invokeLater(new Runnable() {
-            public void run() { 
+            @Override
+			public void run() { 
               if (descriptionPagesList==null) return;
               for (EditorAndScroll eas : descriptionPagesList) {
                 Font oldFont = eas.editorPane.getFont();
@@ -537,16 +538,19 @@ public abstract class Simulation extends Animation {
     openPageButton.setCursor(handCursor);
     openPageButton.setToolTipText(Memory.getResource("DescriptionPages.OpenExternalBrowser"));
     openPageButton.addMouseListener(new MouseAdapter() {
-      public void mousePressed(final MouseEvent _evt) {
+      @Override
+	public void mousePressed(final MouseEvent _evt) {
         ((JComponent) _evt.getComponent()).setBorder(clickedBorder);
         javax.swing.Timer timer = new javax.swing.Timer(1000,new ActionListener(){
-          public void actionPerformed(ActionEvent _actionEvent) { ((JComponent) _evt.getComponent()).setBorder(border); }
+          @Override
+		public void actionPerformed(ActionEvent _actionEvent) { ((JComponent) _evt.getComponent()).setBorder(border); }
         });
         timer.setRepeats(false);
         timer.start();
         if (SwingUtilities.isLeftMouseButton(_evt)) {
           SwingUtilities.invokeLater(new Runnable() {
-            public void run() { 
+            @Override
+			public void run() { 
               if (descriptionPagesList==null) return;
               Component selectedComponent = descriptionPanel.getSelectedComponent();
               for (EditorAndScroll pane : descriptionPagesList) {
@@ -638,7 +642,8 @@ public abstract class Simulation extends Animation {
       //        try { kit.getStyleSheet().loadRules(ResourceLoader.openReader("_ejs_library/css/ejsPage.css"),null); }
       //        catch (Exception exc) { exc.printStackTrace(); }
       editorPane.addHyperlinkListener(new HyperlinkListener() {
-        public void hyperlinkUpdate(HyperlinkEvent e) {
+        @Override
+		public void hyperlinkUpdate(HyperlinkEvent e) {
           if(e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
             openURL(e.getSource(),e.getURL(),getView().getComponent(getMainWindow()), false);
           }
@@ -846,7 +851,8 @@ public abstract class Simulation extends Animation {
     final JLabel label = new JLabel(ejsRes.getString("Simulation.Opening"));
     label.setBorder(new javax.swing.border.EmptyBorder(5,5,5,5));
     SwingUtilities.invokeLater(new Runnable() {
-      public void run() { 
+      @Override
+	public void run() { 
         warningDialog.getContentPane().setLayout(new java.awt.BorderLayout());
         warningDialog.getContentPane().add(label,java.awt.BorderLayout.CENTER);
         warningDialog.validate();
@@ -857,7 +863,8 @@ public abstract class Simulation extends Animation {
       }
     });
     javax.swing.Timer timer = new javax.swing.Timer(3000,new ActionListener(){
-      public void actionPerformed(ActionEvent _actionEvent) { 
+      @Override
+	public void actionPerformed(ActionEvent _actionEvent) { 
         warningDialog.setVisible(false);
         warningDialog.dispose();
       }
@@ -1139,7 +1146,8 @@ public abstract class Simulation extends Animation {
 
       if (descriptionDialog!=null) {
         popupMenu.add(new AbstractAction(Memory.getResource("ShowDescription")){
-          public void actionPerformed(ActionEvent e) { descriptionDialog.setVisible(true); }
+          @Override
+		public void actionPerformed(ActionEvent e) { descriptionDialog.setVisible(true); }
         });
       }
       
@@ -1159,7 +1167,8 @@ public abstract class Simulation extends Animation {
         
         JMenu snapshotMenu = new JMenu(getMenuText("ejs_res:MenuItem.SnapshotTools"));
         snapshotMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.Snapshot")){
-          public void actionPerformed(ActionEvent e) {
+          @Override
+		public void actionPerformed(ActionEvent e) {
             boolean wasRunning = isPlaying();
             if (wasRunning) pause();
             saveImageAs(captureElement);
@@ -1171,7 +1180,8 @@ public abstract class Simulation extends Animation {
         
         snapshotMenuItem = new JMenuItem (getMenuText("ejs_res:MenuItem.SnapshotTool"));
         snapshotMenuItem.addActionListener(new ActionListener() {
-          public void actionPerformed (ActionEvent _evt) {
+          @Override
+		public void actionPerformed (ActionEvent _evt) {
             ((DrawingPanel) view.getElement(captureElement).getVisual()).snapshot(); 
           }
         });
@@ -1179,14 +1189,17 @@ public abstract class Simulation extends Animation {
       
         if (videoUtil.isFullClass()) {
           snapshotMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.TakeEPSSnapshot")){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
               videoUtil.takeSnapshot(getTopLevelComponent(_component));
             }
           });
           snapshotMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.TakeEPSSnapshotWindow")){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
+            @Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
               focusListener = new AWTEventListener () {
-                public void eventDispatched(AWTEvent _event) {
+                @Override
+				public void eventDispatched(AWTEvent _event) {
                   WindowEvent windowEvent = (WindowEvent) _event;
                   if (windowEvent.getID()==WindowEvent.WINDOW_GAINED_FOCUS ) {
                     java.awt.Toolkit.getDefaultToolkit().removeAWTEventListener(focusListener);
@@ -1199,18 +1212,21 @@ public abstract class Simulation extends Animation {
             }
           });
           snapshotMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.Video")){
-            public void actionPerformed(ActionEvent e) { videoUtil.startVideoTool(getView(),captureElement); }
+            @Override
+			public void actionPerformed(ActionEvent e) { videoUtil.startVideoTool(getView(),captureElement); }
           });
         }
         JMenu ioStateMenu = new JMenu(getMenuText("ejs_res:MenuItem.StateIO"));
         ioStateMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.SaveState")){
-          public void actionPerformed(ActionEvent e) { saveState(null); }
+          @Override
+		public void actionPerformed(ActionEvent e) { saveState(null); }
         });
         boolean isLauncherMode;
         try { isLauncherMode = OSPRuntime.isLauncherMode(); }
         catch (Exception exc) { isLauncherMode = false; }
         if ( ! (isLauncherMode)) ioStateMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.SaveDefaultState")){
-          public void actionPerformed(ActionEvent e) {
+          @Override
+		public void actionPerformed(ActionEvent e) {
             File jarFile=null; 
             try {
               URL url = Simulation.class.getProtectionDomain().getCodeSource().getLocation();
@@ -1226,7 +1242,8 @@ public abstract class Simulation extends Animation {
           }
         });
         ioStateMenu.add(new AbstractAction(getMenuText("tools_res:MenuItem.ReadState")){
-          public void actionPerformed(ActionEvent e) {
+          @Override
+		public void actionPerformed(ActionEvent e) {
             updateView = false; // So that the update() in readState does not take time
             readState(null);
             updateView = true; // The second update does refreshes the screen
@@ -1234,7 +1251,8 @@ public abstract class Simulation extends Animation {
           }
         });
         ioStateMenu.add(new AbstractAction(getMenuText("ejs_res:MenuItem.DefaultResetState")){
-          public void actionPerformed(ActionEvent e) {
+          @Override
+		public void actionPerformed(ActionEvent e) {
             resetFile = null;
             reset();
           }
@@ -1248,13 +1266,15 @@ public abstract class Simulation extends Animation {
 
       JMenu fontMenu = new JMenu(DisplayRes.getString("DrawingFrame.Font_menu_title"));
       fontMenu.add(new AbstractAction(DisplayRes.getString("DrawingFrame.IncreaseFontSize_menu_item")){
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           FontSizer.levelUp();
           for (String windowName : getWindowsList()) FontSizer.setFonts(getView().getComponent(windowName),FontSizer.getLevel());
         }
       });
       fontMenu.add(new AbstractAction(DisplayRes.getString("DrawingFrame.DecreaseFontSize_menu_item")){
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           FontSizer.levelDown();
           for (String windowName : getWindowsList()) FontSizer.setFonts(getView().getComponent(windowName),FontSizer.getLevel());
         }
@@ -1265,12 +1285,14 @@ public abstract class Simulation extends Animation {
       popupMenu.addSeparator();
 
       popupMenu.add(new AbstractAction(Memory.getResource("Simulation.AboutThisSimulation")){
-        public void actionPerformed(ActionEvent e) { aboutThisSimulation(_component); }
+        @Override
+		public void actionPerformed(ActionEvent e) { aboutThisSimulation(_component); }
       });
 
       if (canAccessDisk && EjsTool.hasEjsModel(getModel().getClass())) {
         popupMenu.add(new AbstractAction(ejsRes.getString("Simulation.OpenEjsModel")){
-          public void actionPerformed(ActionEvent e) { 
+          @Override
+		public void actionPerformed(ActionEvent e) { 
             String systemPassword;
             try {  systemPassword = System.getProperty("launcher.password"); } 
             catch (Exception _exc) { systemPassword = null; } // do nothing
@@ -1284,13 +1306,16 @@ public abstract class Simulation extends Animation {
         JMenu diagnosticsMenu = new JMenu(Memory.getResource("Diagnostics.Menu"));
 
         diagnosticsMenu.add(new AbstractAction(getMenuText("tools_res:Diagnostics.OS.About.Title")){
-          public void actionPerformed(ActionEvent e) { Diagnostics.aboutOS(); }
+          @Override
+		public void actionPerformed(ActionEvent e) { Diagnostics.aboutOS(); }
         });      
         diagnosticsMenu.add(new AbstractAction(getMenuText("tools_res:Diagnostics.Java.About.Title")){
-          public void actionPerformed(ActionEvent e) { Diagnostics.aboutJava(); }
+          @Override
+		public void actionPerformed(ActionEvent e) { Diagnostics.aboutJava(); }
         });
         diagnosticsMenu.add(new AbstractAction(getMenuText("ejs_res:Diagnostics.Properties")){
-          public void actionPerformed(ActionEvent e) {
+          @Override
+		public void actionPerformed(ActionEvent e) {
             DiagnosticsForSystem.aboutSystem(null);
 //            Enumeration<?> propEnum = System.getProperties().propertyNames();
 //            while(propEnum.hasMoreElements()) {
@@ -1301,11 +1326,13 @@ public abstract class Simulation extends Animation {
           }
         });
         diagnosticsMenu.add(new AbstractAction(getMenuText("ejs_res:Diagnostics.Threads")){
-          public void actionPerformed(ActionEvent e) { DiagnosticsForThreads.aboutThreads(); }
+          @Override
+		public void actionPerformed(ActionEvent e) { DiagnosticsForThreads.aboutThreads(); }
         });
 
         diagnosticsMenu.add(new AbstractAction(getMenuText("tools_res:Diagnostics.Java3D.About.Title")){
-          public void actionPerformed(ActionEvent e) { Diagnostics.aboutJava3D(); }
+          @Override
+		public void actionPerformed(ActionEvent e) { Diagnostics.aboutJava3D(); }
         });
 
 //        diagnosticsMenu.add(new AbstractAction(getMenuText("xuggle_res:Xuggle.Dialog.AboutXuggle.Title")){
@@ -1320,7 +1347,8 @@ public abstract class Simulation extends Animation {
       }
       
       popupMenu.add(new AbstractAction("OSP "+ToolsRes.getString("MenuItem.Log")){
-        public void actionPerformed(ActionEvent e) {
+        @Override
+		public void actionPerformed(ActionEvent e) {
           OSPLog log = OSPLog.getOSPLog();
           if (log!=null) log.setLocationRelativeTo(parentComponent);
           OSPLog.showLog();
@@ -1495,7 +1523,8 @@ public abstract class Simulation extends Animation {
       String text = getMenuText(name);
       AbstractAction action = new AbstractAction(text) {
         private static final long serialVersionUID = 1L;
-        public void actionPerformed (ActionEvent evt) { item.actionPerformed(evt); }
+        @Override
+		public void actionPerformed (ActionEvent evt) { item.actionPerformed(evt); }
       };
       action.putValue(Action.SHORT_DESCRIPTION,text);
       if (targetMenu instanceof JMenu) ((JMenu) targetMenu).add(action);
@@ -1981,7 +2010,8 @@ public abstract class Simulation extends Animation {
         final MyXMLAccessory accesory = new MyXMLAccessory(chooser);
         chooser.setAccessory(accesory);
         chooser.addActionListener(new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
+          @Override
+		public void actionPerformed(ActionEvent actionEvent) {
             JFileChooser theFileChooser = (JFileChooser) actionEvent.getSource();
             String command = actionEvent.getActionCommand();
             if (command.equals(JFileChooser.APPROVE_SELECTION)) {

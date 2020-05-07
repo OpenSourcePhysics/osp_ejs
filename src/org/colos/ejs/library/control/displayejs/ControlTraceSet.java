@@ -44,16 +44,22 @@ public class ControlTraceSet extends ControlElementSet implements org.colos.ejs.
     myFullSize     = SIZE    +TRACESET_ADDED+disp;
   }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
-  final public int[] getPosSpot () { return myPosSpot; }
-  final public int[] getSizeSpot () { return mySizeSpot; }
+  @Override
+final public int[] getPosSpot () { return myPosSpot; }
+  @Override
+final public int[] getSizeSpot () { return mySizeSpot; }
 
-  final public int getFullPositionSpot () { return myFullPosition; }
-  final public int getFullSizeSpot () { return myFullSize; }
+  @Override
+final public int getFullPositionSpot () { return myFullPosition; }
+  @Override
+final public int getFullSizeSpot () { return myFullSize; }
 
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     x = xOne = new double[]{0.0}; y = yOne = new double[]{0.0}; z = zOne = new double[]{0.0};
     norepeat = false;
     elementSet = new TraceSet(1);
@@ -61,17 +67,20 @@ public class ControlTraceSet extends ControlElementSet implements org.colos.ejs.
     return elementSet;
   }
 
-  protected void setName (String _name) {
+  @Override
+protected void setName (String _name) {
     elementSet.setName(_name);
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     for (int i=0, n=elementSet.getNumberOfElements(); i<n; i++) ((InteractiveTrace)elementSet.elementAt(i)).initialize();
     xOne[0] = yOne[0] = zOne[0] = 0.0;
     x = xOne; y = yOne; z = zOne;
   }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
    //       System.out.println ("Resetting");
     for (int i=0, n=elementSet.getNumberOfElements(); i<n; i++)
       ((InteractiveTrace)elementSet.elementAt(i)).clear();
@@ -79,7 +88,8 @@ public class ControlTraceSet extends ControlElementSet implements org.colos.ejs.
     x = xOne; y = yOne; z = zOne;
   }
 
-  public void onExit () { // free memory
+  @Override
+public void onExit () { // free memory
     for (int i=0, n=elementSet.getNumberOfElements(); i<n; i++)
       ((InteractiveTrace)elementSet.elementAt(i)).clear();
   }
@@ -97,7 +107,8 @@ public class ControlTraceSet extends ControlElementSet implements org.colos.ejs.
 //    isSet = isSetZ = false;
 //  }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (!isSet) return;
     if (isSetZ) {
       int maxa = x.length-1, maxb = y.length-1, maxc = z.length-1;
@@ -127,7 +138,8 @@ public class ControlTraceSet extends ControlElementSet implements org.colos.ejs.
 
 static private java.util.ArrayList<String> infoList=null;
 
-  public java.util.ArrayList<String>  getPropertyList() {
+  @Override
+public java.util.ArrayList<String>  getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>  ();
       infoList.add ("maxpoints");
@@ -153,7 +165,8 @@ static private java.util.ArrayList<String> infoList=null;
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("x")) return "inputX";
     if (_property.equals("y")) return "inputY";
     if (_property.equals("z")) return "inputZ";
@@ -163,7 +176,8 @@ static private java.util.ArrayList<String> infoList=null;
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("maxpoints"))   return "int|int[] PREVIOUS";
     if (_property.equals("skippoints"))  return "int|int[]";
     if (_property.equals("active"))      return "boolean|boolean[]";
@@ -216,7 +230,8 @@ static private java.util.ArrayList<String> infoList=null;
     return super.setProperty(_property,_value);
   }
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case INPUT_X :
         if (_value.getObject() instanceof double[]) x = (double[]) _value.getObject();
@@ -392,7 +407,8 @@ static private java.util.ArrayList<String> infoList=null;
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case INPUT_X : xOne[0] = 0.0; x = xOne; break;
       case INPUT_Y : yOne[0] = 0.0; y = yOne; break;
@@ -427,7 +443,8 @@ static private java.util.ArrayList<String> infoList=null;
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case INPUT_X :
       case INPUT_Y :
@@ -456,7 +473,8 @@ static private java.util.ArrayList<String> infoList=null;
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case INPUT_X : case INPUT_Y : case INPUT_Z :
       case 0 : case 1 : case 2 : case 3 :  case 4 :

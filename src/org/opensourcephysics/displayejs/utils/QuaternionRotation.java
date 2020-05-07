@@ -92,13 +92,15 @@ public class QuaternionRotation implements Transformation {
 // Implementation of Transformation
 // -------------------------------------
 
-  public Object clone () {
+  @Override
+public Object clone () {
     try { return super.clone(); }
     catch (CloneNotSupportedException exc) { exc.printStackTrace(); return null; }
   }
 
 
-  public double[] direct (double[] input) {
+  @Override
+public double[] direct (double[] input) {
     input[0] -= ox; input[1] -= oy; input[2] -= oz;
     double r0 = input[0]*m1+input[1]*m2+input[2]*m3;
     double r1 = input[0]*m4+input[1]*m5+input[2]*m6;
@@ -108,7 +110,8 @@ public class QuaternionRotation implements Transformation {
     return input;
   }
 
-  public double[]  inverse (double[] input) throws UnsupportedOperationException {
+  @Override
+public double[]  inverse (double[] input) throws UnsupportedOperationException {
     input[0] -= ox; input[1] -= oy; input[2] -= oz;
     double r0 = input[0]*m1+input[1]*m4+input[2]*m7;
     double r1 = input[0]*m2+input[1]*m5+input[2]*m8;

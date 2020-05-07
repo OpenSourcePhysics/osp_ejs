@@ -20,11 +20,14 @@ public class ControlDisk3D extends ControlElement3D {
 
   private ElementDisk circle;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementCylinder"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementCylinder"; }
 
-  protected Element createElement () { return circle = new ElementDisk(); }
+  @Override
+protected Element createElement () { return circle = new ElementDisk(); }
 
-  protected int getPropertiesDisplacement () { return DISK_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return DISK_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -32,7 +35,8 @@ public class ControlDisk3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumAngle");
@@ -42,7 +46,8 @@ public class ControlDisk3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumAngle")) return "int";
     if (_property.equals("maximumAngle")) return "int";
     return super.getPropertyInfo(_property);
@@ -52,7 +57,8 @@ public class ControlDisk3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : circle.setMinimumAngle(_value.getInteger()); break;
       case 1 : circle.setMaximumAngle(_value.getInteger()); break;
@@ -61,7 +67,8 @@ public class ControlDisk3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : circle.setMinimumAngle(0); break;
       case 1 : circle.setMaximumAngle(360); break;
@@ -70,7 +77,8 @@ public class ControlDisk3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0";
       case 1 : return "360";
@@ -78,7 +86,8 @@ public class ControlDisk3D extends ControlElement3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 :
       return null;

@@ -24,13 +24,16 @@ public class ControlPoints3D extends ControlElement3D {
 
   private ElementPoints points;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPoints"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPoints"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     return points = new ElementPoints();
   }
 
-  protected int getPropertiesDisplacement () { return POINTS_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return POINTS_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -38,7 +41,8 @@ public class ControlPoints3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -47,7 +51,8 @@ public class ControlPoints3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))    return "double[][]";
 
     if (_property.equals("lineColor"))    return "int|int[]|Color|Color[]|Object|Object[]";
@@ -61,7 +66,8 @@ public class ControlPoints3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getObject() instanceof double[][]) points.setData((double[][])_value.getObject()); break;
       default : super.setValue(_index-POINTS_PROPERTIES_ADDED,_value); break;
@@ -81,7 +87,8 @@ public class ControlPoints3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : break; // Do nothing
       default: super.setDefaultValue(_index-POINTS_PROPERTIES_ADDED); break;
@@ -98,14 +105,16 @@ public class ControlPoints3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>"; 
       default : return super.getDefaultValueString(_index-POINTS_PROPERTIES_ADDED);
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return null;
       default: return super.getValue (_index-POINTS_PROPERTIES_ADDED);

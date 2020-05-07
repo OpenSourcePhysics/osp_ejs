@@ -23,7 +23,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
   private double[][] xArray=null, yArray=null, xFixedArray={{0.0}}, yFixedArray={{0.0}};
   private boolean dataSet=false;
 
-  protected int getPropertiesAddedToSet () { return POLSET2D_ROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return POLSET2D_ROPERTIES_ADDED; }
 
   @Override
   protected int setNumberOfElements(int newNumber) {
@@ -33,13 +34,15 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
     return number;
   }
   
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     ElementPolygon el = new ElementPolygon();
     el.setData(new double[][]{ {0.0,0.0}, {0.1,0.0}, {0.1,0.1} });
     return el;
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
     super.copyAnElement(oldElement, newElement);
     ((ElementPolygon)newElement).setClosed(((ElementPolygon)oldElement).isClosed());
     ((ElementPolygon)newElement).setData(((ElementPolygon)oldElement).getData());
@@ -51,7 +54,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
      getSimulation().addElementMenuEntries(getMenuNameEntry(), getDataInformationMenuEntries(getParent().getDrawingPanel(),getSet()));
   }
 
-  public void preupdate() {
+  @Override
+public void preupdate() {
     if (dataSet) return;
     if (xArray==null) {
       if (yArray==null) for (int i=0; i<elements.length; i++) ((ElementPolygon)elements[i]).setData(xFixedArray[i], yFixedArray[i]);
@@ -70,7 +74,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
 
   static java.util.ArrayList<String> infoList=null;
 
-  public java.util.ArrayList<String> getPropertyList() {
+  @Override
+public java.util.ArrayList<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("closed");
@@ -83,7 +88,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("closed"))  return "boolean|boolean[]";
     if (_property.equals("data"))    return "double[][]|Object|double[][][]";
     if (_property.equals("indexSelected")) return "int";
@@ -96,7 +102,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
   //Set and Get the values of the properties
   //------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : 
         if (_value.getObject() instanceof boolean[]) {
@@ -155,7 +162,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : for (int i=0; i<elements.length; i++) ((ElementPolygon)elements[i]).setClosed(true); break;
       case 1 : 
@@ -176,7 +184,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "true";
       case 1 : return "new double[][]{ {0.0,0.0}, {0.1,0.0}, {0.1,0.1} }";
@@ -187,7 +196,8 @@ public class ControlPolygonSet2D extends ControlSet2D implements org.colos.ejs.l
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return null;
       case 1 : 

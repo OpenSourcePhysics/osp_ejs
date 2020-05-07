@@ -41,7 +41,8 @@ public class MultiTrail extends Group {
     createNewTrail();
   }
   
-  public org.opensourcephysics.drawing3d.utils.Style getStyle() {
+  @Override
+public org.opensourcephysics.drawing3d.utils.Style getStyle() {
     return currentSegment.getStyle();
   }
   
@@ -302,7 +303,8 @@ public class MultiTrail extends Group {
   /**
    * Clears all points from all segments of the trail.
    */
-  public void clear() {
+  @Override
+public void clear() {
     for (Element el : getElements()) ((ElementTrail) el).clear();
     removeAllElements();
     addElement(currentSegment);
@@ -313,7 +315,8 @@ public class MultiTrail extends Group {
    * Clears all points from the last segment of the trail, 
    * respecting previous segments.
    */
-  public void initialize () {
+  @Override
+public void initialize () {
     currentSegment.clear();
     currentSegment.setGhostPoint(null);
     counter = 0;

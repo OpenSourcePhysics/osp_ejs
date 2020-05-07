@@ -20,7 +20,8 @@ public class ControlSiteLattice extends ControlDrawable2D {
   private int nx, ny, numColors, paletteType;
   private Color[] palette=new Color[1];
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     lattice = new SiteLattice(21,21);
     lattice.setShowGridLines (true);
     lattice.setGridLineColor (Color.lightGray);
@@ -38,7 +39,8 @@ public class ControlSiteLattice extends ControlDrawable2D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumX");
@@ -56,7 +58,8 @@ public class ControlSiteLattice extends ControlDrawable2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumX"))      return "int|double";
     if (_property.equals("maximumX"))      return "int|double";
     if (_property.equals("minimumY"))      return "int|double";
@@ -74,7 +77,8 @@ public class ControlSiteLattice extends ControlDrawable2D {
 // Variable properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getDouble()!=minX) {
         lattice.setMinMax(minX=_value.getDouble(),maxX,minY,maxY);
@@ -122,7 +126,8 @@ public class ControlSiteLattice extends ControlDrawable2D {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : lattice.setXMin(minX=-1.0); break;
       case 1 : lattice.setXMax(maxX=1.0); break;
@@ -138,7 +143,8 @@ public class ControlSiteLattice extends ControlDrawable2D {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "-1";
       case 1 : return "1";
@@ -154,7 +160,8 @@ public class ControlSiteLattice extends ControlDrawable2D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 :
       case 5 : case 6 : case 7 : case 8 : case 9 :

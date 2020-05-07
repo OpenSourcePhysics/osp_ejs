@@ -20,11 +20,14 @@ public class ControlCone3D extends ControlElement3D {
 
   private ElementCone cone;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementCone"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementCone"; }
 
-  protected Element createElement () { return cone = new ElementCone(); }
+  @Override
+protected Element createElement () { return cone = new ElementCone(); }
 
-  protected int getPropertiesDisplacement () { return CONE_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return CONE_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -32,7 +35,8 @@ public class ControlCone3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("truncationHeight");
@@ -47,7 +51,8 @@ public class ControlCone3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("truncationHeight")) return "int|double";
     if (_property.equals("minimumAngle")) return "int";
     if (_property.equals("maximumAngle")) return "int";
@@ -63,7 +68,8 @@ public class ControlCone3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : cone.setTruncationHeight(_value.getDouble()); break;
       case 1 : cone.setMinimumAngle(_value.getInteger()); break;
@@ -77,7 +83,8 @@ public class ControlCone3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : cone.setTruncationHeight(Double.NaN); break;
       case 1 : cone.setMinimumAngle(0); break;
@@ -91,7 +98,8 @@ public class ControlCone3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>"; 
       case 1 : return "0";
@@ -105,7 +113,8 @@ public class ControlCone3D extends ControlElement3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 :

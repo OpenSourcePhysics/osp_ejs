@@ -28,7 +28,8 @@ public class YAxisRotation extends AxisRotation {
   /**
    * Provides a copy of this transformation.
    */
-  public Object clone() {
+  @Override
+public Object clone() {
     YAxisRotation m = new YAxisRotation();
     m.setAngle(angle);
     m.origin = origin.clone();

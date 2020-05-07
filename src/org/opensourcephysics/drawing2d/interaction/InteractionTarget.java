@@ -61,7 +61,8 @@ public class InteractionTarget implements Interactive {
      * Enables/Disables the target completely
      * @param value boolean
      */
-    final public void setEnabled(boolean value) {
+    @Override
+	final public void setEnabled(boolean value) {
       enabledType = value ? ENABLED_ANY : ENABLED_NONE;
     }
 
@@ -69,7 +70,8 @@ public class InteractionTarget implements Interactive {
      * Returns the enabled status of the target
      * @return boolean true if any motion is enabled
      */
-    final public boolean isEnabled() {
+    @Override
+	final public boolean isEnabled() {
       return enabledType!=ENABLED_NONE;
     }
     
@@ -151,29 +153,41 @@ public class InteractionTarget implements Interactive {
     // Implementation of Interactive
     // ------------------------------
 
-    public Interactive findInteractive(DrawingPanel panel, int _xpix, int _ypix) { return this; }
+    @Override
+	public Interactive findInteractive(DrawingPanel panel, int _xpix, int _ypix) { return this; }
 
-    public void setXY(double x, double y) { element.setXY(x, y); }
+    @Override
+	public void setXY(double x, double y) { element.setXY(x, y); }
 
-    public void setX(double x) { element.setX(x); }
+    @Override
+	public void setX(double x) { element.setX(x); }
 
-    public void setY(double y) { element.setY(y); }
+    @Override
+	public void setY(double y) { element.setY(y); }
 
-    public double getX() { return element.getX(); }
+    @Override
+	public double getX() { return element.getX(); }
 
-    public double getY() { return element.getY(); }
+    @Override
+	public double getY() { return element.getY(); }
 
-    public double getXMin() { return element.getXMin(); }
+    @Override
+	public double getXMin() { return element.getXMin(); }
 
-    public double getXMax() { return element.getXMax(); }
+    @Override
+	public double getXMax() { return element.getXMax(); }
 
-    public double getYMin() { return element.getYMin(); }
+    @Override
+	public double getYMin() { return element.getYMin(); }
 
-    public double getYMax() { return element.getYMax(); }
+    @Override
+	public double getYMax() { return element.getYMax(); }
 
-    public boolean isMeasured() { return element.isMeasured(); }
+    @Override
+	public boolean isMeasured() { return element.isMeasured(); }
 
-    public void draw(DrawingPanel panel, Graphics g) { element.draw(panel, g); }
+    @Override
+	public void draw(DrawingPanel panel, Graphics g) { element.draw(panel, g); }
 
 }
 

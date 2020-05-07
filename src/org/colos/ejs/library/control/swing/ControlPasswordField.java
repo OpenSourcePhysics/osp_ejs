@@ -30,7 +30,8 @@ public class ControlPasswordField extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     textfield = new JPasswordField();
     textfield.setText ("");
     textfield.addActionListener (new MyActionListener());
@@ -59,7 +60,8 @@ public class ControlPasswordField extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("variable");
@@ -71,7 +73,8 @@ public class ControlPasswordField extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("variable"))       return "String VARIABLE_EXPECTED";
     if (_property.equals("echoCharacter"))  return "String CONSTANT";
     if (_property.equals("editable"))       return "boolean";
@@ -83,7 +86,8 @@ public class ControlPasswordField extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case VARIABLE : setTheValue(_value.getString()); break;
       case 1 : textfield.setEchoChar(_value.getString().charAt(0)); break;
@@ -100,7 +104,8 @@ public class ControlPasswordField extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case VARIABLE : setTheValue(""); break;
       case 1 : textfield.setEchoChar('*'); break;
@@ -114,7 +119,8 @@ public class ControlPasswordField extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case VARIABLE : return "<none>"; 
       case 1 : return "*"; 
@@ -124,7 +130,8 @@ public class ControlPasswordField extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case VARIABLE : return internalValue;
       case 1 : case 2 : case 3 :
@@ -155,13 +162,17 @@ public class ControlPasswordField extends ControlSwingElement {
   }
 
   private class MyActionListener implements java.awt.event.ActionListener {
-    public void actionPerformed (java.awt.event.ActionEvent _e) { if (textfield.isEditable()) acceptValue();  }
+    @Override
+	public void actionPerformed (java.awt.event.ActionEvent _e) { if (textfield.isEditable()) acceptValue();  }
   }
 
   private class MyKeyListener implements java.awt.event.KeyListener {
-    public void keyPressed  (java.awt.event.KeyEvent _e) { processKeyEvent (_e,0); }
-    public void keyReleased (java.awt.event.KeyEvent _e) { processKeyEvent (_e,1); }
-    public void keyTyped    (java.awt.event.KeyEvent _e) { processKeyEvent (_e,2); }
+    @Override
+	public void keyPressed  (java.awt.event.KeyEvent _e) { processKeyEvent (_e,0); }
+    @Override
+	public void keyReleased (java.awt.event.KeyEvent _e) { processKeyEvent (_e,1); }
+    @Override
+	public void keyTyped    (java.awt.event.KeyEvent _e) { processKeyEvent (_e,2); }
     private void processKeyEvent (java.awt.event.KeyEvent _e, int _n) {
       if (!textfield.isEditable()) return;
 //      if (_e.getKeyChar()=='\t') { acceptValue(); return; }

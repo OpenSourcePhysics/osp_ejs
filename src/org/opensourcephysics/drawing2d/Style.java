@@ -66,7 +66,8 @@ public class Style {
   /**
    * Returns a clone of this style
    */
-  public Style clone() {
+  @Override
+public Style clone() {
     Style newStyle = new Style(this.element);
     newStyle.drawsFill = this.drawsFill;
     newStyle.drawsLines = this.drawsLines;

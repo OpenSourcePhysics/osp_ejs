@@ -41,10 +41,12 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
   private double minAbcise1=Double.NaN, maxAbcise1=Double.NaN;
   private double minAbcise2=Double.NaN, maxAbcise2=Double.NaN;
 
-  protected Element createElement () { 
+  @Override
+protected Element createElement () { 
     surface = new ElementSurface();
     surface.setActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent _event) { checkExtremes(); }
+      @Override
+	public void actionPerformed(ActionEvent _event) { checkExtremes(); }
     });
     surface.setCanBeMeasured (false);
 
@@ -59,9 +61,11 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
     return surface; 
   }
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSurface"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSurface"; }
 
-  protected int getPropertiesDisplacement () { return SURFACE_ROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return SURFACE_ROPERTIES_ADDED; }
 
   // ------------------------------------------------
   // Definition of Properties
@@ -69,7 +73,8 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("variable1");
@@ -93,7 +98,8 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("variable1"))  return "String";
       if (_property.equals("variable2"))  return "String";
       if (_property.equals("min1"))       return "int|double";
@@ -120,7 +126,8 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 : if (variable1==null || !variable1.equals(_value.getString()))  { variable1 = _value.getString(); updateIndexes = true; } break;
         case 1 : min1 = _value.getDouble();  checkMeasured(); break;
@@ -164,7 +171,8 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
       }
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : variable1 = "u"; updateIndexes = true; break;
         case 1 : min1 = Double.NaN; surface.setCanBeMeasured (false); break;
@@ -190,7 +198,8 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
       }
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "u";
         case 1 :
@@ -209,7 +218,8 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
         default: return super.getDefaultValueString(_index-SURFACE_ROPERTIES_ADDED);
       }
     }
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 :
         case 4 : case 5 : case 6 : case 7 :
@@ -259,7 +269,8 @@ public class ControlAnalyticSurface3D extends ControlElement3D implements org.co
 // Update the curve
 // -------------------------------------
 
-  public void preupdate() {
+  @Override
+public void preupdate() {
     boolean parsedOk=false, errorX=false, errorY=false, errorZ=false;
     if (changedXfunction && functionX!=null) {
       ParserAndVariables pav = new ParserAndVariables(useJavaSyntax,functionX);

@@ -19,7 +19,8 @@ public class InteractiveBox extends AbstractInteractiveTile {
    */
 //  public InteractiveBox () { setOrigin (0.5,0.5,0.5,true); }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveBox) {
       InteractiveBox old = (InteractiveBox) _element;
@@ -59,7 +60,8 @@ public class InteractiveBox extends AbstractInteractiveTile {
 //  Private or protected methods
 // -------------------------------------
 
-  protected synchronized void computeCorners () {
+  @Override
+protected synchronized void computeCorners () {
 //    System.out.println("Computing box");
     int theNx = 1, theNy = 1, theNz = 1;
     if (resolution!=null) {

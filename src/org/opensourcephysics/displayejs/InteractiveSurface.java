@@ -30,7 +30,8 @@ public class InteractiveSurface extends AbstractInteractiveTile {
   }
 
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveSurface) setData (((InteractiveSurface) _element).data);
   }
@@ -48,7 +49,8 @@ public class InteractiveSurface extends AbstractInteractiveTile {
 // Implementation of Interactive and Drawable3D
 // ----------------------------------------------
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible) return null;
     if (hasChanged) { computeCorners(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
@@ -61,7 +63,8 @@ public class InteractiveSurface extends AbstractInteractiveTile {
 //  Private or protected methods
 // -------------------------------------
 
-  protected void projectPoints (DrawingPanel _panel) {
+  @Override
+protected void projectPoints (DrawingPanel _panel) {
     super.projectPoints(_panel);
     if (corners==null) return;
     if (group==null) _panel.project(corners[0][0],pixelOrigin);
@@ -73,7 +76,8 @@ public class InteractiveSurface extends AbstractInteractiveTile {
     }
   }
 
-  protected synchronized void computeCorners () {
+  @Override
+protected synchronized void computeCorners () {
 //    System.out.println("Computing surface");
     if (data==null) return;
     int theNu = data.length-1, theNv = data[0].length-1;

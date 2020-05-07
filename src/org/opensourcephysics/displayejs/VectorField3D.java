@@ -42,7 +42,8 @@ public class VectorField3D extends ElementSet {
     setAutoscaleMagnitude(true);
   }
 
-  public void setVisible(boolean _visible) { // Overwrite its parent
+  @Override
+public void setVisible(boolean _visible) { // Overwrite its parent
     visibility = _visible;
   }
 
@@ -176,12 +177,14 @@ public class VectorField3D extends ElementSet {
 
   // -------------------- Implementation methods
 
-  public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix){
+  @Override
+public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix){
     return null;
   }
 
   /* Drawable3D */
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!(visibility && hasData)) return null;
     list3D.clear();
     for (int i=0,n=getNumberOfElements(); i<n; i++) {
@@ -204,7 +207,8 @@ public class VectorField3D extends ElementSet {
     return list3D.toArray(minimalObjects);
   }
 
-  public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g) {
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g) {
     if (!(visibility && hasData)) return;
     if (levels>0) for (int i=0,n=getNumberOfElements(); i<n; i++) {
         Color color = magToColor(magnitude[i]);
@@ -221,7 +225,8 @@ public class VectorField3D extends ElementSet {
     super.drawQuickly(_panel,_g);
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!(visibility && hasData)) return;
    if (levels>0) for (int i=0,n=getNumberOfElements(); i<n; i++) {
        Color color = magToColor(magnitude[i]);

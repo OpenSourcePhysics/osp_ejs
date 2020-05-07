@@ -46,19 +46,27 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     myFullSize     = SIZE    +TRACE_ADDED+disp;
   }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
-  final public int[] getPosSpot () { return myPosSpot; }
-  final public int[] getSizeSpot () { return mySizeSpot; }
+  @Override
+final public int[] getPosSpot () { return myPosSpot; }
+  @Override
+final public int[] getSizeSpot () { return mySizeSpot; }
 
-  final public int getFullPositionSpot () { return myFullPosition; }
-  final public int getFullSizeSpot () { return myFullSize; }
+  @Override
+final public int getFullPositionSpot () { return myFullPosition; }
+  @Override
+final public int getFullSizeSpot () { return myFullSize; }
 
-  public String getServerClassname () { return "org.colos.ejs.library.server.drawing2d.ElementTrail"; }
+  @Override
+public String getServerClassname () { return "org.colos.ejs.library.server.drawing2d.ElementTrail"; }
 
-  protected void setName (String _name) { trace.setName(_name); } // To be overwritten
+  @Override
+protected void setName (String _name) { trace.setName(_name); } // To be overwritten
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     x = y = z = 0.0;
     trace = new InteractiveTrace();
 //    trace.createTableFrame();
@@ -66,22 +74,26 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     return trace;
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
 //    System.out.println ("Initing");
     trace.initialize();
   }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
 //    System.out.println ("Resetting");
     trace.clear();
   }
 
 
-  public void onExit () { // free memory
+  @Override
+public void onExit () { // free memory
     trace.clear();
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     //System.out.println ("Adding "+x+" " + y);
     if (!trace.isActive()) return;
     if (isSetZ) {
@@ -131,7 +143,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
 
   static private java.util.ArrayList<String> infoList=null;
 
-  public java.util.ArrayList<String> getPropertyList() {
+  @Override
+public java.util.ArrayList<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("maxpoints");
@@ -157,7 +170,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("x")) return "inputX";
     if (_property.equals("y")) return "inputY";
     if (_property.equals("z")) return "inputZ";
@@ -167,7 +181,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("x"))   return "int|double|double[]";
     if (_property.equals("y"))   return "int|double|double[]";
     if (_property.equals("z"))   return "int|double|double[] UNNECESSARY";
@@ -198,7 +213,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("DrivenBy")>=0) {
       _value = _value.trim().toLowerCase();
@@ -233,7 +249,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     return super.setProperty(_property,_value);
   }
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case INPUT_X :
         if (_value.getObject() instanceof double[]) xArray = (double[]) _value.getObject();
@@ -277,7 +294,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case INPUT_X : x = 0.0; xArray = null; break;
       case INPUT_Y : y = 0.0; yArray = null; break;
@@ -306,7 +324,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case INPUT_X :
       case INPUT_Y :
@@ -335,7 +354,8 @@ public class ControlTrace extends ControlInteractiveElement implements org.colos
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case INPUT_X : case INPUT_Y : case INPUT_Z :
       case 0 : case 1 : case 2 : case 3 :  case 4 :

@@ -33,11 +33,13 @@ public class Pump extends PoligonsAndTexts  {
     setRotorData(true);
   }
 
-  public void setFillColor2(java.awt.Paint _fill) {
+  @Override
+public void setFillColor2(java.awt.Paint _fill) {
     if (_fill instanceof java.awt.Color) poligon2.getStyle().setEdgeColor((java.awt.Color)_fill);
   }
 
-  public void setVisible (boolean _visible) {
+  @Override
+public void setVisible (boolean _visible) {
     super.setVisible(_visible);
     if (_visible) poligon2.setVisible(showRotor);
   }
@@ -88,7 +90,8 @@ public class Pump extends PoligonsAndTexts  {
     return cData;
   }
 
-  protected double getRadius() { return w; }
+  @Override
+protected double getRadius() { return w; }
 
   protected void setRotorData(boolean _rotate) {
     if (Double.isNaN(rotorAngle)) {
@@ -117,7 +120,8 @@ public class Pump extends PoligonsAndTexts  {
     }
   }
 
-  protected void setGroupData() {
+  @Override
+protected void setGroupData() {
     switch (type) {
       default :
       case RIGHT : data = pumpRight(); break;

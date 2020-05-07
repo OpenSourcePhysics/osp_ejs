@@ -22,25 +22,29 @@ public class ControlCursor extends ControlInteractiveElement {
 
   public ControlCursor () { super (); enabledEjsEdit = true; }
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       InteractiveCursor cursor = new InteractiveCursor();
       cursor.setEnabled(InteractiveElement.TARGET_POSITION,true);  // Backwards compatibility
       return cursor;
   }
 
-  protected int getPropertiesDisplacement () { return CURSOR_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return CURSOR_ADDED; }
 
 // ------------------------------------------------
 // Properties
 // ------------------------------------------------
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("style"))          return "CursorShape|int";
     if (_property.equals("z"))           return "int|double UNNECESSARY";
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("CursorShape")>=0) {
       _value = _value.trim().toLowerCase();
@@ -55,7 +59,8 @@ public class ControlCursor extends ControlInteractiveElement {
 // Set and Get values
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case MY_STYLE : ((InteractiveCursor) myElement).setType (_value.getInteger()); break;
       case MY_SECONDARY_COLOR : 
@@ -66,7 +71,8 @@ public class ControlCursor extends ControlInteractiveElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case MY_STYLE : ((InteractiveCursor) myElement).setType (InteractiveCursor.CROSSHAIR); break;
       case MY_SECONDARY_COLOR : myElement.getStyle().setEdgeColor(java.awt.Color.black); break;
@@ -74,7 +80,8 @@ public class ControlCursor extends ControlInteractiveElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case MY_STYLE : return "CROSSHAIR";
       case MY_SECONDARY_COLOR : return "BLACK";
@@ -82,7 +89,8 @@ public class ControlCursor extends ControlInteractiveElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
   switch (_index) {
     default: return super.getValue(_index-CURSOR_ADDED);
   }

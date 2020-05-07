@@ -37,7 +37,8 @@ public class ControlTextField extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     textfield = new JTextField();
     textfield.setText ("");
     defaultValue = textfield.getText();
@@ -56,7 +57,8 @@ public class ControlTextField extends ControlSwingElement {
   protected int getVariableIndex () { return ControlTextField.VARIABLE; }
   protected int getValueIndex () { return ControlTextField.VALUE; }
 
-  public void reset() {
+  @Override
+public void reset() {
     if (defaultValueSet) {
       setTheValue (defaultValue);
       setInternalValue (defaultValue);
@@ -82,7 +84,8 @@ public class ControlTextField extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("variable");
@@ -95,7 +98,8 @@ public class ControlTextField extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("variable"))       return "String VARIABLE_EXPECTED";
     if (_property.equals("value"))          return "String CONSTANT TRANSLATABLE DEPRECATED";
     if (_property.equals("editable"))       return "boolean";
@@ -108,7 +112,8 @@ public class ControlTextField extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case VARIABLE : setTheValue(_value.getString()); break;
       case VALUE :
@@ -150,7 +155,8 @@ public class ControlTextField extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case VARIABLE : break; // Do nothing
       case VALUE : defaultValueSet = false; break;
@@ -177,7 +183,8 @@ public class ControlTextField extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case VARIABLE : case VALUE : return "<none>"; 
       case 2 : return "true";
@@ -188,7 +195,8 @@ public class ControlTextField extends ControlSwingElement {
       case FIELD_FOREGROUND : return "BLACK/GRAY";
     }
   }
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case VARIABLE : return internalValue;
       case 1 : case 2 : case 3 : case 4 :
@@ -226,13 +234,17 @@ public class ControlTextField extends ControlSwingElement {
   }
 
   protected class MyActionListener implements java.awt.event.ActionListener {
-    public void actionPerformed (java.awt.event.ActionEvent _e) { if (textfield.isEditable()) acceptValue(); }
+    @Override
+	public void actionPerformed (java.awt.event.ActionEvent _e) { if (textfield.isEditable()) acceptValue(); }
   }
 
   protected class MyKeyListener implements java.awt.event.KeyListener {
-    public void keyPressed  (java.awt.event.KeyEvent _e) { processKeyEvent (_e,0); }
-    public void keyReleased (java.awt.event.KeyEvent _e) { processKeyEvent (_e,1); }
-    public void keyTyped    (java.awt.event.KeyEvent _e) { processKeyEvent (_e,2); }
+    @Override
+	public void keyPressed  (java.awt.event.KeyEvent _e) { processKeyEvent (_e,0); }
+    @Override
+	public void keyReleased (java.awt.event.KeyEvent _e) { processKeyEvent (_e,1); }
+    @Override
+	public void keyTyped    (java.awt.event.KeyEvent _e) { processKeyEvent (_e,2); }
     private void processKeyEvent (java.awt.event.KeyEvent _e, int _n) {
       if (!textfield.isEditable()) return;
 //      System.out.println("Keyword is "+_e.getKeyCode());

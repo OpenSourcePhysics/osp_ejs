@@ -44,15 +44,18 @@ public class ElementDisk extends ElementCylinder {
   // Overwrite parent methods
   // -------------------------------------
   
-  public void setSizeX(double sizeX) {
+  @Override
+public void setSizeX(double sizeX) {
     super.setSizeXYZ(sizeX, this.getSizeY(), 0);
   }
 
-  public void setSizeY(double sizeY) {
+  @Override
+public void setSizeY(double sizeY) {
     super.setSizeXYZ(this.getSizeX(), sizeY, 0);
   }
 
-  public void setSizeXYZ(double sizeX, double sizeY, double sizeZ) {
+  @Override
+public void setSizeXYZ(double sizeX, double sizeY, double sizeZ) {
     super.setSizeXYZ(sizeX, sizeY, 0);
   }
 

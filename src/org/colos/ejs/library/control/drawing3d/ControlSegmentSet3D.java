@@ -13,9 +13,11 @@ import org.opensourcephysics.drawing3d.*;
  */
 public class ControlSegmentSet3D extends ControlSet3D {
 
-  protected int getPropertiesAddedToSet () { return 0; }
+  @Override
+protected int getPropertiesAddedToSet () { return 0; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     return new ElementSegment();
   }
 

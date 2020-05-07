@@ -59,13 +59,15 @@ public class Radau5Adaptive extends Radau5Light {
         super(ode);
     }
 
-    protected void allocateArrays(int n) {
+    @Override
+	protected void allocateArrays(int n) {
       super.allocateArrays(n);
       errorApproximationEquation = new ErrorFirstAproximationEquation(n);
       scal = new double[n];
     }
 
-    public void reinitialize(double[] _state) {
+    @Override
+	public void reinitialize(double[] _state) {
       super.reinitialize(_state);
       error_code=ODEAdaptiveSolver.NO_ERROR;
     }
@@ -77,7 +79,8 @@ public class Radau5Adaptive extends Radau5Light {
      * @param algEqn system of algebraic equations (Indeed the difference scheme equation)
      * @return simplified newton iteration solver instance
      */
-    protected AlgebraicEquationSimpleSolver getInnerSolver(IRKAlgebraicEquation algEqn) {
+    @Override
+	protected AlgebraicEquationSimpleSolver getInnerSolver(IRKAlgebraicEquation algEqn) {
         laeSolver = new LAESolverLU(numEqn);
 //        return new IRKSimplifiedNewton(algEqn, laeSolver);
         return new MyNewton(algEqn, laeSolver);
@@ -97,7 +100,8 @@ public class Radau5Adaptive extends Radau5Light {
     /**
      * Before the step performing actions
      */
-    protected void preStepPreparations() {
+    @Override
+	protected void preStepPreparations() {
         super.preStepPreparations();
         nRejected = 0;
     }
@@ -155,7 +159,8 @@ public class Radau5Adaptive extends Radau5Light {
     /**
      * Posts the results after the iteration step
      */
-    protected void commitStepResults() {
+    @Override
+	protected void commitStepResults() {
         super.commitStepResults();
         nAcceptedSteps++;
         jacobianAge++;
@@ -183,7 +188,8 @@ public class Radau5Adaptive extends Radau5Light {
          * is necessary for the solver.
          * @return the number of components in the error vector
          */
-        public int getDimension() {
+        @Override
+		public int getDimension() {
             return numEqn;
         }
 
@@ -193,13 +199,15 @@ public class Radau5Adaptive extends Radau5Light {
          * left hand matrix  solver should be same too.
          * @param matrix
          */
-        public void getMatrix(double[][] matrix) {
+        @Override
+		public void getMatrix(double[][] matrix) {
         }
         /**
          * Defines the right hand vector for essential the linear algebraic equation.
          * @param vector the right hand vector.
          */
-        public void getVector(double[] vector) {
+        @Override
+		public void getVector(double[] vector) {
             for (int i = 0; i < numEqn; i++) {
                 temporary[i] = 0;
                 for (int j = 0; j < err.length; j++)
@@ -243,14 +251,16 @@ public class Radau5Adaptive extends Radau5Light {
              * is necessary for the solver.
              * @return the number of components in the error vector
              */
-            public int getDimension() {
+            @Override
+			public int getDimension() {
                 return numEqn;
             }
             /**
              * Void because the same reason that and error first approximation equation.
              * @param matrix
              */
-            public void getMatrix(double[][] matrix) {
+            @Override
+			public void getMatrix(double[][] matrix) {
             }
             /**
              * Constructs the right hand vector of the error second approximation equation.
@@ -258,7 +268,8 @@ public class Radau5Adaptive extends Radau5Light {
              * It uses intermediate results obtained on estimating the error first approximation
              * @param vector the right hand vector.
              */
-            public void getVector(double[] vector) {
+            @Override
+			public void getVector(double[] vector) {
                 if (temporary == null) System.err.println("Inner's getVector should be invoked earlier than that one"); //$NON-NLS-1$
                 for (int i = 0; i < numEqn; i++) {
                     errorApproximation[i] += state[i];

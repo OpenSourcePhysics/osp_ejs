@@ -5,20 +5,13 @@
 
 package graphstracks;
 
-import org.colos.ejs.library._EjsConstants;
+import java.awt.Color;
+
+import javax.swing.JApplet;
 
 import org.opensourcephysics.display.OSPRuntime;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
-
-import javax.swing.event.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.*;
 
 public class GraphsAndTracks extends org.colos.ejs.library.Model {
 
@@ -69,7 +62,8 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
     return defaultInfo;
   }
 
-  public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName, org.colos.ejs.library.utils.LocaleItem _item) { return _getHtmlPageClassInfo(_pageName,_item); }
+  @Override
+public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName, org.colos.ejs.library.utils.LocaleItem _item) { return _getHtmlPageClassInfo(_pageName,_item); }
 
   // -------------------------- 
   // static methods 
@@ -163,19 +157,26 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
  // Abstract part of Model 
  // -------------------------------------------
 
-  public String _getClassEjsModel() { return _getEjsModel(); }
+  @Override
+public String _getClassEjsModel() { return _getEjsModel(); }
 
-  public java.util.Set<String> _getClassEjsResources() { return _getEjsResources(); }
+  @Override
+public java.util.Set<String> _getClassEjsResources() { return _getEjsResources(); }
 
-  public String _getClassModelDirectory() { return _getModelDirectory(); }
+  @Override
+public String _getClassModelDirectory() { return _getModelDirectory(); }
 
-  public org.colos.ejs.library.View _getView() { return _view; }
+  @Override
+public org.colos.ejs.library.View _getView() { return _view; }
 
-  public org.colos.ejs.library.Simulation _getSimulation() { return _simulation; }
+  @Override
+public org.colos.ejs.library.Simulation _getSimulation() { return _simulation; }
 
-  public int _getPreferredStepsPerDisplay() { return 1; }
+  @Override
+public int _getPreferredStepsPerDisplay() { return 1; }
 
-  public void _resetModel () {
+  @Override
+public void _resetModel () {
     _isEnabled_initialization1 = true; // Reset enabled condition for Model.Initialization.Initialize
     _isEnabled_evolution1 = true; // Reset enabled condition for Model.Evolution.Ball Evolution
     _isEnabled_evolution1_Event1 = true; // reset enabled condition for event Left Event 
@@ -240,7 +241,8 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
 
   public void _initializeSolvers () { for (org.opensourcephysics.numerics.ode_solvers.EjsS_ODE __pode : _privateOdesList.values()) __pode.initializeSolver(); }
 
-  public void _initializeModel () {
+  @Override
+public void _initializeModel () {
     __shouldBreak = false;
     boolean _wasEnabled_initialization1 = _isEnabled_initialization1;
     if (_wasEnabled_initialization1) _initialization1 ();
@@ -248,13 +250,16 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
     _initializeSolvers();
   }
 
-  public void _automaticResetSolvers() { 
+  @Override
+public void _automaticResetSolvers() { 
     _ODEi_evolution1.automaticResetSolver();
   }
-  public void _resetSolvers() { 
+  @Override
+public void _resetSolvers() { 
     _ODEi_evolution1.resetSolver();
   }
-  public void _stepModel () {
+  @Override
+public void _stepModel () {
     __shouldBreak = false;
     boolean _wasEnabled_evolution1 = _isEnabled_evolution1;
     boolean _wasEnabled_evolution2 = _isEnabled_evolution2;
@@ -267,17 +272,20 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
     if (__shouldBreak) return;
   }
 
-  public void _updateModel () {
+  @Override
+public void _updateModel () {
     __shouldBreak = false;
     boolean _wasEnabled_constraints1 = _isEnabled_constraints1;
     if (_wasEnabled_constraints1) _constraints1 ();
     if (__shouldBreak) return;
   }
 
-  public void _readFromViewAfterUpdate () {
+  @Override
+public void _readFromViewAfterUpdate () {
   }
 
-  public void _freeMemory () {
+  @Override
+public void _freeMemory () {
     getSimulation().setEnded(); // Signal that the simulation ended already
     xghost = null;  // Variables.Ghost Vars:4
     yghost = null;  // Variables.Ghost Vars:5
@@ -483,14 +491,17 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
       _privateOdesList.put("Ball Evolution",this);
     }
 
-    public org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver getEventSolver() { return __eventSolver; } 
+    @Override
+	public org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver getEventSolver() { return __eventSolver; } 
 
-    public void setSolverClass (Class<?> __aSolverClass) { // Change the solver in run-time
+    @Override
+	public void setSolverClass (Class<?> __aSolverClass) { // Change the solver in run-time
       this.__solverClass = __aSolverClass;
       __instantiateSolver();
     }
 
-    public String setSolverClass (String _solverClassName) { // Change the solver in run-time
+    @Override
+	public String setSolverClass (String _solverClassName) { // Change the solver in run-time
       String _prefix = "org.opensourcephysics.numerics.ode_solvers.";
       _solverClassName = _solverClassName.trim().toLowerCase();
       if (_solverClassName.indexOf("euler")>=0) {
@@ -530,15 +541,20 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
       __mustInitialize = true;
     }
 
-    public void setEnabled (boolean __enabled) { __isEnabled = __enabled; }
+    @Override
+	public void setEnabled (boolean __enabled) { __isEnabled = __enabled; }
 
-    public double getIndependentVariableValue () { return __eventSolver.getIndependentVariableValue(); }
+    @Override
+	public double getIndependentVariableValue () { return __eventSolver.getIndependentVariableValue(); }
 
-    public double getInternalStepSize () { return __eventSolver.getInternalStepSize(); }
+    @Override
+	public double getInternalStepSize () { return __eventSolver.getInternalStepSize(); }
 
-    public boolean isAccelerationIndependentOfVelocity() { return false; }
+    @Override
+	public boolean isAccelerationIndependentOfVelocity() { return false; }
 
-    public void initializeSolver () {
+    @Override
+	public void initializeSolver () {
       __pushState();
       __eventSolver.initialize(dt);
       __eventSolver.setBestInterpolation(false);
@@ -585,9 +601,11 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
       __mustReinitialize = true;
     }
 
-    public double step() { return __privateStep(false); }
+    @Override
+	public double step() { return __privateStep(false); }
 
-    public double solverStep() { return __privateStep(true); }
+    @Override
+	public double solverStep() { return __privateStep(true); }
 
     private double __privateStep(boolean __takeMaximumStep) {
       if (!__isEnabled) return 0;
@@ -621,9 +639,11 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
       return __stepTaken;
     }
 
-    public double[] getState () { return __state; }
+    @Override
+	public double[] getState () { return __state; }
 
-    public void getRate (double[] __aState, double[] __aRate) {
+    @Override
+	public void getRate (double[] __aState, double[] __aRate) {
       __aRate[__aRate.length-1] = 0.0; // In case the prelim code returns
       int __index=-1; // so that it can be used in preliminary code
       // Extract our variables from __aState
@@ -645,17 +665,23 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
 
     private class _ODE_evolution1_Event1 implements org.opensourcephysics.numerics.ode_solvers.StateEvent {
 
-      public int getTypeOfEvent() { return STATE_EVENT; }
+      @Override
+	public int getTypeOfEvent() { return STATE_EVENT; }
 
-      public int getRootFindingMethod() { return SECANT; }
+      @Override
+	public int getRootFindingMethod() { return SECANT; }
 
-      public int getMaxIterations() { return 100; }
+      @Override
+	public int getMaxIterations() { return 100; }
 
-      public String toString () { return "Left Event"; }
+      @Override
+	public String toString () { return "Left Event"; }
 
-      public double getTolerance () { return tol; }
+      @Override
+	public double getTolerance () { return tol; }
 
-      public double evaluate (double[] __aState) { 
+      @Override
+	public double evaluate (double[] __aState) { 
       // Extract our variables from __aState
       int __cOut=0;
       double xtrack = __aState[__cOut++];
@@ -666,7 +692,8 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
         return x-xt[segment];  // > Evolution:Ball Evolution:Left Event.Zero Condition:2
       }
 
-      public boolean action () { 
+      @Override
+	public boolean action () { 
       // Extract our variables from __state
       int __cOut=0;
       xtrack = __state[__cOut++];
@@ -703,17 +730,23 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
 
     private class _ODE_evolution1_Event2 implements org.opensourcephysics.numerics.ode_solvers.StateEvent {
 
-      public int getTypeOfEvent() { return STATE_EVENT; }
+      @Override
+	public int getTypeOfEvent() { return STATE_EVENT; }
 
-      public int getRootFindingMethod() { return SECANT; }
+      @Override
+	public int getRootFindingMethod() { return SECANT; }
 
-      public int getMaxIterations() { return 100; }
+      @Override
+	public int getMaxIterations() { return 100; }
 
-      public String toString () { return "Right Event"; }
+      @Override
+	public String toString () { return "Right Event"; }
 
-      public double getTolerance () { return tol; }
+      @Override
+	public double getTolerance () { return tol; }
 
-      public double evaluate (double[] __aState) { 
+      @Override
+	public double evaluate (double[] __aState) { 
       // Extract our variables from __aState
       int __cOut=0;
       double xtrack = __aState[__cOut++];
@@ -724,7 +757,8 @@ public class GraphsAndTracks extends org.colos.ejs.library.Model {
         return xt[segment+1]-x;  // > Evolution:Ball Evolution:Right Event.Zero Condition:2
       }
 
-      public boolean action () { 
+      @Override
+	public boolean action () { 
       // Extract our variables from __state
       int __cOut=0;
       xtrack = __state[__cOut++];

@@ -18,7 +18,8 @@ public abstract class ControlDrawable2D extends ControlDrawable {
 // Definition of Properties
 // ------------------------------------------------
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ColorMode")>=0 || _propertyType.indexOf("PlotMode")>=0) {
       _value = _value.trim().toLowerCase();
@@ -37,7 +38,8 @@ public abstract class ControlDrawable2D extends ControlDrawable {
     return super.parseConstant (_propertyType,_value);
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("z")) return "zArray";
     return super.getPropertyCommonName(_property);
   }

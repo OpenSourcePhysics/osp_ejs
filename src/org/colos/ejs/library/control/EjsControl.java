@@ -9,8 +9,6 @@ package org.colos.ejs.library.control;
 
 import java.util.*;
 import java.awt.*;
-import java.io.File;
-
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -612,7 +610,7 @@ public class EjsControl {
   // For backwards compatibility
   public ControlElement getControl (String _name) { return getElement (_name); }
 
-  public ConfigurableElement getConfigurableElement (String _name) { return (ConfigurableElement) getElement (_name); }
+  public ConfigurableElement getConfigurableElement (String _name) { return getElement (_name); }
 
  /**
   * Returns the visual of a control element by name
@@ -727,6 +725,7 @@ public class EjsControl {
 	public void collectData() {
 		justCollectingData = true;
 		OSPRuntime.dispatchEventWait(new Runnable() {
+			@Override
 			public synchronized void run() {
 				propagateValues();
 			}
@@ -882,7 +881,7 @@ public class EjsControl {
     String name = _element.getProperty("name");
     if (name!=null) elementTable.remove(name);
     elementList.remove(_element);
-    if (_element instanceof NeedsUpdate) updateList.remove((NeedsUpdate) _element);
+    if (_element instanceof NeedsUpdate) updateList.remove((NeedsUpdate)_element);
     if (_element instanceof NeedsFinalUpdate) finalUpdateList.remove((NeedsFinalUpdate) _element);
     if (_element instanceof ControlContainer) {
       for (Enumeration<ControlElement> e=((ControlContainer)_element).getChildren().elements(); e.hasMoreElements(); ) {
@@ -1267,7 +1266,8 @@ public class EjsControl {
     JEditorPane editorPane = new JEditorPane();
     editorPane.setEditable(false);
     editorPane.addHyperlinkListener(new HyperlinkListener() {
-      public void hyperlinkUpdate(HyperlinkEvent e) {
+      @Override
+	public void hyperlinkUpdate(HyperlinkEvent e) {
         if (e.getEventType()==HyperlinkEvent.EventType.ACTIVATED) {
           getSimulation().openURL(e.getSource(),e.getURL(),getSimulation().getView().getComponent(getSimulation().getMainWindow()), false);
         }

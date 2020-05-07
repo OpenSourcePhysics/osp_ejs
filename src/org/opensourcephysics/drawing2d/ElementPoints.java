@@ -138,7 +138,8 @@ public class ElementPoints extends Element {
     }
   }
 
-  public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
     if (!isReallyVisible() || coordinates.length==0) return;
     if (hasChanged()) transformAndProject();
     else if (needsToProject()) project();
@@ -156,7 +157,8 @@ public class ElementPoints extends Element {
   // Interaction
   // -------------------------------------
   
-  public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
     if (!targetPosition.isEnabled()) return null;
     if (!isReallyVisible() || coordinates.length==0) return null;
     if (hasChanged()) transformAndProject();

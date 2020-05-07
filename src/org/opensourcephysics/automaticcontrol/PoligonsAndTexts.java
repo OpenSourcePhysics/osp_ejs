@@ -114,7 +114,8 @@ public abstract class PoligonsAndTexts extends GroupDrawable implements Interact
     poligon2.getStyle().setFillPattern(_fill);
   }
 
-  public void setVisible (boolean _visible) {
+  @Override
+public void setVisible (boolean _visible) {
     super.setVisible(_visible);
     if (_visible) {
       text.setVisible(showText);
@@ -158,7 +159,8 @@ public abstract class PoligonsAndTexts extends GroupDrawable implements Interact
 //   Configure and use the value
 // ---------------------------------------
 
-  public void setEnabled(boolean _enabled) {
+  @Override
+public void setEnabled(boolean _enabled) {
     text.setEnabled(InteractiveElement.TARGET_POSITION, _enabled);
   }
   public void setValue(double _val) {
@@ -179,7 +181,8 @@ public abstract class PoligonsAndTexts extends GroupDrawable implements Interact
     text.getStyle().setDisplayObject(format.format(value));
   }
 
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
     if ( _event.getTarget() instanceof InteractionTargetGroupDrawableElement &&
          ((InteractionTargetGroupDrawableElement)_event.getTarget()).getElement()==text) {
       switch (_event.getID()) {

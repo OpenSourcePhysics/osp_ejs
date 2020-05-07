@@ -75,7 +75,8 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
     update();
 	OSPRuntime.dispatchEventWait(new Runnable() {
-        public void run () { 
+        @Override
+		public void run () { 
           createControl();
         }
       });
@@ -97,11 +98,13 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
 
 // ---------- Implementation of View -------------------
 
-  public void read() {
+  @Override
+public void read() {
     // Ejs requires no read(). Actually, having it might cause problems!
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("vx0".equals(_variable)) {
       _model.vx0 = getDouble("vx0"); // Variables.Initial Conditions:1
@@ -159,7 +162,8 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
     }
   }
 
-  public void propagateValues () {
+  @Override
+public void propagateValues () {
     setValue ("_isPlaying",_simulation.isPlaying());
     setValue ("_isPaused", _simulation.isPaused());
     if(__vx0_canBeChanged__) setValue("vx0",_model.vx0); // Variables.Initial Conditions:1
@@ -175,7 +179,8 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
     if(__projection_canBeChanged__) setValue("projection",_model.projection); // Variables.Aux Vars:3
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("vx0".equals(_variable)) __vx0_canBeChanged__ = false; // Variables.Initial Conditions:1
     if ("vy0".equals(_variable)) __vy0_canBeChanged__ = false; // Variables.Initial Conditions:2
@@ -451,7 +456,8 @@ class ParticleMotionNearMagneticDipoleView extends org.colos.ejs.library.control
 
 // ---------- Resetting the interface  -------------------
 
-  public void reset() {
+  @Override
+public void reset() {
     getElement("frame")
       .setProperty("title","Charged Particle Motion Near a Magnetic Dipole")
       .setProperty("visible","true");

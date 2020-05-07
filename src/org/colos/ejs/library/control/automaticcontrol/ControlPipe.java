@@ -20,7 +20,8 @@ public class ControlPipe extends ControlPoligon {
 
   protected Pipe pipe;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       pipe = new Pipe();
       pipe.setData(new double[][] { { 0,0}, {0.2,0} });
     poligon = pipe;
@@ -34,7 +35,8 @@ public class ControlPipe extends ControlPoligon {
     return pipe;
   }
 
-  protected int getPropertiesDisplacement () { return PIPE_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return PIPE_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -42,7 +44,8 @@ public class ControlPipe extends ControlPoligon {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("width");
@@ -54,12 +57,14 @@ public class ControlPipe extends ControlPoligon {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("filled"))          return "drawingFill";
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("width"))     return "int|double";
     if (_property.equals("filled"))    return "boolean";
     if (_property.equals("endClosed")) return "boolean";
@@ -72,7 +77,8 @@ public class ControlPipe extends ControlPoligon {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : pipe.setWidth(_value.getDouble()); break;
       case 1 : pipe.setFilled(_value.getBoolean()); break;
@@ -88,7 +94,8 @@ public class ControlPipe extends ControlPoligon {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : pipe.setWidth(0.025); break;
       case 1 : pipe.setFilled(false); break;
@@ -98,7 +105,8 @@ public class ControlPipe extends ControlPoligon {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0.025";
       case 1 : return "false";
@@ -108,7 +116,8 @@ public class ControlPipe extends ControlPoligon {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : return null;
       default: return super.getValue (_index-PIPE_ADDED);

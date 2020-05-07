@@ -701,7 +701,8 @@ public abstract class Element implements InteractionSource {
    * @param target An integer number that identifies the target in the source.
    * @return InteractionTarget
    */
-  public InteractionTarget getInteractionTarget(int target) {
+  @Override
+public InteractionTarget getInteractionTarget(int target) {
     switch (target) {
       case TARGET_POSITION : return targetPosition;
       case TARGET_SIZE :     return targetSize;
@@ -715,7 +716,8 @@ public abstract class Element implements InteractionSource {
    * @param listener An object that implements the InteractionListener interface
    * @see InteractionListener
    */
-  public void addInteractionListener(InteractionListener listener) {
+  @Override
+public void addInteractionListener(InteractionListener listener) {
     if (listener==null || listeners.contains(listener))  return;
     listeners.add(listener);
   }
@@ -724,7 +726,8 @@ public abstract class Element implements InteractionSource {
    * Removes the specified interaction listener
    * @see InteractionListener
    */
-  public void removeInteractionListener(InteractionListener listener) { listeners.remove(listener); }
+  @Override
+public void removeInteractionListener(InteractionListener listener) { listeners.remove(listener); }
 
   /**
    * Invokes the interactionPerformed() methods on the registered

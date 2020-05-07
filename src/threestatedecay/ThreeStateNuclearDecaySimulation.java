@@ -30,7 +30,8 @@ class ThreeStateNuclearDecaySimulation extends org.colos.ejs.library.Simulation 
     else { reset(); setAutoplay(false); }
   }
 
-  public java.util.List<String> getWindowsList() {
+  @Override
+public java.util.List<String> getWindowsList() {
     java.util.List<String> windowList = new java.util.ArrayList<String>();
     windowList.add("mainFrame");
     windowList.add("tableDialog");
@@ -38,11 +39,13 @@ class ThreeStateNuclearDecaySimulation extends org.colos.ejs.library.Simulation 
     return windowList;
   }
 
-  public String getMainWindow() {
+  @Override
+public String getMainWindow() {
     return "mainFrame";
   }
 
-  protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
+  @Override
+protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
     mMainView.getConfigurableElement("mainFrame")
       .setProperty("title","Three-State Radioactive Decay")
       .setProperty("size","619,474");

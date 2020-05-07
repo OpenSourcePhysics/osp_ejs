@@ -37,7 +37,8 @@ public class Set extends Group {
   @Override
   public java.util.List<Data> getDataList() { return null; }
   
-  public double[][] getData2D() {
+  @Override
+public double[][] getData2D() {
     List<Element> list = getElements();
     double[][] data = new double[3][list.size()];
     int index = 0;
@@ -50,12 +51,14 @@ public class Set extends Group {
     return data; 
   }
 
-  public String[] getColumnNames() {
+  @Override
+public String[] getColumnNames() {
     for (Element el : getElements()) if (el instanceof Data) return ((Data) el).getColumnNames();
     return new String[] {xLabel, yLabel, zLabel}; 
   }
   
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; } 
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; } 
   
 
 }

@@ -74,7 +74,8 @@ public class CustomAxisRotation extends AxisRotation {
     return changed;
   }
   
-  protected void computeMatrix(double s, double c) {
+  @Override
+protected void computeMatrix(double s, double c) {
     double t = 1-c;
     // matrix elements not listed are zero
     matrix[0][0] = t*x*x+c;
@@ -100,7 +101,8 @@ public class CustomAxisRotation extends AxisRotation {
   /**
    * Provides a copy of this transformation.
    */
-  public Object clone() {
+  @Override
+public Object clone() {
     CustomAxisRotation m = new CustomAxisRotation();
     m.setAngleAndAxis(this.getAngle(),this.getAxis());
     m.origin = origin.clone();

@@ -40,7 +40,8 @@ public class InteractiveCursor extends AbstractInteractiveElement {
     setType(_type);
   }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveCursor) {
       setType( ( (InteractiveCursor) _element).type);
@@ -58,7 +59,8 @@ public class InteractiveCursor extends AbstractInteractiveElement {
 // Implementation of Interactive and Drawable3D
 // ----------------------------------------------
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
     if (positionEnabled) {
@@ -82,26 +84,30 @@ public class InteractiveCursor extends AbstractInteractiveElement {
     return null;
    }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!visible) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
     return objects;
   }
 
   // No need to project, projection has already been computed in getObjects3D
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     // Allow the panel to adjust color according to depth
     Color theColor = _panel.projectColor(style.edgeColor,objects[0].distance);
     drawIt (_panel,_g2,theColor);
   }
 
-  public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
     if (!visible) return;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
     drawIt (_panel,_g2, style.edgeColor);
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!visible) return;
 //    if (hasChanged || _panel!=panelWithValidProjection)
     projectPoints (_panel); // DrawingPanel still doesn't implement the call to needsToProject()
@@ -165,29 +171,36 @@ public class InteractiveCursor extends AbstractInteractiveElement {
 // Implementation of Measured3D
 // -------------------------------------
 
-  public boolean isMeasured() { return false; }
+  @Override
+public boolean isMeasured() { return false; }
   
-  public double getXMin () {
+  @Override
+public double getXMin () {
     if (group==null) return x;
     return group.x + x;
   }
-  public double getXMax () {
+  @Override
+public double getXMax () {
     if (group==null) return x;
     return group.x + x;
   }
-  public double getYMin () {
+  @Override
+public double getYMin () {
     if (group==null) return y;
     return group.y + y;
   }
-  public double getYMax () {
+  @Override
+public double getYMax () {
     if (group==null) return y;
     return group.y + y;
   }
-  public double getZMin () {
+  @Override
+public double getZMin () {
     if (group==null) return z;
     return group.z + z;
   }
-  public double getZMax () {
+  @Override
+public double getZMax () {
     if (group==null) return z;
     return group.z + z;
   }

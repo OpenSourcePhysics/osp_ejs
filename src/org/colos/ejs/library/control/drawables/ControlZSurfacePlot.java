@@ -18,7 +18,8 @@ public class ControlZSurfacePlot extends ControlScalarField {
     return super.doCreateTheDrawable();
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("colormode"))     return "PlotMode|int";
     return super.getPropertyInfo(_property);
   }

@@ -119,7 +119,8 @@ public class HardcopyWriter extends Writer {
    * This is the write() method of the stream.  All Writer subclasses
    * implement this.  All other versions of write() are variants of this one
    */
-  public void write(char[] buffer, int index, int len) {
+  @Override
+public void write(char[] buffer, int index, int len) {
     synchronized(this.lock) { // For thread safety
       // Loop through all the characters passed to us
       for(int i = index; i<index+len; i++) {
@@ -177,14 +178,16 @@ public class HardcopyWriter extends Writer {
    * There is no way to flush a PrintJob without prematurely printing the
    * page, so we don't do anything.
    */
-  public void flush() { /* do nothing */
+  @Override
+public void flush() { /* do nothing */
   }
 
   /**
    * This is the close() method that all Writer subclasses must implement.
    * Print the pending page (if any) and terminate the PrintJob.
    */
-  public void close() {
+  @Override
+public void close() {
     synchronized(this.lock) {
       if(page!=null) {
         page.dispose(); // Send page to the printer

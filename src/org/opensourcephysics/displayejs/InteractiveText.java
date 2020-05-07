@@ -39,7 +39,8 @@ public class InteractiveText extends AbstractInteractiveElement {
 // Implementation of Interactive and Drawable3D
 // ----------------------------------------------
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
 //    if (sizeEnabled     && Math.abs(pixelEndpoint[0]-_xpix)<SENSIBILITY && Math.abs(pixelEndpoint[1]-_ypix)<SENSIBILITY) return sizeTarget;
@@ -47,14 +48,16 @@ public class InteractiveText extends AbstractInteractiveElement {
     return null;
    }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!visible) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
     return objects;
   }
 
   // No need to project, projection has already been computed in getObjects3D
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     // Allow the panel to adjust color according to depth
     Color theColor = _panel.projectColor(style.edgeColor,objects[0].distance);
     Paint theFillPattern = style.fillPattern;
@@ -63,13 +66,15 @@ public class InteractiveText extends AbstractInteractiveElement {
     drawIt (_g2,theColor,theFillPattern);
   }
 
-  public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
     if (!visible) return;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
     drawIt (_g2, style.edgeColor,style.fillPattern);
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!visible) return;
 //    if (hasChanged || _panel!=panelWithValidProjection)
     projectPoints (_panel);

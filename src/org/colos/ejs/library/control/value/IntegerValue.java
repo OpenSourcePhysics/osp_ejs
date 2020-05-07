@@ -20,15 +20,20 @@ public class IntegerValue extends Value {
 		value = _val;
 	}
 
-  public boolean getBoolean() { return (value!=0); }
+  @Override
+public boolean getBoolean() { return (value!=0); }
 
-  public int     getInteger() { return value; }
+  @Override
+public int     getInteger() { return value; }
 
-  public double  getDouble()  { return value; }
+  @Override
+public double  getDouble()  { return value; }
 
-  public String  getString()  { return String.valueOf(value); }
+  @Override
+public String  getString()  { return String.valueOf(value); }
 
-  public Object  getObject()  { return null; }
+  @Override
+public Object  getObject()  { return null; }
 
 }
 

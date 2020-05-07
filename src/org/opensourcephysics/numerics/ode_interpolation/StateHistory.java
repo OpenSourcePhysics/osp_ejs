@@ -121,7 +121,8 @@ public class StateHistory {
     //		System.out.println("Added ["+data.getLeft()+" , "+data.getRight()+").\n"+this);
   }
 
-  public String toString() {
+  @Override
+public String toString() {
     StringBuffer buffer = new StringBuffer();
     buffer.append("History has now "+mIntervalList.size()+" intervals");
     for (ListIterator<IntervalData> iterator = mIntervalList.listIterator(); iterator.hasNext(); ) {

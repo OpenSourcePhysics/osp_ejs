@@ -34,7 +34,8 @@ public class ControlArrayPanel extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     panel = new EjsArrayPanel();
     double[][] emptyData = new double[][]{{0.0,0.0},{0.0,0.0}};
     panel.setArray(emptyData);
@@ -49,7 +50,8 @@ public class ControlArrayPanel extends ControlSwingElement {
     panel.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     isStatic = false;
     panel.addPropertyChangeListener(new PropertyChangeListener() {
-      public void propertyChange(PropertyChangeEvent pce) { 
+      @Override
+	public void propertyChange(PropertyChangeEvent pce) { 
         if (pce.getPropertyName().equals("cell")) {
           panel.saveLastEdit((TableModelEvent) pce.getNewValue());
           variableChanged (0,dataValue);
@@ -66,7 +68,8 @@ public class ControlArrayPanel extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -91,7 +94,8 @@ public class ControlArrayPanel extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))   return "int[]|int[][]|int[][][]|double[]|double[][]|double[][][]|boolean[]|boolean[][]|boolean[][][]|String[]|String[][]|String[][][]|Object";
     if (_property.equals("action")) return "Action CONSTANT";
     if (_property.equals("format")) return "String|String[] TRANSLATABLE";
@@ -112,7 +116,8 @@ public class ControlArrayPanel extends ControlSwingElement {
     return super.getPropertyInfo(_property);
   }
   
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("AutoResizeMode")>=0) {
       _value = _value.trim().toLowerCase();
@@ -130,7 +135,8 @@ public class ControlArrayPanel extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     //System.out.println ("Setting "+_index+" to "+_value);
     switch (_index) {
       case 0 : 
@@ -213,7 +219,8 @@ public class ControlArrayPanel extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : panel.setArray(new double[][]{{0.0,0.0},{0.0,0.0}}); panel.refreshTable(); break;
       case 1 : removeAction (ControlElement.VARIABLE_CHANGED,getProperty("action")); break;
@@ -235,7 +242,8 @@ public class ControlArrayPanel extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return dataValue;
       
@@ -249,7 +257,8 @@ public class ControlArrayPanel extends ControlSwingElement {
     }
   }
   
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "{{0.0,0.0},{0.0,0.0}}";
       case 1 : return "<no_action>";

@@ -53,7 +53,8 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
     setSizeXYZ(1.0,1.0,1.0);
   }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractivePoligon) {
       InteractivePoligon old = (InteractivePoligon) _element;
@@ -238,7 +239,8 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
   }
 
   public void setName (String _name) { this.name = _name; }
-  public String getName () { return this.name; }
+  @Override
+public String getName () { return this.name; }
 
   // ----------------------------------------------------
   // Implementation of org.opensourcephysics.display.Data
@@ -253,7 +255,8 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
    *
    * @param id the ID number
    */
-  public void setID(int id) {
+  @Override
+public void setID(int id) {
     datasetID = id;
   }
 
@@ -262,11 +265,13 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
    *
    * @return the ID number
    */
-  public int getID() {
+  @Override
+public int getID() {
     return datasetID;
   }
 
-  public double[][] getData2D() {
+  @Override
+public double[][] getData2D() {
     double[][] data;
     synchronized(coordinates) {
       if (showZ) {
@@ -288,21 +293,27 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
     return data;
   }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() { return showZ ? new String[]{"x","y","z"} : new String[]{"x","y"}; }
+  @Override
+public String[] getColumnNames() { return showZ ? new String[]{"x","y","z"} : new String[]{"x","y"}; }
 
-  public Color[] getLineColors() { 
+  @Override
+public Color[] getLineColors() { 
     return new Color[] { Color.BLACK, getStyle().getEdgeColor()}; 
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     return new Color[] { Color.BLACK, new Color(255,128,128,128)};
   }
 
-  public java.util.List<Data> getDataList() { return null; }
+  @Override
+public java.util.List<Data> getDataList() { return null; }
 
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; }
 //    if (dataset==null) dataset = new Dataset();
 //    else dataset.clear();
 //    dataset.setName(getName());
@@ -370,7 +381,8 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
 // ----------------------------------------------
 
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!(numPoints>0 && visible)) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints(_panel);
     if (sizeEnabled) {
@@ -391,14 +403,16 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
     return null;
    }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!(numPoints>0 && visible)) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints(_panel);
     if (closed && style.fillPattern!=null) return closedObject;
     return lineObjects;
   }
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     if (_index<0) { // Interior ==> closed = true and fillPattern!=null
       java.awt.Paint theFillPattern = style.fillPattern;
       if (theFillPattern instanceof Color) theFillPattern = _panel.projectColor((Color) theFillPattern,closedObject[0].distance);
@@ -447,7 +461,8 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
     if (shapeType[_index]!=InteractiveParticle.NONE) drawMarker (_g2, aPoints[_index], bPoints[_index], _index);
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!(numPoints>0 && visible)) return;
     Graphics2D g2 = (Graphics2D) _g;
     // if (hasChanged || _panel!=panelWithValidProjection)
@@ -511,44 +526,51 @@ public class InteractivePoligon extends AbstractInteractiveElement implements Da
 // Implementation of Measured3D
 // ----------------------------------------------
 
-  public boolean isMeasured () { return canBeMeasured && visible && numPoints>0;  }
+  @Override
+public boolean isMeasured () { return canBeMeasured && visible && numPoints>0;  }
 
-  public double getXMin () {
+  @Override
+public double getXMin () {
     if (numPoints<=0) return 0.0;
     double min = Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[0][i]<min) min = coordinates[0][i];
     if (group==null) return x+min*sizex;
     return group.x + (x + min*sizex)*group.sizex;
   }
-  public double getXMax () {
+  @Override
+public double getXMax () {
     if (numPoints<=0) return 0.0;
     double max = -Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[0][i]>max) max = coordinates[0][i];
     if (group==null) return x+max*sizex;
     return group.x + (x + max*sizex)*group.sizex;
   }
-  public double getYMin () {
+  @Override
+public double getYMin () {
     if (numPoints<=0) return 0.0;
     double min = Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[1][i]<min) min = coordinates[1][i];
     if (group==null) return y+min*sizey;
     return group.y + (y + min*sizey)*group.sizey;
   }
-  public double getYMax () {
+  @Override
+public double getYMax () {
     if (numPoints<=0) return 0.0;
     double max = -Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[1][i]>max) max = coordinates[1][i];
     if (group==null) return y+max*sizey;
     return group.y + (y + max*sizey)*group.sizey;
   }
-  public double getZMin () {
+  @Override
+public double getZMin () {
     if (numPoints<=0) return 0.0;
     double min = Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[2][i]<min) min = coordinates[2][i];
     if (group==null) return z+min*sizez;
     return group.z + (z + min*sizez)*group.sizez;
   }
-  public double getZMax () {
+  @Override
+public double getZMax () {
     if (numPoints<=0) return 0.0;
     double max = -Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[2][i]>max) max = coordinates[2][i];

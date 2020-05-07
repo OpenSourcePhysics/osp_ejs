@@ -24,13 +24,17 @@ public class ControlLabel extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     label = new JLabel ();
     label.setOpaque(true);
     label.addMouseListener (new java.awt.event.MouseAdapter() {
-      public void mousePressed (java.awt.event.MouseEvent e) { invokeActions (ControlSwingElement.ACTION_ON); }
-      public void mouseClicked (java.awt.event.MouseEvent e) { invokeActions (); }
-      public void mouseReleased (java.awt.event.MouseEvent e) { invokeActions (ControlSwingElement.ACTION_OFF); }
+      @Override
+	public void mousePressed (java.awt.event.MouseEvent e) { invokeActions (ControlSwingElement.ACTION_ON); }
+      @Override
+	public void mouseClicked (java.awt.event.MouseEvent e) { invokeActions (); }
+      @Override
+	public void mouseReleased (java.awt.event.MouseEvent e) { invokeActions (ControlSwingElement.ACTION_OFF); }
     });
     return label;
   }
@@ -41,7 +45,8 @@ public class ControlLabel extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("text");
@@ -55,7 +60,8 @@ public class ControlLabel extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("text"))      return "String NotTrimmed TRANSLATABLE";
     if (_property.equals("image"))     return "File|String TRANSLATABLE";
     if (_property.equals("alignment")) return "Alignment|int";
@@ -69,7 +75,8 @@ public class ControlLabel extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
 //        System.out.println ("Proposed Label is <"+_value.getString()+">");
@@ -101,7 +108,8 @@ public class ControlLabel extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : label.setText(labelString = ""); break;
       case 1 : label.setIcon(null); imageFile = null; break;
@@ -113,7 +121,8 @@ public class ControlLabel extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "<none>";
@@ -123,7 +132,8 @@ public class ControlLabel extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 :

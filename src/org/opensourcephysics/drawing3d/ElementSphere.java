@@ -61,19 +61,23 @@ public class ElementSphere extends ElementEllipsoid {
   // Overwrite parent methods
   // -------------------------------------
   
-  public void setSizeX(double sizeX) {
+  @Override
+public void setSizeX(double sizeX) {
     super.setSizeXYZ(sizeX, sizeX, sizeX);
   }
 
-  public void setSizeY(double sizeY) {
+  @Override
+public void setSizeY(double sizeY) {
     super.setSizeXYZ(sizeY, sizeY, sizeY);
   }
 
-  public void setSizeZ(double sizeZ) {
+  @Override
+public void setSizeZ(double sizeZ) {
     super.setSizeXYZ(sizeZ, sizeZ, sizeZ);
   }
 
-  public void setSizeXYZ(double sizeX, double sizeY, double sizeZ) {
+  @Override
+public void setSizeXYZ(double sizeX, double sizeY, double sizeZ) {
     double max = Math.max(Math.max(sizeX, sizeY), sizeZ);
     super.setSizeXYZ(max, max, max);
   }

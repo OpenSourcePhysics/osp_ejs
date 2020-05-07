@@ -52,7 +52,8 @@ public class JSliderDouble extends JSlider {
     setDoubleMaximum(1.0);
 
     addChangeListener (new javax.swing.event.ChangeListener() {
-      public void stateChanged(javax.swing.event.ChangeEvent evt) {
+      @Override
+	public void stateChanged(javax.swing.event.ChangeEvent evt) {
 //        System.out.println ("Slider at : "+getValue());
         if (!outOfLimits) doubleValue = minimum + getValue()/scale;
 //        System.out.println ("value is : "+doubleValue);

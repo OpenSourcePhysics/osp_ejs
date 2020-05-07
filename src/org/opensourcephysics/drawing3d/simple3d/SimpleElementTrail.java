@@ -68,14 +68,16 @@ public class SimpleElementTrail extends SimpleElement {
   // Implementation of SimpleElement
   // -------------------------------------
 
-  public void draw(Graphics2D _g2, int _index) {
+  @Override
+public void draw(Graphics2D _g2, int _index) {
     _g2.setStroke(style.getLineStroke());
     _g2.setColor(element.getPanel().projectColor(style.getLineColor(), objects[_index].getDistance()));
     if ((_index==0) || connected[_index]==ElementTrail.NO_CONNECTION) _g2.drawLine(aCoord[_index], bCoord[_index], aCoord[_index], bCoord[_index]);
     else _g2.drawLine(aCoord[_index], bCoord[_index], aCoord[_index-1], bCoord[_index-1]);
   }
 
-  public void drawQuickly(Graphics2D _g2) {
+  @Override
+public void drawQuickly(Graphics2D _g2) {
     _g2.setStroke(style.getLineStroke());
     _g2.setColor(style.getLineColor());
     int numPoints = trailPointsList.size();

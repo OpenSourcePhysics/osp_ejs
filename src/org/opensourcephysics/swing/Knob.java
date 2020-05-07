@@ -29,10 +29,12 @@ public class Knob extends javax.swing.JPanel {
     setForeground(Color.LIGHT_GRAY);
     setPreferredSize(DEFAULT_SIZE);
     addMouseListener(new MouseAdapter() {
-      public void mousePressed(MouseEvent e) { lastAngle = Math.atan2(e.getY()-getHeight()/2, e.getX()-getWidth()/2); }
+      @Override
+	public void mousePressed(MouseEvent e) { lastAngle = Math.atan2(e.getY()-getHeight()/2, e.getX()-getWidth()/2); }
     });
     addMouseMotionListener(new MouseMotionAdapter() {
-      public void mouseDragged(MouseEvent e) {
+      @Override
+	public void mouseDragged(MouseEvent e) {
         if (!isEnabled()) return; 
         double newAngle = translateToSameInterval(lastAngle,Math.atan2(e.getY()-getHeight()/2, e.getX()-getWidth()/2));
         angle += (newAngle-lastAngle);
@@ -43,7 +45,8 @@ public class Knob extends javax.swing.JPanel {
       }
     });
     addComponentListener(new ComponentAdapter() {
-      public void componentResized(ComponentEvent e) {
+      @Override
+	public void componentResized(ComponentEvent e) {
 //        preparePaint();
         repaint();
       }

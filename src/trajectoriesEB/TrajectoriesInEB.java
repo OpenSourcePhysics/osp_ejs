@@ -8,14 +8,7 @@ package trajectoriesEB;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-import javax.swing.event.*;
 import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.*;
 
 public class TrajectoriesInEB extends org.colos.ejs.library.Model {
 
@@ -67,7 +60,8 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
     return defaultInfo;
   }
 
-  public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName, org.colos.ejs.library.utils.LocaleItem _item) { return _getHtmlPageClassInfo(_pageName,_item); }
+  @Override
+public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageName, org.colos.ejs.library.utils.LocaleItem _item) { return _getHtmlPageClassInfo(_pageName,_item); }
 
   // -------------------------- 
   // static methods 
@@ -160,19 +154,26 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
  // Abstract part of Model 
  // -------------------------------------------
 
-  public String _getClassEjsModel() { return _getEjsModel(); }
+  @Override
+public String _getClassEjsModel() { return _getEjsModel(); }
 
-  public java.util.Set<String> _getClassEjsResources() { return _getEjsResources(); }
+  @Override
+public java.util.Set<String> _getClassEjsResources() { return _getEjsResources(); }
 
-  public String _getClassModelDirectory() { return _getModelDirectory(); }
+  @Override
+public String _getClassModelDirectory() { return _getModelDirectory(); }
 
-  public org.colos.ejs.library.View _getView() { return _view; }
+  @Override
+public org.colos.ejs.library.View _getView() { return _view; }
 
-  public org.colos.ejs.library.Simulation _getSimulation() { return _simulation; }
+  @Override
+public org.colos.ejs.library.Simulation _getSimulation() { return _simulation; }
 
-  public int _getPreferredStepsPerDisplay() { return 1; }
+  @Override
+public int _getPreferredStepsPerDisplay() { return 1; }
 
-  public void _resetModel () {
+  @Override
+public void _resetModel () {
     _isEnabled_initialization1 = true; // Reset enabled condition for Model.Initialization.Ball initialization
     _isEnabled_evolution1 = true; // Reset enabled condition for Model.Evolution.ODE Evolution
     msg = "Drag the source position."; // Variables.Aux vars:1    msg = "Drag the source position."; // Variables.Aux vars:1
@@ -201,7 +202,8 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
 
   public void _initializeSolvers () { for (org.opensourcephysics.numerics.ode_solvers.EjsS_ODE __pode : _privateOdesList.values()) __pode.initializeSolver(); }
 
-  public void _initializeModel () {
+  @Override
+public void _initializeModel () {
     __shouldBreak = false;
     boolean _wasEnabled_initialization1 = _isEnabled_initialization1;
     if (_wasEnabled_initialization1) _initialization1 ();
@@ -209,27 +211,33 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
     _initializeSolvers();
   }
 
-  public void _automaticResetSolvers() { 
+  @Override
+public void _automaticResetSolvers() { 
     _ODEi_evolution1.automaticResetSolver();
   }
-  public void _resetSolvers() { 
+  @Override
+public void _resetSolvers() { 
     _ODEi_evolution1.resetSolver();
   }
-  public void _stepModel () {
+  @Override
+public void _stepModel () {
     __shouldBreak = false;
     boolean _wasEnabled_evolution1 = _isEnabled_evolution1;
     if (_wasEnabled_evolution1) _ODEi_evolution1.step();
     if (__shouldBreak) return;
   }
 
-  public void _updateModel () {
+  @Override
+public void _updateModel () {
     __shouldBreak = false;
   }
 
-  public void _readFromViewAfterUpdate () {
+  @Override
+public void _readFromViewAfterUpdate () {
   }
 
-  public void _freeMemory () {
+  @Override
+public void _freeMemory () {
     getSimulation().setEnded(); // Signal that the simulation ended already
     x = null;  // Variables.Dynamical vars:2
     vx = null;  // Variables.Dynamical vars:3
@@ -361,14 +369,17 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
       _privateOdesList.put("ODE Evolution",this);
     }
 
-    public org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver getEventSolver() { return __eventSolver; } 
+    @Override
+	public org.opensourcephysics.numerics.ode_solvers.InterpolatorEventSolver getEventSolver() { return __eventSolver; } 
 
-    public void setSolverClass (Class<?> __aSolverClass) { // Change the solver in run-time
+    @Override
+	public void setSolverClass (Class<?> __aSolverClass) { // Change the solver in run-time
       this.__solverClass = __aSolverClass;
       __instantiateSolver();
     }
 
-    public String setSolverClass (String _solverClassName) { // Change the solver in run-time
+    @Override
+	public String setSolverClass (String _solverClassName) { // Change the solver in run-time
       String _prefix = "org.opensourcephysics.numerics.ode_solvers.";
       _solverClassName = _solverClassName.trim().toLowerCase();
       if (_solverClassName.indexOf("euler")>=0) {
@@ -415,15 +426,20 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
       __mustInitialize = true;
     }
 
-    public void setEnabled (boolean __enabled) { __isEnabled = __enabled; }
+    @Override
+	public void setEnabled (boolean __enabled) { __isEnabled = __enabled; }
 
-    public double getIndependentVariableValue () { return __eventSolver.getIndependentVariableValue(); }
+    @Override
+	public double getIndependentVariableValue () { return __eventSolver.getIndependentVariableValue(); }
 
-    public double getInternalStepSize () { return __eventSolver.getInternalStepSize(); }
+    @Override
+	public double getInternalStepSize () { return __eventSolver.getInternalStepSize(); }
 
-    public boolean isAccelerationIndependentOfVelocity() { return false; }
+    @Override
+	public boolean isAccelerationIndependentOfVelocity() { return false; }
 
-    public void initializeSolver () {
+    @Override
+	public void initializeSolver () {
       if (__arraysChanged()) { __instantiateSolver(); initializeSolver(); return; }
       __pushState();
       __eventSolver.initialize(dt);
@@ -497,9 +513,11 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
       __mustReinitialize = true;
     }
 
-    public double step() { return __privateStep(false); }
+    @Override
+	public double step() { return __privateStep(false); }
 
-    public double solverStep() { return __privateStep(true); }
+    @Override
+	public double solverStep() { return __privateStep(true); }
 
     private double __privateStep(boolean __takeMaximumStep) {
       if (!__isEnabled) return 0;
@@ -537,9 +555,11 @@ public class TrajectoriesInEB extends org.colos.ejs.library.Model {
       return __stepTaken;
     }
 
-    public double[] getState () { return __state; }
+    @Override
+	public double[] getState () { return __state; }
 
-    public void getRate (double[] __aState, double[] __aRate) {
+    @Override
+	public void getRate (double[] __aState, double[] __aRate) {
       __aRate[__aRate.length-1] = 0.0; // In case the prelim code returns
       int __index=-1; // so that it can be used in preliminary code
       // Extract our variables from __aState

@@ -83,6 +83,7 @@ public abstract class IntervalData {
 	 */
 	abstract public double[] interpolate(double time, double[] state, int beginIndex, int length);
 
+	@Override
 	public String toString() {
 		return "["+mLeft+", "+mRight+")";
 	}

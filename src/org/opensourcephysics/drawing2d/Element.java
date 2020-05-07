@@ -179,7 +179,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Set the X coordinate of the element
    * @param x double
    */
-  final public void setX(double _x) {
+  @Override
+final public void setX(double _x) {
     this.x = _x;
     elementChanged = true;
   }
@@ -188,7 +189,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Get the X coordinate of the element
    * @return double
    */
-  final public double getX() {
+  @Override
+final public double getX() {
     return this.x;
   }
 
@@ -196,7 +198,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Set the Y coordinate of the element
    * @param y double
    */
-  final public void setY(double _y) {
+  @Override
+final public void setY(double _y) {
     this.y = _y;
     elementChanged = true;
   }
@@ -205,7 +208,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Get the Y coordinate of the element
    * @return double
    */
-  final public double getY() {
+  @Override
+final public double getY() {
     return this.y;
   }
 
@@ -214,7 +218,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * @param _x double the x position
    * @param _y double the y position
    */
-  final public void setXY(double _x, double _y) { // required by Measurable (in Interactive)
+  @Override
+final public void setXY(double _x, double _y) { // required by Measurable (in Interactive)
     this.x = _x;
     this.y = _y;
     elementChanged = true;
@@ -333,42 +338,50 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
     return Math.sqrt(sizeX*sizeX+sizeY*sizeY);
   }
 
-  public double getXMin() { // required by Measurable (in Interactive)
+  @Override
+public double getXMin() { // required by Measurable (in Interactive)
     updateExtrema();
     return xmin;
   }
 
-  public double getXMax() { // required by Measurable (in Interactive)
+  @Override
+public double getXMax() { // required by Measurable (in Interactive)
     updateExtrema();
     return xmax;
   }
   
-  public double getYMin() { // required by Measurable (in Interactive)
+  @Override
+public double getYMin() { // required by Measurable (in Interactive)
     updateExtrema();
     return ymin;
   }
   
-  public double getYMax() { // required by Measurable (in Interactive)
+  @Override
+public double getYMax() { // required by Measurable (in Interactive)
     updateExtrema();
     return ymax;
   }
   
-  public double getXMinLogscale(){
+  @Override
+public double getXMinLogscale(){
     updateExtrema();
     return xminLogscale;
   }
 
-  public double getXMaxLogscale(){
+  @Override
+public double getXMaxLogscale(){
     updateExtrema();
     return xmaxLogscale;
   }
   
-  public double getYMinLogscale(){
+  @Override
+public double getYMinLogscale(){
     updateExtrema();
     return yminLogscale;
   }
 
-  public double getYMaxLogscale(){
+  @Override
+public double getYMaxLogscale(){
     updateExtrema();
     return ymaxLogscale;
   }
@@ -423,7 +436,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
   }
 
   /* Not final because Group and Trail need to overwrite it */
-  public boolean isMeasured() { // required by Measurable (in Interactive)
+  @Override
+public boolean isMeasured() { // required by Measurable (in Interactive)
     return canBeMeasured;
   }
   
@@ -690,7 +704,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Draws the element on a given Graphics2D.
    * Required by Drawable (in Interactive)
    */
-  abstract public void draw (org.opensourcephysics.display.DrawingPanel _panel, java.awt.Graphics _g); 
+  @Override
+abstract public void draw (org.opensourcephysics.display.DrawingPanel _panel, java.awt.Graphics _g); 
   
   /**
    * Tells the element whether it should reproject its points because the panel
@@ -718,7 +733,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Sets the enabled condition of all targets at once.
    * Required by Interactive 
    */
-  public void setEnabled (boolean _enabled) { 
+  @Override
+public void setEnabled (boolean _enabled) { 
     targetPosition.setEnabled(_enabled); 
     targetSize.setEnabled(_enabled); 
   }
@@ -727,7 +743,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * Whether any of the targets is enabled.
    * Required by Interactive
    */
-  public boolean isEnabled () { 
+  @Override
+public boolean isEnabled () { 
     return targetPosition.isEnabled() || targetSize.isEnabled(); 
   }
   
@@ -772,7 +789,8 @@ public abstract class Element implements org.opensourcephysics.display.Interacti
    * @param _ypix int
    * @return Interactive
    */
-  abstract public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix);
+  @Override
+abstract public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix);
   
   /**
    * Returns the body coordinates of the specified hot spot.

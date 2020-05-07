@@ -29,7 +29,8 @@ org.colos.ejs.library.control.DataCollector{
                   yIsConstant=true, yIsSet=false,
                   zIsConstant=true, zIsSet=false;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     raster = new DataRaster (null,-1.0,1.0,-1.0,1.0);
     minX = raster.getXMin(); maxX = raster.getXMax();
     minY = raster.getYMin(); maxY = raster.getYMax();
@@ -40,17 +41,20 @@ org.colos.ejs.library.control.DataCollector{
     return raster;
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     raster.clear();
     xIsSet = yIsSet = zIsSet = false;
   }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
     raster.clear();
     xIsSet = yIsSet = zIsSet = false;
   }
 
-  public void setParent (org.colos.ejs.library.control.swing.ControlParentOfDrawables _dp) {
+  @Override
+public void setParent (org.colos.ejs.library.control.swing.ControlParentOfDrawables _dp) {
     if (_dp instanceof ControlDrawablesParent) {
     	org.opensourcephysics.display.DrawingPanel rasterDP=raster.getDrawingPanel();
       //raster.primaryDrawingPanel = ((ControlDrawablesParent)_dp).getDrawingPanel ();
@@ -74,7 +78,8 @@ org.colos.ejs.library.control.DataCollector{
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumX");
@@ -90,7 +95,8 @@ org.colos.ejs.library.control.DataCollector{
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumX"))      return "int|double";
     if (_property.equals("maximumX"))      return "int|double";
     if (_property.equals("minimumY"))      return "int|double";
@@ -106,7 +112,8 @@ org.colos.ejs.library.control.DataCollector{
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("x")) {
       xArray = null;
@@ -136,7 +143,8 @@ org.colos.ejs.library.control.DataCollector{
   }
 
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getDouble()!=minX) raster.setXMin(minX=_value.getDouble()); break;
       case 1 : if (_value.getDouble()!=maxX) raster.setXMax(maxX=_value.getDouble()); break;
@@ -165,7 +173,8 @@ org.colos.ejs.library.control.DataCollector{
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : raster.setXMin(minX=-1.0); break;
       case 1 : raster.setXMax(maxX=1.0); break;
@@ -179,7 +188,8 @@ org.colos.ejs.library.control.DataCollector{
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
      switch (_index) {
        case 0 : return "-1";
        case 1 : return "1";
@@ -193,7 +203,8 @@ org.colos.ejs.library.control.DataCollector{
      }
    }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 :
       case 3 : case 4 : case 5 :

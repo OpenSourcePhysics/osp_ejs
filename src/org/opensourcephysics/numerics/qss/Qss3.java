@@ -27,7 +27,8 @@ public class Qss3 extends Qss2 {
     super(ode);
   }
 
-  protected void allocateArrays () {
+  @Override
+protected void allocateArrays () {
     super.allocateArrays();
     der_der_dx = new double[dimension];
     der_der_q = new double[dimension];
@@ -36,7 +37,8 @@ public class Qss3 extends Qss2 {
    }
 
   
-  public void reinitialize(double[] state) {
+  @Override
+public void reinitialize(double[] state) {
     double t = state[timeIndex];
     double dt = stepSize/COEFF;
 
@@ -69,7 +71,8 @@ public class Qss3 extends Qss2 {
 
   }
 
-  public double internalStep() {
+  @Override
+public double internalStep() {
     double dt = Math.max( (max_t - tLast[max_index]) / COEFF, 1.e-9); // Used to compute der_dx
     q[max_index] = x[max_index] = findState(max_index, max_t);
     der_q[max_index] = dx[max_index] = findDerState(max_index, max_t);
@@ -130,7 +133,8 @@ public class Qss3 extends Qss2 {
   
   // QSS3 order-dependent methods
 
-  protected double findNextTime(int index, double t) {
+  @Override
+protected double findNextTime(int index, double t) {
     if (der_q[index] == dx[index] && der_der_q[index] == der_dx[index]) {
       if (der_der_dx[index] == 0.0) return infinity;
       return t + Math.cbrt(Math.abs(6 * dq[index] / der_der_dx[index]));
@@ -195,7 +199,8 @@ public class Qss3 extends Qss2 {
    * @param t double
    * @return double
    */
-  protected double recomputeNextTime(int index, double t) {
+  @Override
+protected double recomputeNextTime(int index, double t) {
     if (Math.abs(x[index]-q[index])>dq[index]) return t;
     double a = der_der_dx[index]/6;
     double b = (der_dx[index]-der_der_q[index])/2;
@@ -205,12 +210,14 @@ public class Qss3 extends Qss2 {
     return t + Math.min(minimumPositiveRoot(a,b,c,d1),minimumPositiveRoot(a,b,c,d2));
   }
 
-  protected double findState(int index, double t) {
+  @Override
+protected double findState(int index, double t) {
     double dt = t-tLast[index];
     return x[index] +dt*dx[index] +dt*dt*der_dx[index]/2+dt*dt*dt*der_der_dx[index]/6;
   }
 
-  protected double findDerState(int index, double t) {
+  @Override
+protected double findDerState(int index, double t) {
     double dt = t-tLast[index];
     return dx[index] +dt*der_dx[index]+dt*dt*der_der_dx[index]/2;
   }
@@ -219,7 +226,8 @@ public class Qss3 extends Qss2 {
     return der_dx[index] +dt*der_der_dx[index];
   }
   
-  protected double find_q(int index, double t) {
+  @Override
+protected double find_q(int index, double t) {
     double dt = t-tLast[index];
     return q[index] +dt*der_q[index]+dt*dt*der_der_q[index]/2;
   }
@@ -235,7 +243,8 @@ public class Qss3 extends Qss2 {
    * @param index int
    * @param t double
    */
-  protected void find_q(double[] qLocal, int index, double t) {
+  @Override
+protected void find_q(double[] qLocal, int index, double t) {
     int[] row = ( (MultirateODE) ode).getDirectIncidenceMatrix()[index];
     for (int j=0; j<row.length; j++) {
       int k = row[j];

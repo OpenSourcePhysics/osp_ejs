@@ -34,9 +34,11 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
   private boolean showLegend, showLegendChanged;
   private javax.swing.JFrame legendFrame;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementMesh"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementMesh"; }
 
-  protected Element createElement () { 
+  @Override
+protected Element createElement () { 
     mMesh = new ElementMesh();
     levels=16;
     colormode = ColorMapper.SPECTRUM;
@@ -52,7 +54,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
     return mMesh;
   }
 
-  protected int getPropertiesDisplacement () { return TILE_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return TILE_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -60,7 +63,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -91,7 +95,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))          return "double[][]|PDEData|org.colos.freefem.PDEData|Object";
     if (_property.equals("field"))         return "double[][]|double[][][]";
 
@@ -118,7 +123,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ColorMode")>=0 || _propertyType.indexOf("PlotMode")>=0) {
       _value = _value.trim().toLowerCase();
@@ -141,7 +147,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : 
         //if (_value.getObject() instanceof PDEData) MeshTools.show((PDEData) _value.getObject(),mMesh);
@@ -237,7 +244,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : mMesh.setPoints(null); break;
       case 1 : mMesh.setFieldAtPoints(null); break;
@@ -288,7 +296,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "<none>";
@@ -318,7 +327,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : 
       case 4 : case 5 : case 6 : case 7 : 
@@ -330,7 +340,8 @@ public class ControlMesh3D extends ControlElement3D implements org.colos.ejs.lib
     }
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
     if (showLegendChanged) {
       if (showLegend) {
         if (legendFrame==null) legendFrame = mMesh.getTessellation().getDrawer().showLegend();

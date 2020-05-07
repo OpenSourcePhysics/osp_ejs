@@ -42,7 +42,8 @@ public class SimpleElementPoints extends SimpleElement {
     else if ((_cummulativeChange & Element.CHANGE_PROJECTION)!=0) projectPoints();
   }
 
-  public void styleChanged(int _change) {
+  @Override
+public void styleChanged(int _change) {
     switch(_change) {
       case Style.CHANGED_LINE_WIDTH:
         ElementPoints elP = (ElementPoints) element;
@@ -62,14 +63,16 @@ public class SimpleElementPoints extends SimpleElement {
   // Abstract part of Element or Parent methods overwritten
   // -------------------------------------
 
-  public void draw(Graphics2D _g2, int _index) {
+  @Override
+public void draw(Graphics2D _g2, int _index) {
     Color theColor = element.getPanel().projectColor(((ElementPoints) element).getPointColor(_index), objects[_index].getDistance()); // previously style.getLineColor()
     _g2.setStroke(pointStroke==null ? style.getLineStroke() : pointStroke[_index]);
     _g2.setColor(theColor);
     _g2.drawLine(aPoints[_index], bPoints[_index], aPoints[_index], bPoints[_index]); // a segment from it to itself
   }
 
-  public void drawQuickly(Graphics2D _g2) {
+  @Override
+public void drawQuickly(Graphics2D _g2) {
     _g2.setStroke(style.getLineStroke());
     _g2.setColor(style.getLineColor());
     ElementPoints el = (ElementPoints) element;

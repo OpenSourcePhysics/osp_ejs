@@ -82,7 +82,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("x");
@@ -131,7 +132,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("angle")) return "rotationAngle";
     if (_property.equals("color"))          return "fillColor";
     if (_property.equals("secondaryColor")) return "lineColor";
@@ -147,7 +149,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("x"))           return "int|double";
     if (_property.equals("y"))           return "int|double";
     if (_property.equals("z"))           return "int|double";
@@ -193,7 +196,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case  POSITION : 
         if (_value.getObject() instanceof double[]) {
@@ -297,7 +301,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  POSITION : thePos = null; break;
       case  POSITION_X : myElement.setX(posValues[0].value=0.0);        break;
@@ -342,7 +347,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  POSITION : 
       case SIZE :
@@ -388,7 +394,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case POSITION : return new ObjectValue(thePos);
       case POSITION_X : return posValues[0];
@@ -406,7 +413,8 @@ public abstract class ControlInteractiveElement extends ControlDrawable3D implem
 // Respond to interaction
 // -------------------------------------
 
-  @SuppressWarnings("fallthrough")
+  @Override
+@SuppressWarnings("fallthrough")
   public void interactionPerformed(InteractionEvent _event) {
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_EXITED :

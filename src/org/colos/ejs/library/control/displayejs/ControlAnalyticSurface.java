@@ -40,7 +40,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
   protected String[] varsX, varsY, varsZ;
   protected int indexX1, indexX2, indexY1, indexY2, indexZ1, indexZ2;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     surface = new InteractiveSurface();
 //    surface.setEnabled(false);
     variable1 = "u"; variable2 = "v";
@@ -53,7 +54,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
     return surface;
   }
 
-  protected int getPropertiesDisplacement () { return PROPERTIES_SURFACE; }
+  @Override
+protected int getPropertiesDisplacement () { return PROPERTIES_SURFACE; }
 
   // ------------------------------------------------
 // Definition of Properties
@@ -61,7 +63,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("variable1");
@@ -83,7 +86,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("variable1"))  return "String";
       if (_property.equals("variable2"))  return "String";
       if (_property.equals("min1"))       return "int|double";
@@ -105,7 +109,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 : if (!_value.getString().equals(variable1))  { variable1 = _value.getString(); updateIndexes = true; } break;
         case 1 : min1 = _value.getDouble();   break;
@@ -149,7 +154,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
       }
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : variable1 = "u"; updateIndexes = true; break;
         case 1 : min1 = -1.0;   break;
@@ -172,7 +178,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
       }
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "u";
         case 1 : return "-1.0";
@@ -195,7 +202,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 :
         case 4 : case 5 : case 6 : case 7 :
@@ -219,7 +227,8 @@ public class ControlAnalyticSurface extends ControlInteractiveTile implements Ne
     return false;
   }
 
-  public void preupdate() {
+  @Override
+public void preupdate() {
     boolean parsedOk=false, errorX=false, errorY=false, errorZ=false;
     if (changedXfunction && functionX!=null) {
       ParserAndVariables pav = new ParserAndVariables(useJavaSyntax,functionX);

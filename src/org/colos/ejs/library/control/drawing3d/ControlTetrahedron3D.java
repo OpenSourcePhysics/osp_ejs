@@ -20,11 +20,14 @@ public class ControlTetrahedron3D extends ControlElement3D {
 
   private ElementTetrahedron tetrahedron;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementTetrahedron"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementTetrahedron"; }
 
-  protected Element createElement () { return tetrahedron = new ElementTetrahedron(); }
+  @Override
+protected Element createElement () { return tetrahedron = new ElementTetrahedron(); }
 
-  protected int getPropertiesDisplacement () { return TETRAHEDRON_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return TETRAHEDRON_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -32,7 +35,8 @@ public class ControlTetrahedron3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("truncationHeight");
@@ -43,7 +47,8 @@ public class ControlTetrahedron3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("truncationHeight")) return "int|double";
     if (_property.equals("closedTop"))    return "boolean";
     if (_property.equals("closedBottom")) return "boolean";
@@ -55,7 +60,8 @@ public class ControlTetrahedron3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : tetrahedron.setTruncationHeight(_value.getDouble()); break;
       case 1 : tetrahedron.setClosedTop(_value.getBoolean());    break;
@@ -65,7 +71,8 @@ public class ControlTetrahedron3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : tetrahedron.setTruncationHeight(Double.NaN); break;
       case 1 : tetrahedron.setClosedTop(true);    break;
@@ -75,7 +82,8 @@ public class ControlTetrahedron3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>"; 
       case 1 : 
@@ -85,7 +93,8 @@ public class ControlTetrahedron3D extends ControlElement3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : 
         return null;

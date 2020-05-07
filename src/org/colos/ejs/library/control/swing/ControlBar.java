@@ -24,7 +24,8 @@ public class ControlBar extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     bar = new JProgressBarDouble(SwingConstants.HORIZONTAL);
     return bar;
   }
@@ -35,7 +36,8 @@ public class ControlBar extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("variable");
@@ -48,7 +50,8 @@ public class ControlBar extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("variable"))       return "int|double";
     if (_property.equals("minimum"))        return "int|double";
     if (_property.equals("maximum"))        return "int|double";
@@ -61,7 +64,8 @@ public class ControlBar extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : bar.setDoubleValue(_value.getDouble()); break;
       case 1 : bar.setDoubleMinimum(_value.getDouble()); break;
@@ -85,7 +89,8 @@ public class ControlBar extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : break; // Do nothing
       case 1 : bar.setDoubleMinimum (0.0); break;
@@ -96,7 +101,8 @@ public class ControlBar extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 :
@@ -105,7 +111,8 @@ public class ControlBar extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "0.0";

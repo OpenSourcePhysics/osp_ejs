@@ -223,6 +223,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 	private final static int STATE_LOOP = 1;
 	private final static int STATE_DONE = 2;
 	
+	@Override
 	public boolean stateLoop() {
 		// System.err.println("State Loop");
 		while (animationThread != null && !animationThread.isInterrupted() && stateHelper.isAlive()) {
@@ -270,7 +271,8 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
   /**
    * Implementation of Runnable interface.  DO NOT access this method directly.
    */
-  public void run() {
+  @Override
+public void run() {
   	if(JSUtil.isJS) {
   		stateHelper = new SwingJSUtils.StateHelper(this);
   		stateHelper.setState(STATE_INIT);
@@ -324,7 +326,8 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
 
     if(JSUtil.isJS) return;
       Thread onExitThread = new Thread(sEJSThreadGroup,new Runnable() {
-        public void run() {
+        @Override
+		public void run() {
           view.onExit();
           model._freeMemory();
         }

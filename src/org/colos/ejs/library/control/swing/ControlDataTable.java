@@ -38,7 +38,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     dataPanel = new org.opensourcephysics.display.DataPanel();
     dataPanel.setRowNumberVisible(false);
     dataPanel.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS); 
@@ -46,7 +47,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
     input = oldInput = null;
     isSet = false;
     dataPanel.getVisual().addMouseListener (new MouseAdapter() {
-      public void mousePressed  (MouseEvent _evt) {
+      @Override
+	public void mousePressed  (MouseEvent _evt) {
         if (getSimulation()==null || !OSPRuntime.isPopupTrigger(_evt)) return;  
         getPopupMenu(_evt.getX(), _evt.getY());
       }
@@ -55,27 +57,34 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
     return dataPanel;
   }
 
-  public String getObjectClassname () { return "org.opensourcephysics.display.DataPanel"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.display.DataPanel"; }
 
-  public Object getObject () { return dataPanel; }
+  @Override
+public Object getObject () { return dataPanel; }
 
-  public java.awt.Component getComponent () { return dataPanel; } // scrollPanel; }
+  @Override
+public java.awt.Component getComponent () { return dataPanel; } // scrollPanel; }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     reset();
   }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
       dataPanel.clearData();
       input = oldInput = null;
       isSet = false;
   }
 
-  public void onExit () { // free memory
+  @Override
+public void onExit () { // free memory
     reset();
   }
 
-  public void update() {
+  @Override
+public void update() {
 //    System.out.println ("Adding ");
     if (active && isSet && input!=null) {
       if (noRepeat) {
@@ -106,7 +115,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
     }
   }
   
-  public void finalUpdate() {
+  @Override
+public void finalUpdate() {
 //    if (myGroup!=null && myGroup.isCollectingData()) return;
     dataPanel.refreshTable(DataRowModel.FINAL_UPDATE);  // BH 2020.04.04 this is a controlled keyword
     // WC:  Added from parameter ("?") for new API.
@@ -118,7 +128,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("input");
@@ -135,7 +146,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("input"))     return "int|double|double[]";
     if (_property.equals("maxPoints")) return "int";
     if (_property.equals("stride"))    return "int";
@@ -149,7 +161,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
 
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("AutoResizeMode")>=0) {
       _value = _value.trim().toLowerCase();
@@ -166,7 +179,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
 //    System.out.println ("Setting property "+_index+" to "+_value);
     switch (_index) {
       case 0 :
@@ -220,7 +234,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : input = oldInput = null; isSet = false; break;
       case 1 : dataPanel.setMaxPoints(-1); break;
@@ -239,7 +254,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 :
       case 5 : case 6 : case 7 : case 8 :
@@ -248,7 +264,8 @@ public class ControlDataTable extends ControlSwingElement implements NeedsUpdate
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "-1";

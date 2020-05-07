@@ -41,6 +41,7 @@ public class Set extends Group {
      * It is not a clone.
      * 
      */
+	@Override
 	public double[][] getData2D() {
 		List<Element> list = elementList;
 		int n = list.size();
@@ -62,7 +63,8 @@ public class Set extends Group {
 	
   private String[] defaultColNames = new String[2];
 
-  public String[] getColumnNames() {
+  @Override
+public String[] getColumnNames() {
 		List<Element> list = elementList;
 		for (int i = 0, n = list.size(); i < n; i++) {
 			Element el = list.get(i);
@@ -74,7 +76,8 @@ public class Set extends Group {
 		return defaultColNames;
 	}
   
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; } 
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; } 
 
 }
 

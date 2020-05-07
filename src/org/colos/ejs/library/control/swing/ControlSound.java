@@ -29,7 +29,8 @@ public class ControlSound extends ControlCheckBox {
     super ();
     checkbox.addActionListener (
       new java.awt.event.ActionListener() {
-        public void actionPerformed (java.awt.event.ActionEvent _e) {
+        @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) {
           playing = checkbox.isSelected(); 
           if (playing) play();
           else stop();
@@ -38,8 +39,10 @@ public class ControlSound extends ControlCheckBox {
     );
   }
 
-  protected int getVariableIndex () { return ControlSound.SOUND_VARIABLE; }
-  protected int getValueIndex () { return ControlSound.SOUND_SELECTED; }
+  @Override
+protected int getVariableIndex () { return ControlSound.SOUND_VARIABLE; }
+  @Override
+protected int getValueIndex () { return ControlSound.SOUND_SELECTED; }
 
   public void setAudioClip(String _codebase, String _audioFile) {
     if (_audioFile==null) { stop(); clip = null; return; }
@@ -47,7 +50,8 @@ public class ControlSound extends ControlCheckBox {
 //    if (clip==null) clip = getUtils().resourceClip (this.getClass(),_codebase,_audioFile);
   }
 
-  public void destroy() {
+  @Override
+public void destroy() {
     if (clip!=null) clip.stop();
     clip = null;
     super.destroy();
@@ -67,7 +71,8 @@ public class ControlSound extends ControlCheckBox {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("audiofile");
@@ -77,7 +82,8 @@ public class ControlSound extends ControlCheckBox {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("audiofile"))  return "File|String TRANSLATABLE";
     if (_property.equals("loop"))       return "boolean";
     return super.getPropertyInfo(_property);
@@ -87,7 +93,8 @@ public class ControlSound extends ControlCheckBox {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : setAudioFile(_value.getString()); break; // audiofile
       case 1 : 
@@ -108,7 +115,8 @@ public class ControlSound extends ControlCheckBox {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : setAudioClip(null,null); audioFile = null; break;
       case 1 : 
@@ -121,14 +129,16 @@ public class ControlSound extends ControlCheckBox {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "true";
       default : return super.getDefaultValueString(_index-SOUND_ADDED);
     }
   }
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : 
         return null;

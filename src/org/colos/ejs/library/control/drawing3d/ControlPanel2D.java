@@ -39,9 +39,11 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
   protected Color myDefaultBkgd;
 
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPanel2D"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPanel2D"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     panel2D = new ElementPanel2D();
     dPanel = panel2D.getDrawingPanel();
     dPanel.enableInspector (false); // OSP Update
@@ -59,7 +61,8 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
     return panel2D;
   }
 
-  protected int getPropertiesDisplacement () { return PANEL2D_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return PANEL2D_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -67,7 +70,8 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("autoscaleX");
@@ -92,7 +96,8 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("autoscaleX"))     return "boolean";
     if (_property.equals("autoscaleY"))     return "boolean";
     if (_property.equals("minimumX"))       return "int|double";
@@ -117,7 +122,8 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :  autoX = _value.getBoolean(); updateAutoscale(); break;
       case 1 :  autoY = _value.getBoolean(); updateAutoscale(); break;
@@ -159,7 +165,8 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
 
       case 0 :  autoX = false; updateAutoscale(); break;
@@ -190,7 +197,8 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       
       case 0 : 
@@ -214,7 +222,8 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case  4 : case  5 :
       case 6 : case 7 : case 8 : case 9 : case 10 : case 11 : 
@@ -229,50 +238,59 @@ public class ControlPanel2D extends ControlElement3D implements NeedsUpdate, Nee
   // -----------------------------
   // 
   
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
      if (_child instanceof ControlDrawable) return true;
 	   return false;
   }
 
-  public void addDrawable(Drawable _drawable) { 
+  @Override
+public void addDrawable(Drawable _drawable) { 
 //    System.out.println ("Adding drawable "+_drawable);
     dPanel.addDrawable(_drawable);
     panel2D.refresh();
   }
 
-  public void addDrawableAtIndex(int _index, Drawable _drawable) { 
+  @Override
+public void addDrawableAtIndex(int _index, Drawable _drawable) { 
 //    System.out.println ("Adding drawable ("+_index+")"+_drawable);
     dPanel.addDrawableAtIndex(_index, _drawable);
     panel2D.refresh();
   }
 
-  public void addToPreupdateList(NeedsPreUpdate _child) { 
+  @Override
+public void addToPreupdateList(NeedsPreUpdate _child) { 
 //    System.out.println ("Adding preupdate child "+_child);
     preupdateList.add(_child); 
   }
 
-  public org.opensourcephysics.display.DrawingPanel getDrawingPanel() { return dPanel;}
+  @Override
+public org.opensourcephysics.display.DrawingPanel getDrawingPanel() { return dPanel;}
 
-  public void removeDrawable(Drawable _drawable) { 
+  @Override
+public void removeDrawable(Drawable _drawable) { 
 //    System.out.println ("Removing drawable "+_drawable);
 	  dPanel.removeDrawable(_drawable);
 	  panel2D.refresh();
   }
 
-  public void removeFromPreupdateList(NeedsPreUpdate _child) { 
+  @Override
+public void removeFromPreupdateList(NeedsPreUpdate _child) { 
 //    System.out.println ("Removing preupdate child "+_child);
     preupdateList.remove(_child); 
   }
 
   
-  public void update() { // Ensure it will be updated
+  @Override
+public void update() { // Ensure it will be updated
     // prepare children that need to do something
     for (NeedsPreUpdate npu : preupdateList) npu.preupdate();
 //    System.out.println ("panel update...");
     panel2D.refresh();
   }
   
-  public void finalUpdate() {
+  @Override
+public void finalUpdate() {
 //    if (myGroup!=null && myGroup.isCollectingData()) return;
 //    System.out.println ("panel final udpate...");
     panel2D.refresh();

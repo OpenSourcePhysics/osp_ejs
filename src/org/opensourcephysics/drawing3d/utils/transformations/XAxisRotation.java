@@ -28,7 +28,8 @@ public class XAxisRotation extends AxisRotation {
   /**
    * Provides a copy of this transformation.
    */
-  public Object clone() {
+  @Override
+public Object clone() {
     XAxisRotation m = new XAxisRotation();
     m.setAngle(angle);
     m.origin = origin.clone();

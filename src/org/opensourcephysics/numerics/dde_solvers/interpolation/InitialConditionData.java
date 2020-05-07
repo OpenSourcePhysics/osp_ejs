@@ -33,6 +33,7 @@ public class InitialConditionData extends IntervalData {
 	 * @param time the time for the interpolation
 	 * @returns the interpolated state 
 	 */
+	@Override
 	public double interpolate(double time, int index) {
     mDDE.getInitialCondition(time, mState);
     return mState[index];
@@ -44,6 +45,7 @@ public class InitialConditionData extends IntervalData {
 	 * @param state a placeholder for the returned state
 	 * @returns the interpolated state (same as the passed state array)
 	 */
+	@Override
 	public double[] interpolate(double time, double[] state, int beginIndex, int length) {
 	  mDDE.getInitialCondition(time, mState);
 	  System.arraycopy(mState, beginIndex, state, 0, length);

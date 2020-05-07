@@ -40,7 +40,8 @@ public class ControlFrame extends ControlWindow {
 // Visual component
 // ------------------------------------------------
   
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     startingup = true;
     frame = new JFrame(EjsControl.getDefaultGraphicsConfiguration());
     
@@ -57,7 +58,8 @@ public class ControlFrame extends ControlWindow {
     internalValue = new BooleanValue (true);
     frame.getContentPane().addKeyListener (
         new java.awt.event.KeyAdapter() {
-          public void keyPressed  (java.awt.event.KeyEvent _e) {
+          @Override
+		public void keyPressed  (java.awt.event.KeyEvent _e) {
             if (_e.isControlDown() && getSimulation()!=null) {
               if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_M) getPopupMenu(0,0);
               else if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_P) printScreen();
@@ -68,7 +70,8 @@ public class ControlFrame extends ControlWindow {
     );
     frame.getContentPane().addMouseListener (
         new MouseAdapter() {
-          public void mousePressed  (MouseEvent _evt) {
+          @Override
+		public void mousePressed  (MouseEvent _evt) {
             if (getSimulation()!=null && OSPRuntime.isPopupTrigger(_evt)) { //) {SwingUtilities.isRightMouseButton(_evt) 
               getPopupMenu(_evt.getX(),_evt.getY());
             }
@@ -78,17 +81,22 @@ public class ControlFrame extends ControlWindow {
     return frame.getContentPane();
   }
 
-  public String getObjectClassname () { return "java.awt.Component"; }
+  @Override
+public String getObjectClassname () { return "java.awt.Component"; }
 
-  public Object getObject () { return frame; }
+  @Override
+public Object getObject () { return frame; }
 
-  protected javax.swing.JRootPane getRootPane () { return frame.getRootPane(); }
+  @Override
+protected javax.swing.JRootPane getRootPane () { return frame.getRootPane(); }
 
-  public javax.swing.JMenuBar getJMenuBar() { return frame.getJMenuBar(); }
+  @Override
+public javax.swing.JMenuBar getJMenuBar() { return frame.getJMenuBar(); }
   
 //  protected javax.swing.JLayeredPane getLayeredPane () { return frame.getLayeredPane(); }
 
-  protected void whenClosing () {
+  @Override
+protected void whenClosing () {
     super.whenClosing();
     if (frame.getDefaultCloseOperation()==JFrame.EXIT_ON_CLOSE || frame.getDefaultCloseOperation()==WindowConstants.DISPOSE_ON_CLOSE) {
       invokeActions();
@@ -100,24 +108,31 @@ public class ControlFrame extends ControlWindow {
     }
   }
 
-  protected int getVisibleIndex () { return ControlWindow.WINDOW_VISIBLE+FRAME_ADDED; }
-  protected int getLocationIndex () { return ControlWindow.WINDOW_LOCATION+FRAME_ADDED; }
-  protected int getSizeIndex () { return ControlWindow.WINDOW_SIZE+FRAME_ADDED; }
+  @Override
+protected int getVisibleIndex () { return ControlWindow.WINDOW_VISIBLE+FRAME_ADDED; }
+  @Override
+protected int getLocationIndex () { return ControlWindow.WINDOW_LOCATION+FRAME_ADDED; }
+  @Override
+protected int getSizeIndex () { return ControlWindow.WINDOW_SIZE+FRAME_ADDED; }
 
-  public java.awt.Component getComponent () { return frame; }
+  @Override
+public java.awt.Component getComponent () { return frame; }
 
   public JFrame getJFrame () { return frame; }
 
-  public java.awt.Container getContainer () { return frame.getContentPane(); }
+  @Override
+public java.awt.Container getContainer () { return frame.getContentPane(); }
 
-  public void add(final ControlElement _child) {
+  @Override
+public void add(final ControlElement _child) {
     if (! (_child.getVisual() instanceof JMenuBar)) { 
       super.add(_child);
       return; 
     }
     children.add(_child);
     SwingUtilities.invokeLater(new Runnable() {
-      public void run () { 
+      @Override
+	public void run () { 
         frame.setJMenuBar(menubar = (JMenuBar) _child.getVisual());
         adjustSize();
       }
@@ -130,7 +145,8 @@ public class ControlFrame extends ControlWindow {
     propagateProperty (_child,"background",getPropagatedProperty("background"));
   }
 
-  public void remove(ControlElement _child) {
+  @Override
+public void remove(ControlElement _child) {
     if (! (_child.getVisual() instanceof JMenuBar)) { super.remove(_child); return; }
     children.remove(_child);
     ((ControlSwingElement)_child).setControlWindow (null);
@@ -146,7 +162,8 @@ public class ControlFrame extends ControlWindow {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("title");
@@ -160,7 +177,8 @@ public class ControlFrame extends ControlWindow {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("title"))     return "String TRANSLATABLE";
     if (_property.equals("resizable")) return "boolean";
     if (_property.equals("exit"))      return "boolean CONSTANT";
@@ -174,7 +192,8 @@ public class ControlFrame extends ControlWindow {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : // title
         String ejsWindow = getProperty("_ejs_window_");
@@ -210,7 +229,8 @@ public class ControlFrame extends ControlWindow {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : // title
         String ejsWindow = getProperty("_ejs_window_");
@@ -236,7 +256,8 @@ public class ControlFrame extends ControlWindow {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "true";
@@ -248,7 +269,8 @@ public class ControlFrame extends ControlWindow {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 : case 5 :
         return null;

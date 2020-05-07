@@ -28,14 +28,17 @@ public class ControlVectorField2D extends ControlElement2D {
 
   protected VectorField field;
 
-  protected org.opensourcephysics.display.Drawable createDrawable () {
+  @Override
+protected org.opensourcephysics.display.Drawable createDrawable () {
     field = new VectorField();
     return field;
   }
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.VectorField"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.VectorField"; }
 
-  protected int getPropertiesDisplacement () { return VECTORFIELD_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return VECTORFIELD_ADDED; }
 
 //  public void initialize () { // Overwrites default initialize
 ////    System.out.println (this + " Initing");
@@ -53,7 +56,8 @@ public class ControlVectorField2D extends ControlElement2D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumX");
@@ -86,7 +90,8 @@ public class ControlVectorField2D extends ControlElement2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumX"))   return "int|double";
     if (_property.equals("maximumX"))   return "int|double";
     if (_property.equals("minimumY"))   return "int|double";
@@ -115,7 +120,8 @@ public class ControlVectorField2D extends ControlElement2D {
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("VectorColorMapper")>=0) {
       _value = _value.trim().toLowerCase();
@@ -134,7 +140,8 @@ public class ControlVectorField2D extends ControlElement2D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : field.setMinimumX(_value.getDouble()); break;
       case 1 : field.setMaximumX(_value.getDouble()); break;
@@ -186,6 +193,7 @@ public class ControlVectorField2D extends ControlElement2D {
     }
   }
 
+	@Override
 	public void setDefaultValue(int _index) {
 		switch (_index) {
 		case 0:
@@ -264,7 +272,8 @@ public class ControlVectorField2D extends ControlElement2D {
 		}
 	}
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : 
       case 1 : 
@@ -294,7 +303,8 @@ public class ControlVectorField2D extends ControlElement2D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :

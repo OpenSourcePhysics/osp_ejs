@@ -18,7 +18,8 @@ import org.opensourcephysics.display.Drawable;
 public class ControlLine extends ControlPoligon {
   static private final double[][] defData = new double[][] { {0,0}, {0,0.1}, {0.1,0.1} };
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     super.createDrawable();
     poligon.setNumberOfPoints (3);
     poligon.setData (defData);
@@ -30,7 +31,8 @@ public class ControlLine extends ControlPoligon {
     return poligon;
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 :
         poligon.setNumberOfPoints (3);
@@ -45,7 +47,8 @@ public class ControlLine extends ControlPoligon {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "3";
       case 2 : return "false";

@@ -19,13 +19,16 @@ public class ControlSphere3D extends ControlEllipsoid3D {
 
   private ElementSphere sphere;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSphere"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSphere"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     return ellipsoid = sphere = new ElementSphere();
   }
 
-  protected int getPropertiesDisplacement () { return SPHERE_PROPERTIES_ADDED+ControlEllipsoid3D.ELLIPSOID_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return SPHERE_PROPERTIES_ADDED+ControlEllipsoid3D.ELLIPSOID_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -33,7 +36,8 @@ public class ControlSphere3D extends ControlEllipsoid3D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("radius");
@@ -42,7 +46,8 @@ public class ControlSphere3D extends ControlEllipsoid3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("radius")) return "int|double";
 
     return super.getPropertyInfo(_property);
@@ -52,7 +57,8 @@ public class ControlSphere3D extends ControlEllipsoid3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : sphere.setRadius(_value.getDouble()); break;
       default : super.setValue(_index-SPHERE_PROPERTIES_ADDED,_value); break;
@@ -60,7 +66,8 @@ public class ControlSphere3D extends ControlEllipsoid3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : sphere.setRadius(0.1); break;
       default: super.setDefaultValue(_index-SPHERE_PROPERTIES_ADDED); break;
@@ -68,14 +75,16 @@ public class ControlSphere3D extends ControlEllipsoid3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0.5";
       default : return super.getDefaultValueString(_index-SPHERE_PROPERTIES_ADDED);
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return null;
       default: return super.getValue (_index-SPHERE_PROPERTIES_ADDED);

@@ -44,7 +44,8 @@ public class ControlSlider extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     slider = new JSliderDouble(new MyChangeListener());
     defaultValue  = 0.0;
     defaultValueSet = false;
@@ -56,7 +57,8 @@ public class ControlSlider extends ControlSwingElement {
     return slider;
   }
 
-  public void reset() {
+  @Override
+public void reset() {
     if (mustSetClosest) { slider.setSnapToTicks(true); mustSetClosest = false; }
     if (defaultValueSet) {
       interactiveChange = false;
@@ -72,7 +74,8 @@ public class ControlSlider extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("variable");
@@ -93,14 +96,16 @@ public class ControlSlider extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("action"))      return "releaseAction";
     if (_property.equals("pressaction")) return "pressAction";
     if (_property.equals("dragaction"))  return "dragAction";
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("variable"))       return "int|double";
     if (_property.equals("value"))          return "int|double CONSTANT DEPRECATED";
     if (_property.equals("minimum"))        return "int|double";
@@ -120,7 +125,8 @@ public class ControlSlider extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case VARIABLE : 
         if (internalValue.value!=_value.getDouble()) {
@@ -184,7 +190,8 @@ public class ControlSlider extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case VARIABLE : break; // Do nothing
       case VALUE : defaultValueSet = false; break;
@@ -204,7 +211,8 @@ public class ControlSlider extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : case 1 : return "<none>";
       case 2 : return "0.0";
@@ -219,7 +227,8 @@ public class ControlSlider extends ControlSwingElement {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case VARIABLE : return internalValue;
       case VALUE :  case 2 :  case 3 :  case 4 : case 5 :
@@ -237,7 +246,8 @@ public class ControlSlider extends ControlSwingElement {
 
   private class MyChangeListener implements javax.swing.event.ChangeListener {
     
-    public void stateChanged(javax.swing.event.ChangeEvent e) {
+    @Override
+	public void stateChanged(javax.swing.event.ChangeEvent e) {
 //      if (editorIsReading ()) return; This is too much. The mustSetClosest variable fixed it
       if (slider.isInteractiveChange() && interactiveChange) {
         internalValue.value = slider.getDoubleValue();
@@ -253,14 +263,17 @@ public class ControlSlider extends ControlSwingElement {
 
   private class MyMouseListener extends java.awt.event.MouseAdapter {
     
-    public void mousePressed (java.awt.event.MouseEvent evt) {
+    @Override
+	public void mousePressed (java.awt.event.MouseEvent evt) {
       if (slider.isEnabled()) invokeActions (ControlSwingElement.ACTION_PRESS);
     }
 
-    public void mouseReleased (java.awt.event.MouseEvent evt) {
+    @Override
+	public void mouseReleased (java.awt.event.MouseEvent evt) {
       if (slider.isEnabled()) invokeActions (ControlElement.ACTION);
       javax.swing.SwingUtilities.invokeLater(new Runnable() {
-        public void run() {
+        @Override
+		public void run() {
           interactiveChange = false;
           slider.setDoubleValue (internalValue.value);
           interactiveChange = true;

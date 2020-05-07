@@ -18,14 +18,17 @@ public class ControlShape2D extends ControlElement2D {
 
   private ElementShape shape;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementShape"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing2d.ElementShape"; }
 
-  protected org.opensourcephysics.display.Drawable createDrawable () {
+  @Override
+protected org.opensourcephysics.display.Drawable createDrawable () {
     shape = new ElementShape();
     return shape;
   }
 
-  protected int getPropertiesDisplacement () { return PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -33,7 +36,8 @@ public class ControlShape2D extends ControlElement2D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("style");
@@ -44,7 +48,8 @@ public class ControlShape2D extends ControlElement2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("style")) return "MarkerShape|int";
     if (_property.equals("pixelSize")) return "boolean";
     if (_property.equals("elementposition"))return "ElementPosition|int";
@@ -55,7 +60,8 @@ public class ControlShape2D extends ControlElement2D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getInteger()!=shape.getShapeType()) shape.setShapeType(_value.getInteger()); break;
       case 1 : if (_value.getBoolean()!=shape.isPixelSize()) shape.setPixelSize(_value.getBoolean()); break;
@@ -64,7 +70,8 @@ public class ControlShape2D extends ControlElement2D {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : shape.setShapeType(ElementShape.DEFAULT); break;
       case 1 : shape.setPixelSize(false); break;
@@ -73,7 +80,8 @@ public class ControlShape2D extends ControlElement2D {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "ELLIPSE";
       case 1 : return "false";
@@ -82,7 +90,8 @@ public class ControlShape2D extends ControlElement2D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : 
         return null;

@@ -61,9 +61,11 @@ public abstract class ControlSet3D extends ControlElement3D {
     defElementFill = elements[0].getStyle().getFillColor();
   }
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.Set"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.Set"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     set = new Set();
     return set;
   }
@@ -76,7 +78,8 @@ public abstract class ControlSet3D extends ControlElement3D {
    */
   protected abstract int getPropertiesAddedToSet ();
 
-  protected final int getPropertiesDisplacement () {
+  @Override
+protected final int getPropertiesDisplacement () {
     return getPropertiesAddedToSet () + SET3D_ADDED;
   }
 
@@ -162,15 +165,18 @@ public abstract class ControlSet3D extends ControlElement3D {
 
   public Element elementAt (int i) { return elements[i]; }
 
-  public void reset () { // Overwrites default reset
+  @Override
+public void reset () { // Overwrites default reset
     set.clear();
   }
 
-  public void initialize () { // Overwrites default initialize
+  @Override
+public void initialize () { // Overwrites default initialize
     set.initialize();
   }
 
-  public void setName(String name) {
+  @Override
+public void setName(String name) {
     super.setName(name);
     for (int i=0; i<numElements; i++) elements[i].setName(name+"["+i+"]");
   }
@@ -181,7 +187,8 @@ public abstract class ControlSet3D extends ControlElement3D {
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() { // This eliminates any previous property
+    @Override
+	public java.util.List<String> getPropertyList() { // This eliminates any previous property
       if (infoList==null) {
         infoList = new java.util.ArrayList<String>();
         infoList.add ("numberOfElements");
@@ -192,7 +199,8 @@ public abstract class ControlSet3D extends ControlElement3D {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("numberOfElements")) return "int PREVIOUS";
       if (_property.equals("elementSelected"))  return "int";
 
@@ -233,7 +241,8 @@ public abstract class ControlSet3D extends ControlElement3D {
       return super.getPropertyInfo(_property);
     }
 
-    public String getPropertyCommonName(String _property) {
+    @Override
+	public String getPropertyCommonName(String _property) {
       if (_property.equals("size")) return "sizeArray";
       return super.getPropertyCommonName(_property);
     }
@@ -262,7 +271,8 @@ public abstract class ControlSet3D extends ControlElement3D {
 // Variables
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case NUM_ELEMENTS : 
           if (_value.getInteger()!=numElements) checkNumberOfElements(_value.getInteger(),true);
@@ -631,7 +641,8 @@ public abstract class ControlSet3D extends ControlElement3D {
       if (isUnderEjs) updatePanel();
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case NUM_ELEMENTS : setNumberOfElements (1); numberOfElements_isSet = false; break;
         case ELEMENT_SELECTED : selectedValue.value = -1; break;
@@ -696,7 +707,8 @@ public abstract class ControlSet3D extends ControlElement3D {
         if (isUnderEjs) updatePanel();
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case NUM_ELEMENTS : return "1";
         case ELEMENT_SELECTED : return "-1";
@@ -718,7 +730,8 @@ public abstract class ControlSet3D extends ControlElement3D {
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case NUM_ELEMENTS : return null;
         case ELEMENT_SELECTED : return selectedValue;
@@ -804,7 +817,8 @@ public abstract class ControlSet3D extends ControlElement3D {
 
   int selectedElement = -1;
 
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
     // System.out.println("Event ID "+_event.getID());
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_ENTERED  :

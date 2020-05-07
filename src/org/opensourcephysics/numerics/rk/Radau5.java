@@ -36,13 +36,15 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     super(ode);
   }
 
-  protected void allocateArrays(int n) {
+  @Override
+protected void allocateArrays(int n) {
     super.allocateArrays(n);
     initialState = new double[n];
     interpolationCoeffs = new double[4][n];
   }
 
-  public void reinitialize(double[] _state) {
+  @Override
+public void reinitialize(double[] _state) {
     super.reinitialize(_state);
     initialTime = _state[numEqn-1];
     System.arraycopy(_state, 0, initialState, 0, numEqn);
@@ -51,17 +53,21 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     error_code=ODEAdaptiveSolver.NO_ERROR;
   }
 
-  public double[] getCurrentRate() { return rate; }
+  @Override
+public double[] getCurrentRate() { return rate; }
 
-  public void setEstimateFirstStep(boolean _estimate) {}
+  @Override
+public void setEstimateFirstStep(boolean _estimate) {}
 
-  public double getMaximumTime() {
+  @Override
+public double getMaximumTime() {
     if (error_code!=ODEAdaptiveSolver.NO_ERROR) return Double.NaN;
     if (Double.isNaN(finalTime)) return internalStep();
     return finalTime; 
   }
 
-  final public double internalStep() {
+  @Override
+final public double internalStep() {
     initialTime = state[numEqn-1];
     System.arraycopy(state, 0, initialState, 0, numEqn);
     takenStepSize = super.doStep();
@@ -71,7 +77,8 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     return finalTime;  // the final time that was computed
   }
 
-  public double getInternalStepSize() { return takenStepSize; }
+  @Override
+public double getInternalStepSize() { return takenStepSize; }
 
   /**
    * Constructs the interpolation coefficients.
@@ -90,10 +97,12 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     }
   }
 
-  public void setMemoryLength(double length) {}
+  @Override
+public void setMemoryLength(double length) {}
 
   // No memory state for this class
-  public org.opensourcephysics.numerics.dde_solvers.interpolation.StateMemory getStateMemory() {
+  @Override
+public org.opensourcephysics.numerics.dde_solvers.interpolation.StateMemory getStateMemory() {
     return null;
   }
 
@@ -105,7 +114,8 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
    *         output will indeed the extrapolation)
    * @param result the result, i.e. approximated solution of ODE
    */
-  public double[] interpolate(double _time, boolean useLeftApproximation, double[] _state) {
+  @Override
+public double[] interpolate(double _time, boolean useLeftApproximation, double[] _state) {
     //      if (_time==initialTime) {
     //        System.arraycopy(initialState, 0, _state, 0, mNumEqn);
     //        return _state;
@@ -136,7 +146,8 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
     return interpolationCoeffs[0][_index] + s * (interpolationCoeffs[1][_index] + (s - c2m1) * (interpolationCoeffs[2][_index] + (s - c1m1) * interpolationCoeffs[3][_index]));
   }
 
-  public double[] bestInterpolate(double _time, double[] _state) {
+  @Override
+public double[] bestInterpolate(double _time, double[] _state) {
     return interpolate(_time,false,_state);  
   }
 
@@ -146,7 +157,8 @@ public class Radau5 extends Radau5Adaptive implements ODESolverInterpolator {
    * using the extrapolation
    * @param initialvalue the value to be adjusted
    */
-  protected void estimateNewtonInitialValue(double[][] initialvalue) {
+  @Override
+protected void estimateNewtonInitialValue(double[][] initialvalue) {
     double s = actualStepSize / takenStepSize;
     double s1 = c1 * s;
     double s2 = c2 * s;

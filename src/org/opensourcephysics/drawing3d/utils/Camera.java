@@ -578,7 +578,8 @@ public class Camera {
   }
 
   private class Projection implements org.opensourcephysics.numerics.Transformation {
-    public Object clone() {
+    @Override
+	public Object clone() {
       try {
         return super.clone();
       } catch(CloneNotSupportedException exc) {
@@ -587,7 +588,8 @@ public class Camera {
       }
     }
 
-    public double[] direct(double[] p) {
+    @Override
+	public double[] direct(double[] p) {
       switch(projectionMode) {
         case MODE_PLANAR_XY :
           p[0] = (p[0]-focusX)*planarRatio;
@@ -641,7 +643,8 @@ public class Camera {
       }
     }
 
-    public double[] inverse(double[] point) throws UnsupportedOperationException {
+    @Override
+	public double[] inverse(double[] point) throws UnsupportedOperationException {
       throw new UnsupportedOperationException();
     }
   }

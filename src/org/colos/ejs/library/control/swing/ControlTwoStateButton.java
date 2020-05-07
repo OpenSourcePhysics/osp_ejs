@@ -42,7 +42,8 @@ public class ControlTwoStateButton extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     button = new JButton();
 //    defaultStateSet = false;
     button.setText(textOn);
@@ -51,10 +52,12 @@ public class ControlTwoStateButton extends ControlSwingElement {
 
     button.addActionListener (
         new java.awt.event.ActionListener() {
-          public void actionPerformed (java.awt.event.ActionEvent _e) {
+          @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) {
             final boolean value = !internalValue.getBoolean();
             SwingUtilities.invokeLater(new Runnable() {
-              public void run () { 
+              @Override
+			public void run () { 
                 updateGUI(value);
               }
             });
@@ -72,10 +75,12 @@ public class ControlTwoStateButton extends ControlSwingElement {
     return button;
   }
 
-  public void reset() {
+  @Override
+public void reset() {
     internalValue.setValue(true);
     SwingUtilities.invokeLater(new Runnable() {
-      public void run () { 
+      @Override
+	public void run () { 
         updateGUI(true);
       }
     });
@@ -87,7 +92,8 @@ public class ControlTwoStateButton extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("textOn");
@@ -109,7 +115,8 @@ public class ControlTwoStateButton extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("textOn"))      return "String NotTrimmed TRANSLATABLE";
     if (_property.equals("textOff"))     return "String NotTrimmed TRANSLATABLE";
     if (_property.equals("imageOn"))     return "File|String TRANSLATABLE";
@@ -154,7 +161,8 @@ public class ControlTwoStateButton extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
 	boolean state = internalValue.getBoolean();
     switch (_index) {
       case 0 : textOn  = org.opensourcephysics.display.TeXParser.parseTeX(_value.getString()); if (state)  button.setText(textOn);  break;
@@ -215,7 +223,8 @@ public class ControlTwoStateButton extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
 	boolean state = internalValue.getBoolean();
     switch (_index) {
       case 0 : textOn  = "";  if (state)  button.setText(textOn);  break;
@@ -239,7 +248,8 @@ public class ControlTwoStateButton extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : case 1 : 
       case 2 : case 3 : return "<none>";
@@ -253,7 +263,8 @@ public class ControlTwoStateButton extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 : case 6 : case 7 :

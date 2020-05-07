@@ -141,7 +141,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
   @Override
   public Object getObject() { return myElement; }
   
-  abstract public String getObjectClassname ();
+  @Override
+abstract public String getObjectClassname ();
 
   public Element getElement () { return myElement; }
 
@@ -183,7 +184,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
   }
   final public ControlParentOfElement3D getParent () { return myParent; }
 
-  public void destroy () {
+  @Override
+public void destroy () {
     super.destroy();
     if (myParent instanceof NeedsUpdate) ((NeedsUpdate)myParent).update();
     if (myParent instanceof NeedsFinalUpdate) ((NeedsFinalUpdate)myParent).finalUpdate();
@@ -197,7 +199,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
     return this.getProperty("name");
   }
   
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child instanceof ControlTransformation3D) return true;
     return super.acceptsChild(_child);
   }
@@ -209,7 +212,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
       infoList.add ("name");
@@ -268,7 +272,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("name"))    return "String CONSTANT";
     if (_property.equals("parent"))  return "ControlElement CONSTANT";
     if (_property.equals("x"))       return "int|double";
@@ -322,7 +327,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
     return null;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("size")) return "sizeArray";
     return super.getPropertyCommonName(_property);
   }
@@ -336,7 +342,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
 // Variables
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case EL3D_NAME :
           setName(_value.getString());
@@ -478,7 +485,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case EL3D_NAME : 
         super.setDefaultValue (ControlElement.NAME); 
@@ -543,7 +551,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case EL3D_NAME : 
       case PARENT : 
@@ -601,7 +610,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case POSITION : return new ObjectValue (thePos); 
       case POSITION_X : return posValues[0];
@@ -678,7 +688,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
     }
   }
 
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
     // System.out.println("Event ID "+_event.getID());
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_ENTERED  : invokeActions (ControlSwingElement.MOUSE_ENTERED_ACTION); break;
@@ -699,7 +710,8 @@ public abstract class ControlElement3D extends ControlElement implements Interac
 // Parsing constants
 // ------------------------------------------------
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
 
     if (_propertyType.indexOf("3DResolution")>=0) {

@@ -44,23 +44,27 @@ public interface InteractiveElement extends Drawable3D, InteractionSource, Inter
    * Moves the element to a new X location
    * @param x the new X location for the element
    */
-  public void setX (double x);
+  @Override
+public void setX (double x);
   /**
    * Returns the X location of the element
    * @return the X location for the element
    */
-  public double getX ();
+  @Override
+public double getX ();
 
   /**
    * Moves the element to a new Y location
    * @param y the new Y location for the element
    */
-  public void setY (double y);
+  @Override
+public void setY (double y);
   /**
    * Returns the Y location of the element
    * @return the Y location for the element
    */
-  public double getY ();
+  @Override
+public double getY ();
 
   /**
    * Moves the element to a new Z location
@@ -78,7 +82,8 @@ public interface InteractiveElement extends Drawable3D, InteractionSource, Inter
    * @param x the new X location for the element
    * @param y the new Y location for the element
    */
-  public void setXY (double x, double y);
+  @Override
+public void setXY (double x, double y);
 
   /**
    * Moves the element to a new X, Y, and Z location

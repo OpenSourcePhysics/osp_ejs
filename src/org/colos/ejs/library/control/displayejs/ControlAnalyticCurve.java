@@ -40,9 +40,11 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
 
   public ControlAnalyticCurve () { super (); enabledEjsEdit = true; }
 
-  protected void setName (String _name) { poligon.setName(_name); } // To be overwritten
+  @Override
+protected void setName (String _name) { poligon.setName(_name); } // To be overwritten
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     poligon = new InteractivePoligon();
     poligon.setNumberOfPoints(numPoints=0);
 //    polygon.setEnabled(false);
@@ -57,7 +59,8 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
     return poligon;
   }
 
-  protected int getPropertiesDisplacement () { return CURVE_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return CURVE_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -65,7 +68,8 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("variable");
@@ -85,13 +89,15 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
       return infoList;
     }
 
-    public String getPropertyCommonName(String _property) {
+    @Override
+	public String getPropertyCommonName(String _property) {
       if (_property.equals("color")) return "lineColor";
       if (_property.equals("secondaryColor")) return "fillColor";
       return super.getPropertyCommonName(_property);
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("variable"))  return "String";
       if (_property.equals("min"))       return "int|double";
       if (_property.equals("max"))       return "int|double";
@@ -111,7 +117,8 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-      public void setValue (int _index, Value _value) {
+      @Override
+	public void setValue (int _index, Value _value) {
         switch (_index) {
           case 0 : if (!_value.getString().equals(variable))  { variable = _value.getString(); updateIndexes = true; } break;
           case 1 : min = _value.getDouble(); poligon.canBeMeasured (!Double.isNaN(max)); break;
@@ -149,7 +156,8 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
         }
       }
 
-      public void setDefaultValue (int _index) {
+      @Override
+	public void setDefaultValue (int _index) {
         switch (_index) {
           case 0 : variable = "t"; updateIndexes = true; break;
           case 1 : min = Double.NaN; poligon.canBeMeasured (false); break;
@@ -168,7 +176,8 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
         }
       }
 
-      public String getDefaultValueString (int _index) {
+      @Override
+	public String getDefaultValueString (int _index) {
         switch (_index) {
           case 0 : return "t";
           case 1 :
@@ -187,7 +196,8 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
         }
       }
 
-      public Value getValue (int _index) {
+      @Override
+	public Value getValue (int _index) {
         switch (_index) {
           case 0 : case 1 : case 2 : case 3 :
           case 4 : case 5 : case 6 : case 7 :
@@ -210,7 +220,8 @@ public class ControlAnalyticCurve extends ControlInteractiveElement implements N
     return false;
   }
 
-  public void preupdate() {
+  @Override
+public void preupdate() {
     boolean parsedOk=false, errorX=false, errorY=false, errorZ=false;
     if (changedXfunction && functionX!=null) {
       ParserAndVariables pav = new ParserAndVariables(useJavaSyntax,functionX);

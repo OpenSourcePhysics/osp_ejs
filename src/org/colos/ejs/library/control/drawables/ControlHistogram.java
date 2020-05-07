@@ -28,7 +28,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
   protected int isSet = -1; // -1 not set, 0 = double, 1 = double[]
   protected String inputLabel = "x", occurrencesLabel = "occurrences";
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     x = 0.0;
     lineColor=Color.BLACK;
     fillColor=Color.BLUE;
@@ -58,7 +59,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
      histogram.clear();
   }
 
-  public void preupdate () {
+  @Override
+public void preupdate () {
 //    System.out.println ("Adding "+x);
     if (!enabled) return;
     switch (isSet) {
@@ -80,7 +82,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
      getSimulation().addElementMenuEntries(getMenuNameEntry(), getDataInformationMenuEntries(getParent().getDrawingPanel(),histogram));
   }
 
-  public ControlElement setProperty(String _property, String _value) { // , inputLabel = "Input", occurrencesLabel="Ocurrences"
+  @Override
+public ControlElement setProperty(String _property, String _value) { // , inputLabel = "Input", occurrencesLabel="Ocurrences"
     _property = _property.trim();
     if      (_property.equals("input"))       { inputLabel = _value;       histogram.setXYColumnNames(inputLabel, occurrencesLabel); }
     else if (_property.equals("occurrences")) { occurrencesLabel = _value; histogram.setXYColumnNames(inputLabel, occurrencesLabel); }
@@ -94,7 +97,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
 
   static private java.util.ArrayList<String> infoList=null;
 
-  public java.util.ArrayList<String> getPropertyList() {
+  @Override
+public java.util.ArrayList<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("input");
@@ -116,7 +120,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("input"))         return "int|double|double[]";
     if (_property.equals("occurences"))    return "int|double";
     if (_property.equals("barOffset"))     return "int|double";
@@ -134,7 +139,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("BinStyle")>=0) {
       _value = _value.trim().toLowerCase();
@@ -148,7 +154,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
 // Variable properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if (_value.getObject() instanceof double[]) { xArray = (double[]) _value.getObject(); isSet = 1; }
@@ -177,7 +184,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 :  x = 0; isSet = -1; break;
       case 1 : occurences = 1; break;
@@ -197,7 +205,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "1";
@@ -217,7 +226,8 @@ public class ControlHistogram extends ControlDrawable implements NeedsPreUpdate,
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 :
       case 5 : case 6 : case 7 : case 8 : case 9 :

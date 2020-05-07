@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.opensourcephysics.js.JSUtil;
 import org.opensourcephysics.tools.ToolsRes;
 
 /**
@@ -115,7 +114,8 @@ public class LocaleItem implements Comparable<LocaleItem> {
   /**
    * A human-readable name for the locale
    */
-  public String toString() { return displayName; }
+  @Override
+public String toString() { return displayName; }
   
   /**
    * Whether this item encapsulates the default locale
@@ -125,7 +125,8 @@ public class LocaleItem implements Comparable<LocaleItem> {
   /**
    * Implemented for comparison purposes
    */
-  public int compareTo(LocaleItem arg0) {
+  @Override
+public int compareTo(LocaleItem arg0) {
     if (locale==null) return -1;
     if (arg0.locale==null) return 1;
     return displayName.compareTo(arg0.displayName);

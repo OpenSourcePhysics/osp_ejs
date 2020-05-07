@@ -40,7 +40,8 @@ public class Matrix3DTransformation extends org.opensourcephysics.numerics.Matri
     super.setOrigin(ox,oy,oz);
   }
     
-  public boolean setMatrix(double[][] newMatrix) {
+  @Override
+public boolean setMatrix(double[][] newMatrix) {
     if (super.setMatrix(newMatrix)) {
       if (mElement!=null) mElement.addChange(Element.CHANGE_TRANSFORMATION);
       return true;

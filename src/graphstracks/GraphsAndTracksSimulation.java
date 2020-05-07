@@ -5,12 +5,6 @@
 
 package graphstracks;
 
-import org.colos.ejs.library._EjsConstants;
-
-import org.opensourcephysics.display.OSPRuntime;
-// Imports suggested by Model Elements:
-// End of imports from Model Elements
-
 class GraphsAndTracksSimulation extends org.colos.ejs.library.Simulation { 
 
   private GraphsAndTracksView mMainView;
@@ -28,7 +22,8 @@ class GraphsAndTracksSimulation extends org.colos.ejs.library.Simulation {
     else { reset(); setAutoplay(false); }
   }
 
-  public java.util.List<String> getWindowsList() {
+  @Override
+public java.util.List<String> getWindowsList() {
     java.util.List<String> windowList = new java.util.ArrayList<String>();
     windowList.add("mainFrame");
     windowList.add("dataFrame");
@@ -41,11 +36,13 @@ class GraphsAndTracksSimulation extends org.colos.ejs.library.Simulation {
     return windowList;
   }
 
-  public String getMainWindow() {
+  @Override
+public String getMainWindow() {
     return "mainFrame";
   }
 
-  protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
+  @Override
+protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
     mMainView.getConfigurableElement("mainFrame")
       .setProperty("size","789,393");
     mMainView.getConfigurableElement("tracksPlottingPanel")

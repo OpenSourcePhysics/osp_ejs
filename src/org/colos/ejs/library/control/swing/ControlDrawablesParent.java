@@ -43,7 +43,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
   public ControlDrawablesParent () {
     super ();
     getVisual().addKeyListener (new java.awt.event.KeyAdapter() {
-      public void keyPressed  (java.awt.event.KeyEvent _e) {
+      @Override
+	public void keyPressed  (java.awt.event.KeyEvent _e) {
         if (_e.isControlDown() && getSimulation()!=null) {
           if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_M) getPopupMenu(0,0);
           else if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_P) printScreen();
@@ -51,7 +52,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
       }
     });
     getVisual().addMouseListener (new MouseAdapter() {
-      public void mousePressed  (MouseEvent _evt) {
+      @Override
+	public void mousePressed  (MouseEvent _evt) {
         if (getSimulation()==null || !OSPRuntime.isPopupTrigger(_evt)) return;  
         if (!ToolForData.getTool().isFullTool()) {
           getPopupMenu(_evt.getX(), _evt.getY());
@@ -73,7 +75,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     });
   }
   
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("pressaction")) return "pressAction";
     if (_property.equals("dragaction"))  return "dragAction";
     if (_property.equals("action"))      return "releaseAction";
@@ -84,7 +87,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
   // Zooming and scaling
   // --------------------------
 
-  public void addMenuEntries() {
+  @Override
+public void addMenuEntries() {
     if (getMenuNameEntry()==null) return;
     getSimulation().addElementMenuEntries (getMenuNameEntry(), getExtraMenuOptions());
   }
@@ -92,7 +96,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
   protected List<Object> getExtraMenuOptions() {
     JMenuItem scales = new JMenuItem ("tools_res:MenuItem.Scale");
     scales.addActionListener(new ActionListener() {
-      public void actionPerformed (ActionEvent _evt) {
+      @Override
+	public void actionPerformed (ActionEvent _evt) {
         isZoomed = true;
         ScaleInspector plotInspector = new ScaleInspector(((DrawingPanel) getVisual()));
         plotInspector.setLocationRelativeTo(getVisual());
@@ -104,7 +109,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 
     JMenuItem zoomIn = new JMenuItem ("tools_res:MenuItem.ZoomIn");
     zoomIn.addActionListener(new ActionListener() {
-      public void actionPerformed (ActionEvent _evt) {
+      @Override
+	public void actionPerformed (ActionEvent _evt) {
         checkAutoscaling();
         new ZoomController();
       }
@@ -113,7 +119,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 
     JMenuItem zoomOut = new JMenuItem ("tools_res:MenuItem.ZoomOut");
     zoomOut.addActionListener(new ActionListener() {
-      public void actionPerformed (ActionEvent _evt) {
+      @Override
+	public void actionPerformed (ActionEvent _evt) {
         checkAutoscaling();
         double xmin = ((DrawingPanel) getVisual()).getXMin(), xmax = ((DrawingPanel) getVisual()).getXMax();
         double ymin = ((DrawingPanel) getVisual()).getYMin(), ymax = ((DrawingPanel) getVisual()).getYMax();
@@ -130,7 +137,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 
     JMenuItem zoomCancel = new JMenuItem ("tools_res:MenuItem.ZoomCancel");
     zoomCancel.addActionListener(new ActionListener() {
-      public void actionPerformed (ActionEvent _evt) {
+      @Override
+	public void actionPerformed (ActionEvent _evt) {
         isZoomed = false;
         updateAutoscale();
         update();
@@ -149,7 +157,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     
     final JCheckBoxMenuItem textAliasItem = new JCheckBoxMenuItem("display_res:DrawingFrame.Text_checkbox_label", false); //$NON-NLS-1$
     textAliasItem.addActionListener(new ActionListener(){
-       public void actionPerformed(ActionEvent e){
+       @Override
+	public void actionPerformed(ActionEvent e){
           ((DrawingPanel) getVisual()).setAntialiasTextOn(textAliasItem.isSelected());
           Simulation sim = getSimulation();
           if (sim==null || sim.isPaused()) {
@@ -161,7 +170,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     textAliasItem.setActionCommand("display_res:DrawingFrame.Text_checkbox_label");
     final JCheckBoxMenuItem shapeAliasItem = new JCheckBoxMenuItem("display_res:DrawingFrame.Drawing_textbox_label", false); //$NON-NLS-1$
     shapeAliasItem.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      @Override
+	public void actionPerformed(ActionEvent e) {
         ((DrawingPanel) getVisual()).setAntialiasShapeOn(shapeAliasItem.isSelected());
         Simulation sim = getSimulation();
         if (sim==null || sim.isPaused()) {
@@ -176,7 +186,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     aliasMenu.add(textAliasItem);
     aliasMenu.add(shapeAliasItem);
     aliasMenu.addChangeListener(new ChangeListener() {
-      public void stateChanged(ChangeEvent e) {
+      @Override
+	public void stateChanged(ChangeEvent e) {
         textAliasItem.setSelected(((DrawingPanel) getVisual()).isAntialiasTextOn());
         shapeAliasItem.setSelected(((DrawingPanel) getVisual()).isAntialiasShapeOn());
       }
@@ -185,7 +196,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 
     JMenuItem snapshotMenuItem = new JMenuItem ("tools_res:MenuItem.Snapshot");
     snapshotMenuItem.addActionListener(new ActionListener() {
-      public void actionPerformed (ActionEvent _evt) {
+      @Override
+	public void actionPerformed (ActionEvent _evt) {
         ((DrawingPanel) getVisual()).snapshot();
       }
     });
@@ -199,7 +211,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     if (ToolForData.getTool().isFullTool()) {
       JMenuItem dataToolItem = new JMenuItem ("tools_res:DataTool.Frame.Title");
       dataToolItem.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) { 
+        @Override
+		public void actionPerformed(ActionEvent e) { 
           ToolForData.getTool().showDataTool(getVisual(),getAllData(getDrawingPanel()));
         }
       });
@@ -220,7 +233,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     return menuEntries;
   }
 
-  public DrawingPanel getDrawingPanel () { return (DrawingPanel) getVisual(); }
+  @Override
+public DrawingPanel getDrawingPanel () { return (DrawingPanel) getVisual(); }
 
   private java.util.List<Data> getAllData(DrawingPanel _panel) {
     java.util.List<Data> dataList = new ArrayList<Data>();
@@ -230,7 +244,8 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
     return dataList;
   }
   
-  public void reset() {
+  @Override
+public void reset() {
     //System.out.println ("Resetting...");
     isZoomed = false;
     updateAutoscale();
@@ -279,17 +294,20 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
   // End of zooming and scaling (See ZoomControler class below)
   // --------------------------
 
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child instanceof ControlDrawable) return true;
     return false;
   }
 
-  public void update() { // Ensure it will be updated
+  @Override
+public void update() { // Ensure it will be updated
     // prepare children that need to do something
     for (NeedsPreUpdate npu : preupdateList) npu.preupdate();
   }
   
-  public void finalUpdate() {
+  @Override
+public void finalUpdate() {
 //    if (myGroup!=null && myGroup.isCollectingData()) return;
     // Now render
     if (javax.swing.SwingUtilities.isEventDispatchThread()||Thread.currentThread().getName().equals("main")) {
@@ -319,22 +337,28 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 // Implementation of ControlParentOfDrawables
 //------------------------------------------------
   
-  public java.awt.Component getComponent() { return getVisual(); }
+  @Override
+public java.awt.Component getComponent() { return getVisual(); }
   
-  public void addToPreupdateList (NeedsPreUpdate _child) {
+  @Override
+public void addToPreupdateList (NeedsPreUpdate _child) {
 //    System.out.println ("Adding "+_child);
     preupdateList.add(_child);
   }
 
-  public void removeFromPreupdateList (NeedsPreUpdate _child) {
+  @Override
+public void removeFromPreupdateList (NeedsPreUpdate _child) {
     preupdateList.remove(_child);
   }
 
-  public void addDrawable(Drawable _drawable) { ((DrawingPanel) getVisual()).addDrawable(_drawable); }
+  @Override
+public void addDrawable(Drawable _drawable) { ((DrawingPanel) getVisual()).addDrawable(_drawable); }
 
-  public void addDrawableAtIndex(int _index, Drawable _drawable) { ((DrawingPanel) getVisual()).addDrawableAtIndex(_index,_drawable); }
+  @Override
+public void addDrawableAtIndex(int _index, Drawable _drawable) { ((DrawingPanel) getVisual()).addDrawableAtIndex(_index,_drawable); }
   
-  public void removeDrawable (Drawable _drawable) { ((DrawingPanel) getVisual()).removeDrawable(_drawable); }
+  @Override
+public void removeDrawable (Drawable _drawable) { ((DrawingPanel) getVisual()).removeDrawable(_drawable); }
   
 // ------------------------------------------------
 // This prepares it for interaction within Ejs
@@ -355,15 +379,18 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
 //          dPanel.getZoomBox().prepareZoom();
         }
 
-         public void mousePressed(MouseEvent e) {
+         @Override
+		public void mousePressed(MouseEvent e) {
            ((DrawingPanel) getVisual()).getZoomBox().startZoom(e.getX(), e.getY());
          }
 
-         public void mouseDragged(MouseEvent e) {
+         @Override
+		public void mouseDragged(MouseEvent e) {
            ((DrawingPanel) getVisual()).getZoomBox().drag(e.getX(), e.getY());
          }
 
-         public void mouseReleased(MouseEvent e) {
+         @Override
+		public void mouseReleased(MouseEvent e) {
            DrawingPanel dPanel = (DrawingPanel) getVisual();
            java.awt.Rectangle rect = ((DrawingPanel) getVisual()).getZoomBox().reportZoom(); //e.getX(), e.getY());
            dPanel.removeMouseListener(this);
@@ -378,13 +405,17 @@ public abstract class ControlDrawablesParent extends ControlSwingElement impleme
            }
          }
 
-         public void mouseClicked(MouseEvent e) {}
+         @Override
+		public void mouseClicked(MouseEvent e) {}
 
-         public void mouseEntered(MouseEvent e) {}
+         @Override
+		public void mouseEntered(MouseEvent e) {}
 
-         public void mouseExited(MouseEvent e) {}
+         @Override
+		public void mouseExited(MouseEvent e) {}
 
-         public void mouseMoved(MouseEvent e) {}
+         @Override
+		public void mouseMoved(MouseEvent e) {}
 
        }
 
@@ -415,7 +446,8 @@ class MyCoordinateStringBuilder extends org.opensourcephysics.display.axes.Coord
     parser.parse();
   }
 
-  public String getCoordinateString(DrawingPanel panel, java.awt.event.MouseEvent e) {
+  @Override
+public String getCoordinateString(DrawingPanel panel, java.awt.event.MouseEvent e) {
     String txt = "";
     double x = panel.pixToX(e.getPoint().x);
     double y = panel.pixToY(e.getPoint().y);

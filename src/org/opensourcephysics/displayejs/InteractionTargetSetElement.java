@@ -19,11 +19,14 @@ public class InteractionTargetSetElement implements InteractionTarget {
     targetHit = _targetHit;
   }
 
-  public InteractionSource getSource () { return set; }
+  @Override
+public InteractionSource getSource () { return set; }
 
-  public Point3D getHotspot (DrawingPanel _panel) { return targetHit.getHotspot(_panel); }
+  @Override
+public Point3D getHotspot (DrawingPanel _panel) { return targetHit.getHotspot(_panel); }
 
-  public void updateHotspot (DrawingPanel _panel, Point3D _point) { targetHit.updateHotspot(_panel,_point); }
+  @Override
+public void updateHotspot (DrawingPanel _panel, Point3D _point) { targetHit.updateHotspot(_panel,_point); }
 
   /* Extra information */
 
@@ -33,22 +36,36 @@ public class InteractionTargetSetElement implements InteractionTarget {
 
   /* Dummy implementation of Interactive */
 
-  public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix) { return null; }
-  public void setEnabled(boolean _enabled) { }
-  public boolean isEnabled() { return true; }
-  public void setXY(double _x, double _y) { }
-  public void setX(double _x){ }
-  public void setY(double _y){ }
-  public double getX(){ return Double.NaN; }
-  public double getY(){ return Double.NaN; }
+  @Override
+public Interactive findInteractive(DrawingPanel _panel, int _xpix, int _ypix) { return null; }
+  @Override
+public void setEnabled(boolean _enabled) { }
+  @Override
+public boolean isEnabled() { return true; }
+  @Override
+public void setXY(double _x, double _y) { }
+  @Override
+public void setX(double _x){ }
+  @Override
+public void setY(double _y){ }
+  @Override
+public double getX(){ return Double.NaN; }
+  @Override
+public double getY(){ return Double.NaN; }
 
-  public boolean isMeasured () { return true; }
-  public double getXMin(){ return Double.NaN; }
-  public double getXMax(){ return Double.NaN; }
-  public double getYMin(){ return Double.NaN; }
-  public double getYMax(){ return Double.NaN; }
+  @Override
+public boolean isMeasured () { return true; }
+  @Override
+public double getXMin(){ return Double.NaN; }
+  @Override
+public double getXMax(){ return Double.NaN; }
+  @Override
+public double getYMin(){ return Double.NaN; }
+  @Override
+public double getYMax(){ return Double.NaN; }
 
-  public void draw (DrawingPanel _panel, java.awt.Graphics _g) { }
+  @Override
+public void draw (DrawingPanel _panel, java.awt.Graphics _g) { }
 
 }
 

@@ -28,49 +28,56 @@ public class MultipleView implements View {
   /**
    * Clearing any previous data
    */
-  public void reset() {
+  @Override
+public void reset() {
     for (View view: mViews) view.reset();
   }
 
   /**
    * A softer reset. Calling reset makes initialize unnecessary
    */
-  public void initialize() {
+  @Override
+public void initialize() {
     for (View view: mViews) view.initialize();
   }
 
   /**
    * A softer reset. Calling reset makes initialize unnecessary
    */
-  public void clearData() {
+  @Override
+public void clearData() {
     for (View view: mViews) view.clearData();
   }
 
   /**
    * A softer reset. Calling reset makes initialize unnecessary
    */
-  public void resetTraces() {
+  @Override
+public void resetTraces() {
     for (View view: mViews) view.resetTraces();
   }
 
   /**
    * Read current data
    */
-  public void read() {
+  @Override
+public void read() {
     for (View view: mViews) view.read();
   }
 
   /**
    * Read a single variable
    */
-  public void read(String variable) {
+  @Override
+public void read(String variable) {
     for (View view: mViews) view.read(variable);
   }
 
   /**
    * Accept data sent and display it
    */
-  public void update() {
+  @Override
+public void update() {
     for (View view: mViews) view.update();
   }
 
@@ -78,21 +85,24 @@ public class MultipleView implements View {
    * Does the final update which makes the drawing complete.
    * Typically used by drawing panels for rendering
    */
-  public void finalUpdate() {
+  @Override
+public void finalUpdate() {
     for (View view: mViews) view.finalUpdate();
   }
 
   /**
    * Accept data sent but do not graphic work
    */
-  public void collectData() {
+  @Override
+public void collectData() {
     for (View view: mViews) view.collectData();
   }
 
   /**
    * Clean-up when you exit
    */
-  public void onExit() {
+  @Override
+public void onExit() {
     for (View view: mViews) view.onExit();
   }
 
@@ -101,7 +111,8 @@ public class MultipleView implements View {
    * whenever it changes because of user interaction
    * @param _value boolean
    */
-  public void setUpdateSimulation (boolean value) {
+  @Override
+public void setUpdateSimulation (boolean value) {
     for (View view: mViews) view.setUpdateSimulation(value);
   }
 
@@ -111,7 +122,8 @@ public class MultipleView implements View {
    * must be retrieved. Typically its name.
    * @return The graphical component
    */
-  public java.awt.Component getComponent (String _name) {
+  @Override
+public java.awt.Component getComponent (String _name) {
     for (View view: mViews) {
       java.awt.Component component = view.getComponent(_name);
       if (component!=null) return component;
@@ -125,7 +137,8 @@ public class MultipleView implements View {
    * must be retrieved. Typically its name.
    * @return The ControlElement
    */
-  public ControlElement getElement (String _name) {
+  @Override
+public ControlElement getElement (String _name) {
     for (View view: mViews) {
       ControlElement element = view.getElement(_name);
       if (element!=null) return element;
@@ -139,7 +152,8 @@ public class MultipleView implements View {
    * must be retrieved. Typically its name.
    * @return The ControlElement
    */
-  public ConfigurableElement getConfigurableElement (String _name) {
+  @Override
+public ConfigurableElement getConfigurableElement (String _name) {
     for (View view: mViews) {
       ConfigurableElement element = view.getConfigurableElement(_name);
       if (element!=null) return element;
@@ -151,7 +165,8 @@ public class MultipleView implements View {
    * Protects a view variable from being updated
    * @param variable
    */
-  public void blockVariable(String variable) {
+  @Override
+public void blockVariable(String variable) {
     for (View view: mViews) view.blockVariable(variable);
   }
 
@@ -165,7 +180,8 @@ public class MultipleView implements View {
    *
    * @param s
    */
-  public void println(String s) {
+  @Override
+public void println(String s) {
     for (View view: mViews) view.println(s);
   }
 
@@ -173,7 +189,8 @@ public class MultipleView implements View {
    * Prints a blank line in the control's message area.  GUI controls will usually display
    * messages in a non-editable text area.
    */
-  public void println() {
+  @Override
+public void println() {
     for (View view: mViews) view.println();
   }
 
@@ -183,14 +200,16 @@ public class MultipleView implements View {
    *
    * @param s
    */
-  public void print(String s) {
+  @Override
+public void print(String s) {
     for (View view: mViews) view.print(s);
   }
 
   /**
    * Clears all text from the control's message area.
    */
-  public void clearMessages() {
+  @Override
+public void clearMessages() {
     for (View view: mViews) view.clearMessages();
   }
 
@@ -198,7 +217,8 @@ public class MultipleView implements View {
   /**
    * Get the Vector elementList of the simulation controls
    */
-  public java.util.Vector<ControlElement> getElements() {
+  @Override
+public java.util.Vector<ControlElement> getElements() {
     java.util.Vector<ControlElement> elements = new java.util.Vector<ControlElement>();
     for (View view: mViews) {
       java.util.Vector<ControlElement> viewElements = view.getElements();

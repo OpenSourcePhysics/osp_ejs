@@ -41,7 +41,8 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
   private int a[][] = null, b[][] = null;
 
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof AbstractInteractiveTile) {
       AbstractInteractiveTile old = (AbstractInteractiveTile) _element;
@@ -130,23 +131,27 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
 // Implementation of Body
 // ----------------------------------------------
 
-  public void setOrigin (double ox, double oy, double oz, boolean relativeToSize) {
+  @Override
+public void setOrigin (double ox, double oy, double oz, boolean relativeToSize) {
     originx = ox; originy = oy; originz = oz;
     originIsRelative = relativeToSize;
     hasChanged = true;
   }
 
-  public void setTransformation (Transformation transformation) {
+  @Override
+public void setTransformation (Transformation transformation) {
     this.transformation = (Transformation) transformation.clone();
     hasChanged = true;
   }
 
-  public void toSpaceFrame (double[] vector) {
+  @Override
+public void toSpaceFrame (double[] vector) {
     if (transformation!=null) transformation.direct(vector);
     vector[0] += x; vector[1] += y; vector[2] += z;
   }
 
-  public void toBodyFrame (double[] vector) throws UnsupportedOperationException {
+  @Override
+public void toBodyFrame (double[] vector) throws UnsupportedOperationException {
     vector[0] -= x; vector[1] -= y; vector[2] -= z;
     if (transformation!=null) transformation.inverse(vector);
   }
@@ -159,7 +164,8 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
 // Overwrite this method or modify the computation of pixelEndPoint
 // if the tiles do not start at (x,y,z) and end at (x+sizex,...,...)
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     if (!visible) return null;
     if (hasChanged) { computeCorners(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
@@ -168,7 +174,8 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
     return null;
    }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!visible) return null;
     if (hasChanged) { computeCorners(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
@@ -176,7 +183,8 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
     return objects;
   }
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     if (levelZ!=null) { drawColorCoded (_panel,_g2,_index); return; }
     // Allow the panel to adjust color according to depth
     int sides = corners[_index].length;
@@ -194,7 +202,8 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
     }
   }
 
-  public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) {
     if (!visible) return;
     if (hasChanged) { computeCorners(); projectPoints(_panel); }
     else if (_panel!=panelWithValidProjection) projectPoints(_panel);
@@ -212,7 +221,8 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
     for (int i=0; i<numberOfTiles; i++) _g2.drawPolygon(a[i], b[i], corners[i].length);
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!visible) return;
     if (hasChanged) { computeCorners(); projectPoints(_panel); }
     else // if (_panel!=panelWithValidProjection)
@@ -238,12 +248,18 @@ public abstract class AbstractInteractiveTile extends AbstractInteractiveElement
 // Implementation of Measured3D
 // -------------------------------------
 
-  public double getXMin () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(xmin)) computeExtrema(); return xmin; }
-  public double getXMax () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(xmax)) computeExtrema(); return xmax; }
-  public double getYMin () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(ymin)) computeExtrema(); return ymin; }
-  public double getYMax () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(ymax)) computeExtrema(); return ymax; }
-  public double getZMin () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(zmin)) computeExtrema(); return zmin; }
-  public double getZMax () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(zmax)) computeExtrema(); return zmax; }
+  @Override
+public double getXMin () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(xmin)) computeExtrema(); return xmin; }
+  @Override
+public double getXMax () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(xmax)) computeExtrema(); return xmax; }
+  @Override
+public double getYMin () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(ymin)) computeExtrema(); return ymin; }
+  @Override
+public double getYMax () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(ymax)) computeExtrema(); return ymax; }
+  @Override
+public double getZMin () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(zmin)) computeExtrema(); return zmin; }
+  @Override
+public double getZMax () { if (hasChanged) { computeCorners(); computeExtrema(); } else if (Double.isNaN(zmax)) computeExtrema(); return zmax; }
 
 // -------------------------------------
 //  Private or protected methods

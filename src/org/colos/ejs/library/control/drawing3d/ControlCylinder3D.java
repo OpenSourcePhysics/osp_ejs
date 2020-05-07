@@ -20,11 +20,14 @@ public class ControlCylinder3D extends ControlElement3D {
 
   private ElementCylinder cylinder;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementCylinder"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementCylinder"; }
 
-  protected Element createElement () { return cylinder = new ElementCylinder(); }
+  @Override
+protected Element createElement () { return cylinder = new ElementCylinder(); }
 
-  protected int getPropertiesDisplacement () { return CYLINDER_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return CYLINDER_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -32,7 +35,8 @@ public class ControlCylinder3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("minimumAngle");
@@ -46,7 +50,8 @@ public class ControlCylinder3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("minimumAngle")) return "int";
     if (_property.equals("maximumAngle")) return "int";
     if (_property.equals("closedTop"))    return "boolean";
@@ -61,7 +66,8 @@ public class ControlCylinder3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : cylinder.setMinimumAngle(_value.getInteger()); break;
       case 1 : cylinder.setMaximumAngle(_value.getInteger()); break;
@@ -74,7 +80,8 @@ public class ControlCylinder3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : cylinder.setMinimumAngle(0); break;
       case 1 : cylinder.setMaximumAngle(360); break;
@@ -87,7 +94,8 @@ public class ControlCylinder3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "0";
       case 1 : return "360";
@@ -100,7 +108,8 @@ public class ControlCylinder3D extends ControlElement3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 :

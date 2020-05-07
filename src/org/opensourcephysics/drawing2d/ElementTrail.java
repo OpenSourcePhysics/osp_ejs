@@ -14,7 +14,6 @@ import java.awt.geom.*;
 
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.Dataset;
-import org.opensourcephysics.display.DrawingPanel;
 
 /**
  * <p>
@@ -393,30 +392,37 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
 
 	private int dataID = hashCode();
 
+	@Override
 	public void setID(int id) {
 		dataID = id;
 	}
 
+	@Override
 	public int getID() {
 		return dataID;
 	}
 
+	@Override
 	public double[][] getData2D() {
 		return null;
 	}
 
+	@Override
 	public double[][][] getData3D() {
 		return null;
 	}
 
+	@Override
 	public String[] getColumnNames() {
 		return inputLabels;
 	}
 
+	@Override
 	public Color[] getLineColors() {
 		return new Color[] { Color.BLACK, getStyle().getLineColor() };
 	}
 
+	@Override
 	public Color[] getFillColors() {
 		Paint fill = getStyle().getFillColor();
 		if (fill instanceof Color)
@@ -424,6 +430,7 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
 		return new Color[] { Color.BLACK, Color.BLUE };
 	}
 
+	@Override
 	public java.util.List<Data> getDataList() {
 		java.util.List<Data> dataList = new ArrayList<Data>();
 		dataList.addAll(segmentList);
@@ -434,6 +441,7 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
 		return dataList;
 	}
 
+	@Override
 	public java.util.ArrayList<Dataset> getDatasets() {
 		return null;
 	}
@@ -704,18 +712,22 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
 
 //    public String getName() { return trail.segmentList.size()<=0 ? trail.getName() : trail.getName()+"_"+index; }
 
+		@Override
 		public String getName() {
 			return trail.getName();
 		}
 
+		@Override
 		public void setID(int _id) {
 			id = _id;
 		}
 
+		@Override
 		public int getID() {
 			return id;
 		}
 
+		@Override
 		public double[][] getData2D() {
 			int n = pointsList.size();
 			double[][] data = new double[2][n];
@@ -741,18 +753,22 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
 			return data;
 		}
 
+		@Override
 		public double[][][] getData3D() {
 			return null;
 		}
 
+		@Override
 		public String[] getColumnNames() {
 			return trail.inputLabels;
 		}
 
+		@Override
 		public Color[] getLineColors() {
 			return new Color[] { Color.BLACK, style.getLineColor() };
 		}
 
+		@Override
 		public Color[] getFillColors() {
 			Paint fill = style.getFillColor();
 			if (fill instanceof Color)
@@ -760,10 +776,12 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
 			return new Color[] { Color.BLACK, Color.BLUE };
 		}
 
+		@Override
 		public java.util.List<Data> getDataList() {
 			return null;
 		}
 
+		@Override
 		public java.util.ArrayList<Dataset> getDatasets() {
 			return null;
 		}

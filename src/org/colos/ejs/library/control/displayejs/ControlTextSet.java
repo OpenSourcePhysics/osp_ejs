@@ -16,7 +16,8 @@ import org.opensourcephysics.display.Drawable;
  */
 public class ControlTextSet extends ControlElementSet {
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       elementSet = new ElementSet(1, InteractiveText.class);
       elementSet.setEnabled(InteractiveElement.TARGET_POSITION,true);  // Backwards compatibility
     return elementSet;
@@ -26,18 +27,21 @@ public class ControlTextSet extends ControlElementSet {
 // Properties
 // ------------------------------------------------
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("text"))             return "String|String[] TRANSLATABLE";
     return super.getPropertyInfo(_property);
   }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
 // ------------------------------------------------
 // Variable properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case TEXT :
         if (_value instanceof ObjectValue) {
@@ -53,14 +57,16 @@ public class ControlTextSet extends ControlElementSet {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  TEXT : for (int i=0, n=elementSet.getNumberOfElements(); i<n; i++) elementSet.elementAt(i).getStyle().setDisplayObject(""); break;
       default: super.setDefaultValue(_index); break;
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case TEXT : return "<none>";
       default : return super.getDefaultValueString(_index);

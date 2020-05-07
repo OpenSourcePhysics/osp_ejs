@@ -40,7 +40,8 @@ public ControlParsedNumberField() {
     _format.setDecimalFormatSymbols(FORMAT_EN);
   }
 
-  protected void acceptValue() {
+  @Override
+protected void acceptValue() {
     String valStr = textfield.getText();
     int index = valStr.lastIndexOf('=');
     if (index>=0) valStr = valStr.substring(index+1);

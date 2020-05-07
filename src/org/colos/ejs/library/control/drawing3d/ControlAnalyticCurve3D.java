@@ -42,10 +42,12 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
 //    protected double[] parameterValues=null;
 //    protected int indexParameterX, indexParameterY, indexParameterZ;
 
-  protected Element createElement () { 
+  @Override
+protected Element createElement () { 
     polygon = new ElementPolygon();
     polygon.setActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent _event) { checkExtremes(); }
+      @Override
+	public void actionPerformed(ActionEvent _event) { checkExtremes(); }
     });
     polygon.setClosed(false);
     polygon.setCanBeMeasured (false);
@@ -58,10 +60,12 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
     return polygon; 
   }
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPolygon"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementPolygon"; }
 
 
-  protected int getPropertiesDisplacement () { return CURVE_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return CURVE_PROPERTIES_ADDED; }
 
   // ------------------------------------------------
   // Definition of Properties
@@ -69,7 +73,8 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("variable");
@@ -89,7 +94,8 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("variable"))  return "String";
       if (_property.equals("min"))       return "int|double";
       if (_property.equals("max"))       return "int|double";
@@ -111,7 +117,8 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-    public void setValue (int _index, Value _value) {
+    @Override
+	public void setValue (int _index, Value _value) {
       switch (_index) {
         case 0 : if (variable==null || !variable.equals(_value.getString()))  { variable = _value.getString(); updateIndexes = true; } break;
         case 1 : min = _value.getDouble(); polygon.setCanBeMeasured (!(Double.isNaN(min)||Double.isNaN(max))); break;
@@ -152,7 +159,8 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
       }
     }
 
-    public void setDefaultValue (int _index) {
+    @Override
+	public void setDefaultValue (int _index) {
       switch (_index) {
         case 0 : variable = "t"; updateIndexes = true; break;
         case 1 : min = Double.NaN; polygon.setCanBeMeasured (false); break;
@@ -175,7 +183,8 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
       }
     }
 
-    public String getDefaultValueString (int _index) {
+    @Override
+	public String getDefaultValueString (int _index) {
       switch (_index) {
         case 0 : return "t";
         case 1 :
@@ -191,7 +200,8 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
       }
     }
 
-    public Value getValue (int _index) {
+    @Override
+	public Value getValue (int _index) {
       switch (_index) {
         case 0 : case 1 : case 2 : case 3 :
         case 4 : case 5 : case 6 : case 7 :
@@ -225,7 +235,8 @@ public class ControlAnalyticCurve3D extends ControlElement3D implements org.colo
     }
   }
 
-  public void preupdate() {
+  @Override
+public void preupdate() {
     boolean parsedOk=false, errorX=false, errorY=false, errorZ=false;
     if (changedXfunction && functionX!=null) {
       ParserAndVariables pav = new ParserAndVariables(useJavaSyntax,functionX);

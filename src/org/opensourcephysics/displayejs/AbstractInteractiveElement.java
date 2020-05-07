@@ -11,7 +11,6 @@ import java.util.*;
 
 import org.opensourcephysics.display.*;
 import org.opensourcephysics.display.DrawingPanel;
-import org.opensourcephysics.drawing2d.*;
 import org.opensourcephysics.controls.*;
 
 /**
@@ -39,7 +38,8 @@ public abstract class AbstractInteractiveElement implements InteractiveElement {
   protected boolean hasChanged=true; // Whether the element should recompute data that depends on position, size, scale, resolution, ...
   protected DrawingPanel panelWithValidProjection = null; // Stores the panel for which the projection is valid. Can help save time.
                                                           // It is necessary because a Drawable can be added to more than one panel
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     setX(_element.getX()); 
     setY(_element.getY());         
     setZ(_element.getZ());
@@ -55,13 +55,16 @@ public abstract class AbstractInteractiveElement implements InteractiveElement {
     setControl(_element.getControl());
   }
 
-  public void initializeMemberOfSet() {}
+  @Override
+public void initializeMemberOfSet() {}
 
-  public void setSensitivity (int _s) {
+  @Override
+public void setSensitivity (int _s) {
     if (_s<=0) actualSensitivity = SENSIBILITY;
     else actualSensitivity = _s;
   }
-  public int getSensitivity () {  return actualSensitivity; }
+  @Override
+public int getSensitivity () {  return actualSensitivity; }
 
 
 // ----------------------------------------------------
@@ -69,18 +72,26 @@ public abstract class AbstractInteractiveElement implements InteractiveElement {
 // ----------------------------------------------------
 
   /* Position in space of the element */
-  public void setX (double _x) { x = _x; hasChanged = true; }
-  public double getX () {  return x; }
+  @Override
+public void setX (double _x) { x = _x; hasChanged = true; }
+  @Override
+public double getX () {  return x; }
 
-  public void setY (double _y) { y = _y; hasChanged = true; }
-  public double getY () {  return y; }
+  @Override
+public void setY (double _y) { y = _y; hasChanged = true; }
+  @Override
+public double getY () {  return y; }
 
-  public void setZ (double _z) { z = _z; hasChanged = true; }
-  public double getZ () {  return z; }
+  @Override
+public void setZ (double _z) { z = _z; hasChanged = true; }
+  @Override
+public double getZ () {  return z; }
 
-  public void setXY (double _x, double _y) { x = _x; y = _y; hasChanged = true; }
+  @Override
+public void setXY (double _x, double _y) { x = _x; y = _y; hasChanged = true; }
 
-  public void setXYZ (double _x, double _y, double _z) { x = _x; y = _y; z = _z; hasChanged = true; }
+  @Override
+public void setXYZ (double _x, double _y, double _z) { x = _x; y = _y; z = _z; hasChanged = true; }
 
 /*
   public void setOffsetX (double _x) { offsetx = _x; hasChanged = true; } // Not yet used
@@ -94,53 +105,73 @@ public abstract class AbstractInteractiveElement implements InteractiveElement {
 */
 
   /* Size of the element */
-  public void setSizeX (double _sizex) { sizex = _sizex; hasChanged = true; }
-  public double getSizeX () { return sizex; }
+  @Override
+public void setSizeX (double _sizex) { sizex = _sizex; hasChanged = true; }
+  @Override
+public double getSizeX () { return sizex; }
 
-  public void setSizeY (double _sizey) { sizey = _sizey; hasChanged = true; }
-  public double getSizeY () { return sizey; }
+  @Override
+public void setSizeY (double _sizey) { sizey = _sizey; hasChanged = true; }
+  @Override
+public double getSizeY () { return sizey; }
 
-  public void setSizeZ (double _sizez) { sizez = _sizez; hasChanged = true; }
-  public double getSizeZ () { return sizez; }
+  @Override
+public void setSizeZ (double _sizez) { sizez = _sizez; hasChanged = true; }
+  @Override
+public double getSizeZ () { return sizez; }
 
-  public void setSizeXY (double _sizex, double _sizey) { 
+  @Override
+public void setSizeXY (double _sizex, double _sizey) { 
     sizex = _sizex; sizey = _sizey; hasChanged = true; 
   }
 
-  public void setSizeXYZ (double _sizex, double _sizey, double _sizez) { sizex = _sizex; sizey = _sizey; sizez = _sizez; hasChanged = true; }
+  @Override
+public void setSizeXYZ (double _sizex, double _sizey, double _sizez) { sizex = _sizex; sizey = _sizey; sizez = _sizez; hasChanged = true; }
 
   /* Visibility and interactivity */
-  public void setVisible (boolean _visible) { visible = _visible; }
-  public boolean isVisible () { return visible; }
+  @Override
+public void setVisible (boolean _visible) { visible = _visible; }
+  @Override
+public boolean isVisible () { return visible; }
 
-  public void canBeMeasured (boolean _canBe) { this.canBeMeasured = _canBe; }
+  @Override
+public void canBeMeasured (boolean _canBe) { this.canBeMeasured = _canBe; }
 
   /* Graphical appearance */
 //  public void setStyle (Style _style) { style = _style; }
-  public Style getStyle ()   { return style; }
+  @Override
+public Style getStyle ()   { return style; }
 
-  public void setResolution (Resolution _resolution) { this.resolution = _resolution; hasChanged = true; }
-  public Resolution getResolution() { return resolution; }
+  @Override
+public void setResolution (Resolution _resolution) { this.resolution = _resolution; hasChanged = true; }
+  @Override
+public Resolution getResolution() { return resolution; }
 
   /* Group behaviour */
-  public void setGroup (Group _group) {
+  @Override
+public void setGroup (Group _group) {
     if (group!=null) group.removeElement(this);
     group = _group;
     if (group!=null) group.addElement(this);
     hasChanged = true;
   }
-  public Group getGroup () { return group; }
+  @Override
+public Group getGroup () { return group; }
 
-  public void setGroupEnabled (boolean affectsGroup) { this.positionGroupEnabled = this.sizeGroupEnabled = affectsGroup; }
-  public boolean isGroupEnabled () { return this.positionGroupEnabled || this.sizeGroupEnabled; }
+  @Override
+public void setGroupEnabled (boolean affectsGroup) { this.positionGroupEnabled = this.sizeGroupEnabled = affectsGroup; }
+  @Override
+public boolean isGroupEnabled () { return this.positionGroupEnabled || this.sizeGroupEnabled; }
 
-  public void setGroupEnabled (int target, boolean affectsGroup) {
+  @Override
+public void setGroupEnabled (int target, boolean affectsGroup) {
     switch (target) {
       case TARGET_POSITION : positionGroupEnabled = affectsGroup; break;
       case TARGET_SIZE     : sizeGroupEnabled     = affectsGroup; break;
     }
   }
-  public boolean isGroupEnabled (int target) {
+  @Override
+public boolean isGroupEnabled (int target) {
     switch (target) {
       case TARGET_POSITION : return (positionGroupEnabled);
       case TARGET_SIZE     : return (sizeGroupEnabled);
@@ -148,58 +179,76 @@ public abstract class AbstractInteractiveElement implements InteractiveElement {
     return false;
   }
 
-  public void setSet (ElementSet _set, int _index) { set = _set; setIndex = _index; }
-  public ElementSet getSet () { return set; }
-  public int getSetIndex () { return setIndex; }
+  @Override
+public void setSet (ElementSet _set, int _index) { set = _set; setIndex = _index; }
+  @Override
+public ElementSet getSet () { return set; }
+  @Override
+public int getSetIndex () { return setIndex; }
 
-  public void setControl (Control _control) { this.control = _control; } // Not yet used
-  public Control getControl () { return control; }
+  @Override
+public void setControl (Control _control) { this.control = _control; } // Not yet used
+  @Override
+public Control getControl () { return control; }
 
   /* Input/Output */
-  public String toXML () { return this.toString(); } // Not yet used
+  @Override
+public String toXML () { return this.toString(); } // Not yet used
 
   /* A repository for user data */
-  public void setDataObject (Object _data) { this.dataObject = _data; }
-  public Object getDataObject () { return this.dataObject; }
+  @Override
+public void setDataObject (Object _data) { this.dataObject = _data; }
+  @Override
+public Object getDataObject () { return this.dataObject; }
 
 // -------------------------------------
 // Implementation of Interactive
 // -------------------------------------
 
-  abstract public Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix);
+  @Override
+abstract public Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix);
 
 // -------------------------------------
 // Implementation of Drawable3D
 // -------------------------------------
 
-  public void needsToProject(DrawingPanel _panel)   {
+  @Override
+public void needsToProject(DrawingPanel _panel)   {
 //    if (_panel==this.panelWithValidProjection) This is very unlikely to happen, let's save one check
     panelWithValidProjection = null;
   }
 
-  abstract public Object3D[] getObjects3D(DrawingPanel3D _panel);
+  @Override
+abstract public Object3D[] getObjects3D(DrawingPanel3D _panel);
 
-  abstract public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index);
+  @Override
+abstract public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index);
 
-  public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) { draw (_panel, _g2); }
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2) { draw (_panel, _g2); }
 //  abstract public void drawQuickly (DrawingPanel3D _panel, Graphics2D _g2);
 
-  abstract public void draw (DrawingPanel _panel, java.awt.Graphics _g);
+  @Override
+abstract public void draw (DrawingPanel _panel, java.awt.Graphics _g);
 
 // -------------------------------------
 // Implementation of InteractionSource
 // -------------------------------------
 
-  public void setEnabled (boolean _enabled) { positionEnabled = sizeEnabled = _enabled; }
-  public boolean isEnabled () { return positionEnabled || sizeEnabled; }
+  @Override
+public void setEnabled (boolean _enabled) { positionEnabled = sizeEnabled = _enabled; }
+  @Override
+public boolean isEnabled () { return positionEnabled || sizeEnabled; }
 
-  public void setEnabled (int _target, boolean _enabled) {
+  @Override
+public void setEnabled (int _target, boolean _enabled) {
     switch (_target) {
       case TARGET_POSITION : positionEnabled = _enabled; break;
       case TARGET_SIZE     : sizeEnabled     = _enabled; break;
     }
   }
-  public boolean isEnabled (int _target) {
+  @Override
+public boolean isEnabled (int _target) {
     switch (_target) {
       case TARGET_POSITION : return (positionEnabled);
       case TARGET_SIZE     : return (sizeEnabled);
@@ -209,45 +258,56 @@ public abstract class AbstractInteractiveElement implements InteractiveElement {
 
   private java.util.List<InteractionListener> listeners = new ArrayList<InteractionListener>();
 
-  public void addListener (InteractionListener _listener) {
+  @Override
+public void addListener (InteractionListener _listener) {
     if (set!=null) System.out.println ("Warning: elements in sets should not add listeners! "+toString());
     if (_listener==null || listeners.contains(_listener)) return;
     listeners.add(_listener);
   }
 
-  public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
+  @Override
+public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
 
-  public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
+  @Override
+public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
 
-  public void invokeActions (InteractionEvent _event) { for (InteractionListener listener : listeners) listener.interactionPerformed (_event); }
+  @Override
+public void invokeActions (InteractionEvent _event) { for (InteractionListener listener : listeners) listener.interactionPerformed (_event); }
 
 // -------------------------------------
 // Implementation of Measured3D
 // -------------------------------------
 
-  public boolean isMeasured () { return canBeMeasured && visible;  }
+  @Override
+public boolean isMeasured () { return canBeMeasured && visible;  }
   
-  public double getXMin () {
+  @Override
+public double getXMin () {
     if (group==null) return x - Math.abs(sizex);
     return group.x + x - Math.abs(sizex*group.sizex);
   }
-  public double getXMax () {
+  @Override
+public double getXMax () {
     if (group==null) return x + Math.abs(sizex);
     return group.x + x + Math.abs(sizex*group.sizex);
   }
-  public double getYMin () {
+  @Override
+public double getYMin () {
     if (group==null) return y - Math.abs(sizey);
     return group.y + y - Math.abs(sizey*group.sizey);
   }
-  public double getYMax () {
+  @Override
+public double getYMax () {
     if (group==null) return y + Math.abs(sizey);
     return group.y + y + Math.abs(sizey*group.sizey);
   }
-  public double getZMin () {
+  @Override
+public double getZMin () {
     if (group==null) return z - Math.abs(sizez);
     return group.z + z - Math.abs(sizez*group.sizez);
   }
-  public double getZMax () {
+  @Override
+public double getZMax () {
     if (group==null) return z + Math.abs(sizez);
     return group.z + z + Math.abs(sizez*group.sizez);
   }

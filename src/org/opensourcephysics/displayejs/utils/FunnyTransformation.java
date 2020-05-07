@@ -35,18 +35,21 @@ public class FunnyTransformation implements Transformation {
 // Implementation of Transformation
 // -------------------------------------
 
-  public Object clone () {
+  @Override
+public Object clone () {
     try { return super.clone(); }
     catch (CloneNotSupportedException exc) { exc.printStackTrace(); return null; }
   }
 
 
-  public double[] direct (double[] input) {
+  @Override
+public double[] direct (double[] input) {
     input[1]  = input[1] + bending*input[0]*input[0];
     return input;
   }
 
-  public double[]  inverse (double[] input) throws UnsupportedOperationException {
+  @Override
+public double[]  inverse (double[] input) throws UnsupportedOperationException {
     input[1]  = input[1] - bending*input[0]*input[0];
     return input;
   }

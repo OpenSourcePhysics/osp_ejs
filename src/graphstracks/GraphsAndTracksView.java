@@ -335,6 +335,7 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
     */
     update();
 	OSPRuntime.dispatchEventWait(new Runnable() {
+		@Override
 		public void run () { 
           createControl();
         }
@@ -427,11 +428,13 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
 
 // ---------- Implementation of View -------------------
 
-  public void read() {
+  @Override
+public void read() {
     // Ejs requires no read(). Actually, having it might cause problems!
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("x0".equals(_variable)) {
       _model.x0 = getDouble("x0"); // Variables.Constants:1
@@ -823,7 +826,8 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
     }
   }
 
-  public void propagateValues () {
+  @Override
+public void propagateValues () {
     setValue ("_isPlaying",_simulation.isPlaying());
     setValue ("_isPaused", _simulation.isPaused());
     if(__x0_canBeChanged__) setValue("x0",_model.x0); // Variables.Constants:1
@@ -909,7 +913,8 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
     if(__visJointsTable_canBeChanged__) setValue("visJointsTable",_model.visJointsTable); // Variables.Customization Vars:30
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("x0".equals(_variable)) __x0_canBeChanged__ = false; // Variables.Constants:1
     if ("v0".equals(_variable)) __v0_canBeChanged__ = false; // Variables.Constants:2
@@ -2970,7 +2975,8 @@ class GraphsAndTracksView extends org.colos.ejs.library.control.EjsControl imple
 
 // ---------- Resetting the interface  -------------------
 
-  public void reset() {
+  @Override
+public void reset() {
     getElement("mainFrame")
       .setProperty("visible","true");
     getElement("tracksPlottingPanel")

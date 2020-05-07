@@ -170,15 +170,20 @@ public class Group extends Element implements Data {
   /** an integer ID that identifies this object */
   protected int datasetID = hashCode();
 
-  public void setID(int id) { datasetID = id; }
+  @Override
+public void setID(int id) { datasetID = id; }
 
-  public int getID() { return datasetID; }
+  @Override
+public int getID() { return datasetID; }
 
-  public double[][] getData2D() { return null; }
+  @Override
+public double[][] getData2D() { return null; }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() {
+  @Override
+public String[] getColumnNames() {
 		List<Element> list = elementList;
 		for (int i = 0, n = list.size(); i < n; i++) {
 			Element el = list.get(i);
@@ -187,16 +192,19 @@ public class Group extends Element implements Data {
     return null; 
   }
 
-  public Color[] getLineColors() { 
+  @Override
+public Color[] getLineColors() { 
     return new Color[] { Color.BLACK, getStyle().getLineColor()}; 
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     Paint fill = getStyle().getFillColor();
     if (fill instanceof Color) return new Color[] { Color.BLACK, (Color) fill };
     return new Color[] { Color.BLACK, Color.BLUE };
   }
 
+	@Override
 	public java.util.List<Data> getDataList() {
 		java.util.List<Data> list = new java.util.ArrayList<Data>();
 		List<Element> elist = elementList;
@@ -208,7 +216,8 @@ public class Group extends Element implements Data {
 		return list;
 	}
 
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; }
   
 	// ----------------------------------------------------
 	// Overwriting Element's methods
@@ -295,7 +304,8 @@ public class Group extends Element implements Data {
 
   public int getInteractedIndex() { return elementInteracted; }
 
-  public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
     if (!isReallyVisible()) return null;
     List<Element> elList = elementList;
     for (int i=elList.size()-1; i>=0; i--) {

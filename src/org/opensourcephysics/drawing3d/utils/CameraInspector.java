@@ -66,7 +66,8 @@ public class CameraInspector extends JPanel implements InteractionListener {
     this.camera = _panel3D.getCamera();
     _panel3D.addInteractionListener(this);
     ActionListener fieldListener = new ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
+      @Override
+	public void actionPerformed(java.awt.event.ActionEvent evt) {
         String cmd = evt.getActionCommand();
         JTextField field = (JTextField) evt.getSource();
         double value = 0.0;
@@ -103,7 +104,8 @@ public class CameraInspector extends JPanel implements InteractionListener {
       }
     };
     ActionListener buttonListener = new ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
+      @Override
+	public void actionPerformed(java.awt.event.ActionEvent evt) {
         String cmd = evt.getActionCommand();
         if(cmd.equals("reset")) { //$NON-NLS-1$
           camera.reset();
@@ -224,7 +226,8 @@ public class CameraInspector extends JPanel implements InteractionListener {
    * Public as result of the implementation. Not to be used directly by final users.
    * @param _event InteractionEvent
    */
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
     if(_event.getSource()!=panel) {
       return;
     }
@@ -295,7 +298,8 @@ class CameraInspectorFrame extends JFrame {
     pack();
   }
 
-  public void setVisible(boolean vis) {
+  @Override
+public void setVisible(boolean vis) {
     super.setVisible(vis);
     if(vis) {
       inspector.updateFields();

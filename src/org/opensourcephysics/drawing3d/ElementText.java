@@ -113,17 +113,20 @@ public class ElementText extends Element {
   public boolean isTrueSize () { return trueSize; }
 
   
-  public void setSizeX(double _sizeX){
+  @Override
+public void setSizeX(double _sizeX){
 	  if(!this.isTrueSize()) _sizeX=0.4;
 	  super.setSizeX(_sizeX);
   }
   
-  public void setSizeY(double _sizeY){
+  @Override
+public void setSizeY(double _sizeY){
 	  if(!this.isTrueSize()) _sizeY=0.4;
 	  super.setSizeY(_sizeY);
   }
   
-  public void setSizeZ(double _sizeZ){
+  @Override
+public void setSizeZ(double _sizeZ){
 	  if(!this.isTrueSize()) _sizeZ=0.4;
 	  super.setSizeZ(_sizeZ);
   }

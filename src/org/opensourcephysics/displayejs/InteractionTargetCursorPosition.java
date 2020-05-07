@@ -23,14 +23,16 @@ public class InteractionTargetCursorPosition extends InteractionTargetElementPos
     motion = _motion;
   }
 
-  public Point3D getHotspot (DrawingPanel _panel) {
+  @Override
+public Point3D getHotspot (DrawingPanel _panel) {
     if (element.getGroup()==null) return new Point3D(element.getX(), element.getY(), element.getZ());
     return new Point3D(element.getGroup().getX() + element.getX() * element.getGroup().getSizeX(),
                             element.getGroup().getY() + element.getY() * element.getGroup().getSizeY(),
                             element.getGroup().getZ() + element.getZ() * element.getGroup().getSizeZ());
   }
 
-  public void updateHotspot (DrawingPanel _panel, Point3D _point) {
+  @Override
+public void updateHotspot (DrawingPanel _panel, Point3D _point) {
     switch (motion) {
       case X  : element.setX(_point.x); break;
       case Y  : element.setY(_point.y); break;

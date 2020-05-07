@@ -30,7 +30,8 @@ public class InteractivePoints extends AbstractInteractiveElement {
     setSizeXYZ(1.0,1.0,1.0);
   }
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractivePoints) {
       InteractivePoints old = (InteractivePoints) _element;
@@ -134,17 +135,20 @@ public class InteractivePoints extends AbstractInteractiveElement {
 // ----------------------------------------------
 
 
-  public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
     return null;
    }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!(numPoints>0 && visible)) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints(_panel);
     return pointObjects;
   }
 
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) {
     if (style.edgeColor!=null) {
       java.awt.Color theColor = _panel.projectColor(getPointColor(_index),pointObjects[_index].distance);
       _g2.setStroke(pointStroke==null ? style.edgeStroke : pointStroke[Math.min(_index,pointStroke.length-1)]);
@@ -153,7 +157,8 @@ public class InteractivePoints extends AbstractInteractiveElement {
     }
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!(numPoints>0 && visible)) return;
     Graphics2D g2 = (Graphics2D) _g;
     // if (hasChanged || _panel!=panelWithValidProjection)
@@ -173,44 +178,51 @@ public class InteractivePoints extends AbstractInteractiveElement {
 // Implementation of Measured3D
 // ----------------------------------------------
 
-  public boolean isMeasured () { return canBeMeasured && visible && numPoints>0;  }
+  @Override
+public boolean isMeasured () { return canBeMeasured && visible && numPoints>0;  }
 
-  public double getXMin () {
+  @Override
+public double getXMin () {
     if (numPoints<=0) return 0.0;
     double min = Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[i][0]<min) min = coordinates[i][0];
     if (group==null) return min;
     return group.x + min*group.sizex;
   }
-  public double getXMax () {
+  @Override
+public double getXMax () {
     if (numPoints<=0) return 0.0;
     double max = -Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[i][0]>max) max = coordinates[i][0];
     if (group==null) return max;
     return group.x + max*group.sizex;
   }
-  public double getYMin () {
+  @Override
+public double getYMin () {
     if (numPoints<=0) return 0.0;
     double min = Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[i][1]<min) min = coordinates[i][1];
     if (group==null) return min;
     return group.y + min*group.sizey;
   }
-  public double getYMax () {
+  @Override
+public double getYMax () {
     if (numPoints<=0) return 0.0;
     double max = -Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[i][1]>max) max = coordinates[i][1];
     if (group==null) return max;
     return group.y + max*group.sizey;
   }
-  public double getZMin () {
+  @Override
+public double getZMin () {
     if (numPoints<=0) return 0.0;
     double min = Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[i][2]<min) min = coordinates[i][2];
     if (group==null) return min;
     return group.z + min*group.sizez;
   }
-  public double getZMax () {
+  @Override
+public double getZMax () {
     if (numPoints<=0) return 0.0;
     double max = -Double.MAX_VALUE;
     for (int i=0; i< numPoints; i++) if (coordinates[i][2]>max) max = coordinates[i][2];

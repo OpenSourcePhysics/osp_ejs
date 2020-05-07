@@ -31,7 +31,8 @@ public class EulerRichardson extends AbstractExplicitRKSolverInterpolator {
     K2 = new double[dimension];
   }
   
-  protected void computeOneStep() {
+  @Override
+protected void computeOneStep() {
     super.computeOneStep();
     System.arraycopy(rate2, 0, K2, 0, dimension); // keep it for the interpolation
   }

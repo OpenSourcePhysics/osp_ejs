@@ -27,7 +27,8 @@ public class ControlToolBar extends ControlContainer {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     bar = new JToolBar();
     defLayout = bar.getLayout();
     return bar;
@@ -39,7 +40,8 @@ public class ControlToolBar extends ControlContainer {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("borderPainted");
@@ -53,7 +55,8 @@ public class ControlToolBar extends ControlContainer {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("borderPainted"))  return "boolean";
     if (_property.equals("floatable"))      return "boolean";
     if (_property.equals("layout"))         return "Layout|Object NO_RESET";
@@ -67,7 +70,8 @@ public class ControlToolBar extends ControlContainer {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : bar.setBorderPainted(_value.getBoolean()); break;
       case 1 : bar.setFloatable(_value.getBoolean()); break;
@@ -96,7 +100,8 @@ public class ControlToolBar extends ControlContainer {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : bar.setBorderPainted(true); break;
       case 1 : bar.setFloatable(true); break;
@@ -108,7 +113,8 @@ public class ControlToolBar extends ControlContainer {
     }
   }
   
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : case 1 : return "true";
       case 2 : case 3 : return "<none>";
@@ -119,7 +125,8 @@ public class ControlToolBar extends ControlContainer {
   }
   
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 :

@@ -20,14 +20,17 @@ public class ControlImage3D extends ControlElement3D {
 
   private ElementImage image;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementImage"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementImage"; }
 
-  protected Element createElement () {
+  @Override
+protected Element createElement () {
     image = new ElementImage();
     return image;
   }
 
-  protected int getPropertiesDisplacement () { return IMAGE_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return IMAGE_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -35,7 +38,8 @@ public class ControlImage3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("imageFile");
@@ -46,7 +50,8 @@ public class ControlImage3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("imageFile")) return "File|String TRANSLATABLE";
     if (_property.equals("trueSize")) return "boolean";
     if (_property.equals("rotationAngle")) return "int|double";
@@ -58,7 +63,8 @@ public class ControlImage3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : image.setImageFile(_value.getString()); break;
       case 1 : image.setTrueSize(_value.getBoolean()); break;
@@ -71,7 +77,8 @@ public class ControlImage3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : image.setImageFile(null); break;
       case 1 : image.setTrueSize(false); break;
@@ -81,7 +88,8 @@ public class ControlImage3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "false";
@@ -90,7 +98,8 @@ public class ControlImage3D extends ControlElement3D {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 :
           return null;

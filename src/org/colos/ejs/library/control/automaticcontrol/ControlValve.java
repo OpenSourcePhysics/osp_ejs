@@ -19,7 +19,8 @@ public class ControlValve extends ControlPoligonsAndTexts {
 
   protected Valve valve;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     return valve = new Valve();
   }
 
@@ -27,12 +28,14 @@ public class ControlValve extends ControlPoligonsAndTexts {
 // Definition of Properties
 // ------------------------------------------------
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("type"))           return "int|ValveType";
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ValveType")>=0) {
       _value = _value.trim().toLowerCase();

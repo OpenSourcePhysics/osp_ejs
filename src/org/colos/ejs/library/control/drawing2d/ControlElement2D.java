@@ -95,9 +95,11 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
    */
   protected abstract int getPropertiesDisplacement ();
 
-  public Object getObject() { return myElement; }
+  @Override
+public Object getObject() { return myElement; }
 
-  abstract public String getObjectClassname ();
+  @Override
+abstract public String getObjectClassname ();
 
   final public Element getElement () { return myElement; }
 
@@ -107,7 +109,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
   final public int getFullPositionSpot () { return fullPosition; }
   final public int getFullSizeSpot () { return fullSize; }
 
-  protected void setName (String _name) { myElement.setName(_name); }
+  @Override
+protected void setName (String _name) { myElement.setName(_name); }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -115,7 +118,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() { // This eliminates any previous property
+  @Override
+public java.util.List<String> getPropertyList() { // This eliminates any previous property
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>();
 
@@ -156,7 +160,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("x"))       return "int|double";
     if (_property.equals("y"))       return "int|double";
     if (_property.equals("position")) return "double[]";
@@ -192,7 +197,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
     return super.getPropertyInfo(_property);
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("size")) return "sizeArray";
     return super.getPropertyCommonName(_property);
   }
@@ -201,7 +207,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case POSITION_X : thePos = null; myElement.setX(posValues[0].value=_value.getDouble()); break;
       case POSITION_Y : thePos = null; myElement.setY(posValues[1].value=_value.getDouble()); break;
@@ -290,7 +297,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case POSITION_X : myElement.setX(posValues[0].value=defaultX);        break;
       case POSITION_Y : myElement.setY(posValues[1].value=defaultY);        break;
@@ -332,7 +340,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case POSITION_X : return Double.toString(defaultX);
       case POSITION_Y : return Double.toString(defaultY);
@@ -374,7 +383,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case POSITION : return new ObjectValue (thePos); 
       case POSITION_X : return posValues[0];
@@ -457,7 +467,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
     }
   }
 
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
     // System.out.println("Event ID "+_event.getID());
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_ENTERED  : invokeActions (ControlSwingElement.MOUSE_ENTERED_ACTION); break;
@@ -478,7 +489,8 @@ public abstract class ControlElement2D extends org.colos.ejs.library.control.swi
   //Parsing constants
   //------------------------------------------------
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
 
     if (_propertyType.indexOf("AffineTransform")>=0) {

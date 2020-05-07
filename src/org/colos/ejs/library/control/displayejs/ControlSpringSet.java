@@ -16,19 +16,22 @@ import org.opensourcephysics.display.Drawable;
  */
 public class ControlSpringSet extends ControlElementSet {
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       elementSet = new ElementSet(1, InteractiveSpring.class);
       elementSet.setEnabled(InteractiveElement.TARGET_SIZE, true); // Backwards compatibility
     return elementSet;
   }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
 // ------------------------------------------------
 // Properties
 // ------------------------------------------------
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("color"))            return "lineColor";
     if (_property.equals("secondaryColor"))   return "fillColor";
     if (_property.equals("enabled"))          return "enabledSize";
@@ -37,7 +40,8 @@ public class ControlSpringSet extends ControlElementSet {
   }
 
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("radius"))          return "int|double|double[]";
     return super.getPropertyInfo(_property);
   }
@@ -46,7 +50,8 @@ public class ControlSpringSet extends ControlElementSet {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case RADIUS :
         if (_value.getObject() instanceof double[]) {
@@ -71,7 +76,8 @@ public class ControlSpringSet extends ControlElementSet {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case RADIUS : for (int i=0, n=elementSet.getNumberOfElements(); i<n; i++) ((InteractiveSpring)elementSet.elementAt(i)).setRadius(0.1); break;
       case ENABLED : elementSet.setEnabled(InteractiveElement.TARGET_SIZE,true); break;
@@ -80,7 +86,8 @@ public class ControlSpringSet extends ControlElementSet {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case RADIUS : return "0.1";
       case ENABLED : return "true";

@@ -126,7 +126,8 @@ public class ElementTessellation extends Element {
   // Private or protected methods
   // -------------------------------------
 
-  public void getExtrema(double[] min, double[] max) {
+  @Override
+public void getExtrema(double[] min, double[] max) {
     if (mTileData==null) {
       super.getExtrema(min, max);
       return;

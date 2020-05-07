@@ -21,11 +21,13 @@ public class ControlPoints extends ControlInteractiveElement {
   static final private int MY_LINE_COLOR=ControlInteractiveElement.PRIMARY_COLOR+POINTS_PROPERTIES_ADDED;
   static final private int MY_STROKE=ControlInteractiveElement.STROKE+POINTS_PROPERTIES_ADDED;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     return new InteractivePoints();
   }
 
-  protected int getPropertiesDisplacement () { return 0; }
+  @Override
+protected int getPropertiesDisplacement () { return 0; }
 
 // ------------------------------------------------
 // Properties
@@ -33,7 +35,8 @@ public class ControlPoints extends ControlInteractiveElement {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -42,7 +45,8 @@ public class ControlPoints extends ControlInteractiveElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))             return "double[][]";
     if (_property.equals("color"))          return "int|int[]|Color|Color[]|Object|Object[]";
     if (_property.equals("stroke"))         return "int|int[]|double|double[]|Object";
@@ -57,7 +61,8 @@ public class ControlPoints extends ControlInteractiveElement {
 // Set and Get values
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : if (_value.getObject() instanceof double[][]) ((InteractivePoints) myElement).setData((double[][])_value.getObject()); break;
       default : super.setValue(_index-POINTS_PROPERTIES_ADDED,_value); break;
@@ -77,7 +82,8 @@ public class ControlPoints extends ControlInteractiveElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : ((InteractivePoints) myElement).setData(null); break;
       default : super.setDefaultValue(_index-POINTS_PROPERTIES_ADDED); break;
@@ -94,7 +100,8 @@ public class ControlPoints extends ControlInteractiveElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  0 : return "<none>";
       default : return super.getDefaultValueString(_index-POINTS_PROPERTIES_ADDED);

@@ -22,7 +22,8 @@ public class PasswordDialog {
 
   static private void recreateDialog () {
     java.awt.event.MouseAdapter mouseListener =  new java.awt.event.MouseAdapter () {
-      public void mousePressed (java.awt.event.MouseEvent evt) {
+      @Override
+	public void mousePressed (java.awt.event.MouseEvent evt) {
         AbstractButton button = (AbstractButton) (evt.getSource());
         String aCmd = button.getActionCommand();
         if (aCmd.equals("ok")) {
@@ -54,7 +55,8 @@ public class PasswordDialog {
     label.setBorder(new javax.swing.border.EmptyBorder(0,3,0,3));
     field = new JPasswordField(20);
     field.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
+      @Override
+	public void actionPerformed(java.awt.event.ActionEvent evt) {
         returnValue = field.getText();
         dialog.setVisible (false);
       }
@@ -84,7 +86,8 @@ public class PasswordDialog {
 
     dialog.addWindowListener (
       new java.awt.event.WindowAdapter() {
-        public void windowClosing(java.awt.event.WindowEvent event) {
+        @Override
+		public void windowClosing(java.awt.event.WindowEvent event) {
           returnValue = null;
         }
       }

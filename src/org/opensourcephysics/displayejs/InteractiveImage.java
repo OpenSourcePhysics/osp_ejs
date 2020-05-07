@@ -27,7 +27,8 @@ public class InteractiveImage extends AbstractInteractiveElement {
 
   private Image currentImage=null;
 
-  public void copyFrom (InteractiveElement _element) {
+  @Override
+public void copyFrom (InteractiveElement _element) {
     super.copyFrom(_element);
     if (_element instanceof InteractiveImage) setTrueSize(((InteractiveImage) _element).getTrueSize());
   }
@@ -40,7 +41,8 @@ public class InteractiveImage extends AbstractInteractiveElement {
 
   public boolean getTrueSize () { return trueSize; }
 
-  public void needsToProject(DrawingPanel _panel)   {
+  @Override
+public void needsToProject(DrawingPanel _panel)   {
     super.needsToProject(_panel);
     if (style.displayObject!=currentImage && style.displayObject instanceof Image) {
       currentImage = (Image) style.displayObject;
@@ -55,9 +57,11 @@ public class InteractiveImage extends AbstractInteractiveElement {
 // Implementation of Interactive and Drawable3D
 // ----------------------------------------------
 
-  public void setSensitivity (int _s) { actualSensitivity = _s; }
+  @Override
+public void setSensitivity (int _s) { actualSensitivity = _s; }
 
-   public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
+   @Override
+public org.opensourcephysics.display.Interactive findInteractive (DrawingPanel _panel, int _xpix, int _ypix) {
      if (!visible) return null;
      if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
      // In 3D it is not possible to change size interactively, due to the effect of style.position and style.angle
@@ -79,18 +83,21 @@ public class InteractiveImage extends AbstractInteractiveElement {
      return null;
     }
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (!visible) return null;
     if (hasChanged || _panel!=panelWithValidProjection) projectPoints (_panel);
     return objects;
   }
 
   // No need to project, projection has already been computed in getObjects3D
-  public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) { 
+  @Override
+public void draw (DrawingPanel3D _panel, Graphics2D _g2, int _index) { 
     drawIt (_panel,_g2); 
   }
 
-  public void draw (DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, Graphics _g) {
     if (!visible) return;
 //    if (hasChanged || _panel!=panelWithValidProjection)
     projectPoints (_panel);

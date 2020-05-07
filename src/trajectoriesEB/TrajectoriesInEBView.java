@@ -8,16 +8,6 @@ package trajectoriesEB;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
-import javax.swing.event.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.*;
-import java.net.*;
-import java.util.*;
-import java.io.*;
-import java.lang.*;
-
-import org.colos.ejs.library.View;
 import org.opensourcephysics.display.OSPRuntime;
 
 class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl implements org.colos.ejs.library.View {
@@ -100,6 +90,7 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
     catch (Exception exc) { } // Do nothing and keep quiet if it fails
     update();
 	OSPRuntime.dispatchEventWait(new Runnable() {
+			@Override
 			public void run() {
 				createControl();
 			}
@@ -131,11 +122,13 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
 
 // ---------- Implementation of View -------------------
 
-  public void read() {
+  @Override
+public void read() {
     // Ejs requires no read(). Actually, having it might cause problems!
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("msg".equals(_variable)) {
       _model.msg = getString("msg"); // Variables.Aux vars:1
@@ -249,7 +242,8 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
     }
   }
 
-  public void propagateValues () {
+  @Override
+public void propagateValues () {
     setValue ("_isPlaying",_simulation.isPlaying());
     setValue ("_isPaused", _simulation.isPaused());
     if(__msg_canBeChanged__) setValue("msg",_model.msg); // Variables.Aux vars:1
@@ -274,7 +268,8 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
     if(__tol_canBeChanged__) setValue("tol",_model.tol); // Variables.Dynamical vars:10
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("msg".equals(_variable)) __msg_canBeChanged__ = false; // Variables.Aux vars:1
     if ("componentB".equals(_variable)) __componentB_canBeChanged__ = false; // Variables.Aux vars:2
@@ -616,7 +611,8 @@ class TrajectoriesInEBView extends org.colos.ejs.library.control.EjsControl impl
 
 // ---------- Resetting the interface  -------------------
 
-  public void reset() {
+  @Override
+public void reset() {
     getElement("mainFrame")
       .setProperty("title","Parallel E&B Caustics in 2D")
       .setProperty("visible","true");

@@ -25,13 +25,15 @@ public class ControlParticle extends ControlInteractiveElement {
 
   public ControlParticle () { super (); enabledEjsEdit = true; }
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       InteractiveParticle particle = new InteractiveParticle();
       particle.setEnabled(InteractiveElement.TARGET_POSITION,true);  // Backwards compatibility
       return particle;
   }
 
-  protected int getPropertiesDisplacement () { return PARTICLE_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return PARTICLE_ADDED; }
 
 // ------------------------------------------------
 // Properties
@@ -39,7 +41,8 @@ public class ControlParticle extends ControlInteractiveElement {
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("pixelSize");
@@ -48,7 +51,8 @@ public class ControlParticle extends ControlInteractiveElement {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("pixelSize")) return "boolean";
       return super.getPropertyInfo(_property);
     }
@@ -58,7 +62,8 @@ public class ControlParticle extends ControlInteractiveElement {
 // Set and Get values
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : ((InteractiveParticle) myElement).setPixelSize(_value.getBoolean()); break;
 
@@ -78,7 +83,8 @@ public class ControlParticle extends ControlInteractiveElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : ((InteractiveParticle) myElement).setPixelSize(false); break;
 
@@ -89,7 +95,8 @@ public class ControlParticle extends ControlInteractiveElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "false";
 
@@ -100,7 +107,8 @@ public class ControlParticle extends ControlInteractiveElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
   switch (_index) {
     case 0 : return null;
     default: return super.getValue(_index-PARTICLE_ADDED);

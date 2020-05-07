@@ -38,7 +38,8 @@ public class DrawingPanel2D extends org.opensourcephysics.display.InteractivePan
    * Getting the pointer to the real JPanel in it
    * @return java.awt.Component
    */
-  public java.awt.Component getComponent() { return this; }
+  @Override
+public java.awt.Component getComponent() { return this; }
 
   /**
    * Converts a world point of the scene into a 2D point of the screen.
@@ -49,7 +50,8 @@ public class DrawingPanel2D extends org.opensourcephysics.display.InteractivePan
    * @param pixel A place-holder for the coordinates of the point of the screen.
    * @return returns the same input pixel
    */
-  public double[] projectPosition(double[] p, double[] pixel) {
+  @Override
+public double[] projectPosition(double[] p, double[] pixel) {
     pixel[0] = super.xToPix(p[0]);
     pixel[1] = super.yToPix(p[1]);
     return pixel;
@@ -63,7 +65,8 @@ public class DrawingPanel2D extends org.opensourcephysics.display.InteractivePan
    * @param pixelSize double[] A place-holder for the result
    * @return double[] returns the same input pixelSize
    */
-  public double[] projectSize(double[] p, double[] size, double[] pixelSize) {
+  @Override
+public double[] projectSize(double[] p, double[] size, double[] pixelSize) {
     pixelSize[0] = xPixPerUnit*size[0];
     pixelSize[1] = yPixPerUnit*size[1];
     return pixelSize;

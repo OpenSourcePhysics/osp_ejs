@@ -37,7 +37,8 @@ public class SimpleElementTessellation extends SimpleAbstractTile {
     return ((ElementTessellation) element).getTiles();
   }
 
-  public void processChanges(int _change, int _cummulativeChange) {
+  @Override
+public void processChanges(int _change, int _cummulativeChange) {
     if ((_cummulativeChange & Element.CHANGE_COLOR)!=0) {
       ((ElementTessellation) element).checkScales();
     }
@@ -48,7 +49,8 @@ public class SimpleElementTessellation extends SimpleAbstractTile {
   // Super methods overwritten
   // -------------------------------------
 
-  public void draw(Graphics2D g2, int index) {
+  @Override
+public void draw(Graphics2D g2, int index) {
     if (((ElementTessellation) element).getTiles()==null) return;
     double[][] values = ((ElementTessellation) element).getValues(); 
     if (values!=null) {

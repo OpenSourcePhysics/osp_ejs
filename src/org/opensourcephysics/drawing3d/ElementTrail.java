@@ -214,11 +214,14 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
   
   protected int datasetID = hashCode();
 
-  public void setID(int id) { datasetID = id; }
+  @Override
+public void setID(int id) { datasetID = id; }
 
-  public int getID() { return datasetID; }
+  @Override
+public int getID() { return datasetID; }
 
-  public double[][] getData2D() {
+  @Override
+public double[][] getData2D() {
     synchronized(displayPoints) {
       int n = displayPoints.size();
       double[][] data = new double[3][n];
@@ -243,23 +246,29 @@ public class ElementTrail extends Element implements org.opensourcephysics.displ
 	  return data;
   }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() { return inputLabels; }
+  @Override
+public String[] getColumnNames() { return inputLabels; }
 
-  public Color[] getLineColors() {
+  @Override
+public Color[] getLineColors() {
     return new Color[] {DisplayColors.getLineColor(0), DisplayColors.getLineColor(1), DisplayColors.getLineColor(2)};
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     Paint fill = getStyle().getFillColor();
     if (fill instanceof Color) return new Color[] { DisplayColors.getLineColor(0), DisplayColors.getLineColor(1), (Color) fill };
     return new Color[] { DisplayColors.getLineColor(0), DisplayColors.getLineColor(1), DisplayColors.getLineColor(2)};
   }
 
-  public java.util.List<Data> getDataList() { return null; }
+  @Override
+public java.util.List<Data> getDataList() { return null; }
   
-  public java.util.ArrayList<Dataset> getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset> getDatasets() { return null; }
 
   public int getMaximum(){return maximum;}
   // ----------------------------------------------------

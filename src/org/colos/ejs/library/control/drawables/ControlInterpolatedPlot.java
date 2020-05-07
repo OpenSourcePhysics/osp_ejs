@@ -21,7 +21,8 @@ public class ControlInterpolatedPlot extends ControlDrawable2D {
   protected Color floorColor, ceilingColor;
   private Color[] palette=new Color[1];
 
-  protected org.opensourcephysics.display.Drawable  createDrawable () {
+  @Override
+protected org.opensourcephysics.display.Drawable  createDrawable () {
     plot = new InterpolatedPlot(pointdata = new GridPointData(30,30,1));
     plot.setAutoscaleZ(auto=true,minZ=-1.0,maxZ=1.0);
     plot.setPaletteType(colormode = ColorMapper.SPECTRUM);
@@ -41,7 +42,8 @@ public class ControlInterpolatedPlot extends ControlDrawable2D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("data");
@@ -60,7 +62,8 @@ public class ControlInterpolatedPlot extends ControlDrawable2D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("data"))          return "double[][][]";
     if (_property.equals("autoscaleZ"))    return "boolean";
     if (_property.equals("minimumZ"))      return "int|double";
@@ -80,7 +83,8 @@ public class ControlInterpolatedPlot extends ControlDrawable2D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if (_value.getObject() instanceof double[][][]) {
@@ -133,7 +137,8 @@ public class ControlInterpolatedPlot extends ControlDrawable2D {
     if (isUnderEjs) plot.update();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : TestData.gaussianScalarField(pointdata); break;
       case 1 : plot.setAutoscaleZ(auto=true,minZ,maxZ); break;
@@ -157,7 +162,8 @@ public class ControlInterpolatedPlot extends ControlDrawable2D {
     if (isUnderEjs) plot.update();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "true";
@@ -175,7 +181,8 @@ public class ControlInterpolatedPlot extends ControlDrawable2D {
   }
 
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch(_index) {
       case 0 : case 1 : case 2 :
       case 3 : case 4 : case 5 :

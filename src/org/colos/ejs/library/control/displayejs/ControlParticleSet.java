@@ -23,13 +23,15 @@ public class ControlParticleSet extends ControlElementSet {
   static private final int MY_PRIMARY_COLOR=PRIMARY_COLOR+PARTICLE_SET_ADDED;
   static private final int MY_SECONDARY_COLOR=SECONDARY_COLOR+PARTICLE_SET_ADDED;
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       elementSet = new ElementSet(1, InteractiveParticle.class);
       elementSet.setEnabled(InteractiveElement.TARGET_POSITION,true);  // Backwards compatibility
     return elementSet;
   }
 
-  protected int getPropertiesDisplacement () { return PARTICLE_SET_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return PARTICLE_SET_ADDED; }
 
 // ------------------------------------------------
 // Properties
@@ -37,7 +39,8 @@ public class ControlParticleSet extends ControlElementSet {
 
     static private java.util.List<String> infoList=null;
 
-    public java.util.List<String> getPropertyList() {
+    @Override
+	public java.util.List<String> getPropertyList() {
       if (infoList==null) {
         infoList = new java.util.ArrayList<String> ();
         infoList.add ("pixelSize");
@@ -46,7 +49,8 @@ public class ControlParticleSet extends ControlElementSet {
       return infoList;
     }
 
-    public String getPropertyInfo(String _property) {
+    @Override
+	public String getPropertyInfo(String _property) {
       if (_property.equals("pixelSize"))         return "boolean|boolean[]";
       return super.getPropertyInfo(_property);
     }
@@ -56,7 +60,8 @@ public class ControlParticleSet extends ControlElementSet {
 // Variable properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case  0 :
         if (_value.getObject() instanceof boolean[]) {
@@ -124,7 +129,8 @@ public class ControlParticleSet extends ControlElementSet {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  0 :
         for (int i=0, n=elementSet.getNumberOfElements(); i<n; i++)
@@ -140,7 +146,8 @@ public class ControlParticleSet extends ControlElementSet {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case  0 : return "false";
       default : return super.getDefaultValueString(_index-PARTICLE_SET_ADDED);
@@ -151,7 +158,8 @@ public class ControlParticleSet extends ControlElementSet {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
   switch (_index) {
     case 0 : return null;
     default: return super.getValue(_index-PARTICLE_SET_ADDED);

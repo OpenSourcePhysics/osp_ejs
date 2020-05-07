@@ -11,9 +11,6 @@ import java.awt.*;
 import java.awt.font.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-import java.util.Hashtable;
-import java.util.Map;
-
 import org.opensourcephysics.display.DrawableTextLine;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.TextLine;
@@ -164,7 +161,8 @@ private double yAlign;
   private AffineTransform trETinv = new AffineTransform();
   private Point2D.Double pixelPt = new Point2D.Double();
   
-  public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
+  @Override
+public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
 		if (!isReallyVisible() || text == null || text.length() <= 0)
 			return;
 		// if (hasChanged() || needsToProject()) projectPoints();
@@ -257,7 +255,8 @@ private double yAlign;
   // Interaction
   // -------------------------------------
   
-  public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
+  @Override
+public org.opensourcephysics.display.Interactive findInteractive(org.opensourcephysics.display.DrawingPanel _panel, int _xpix, int _ypix) {
     if (!targetPosition.isEnabled()) return null;
     if (!isReallyVisible()) return null;
     if (hasChanged()||needsToProject()) projectPoints();

@@ -29,7 +29,8 @@ public class ControlRotationX3DTransformation extends ControlRotation3DTransform
 // Implementation of Transformation
 //------------------------------------------------
 
-  public Object clone() {
+  @Override
+public Object clone() {
     ControlRotationX3DTransformation ct = new ControlRotationX3DTransformation();
     ct.enabled = this.enabled;
     ct.transformation = (Matrix3DTransformation) this.transformation.clone();

@@ -22,7 +22,8 @@ public abstract class ControlDrawable3D extends ControlDrawable {
 // Definition of Properties
 // ------------------------------------------------
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("ElementPosition")>=0) {
       _value = _value.trim().toLowerCase();

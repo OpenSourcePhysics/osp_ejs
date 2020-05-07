@@ -29,7 +29,8 @@ public class ControlFunction extends ControlTextField {
   private org.colos.ejs.library.Function theFunction; // For backwards compatibility
 //  private boolean verbose = false;
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     // things similar to its parent
       textfield = functionTextField = new FunctionTextField();
       textfield.setText ("0");
@@ -47,16 +48,20 @@ public class ControlFunction extends ControlTextField {
     indVars = new String [] { variables };
     // For backwards compatibility
     theFunction = new org.colos.ejs.library.Function() {
-      public double eval (double x) { return evaluate(x); }
+      @Override
+	public double eval (double x) { return evaluate(x); }
     };
 
     return textfield;
   }
 
-  protected int getVariableIndex () { return ControlFunction.MY_VARIABLE; }
-  protected int getValueIndex () { return ControlFunction.MY_VALUE; }
+  @Override
+protected int getVariableIndex () { return ControlFunction.MY_VARIABLE; }
+  @Override
+protected int getValueIndex () { return ControlFunction.MY_VALUE; }
 
-  protected void setInternalValue (String _value) {
+  @Override
+protected void setInternalValue (String _value) {
     setTheFunction(_value);
     super.setInternalValue(_value);
   }
@@ -68,7 +73,8 @@ public class ControlFunction extends ControlTextField {
 // -------------------------------------
 
   // For backwards compatibility
-    public Object getObject (String _name) {
+    @Override
+	public Object getObject (String _name) {
       if ("function".equals(_name)) return theFunction;
       return null;
     }
@@ -79,7 +85,8 @@ public class ControlFunction extends ControlTextField {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("javaSyntax");
@@ -89,7 +96,8 @@ public class ControlFunction extends ControlTextField {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("javaSyntax"))  return "boolean PREVIOUS";
     if (_property.equals("variable"))    return "String PREVIOUS";
     if (_property.equals("independent")) return "String PREVIOUS";
@@ -100,7 +108,8 @@ public class ControlFunction extends ControlTextField {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : useJavaSyntax = _value.getBoolean(); setTheFunction(internalValue.value); break;
       case 1 : if (!_value.getString().equals(variables)) setTheVariables(_value.getString()); break;
@@ -112,7 +121,8 @@ public class ControlFunction extends ControlTextField {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : useJavaSyntax = true; setTheFunction(internalValue.value); break;
       case 1 : setTheVariables("t"); break;
@@ -124,7 +134,8 @@ public class ControlFunction extends ControlTextField {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "true";
       case 1 : return "t";
@@ -133,7 +144,8 @@ public class ControlFunction extends ControlTextField {
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 :
         return null;

@@ -34,14 +34,16 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     radioButton = new JRadioButton ();
     internalValue = new BooleanValue (radioButton.isSelected());
     defaultStateSet = false;
     cantUnselectItself = false;
     radioButton.addActionListener (
       new java.awt.event.ActionListener() {
-        public void actionPerformed (java.awt.event.ActionEvent _e) {
+        @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) {
           if (cantUnselectItself) {
             if (internalValue.getBoolean() && !radioButton.isSelected()) {
               radioButton.setSelected(true);
@@ -56,7 +58,8 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
     return radioButton;
   }
 
-  public void reset() {
+  @Override
+public void reset() {
     if (defaultStateSet) {
       radioButton.setSelected(defaultState);
       setInternalValue (defaultState);
@@ -72,11 +75,14 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
     else invokeActions(ControlSwingElement.ACTION_OFF);
   }
 
-  public void setControlParent (ControlContainer _aParent) { myControlParent = _aParent; }
+  @Override
+public void setControlParent (ControlContainer _aParent) { myControlParent = _aParent; }
 
-  public void reportChanges () { variableChangedDoNotUpdate (VARIABLE,internalValue); }
+  @Override
+public void reportChanges () { variableChangedDoNotUpdate (VARIABLE,internalValue); }
 
-  public int getVariableIndex() { return VARIABLE; }
+  @Override
+public int getVariableIndex() { return VARIABLE; }
 
 // ------------------------------------------------
 // Properties
@@ -84,7 +90,8 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("text");
@@ -103,7 +110,8 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("text"))           return "String NotTrimmed TRANSLATABLE";
     if (_property.equals("image"))          return "File|String TRANSLATABLE";
     if (_property.equals("selectedimage"))  return "File|String TRANSLATABLE";
@@ -122,6 +130,7 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
 // Set and Get the values of the properties
 // ------------------------------------------------
 
+	@Override
 	public void setValue(int _index, Value _value) {
 		switch (_index) {
 		case 0:
@@ -179,7 +188,8 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
 		}
 	}
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : radioButton.setText(labelString=""); break;
       case 1 : radioButton.setIcon(null); imageFile=null; break;
@@ -196,7 +206,8 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : 
       case 1 : 
@@ -213,7 +224,8 @@ public class ControlRadioButton extends ControlSwingElement implements RadioButt
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case VARIABLE : return internalValue;
       case 0 : case 1 : case 2 : case 3 :

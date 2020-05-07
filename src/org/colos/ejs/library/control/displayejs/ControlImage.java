@@ -21,13 +21,15 @@ public class ControlImage extends ControlInteractiveElement {
 
   public ControlImage () { super (); enabledEjsEdit = true; }
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
       image = new InteractiveImage();
       image.setEnabled(InteractiveElement.TARGET_POSITION,true);  // Backwards compatibility
     return image;
   }
 
-  protected int getPropertiesDisplacement () { return IMAGE_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return IMAGE_ADDED; }
 
 // ------------------------------------------------
 // Properties
@@ -35,7 +37,8 @@ public class ControlImage extends ControlInteractiveElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("image");
@@ -45,7 +48,8 @@ public class ControlImage extends ControlInteractiveElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("image"))    return "File|String TRANSLATABLE";
     if (_property.equals("trueSize")) return "boolean";
     return super.getPropertyInfo(_property);
@@ -55,7 +59,8 @@ public class ControlImage extends ControlInteractiveElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case  0 : setImage(_value.getString());   break;
       case  1 : image.setTrueSize(_value.getBoolean());   break;
@@ -63,7 +68,8 @@ public class ControlImage extends ControlInteractiveElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case  0 : setImage(null);   break;
       case  1 : image.setTrueSize(false);   break;
@@ -71,7 +77,8 @@ public class ControlImage extends ControlInteractiveElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "false";
@@ -79,7 +86,8 @@ public class ControlImage extends ControlInteractiveElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : return null;
       default: return super.getValue(_index-IMAGE_ADDED);

@@ -98,7 +98,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     myWindow.pack();
   }
   
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child.getVisual() instanceof javax.swing.JMenuBar) return true;
     if (_child.getVisual() instanceof javax.swing.JMenuItem) return false;
     if (_child instanceof ControlSwingElement) return true;
@@ -145,7 +146,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     locationValue=new ObjectValue(getComponent().getLocation());
     sizeValue=new ObjectValue(getContainer().getSize());
     myWindow.addComponentListener (new java.awt.event.ComponentAdapter() {
-      public void componentMoved (java.awt.event.ComponentEvent evt) {
+      @Override
+	public void componentMoved (java.awt.event.ComponentEvent evt) {
         if (isUnderEjs) { // moved under EJS
           if (settingDefaultLocation) { // so that the default remains unspecified
             settingDefaultLocation = false;
@@ -171,19 +173,22 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
         if (isUnderEjs && notFirstTimeMoved) setFieldListValue(getLocationIndex(),locationValue, false); // do not report
         notFirstTimeMoved = true;
       }
-      public void componentResized(java.awt.event.ComponentEvent _e) {
+      @Override
+	public void componentResized(java.awt.event.ComponentEvent _e) {
         if (startingup || !notFirstTimeSized) { notFirstTimeSized = true; return; }
         sizeValue.value = mySize = getContainer().getSize();
         //variableChanged (getSizeIndex(),sizeValue);
         if (isUnderEjs) setFieldListValue(getSizeIndex(),sizeValue, false); // do not report
         invokeActions(ControlSwingElement.ACTION_PRESS);
       }
-      public void componentShown(java.awt.event.ComponentEvent _e) {
+      @Override
+	public void componentShown(java.awt.event.ComponentEvent _e) {
         invokeActions(ControlSwingElement.ACTION_ON);
       }
     });
     myWindow.addWindowListener (new java.awt.event.WindowAdapter() {
-      public void windowClosing (java.awt.event.WindowEvent evt) {
+      @Override
+	public void windowClosing (java.awt.event.WindowEvent evt) {
         whenClosing();
       }
     });
@@ -208,7 +213,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
 
   public void disposeWindow() {
     if (getComponent().isDisplayable()) SwingUtilities.invokeLater(new Runnable() {
-      public void run() { 
+      @Override
+	public void run() { 
         setProperty("visible", "false");
         ((Window) getComponent()).setVisible(false);
         ((Window) getComponent()).dispose();
@@ -258,7 +264,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     if (waitForReset) ((Window) getComponent()).setVisible(false);
   }
 
-  public void reset () {
+  @Override
+public void reset () {
     startingup = false;
     if (shouldShow) show();
     else            hide();
@@ -267,12 +274,14 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     super.reset();
   }
 
-  public void update () { // Ensure it will be updated
+  @Override
+public void update () { // Ensure it will be updated
     startingup = false;
 //    super.update();
   }
 
-  public void adjustSize() { // overrides its super
+  @Override
+public void adjustSize() { // overrides its super
 //    String size = getProperty("size");
     getContainer().setPreferredSize(mySize);
     myWindow.validate();
@@ -291,7 +300,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("layout");
@@ -305,7 +315,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("location"))       return "Point|Object|String NO_RESET";
     if (_property.equals("layout"))         return "Layout|Object NO_RESET";
     if (_property.equals("waitForReset"))   return "boolean";
@@ -321,7 +332,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : // layout
         if (_value.getObject() instanceof LayoutManager) {
@@ -407,7 +419,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 :
         getContainer().setLayout(myLayout = new BorderLayout());
@@ -444,7 +457,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "BORDER";
       case 1 : return "0,0";
@@ -454,7 +468,8 @@ public abstract class ControlWindow extends ControlContainer implements NeedsUpd
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 2 : case 3 : case 4 :
       case 5 :

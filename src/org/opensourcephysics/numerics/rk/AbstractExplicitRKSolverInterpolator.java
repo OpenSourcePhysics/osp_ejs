@@ -66,9 +66,11 @@ public abstract class AbstractExplicitRKSolverInterpolator implements ODESolverI
     counter += evals;
   }
 
-  final public ODE getODE() { return this.ode; }
+  @Override
+final public ODE getODE() { return this.ode; }
 
-  final public void initialize(double _stepSize) {
+  @Override
+final public void initialize(double _stepSize) {
     this.stepSize = _stepSize;
     double[] ode_state = ode.getState();
     if (initialState==null || (initialState.length != ode_state.length)) {
@@ -85,7 +87,8 @@ public abstract class AbstractExplicitRKSolverInterpolator implements ODESolverI
     reinitialize(ode_state);
   }
 
-  public void reinitialize(double[] _state) {
+  @Override
+public void reinitialize(double[] _state) {
     initialTime = _state[timeIndex];
     System.arraycopy(_state, 0, initialState, 0, dimension);
     ode.getRate(initialState, initialRate);
@@ -94,23 +97,30 @@ public abstract class AbstractExplicitRKSolverInterpolator implements ODESolverI
     bootStrap1Ready = bootStrap2Ready = false;
   }
 
-  public double[] getCurrentRate() { return initialRate; }
+  @Override
+public double[] getCurrentRate() { return initialRate; }
 
-  public void setEstimateFirstStep(boolean _estimate) {}
+  @Override
+public void setEstimateFirstStep(boolean _estimate) {}
 
-  final public void setStepSize(double stepSize) {
+  @Override
+final public void setStepSize(double stepSize) {
     this.stepSize = stepSize;
   }
 
-  public void setMaximumStepSize(double _stepSize) {
+  @Override
+public void setMaximumStepSize(double _stepSize) {
     this.maximumStepSize = Math.abs(_stepSize);  
   }
 
-  final public double getStepSize() { return this.stepSize; }
+  @Override
+final public double getStepSize() { return this.stepSize; }
 
-  public void setTolerances(double absTol, double relTol) {}
+  @Override
+public void setTolerances(double absTol, double relTol) {}
 
-  final public double getMaximumTime() {
+  @Override
+final public double getMaximumTime() {
     if (error_code!=ODEAdaptiveSolver.NO_ERROR) return Double.NaN;
     if (Double.isNaN(finalTime)) {
       computeOneStep();
@@ -120,9 +130,11 @@ public abstract class AbstractExplicitRKSolverInterpolator implements ODESolverI
     return finalTime; 
   }
 
-  final public long getCounter()  { return counter; }
+  @Override
+final public long getCounter()  { return counter; }
 
-  final public double internalStep() {
+  @Override
+final public double internalStep() {
     initialTime = finalTime;
     System.arraycopy(finalState, 0, initialState, 0, dimension);
     System.arraycopy(finalRate,  0, initialRate,  0, dimension);
@@ -133,7 +145,8 @@ public abstract class AbstractExplicitRKSolverInterpolator implements ODESolverI
     return finalTime;  // the final time that was computed
   }
 
-  final public double getInternalStepSize() { return deltaTime; }
+  @Override
+final public double getInternalStepSize() { return deltaTime; }
 
   // --------------------------------------------
   // All about interpolation
@@ -307,17 +320,20 @@ public abstract class AbstractExplicitRKSolverInterpolator implements ODESolverI
     return _state;
   }
 
-  public void setMemoryLength(double length) {} // Does nothing in this class
+  @Override
+public void setMemoryLength(double length) {} // Does nothing in this class
 
   // No memory state for this class
-  public org.opensourcephysics.numerics.dde_solvers.interpolation.StateMemory getStateMemory() {
+  @Override
+public org.opensourcephysics.numerics.dde_solvers.interpolation.StateMemory getStateMemory() {
     return null;
   }
 
   /*
    * Default interpolation
    */
-  abstract public double[] interpolate(double _time, boolean useLeftApproximation, double[] _state);
+  @Override
+abstract public double[] interpolate(double _time, boolean useLeftApproximation, double[] _state);
   //      return bestInterpolate(_time,_state);  
   //    }
 
@@ -336,7 +352,8 @@ public abstract class AbstractExplicitRKSolverInterpolator implements ODESolverI
   /*
    * Provides 'brute-force' interpolation by re-stepping from the initial time every time
    */
-  public double[] bestInterpolate(double _time, double[] _state) {
+  @Override
+public double[] bestInterpolate(double _time, double[] _state) {
     if (Double.isNaN(finalTime)) return null;
     if (_time==finalTime) {
       System.arraycopy(finalState, 0, _state, 0, dimension);

@@ -101,10 +101,12 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
   protected Function elementFunction = new MyFunction();
 
   private class MyFunction extends Function {
-    public double eval () { return elementSet.getInteractedIndex(); }
+    @Override
+	public double eval () { return elementSet.getInteractedIndex(); }
   }
 
-  public Object getObject (String _name) {
+  @Override
+public Object getObject (String _name) {
     if (_name.equals("elementSelected")) return elementFunction;
     return null;
   }
@@ -115,7 +117,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String>  getPropertyList() {
+  @Override
+public java.util.List<String>  getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String>  ();
       infoList.add ("elementnumber");
@@ -173,7 +176,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("elementnumber")) return "numberOfElements";
     if (_property.equals("angle")) return "rotationAngle";
     if (_property.equals("color"))          return "fillColor";
@@ -190,7 +194,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("elementnumber")) return "int PREVIOUS";
 
     if (_property.equals("x"))           return "int|double|double[]";
@@ -262,7 +267,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
     if (group!=null && !group.isReportingChange()) group.propagateValues(); 
   }
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
 //    System.out.println ("Setting "+_index+" to "+_value);
     switch (_index) {
       case 0 :
@@ -540,7 +546,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 :
         checkNumberOfElements(1,true);
@@ -613,7 +620,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "1";
       case IMAGE :
@@ -669,7 +677,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case POSITION : return new ObjectValue(thePos);
       case POSITION_X : return allposValues[0];
@@ -690,7 +699,8 @@ public abstract class ControlElementSet extends ControlDrawable3D implements Int
 // Respond to interaction
 // -------------------------------------
 
-  @SuppressWarnings("fallthrough")
+  @Override
+@SuppressWarnings("fallthrough")
   public void interactionPerformed(InteractionEvent _event) {
     switch (_event.getID()) {
       case InteractionEvent.MOUSE_EXITED :

@@ -20,14 +20,16 @@ public class Dopri853IntervalData extends ExtraStepsIntervalData {
     super(aState, bState, coeffs);
   }
 	
-  public double interpolate(double time, int index) {
+  @Override
+public double interpolate(double time, int index) {
     double theta = (time-mLeft)/mDeltaTime;
     double theta1 = 1 - theta;
     return mCoeffs[0][index] + theta * (mCoeffs[1][index] + theta1 * (mCoeffs[2][index] + theta * (mCoeffs[3][index] + 
         theta1 * (mCoeffs[4][index] + theta * (mCoeffs[5][index] + theta1 * (mCoeffs[6][index] + theta * mCoeffs[7][index]))))));
     }
 
-  public double[] interpolate(double time, double[] state, int beginIndex, int length) {
+  @Override
+public double[] interpolate(double time, double[] state, int beginIndex, int length) {
     double theta = (time-mLeft)/mDeltaTime;
     double theta1 = 1 - theta;
     for (int index=beginIndex, i=0; i < length; index++, i++) {

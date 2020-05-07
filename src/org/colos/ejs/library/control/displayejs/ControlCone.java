@@ -12,7 +12,8 @@ import org.opensourcephysics.display.Drawable;
 
 public class ControlCone extends ControlCylinder {
 
-  protected Drawable createDrawable () {
+  @Override
+protected Drawable createDrawable () {
     InteractiveCone cone = new InteractiveCone();
     cone.setOrigin(0.5,0.5,0,true);
     return cone;

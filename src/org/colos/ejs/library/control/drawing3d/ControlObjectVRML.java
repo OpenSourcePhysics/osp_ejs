@@ -18,11 +18,14 @@ import org.opensourcephysics.drawing3d.ElementObjectVRML;
 public class ControlObjectVRML extends ControlElement3D {
   static final private int OBJECTVRML_PROPERTIES_ADDED=1;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementObjectVRML"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementObjectVRML"; }
 
-  protected Element createElement () { return new ElementObjectVRML(); }
+  @Override
+protected Element createElement () { return new ElementObjectVRML(); }
 
-  protected int getPropertiesDisplacement () { return OBJECTVRML_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return OBJECTVRML_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -30,7 +33,8 @@ public class ControlObjectVRML extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("VRMLfile");
@@ -39,7 +43,8 @@ public class ControlObjectVRML extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("VRMLfile")) return "File|String TRANSLATABLE";
     return super.getPropertyInfo(_property);
   }
@@ -48,7 +53,8 @@ public class ControlObjectVRML extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : ((ElementObjectVRML)getElement()).setObjectFile(_value.getString()); break;
       default : super.setValue(_index-OBJECTVRML_PROPERTIES_ADDED,_value); break;
@@ -56,7 +62,8 @@ public class ControlObjectVRML extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : ((ElementObjectVRML)getElement()).setObjectFile(null); break;
       default: super.setDefaultValue(_index-OBJECTVRML_PROPERTIES_ADDED); break;
@@ -64,14 +71,16 @@ public class ControlObjectVRML extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       default : return super.getDefaultValueString(_index-OBJECTVRML_PROPERTIES_ADDED);
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : return null;
       default: return super.getValue (_index-OBJECTVRML_PROPERTIES_ADDED);

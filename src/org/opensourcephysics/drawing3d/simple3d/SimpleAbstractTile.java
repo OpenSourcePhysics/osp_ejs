@@ -50,7 +50,8 @@ public abstract class SimpleAbstractTile extends SimpleElement {
   // Implementation of ImplementingObject
   // -------------------------------------
   
-  public void processChanges(int _change, int _cummulativeChange) {
+  @Override
+public void processChanges(int _change, int _cummulativeChange) {
     if ((_cummulativeChange & RECOMPUTE_VERTEX)!=0) {
       computeVertex();
       computeCoordinates();
@@ -67,7 +68,8 @@ public abstract class SimpleAbstractTile extends SimpleElement {
   // Implementation of SimpleElement
   // -------------------------------------
 
-  public void draw(Graphics2D _g2, int _index) {
+  @Override
+public void draw(Graphics2D _g2, int _index) {
     if (element.getColorLevels()!=null && element.getColorPalette()!=null) {
       drawColorCoded(_g2, _index);
       return;
@@ -85,7 +87,8 @@ public abstract class SimpleAbstractTile extends SimpleElement {
     }
   }
 
-  public void drawQuickly(Graphics2D _g2) {
+  @Override
+public void drawQuickly(Graphics2D _g2) {
     if (style.isDrawingFill() || drawQuickInterior) {
       Paint fill = style.getFillColor();
       if (drawQuickInterior && (fill instanceof Color)) {

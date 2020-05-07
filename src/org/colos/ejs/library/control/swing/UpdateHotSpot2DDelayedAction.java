@@ -27,7 +27,8 @@ class UpdateHotSpot2DDelayedAction implements org.colos.ejs.library.DelayedActio
     event = _evt;
   }
   
-  public void performAction() { 
+  @Override
+public void performAction() { 
     target2D.getElement().updateHotSpot(target2D, point); 
     org.opensourcephysics.drawing2d.Element element = target2D.getElement();
     element.invokeActions(new InteractionEvent(element, InteractionEvent.MOUSE_DRAGGED, target2D.getActionCommand(),target2D, event));

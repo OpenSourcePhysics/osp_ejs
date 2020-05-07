@@ -32,9 +32,11 @@ public class Valve extends PoligonsAndTexts  {
   static final private double h = 0.07;
   static final private double t = 0.06;
 
-  protected double getRadius() { return w; }
+  @Override
+protected double getRadius() { return w; }
 
-  protected void setGroupData() {
+  @Override
+protected void setGroupData() {
     if (type>=10) data = new double[][] { {0,0}, {-w,-w/2}, {-w,w/2}, {0,0}, {w,-w/2}, {w,w/2}, {0,0}, {-w/2,-w}, {w/2,-w},{0,0}, {0,h}};
     else          data = new double[][] { {0,0}, {-w,-w/2}, {-w,w/2}, {0,0}, {w,-w/2}, {w,w/2}, {0,0}, {0,h}};
     switch (type%10) {

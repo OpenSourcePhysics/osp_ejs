@@ -20,7 +20,8 @@ public class InteractionTargetPoligonPoint extends InteractionTargetElementSize 
 
   public int getPointIndex ()  { return index; }
 
-  public Point3D getHotspot (DrawingPanel _panel) {
+  @Override
+public Point3D getHotspot (DrawingPanel _panel) {
     if (element.getGroup()==null)
       return new Point3D(poligon.x + poligon.coordinates[0][index]*poligon.sizex,
                          poligon.y + poligon.coordinates[1][index]*poligon.sizey,
@@ -31,7 +32,8 @@ public class InteractionTargetPoligonPoint extends InteractionTargetElementSize 
 
   }
 
-  public void updateHotspot (DrawingPanel _panel, Point3D _point) {
+  @Override
+public void updateHotspot (DrawingPanel _panel, Point3D _point) {
     if (element.getGroup()==null) {
       poligon.coordinates[0][index] = (_point.x - poligon.x)/poligon.sizex;
       poligon.coordinates[1][index] = (_point.y - poligon.y)/poligon.sizey;

@@ -15,14 +15,17 @@ public class ControlArrow3D extends ControlElement3D {
 
   private ElementArrow arrow;
   
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementArrow"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementArrow"; }
 
-  protected Element createElement () { 
+  @Override
+protected Element createElement () { 
     arrow = new ElementArrow();
     return arrow;
   }
 
-  protected int getPropertiesDisplacement () { return ARROW_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return ARROW_PROPERTIES_ADDED; }
   
 //------------------------------------------------
 //Definition of Properties
@@ -30,7 +33,8 @@ public class ControlArrow3D extends ControlElement3D {
 
  static private java.util.List<String> infoList=null;
 
- public java.util.List<String> getPropertyList() {
+ @Override
+public java.util.List<String> getPropertyList() {
    if (infoList==null) {
      infoList = new java.util.ArrayList<String> ();
      infoList.add ("style");
@@ -39,7 +43,8 @@ public class ControlArrow3D extends ControlElement3D {
    return infoList;
  }
 
- public String getPropertyInfo(String _property) {
+ @Override
+public String getPropertyInfo(String _property) {
    if (_property.equals("style")) return "NewArrowStyle|int";
    if (_property.equals("elementposition"))return "ArrowPosition|int";
    return super.getPropertyInfo(_property);
@@ -49,7 +54,8 @@ public class ControlArrow3D extends ControlElement3D {
 //Set and Get the values of the properties
 //------------------------------------------------
 
- public void setValue (int _index, Value _value) {
+ @Override
+public void setValue (int _index, Value _value) {
    switch (_index) {
      case 0 : arrow.setArrowType(_value.getInteger()); break;
      default : super.setValue(_index-ARROW_PROPERTIES_ADDED,_value); break;
@@ -57,7 +63,8 @@ public class ControlArrow3D extends ControlElement3D {
    if (isUnderEjs) updatePanel();
  }
 
- public void setDefaultValue (int _index) {
+ @Override
+public void setDefaultValue (int _index) {
    switch (_index) {
      case 0 : arrow.setArrowType(ElementArrow.ARROW); break;
      default: super.setDefaultValue(_index-ARROW_PROPERTIES_ADDED); break;
@@ -65,14 +72,16 @@ public class ControlArrow3D extends ControlElement3D {
    if (isUnderEjs) updatePanel();
  }
 
- public String getDefaultValueString (int _index) {
+ @Override
+public String getDefaultValueString (int _index) {
    switch (_index) {
      case 0 : return "ARROW";
      default : return super.getDefaultValueString(_index-ARROW_PROPERTIES_ADDED);
    }
  }
 
- public Value getValue (int _index) {
+ @Override
+public Value getValue (int _index) {
    switch (_index) {
      case 0 : 
        return null;

@@ -57,6 +57,7 @@ public class ElementSegment extends Element {
 	// Abstract part of Element or Parent methods overwritten
 	// -------------------------------------
 
+	@Override
 	public void draw(org.opensourcephysics.display.DrawingPanel _panel, Graphics _g) {
 		if (!isReallyVisible())
 			return;

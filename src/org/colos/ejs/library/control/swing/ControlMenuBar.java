@@ -21,11 +21,13 @@ public class ControlMenuBar extends ControlContainer {
   protected JMenuBar menubar;
   private java.awt.Rectangle     myBorder=null;
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     return menubar = new JMenuBar();
   }
 
-  public boolean acceptsChild (ControlElement _child) {
+  @Override
+public boolean acceptsChild (ControlElement _child) {
     if (_child.getVisual() instanceof javax.swing.JMenu) return true;
     return false;
   }
@@ -36,7 +38,8 @@ public class ControlMenuBar extends ControlContainer {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("borderPainted");
@@ -46,7 +49,8 @@ public class ControlMenuBar extends ControlContainer {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("borderPainted"))  return "boolean";
     if (_property.equals("border"))         return "Margins|Object";
     return super.getPropertyInfo(_property);
@@ -56,7 +60,8 @@ public class ControlMenuBar extends ControlContainer {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : menubar.setBorderPainted(_value.getBoolean()); break;
       case 1 : // border
@@ -72,7 +77,8 @@ public class ControlMenuBar extends ControlContainer {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : menubar.setBorderPainted(true); break;
       case 1 : menubar.setBorder(null); myBorder = null; break;
@@ -80,7 +86,8 @@ public class ControlMenuBar extends ControlContainer {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "true";
       case 1 : return "<none>";
@@ -88,7 +95,8 @@ public class ControlMenuBar extends ControlContainer {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 :
         return null;
@@ -104,7 +112,8 @@ public class ControlMenuBar extends ControlContainer {
   * adds a child control
   * @param _child the child control
   */
-  public void add(ControlElement _child) {
+  @Override
+public void add(ControlElement _child) {
     if (! (_child instanceof ControlMenu)) return;
     children.add(_child);
     menubar.add ((JMenu) _child.getVisual());
@@ -119,7 +128,8 @@ public class ControlMenuBar extends ControlContainer {
   * removes a child control
   * @param _child the child control
   */
-  public void remove(ControlElement _child) {
+  @Override
+public void remove(ControlElement _child) {
     if (! (_child instanceof ControlMenu)) return;
     children.remove(_child);
     menubar.remove(_child.getVisual());

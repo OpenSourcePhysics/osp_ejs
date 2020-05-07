@@ -76,9 +76,11 @@ public class Symbol extends PoligonsAndTexts {
     return cData;
   }
 
-  protected double getRadius() { return w; }
+  @Override
+protected double getRadius() { return w; }
 
-  protected void setGroupData() {
+  @Override
+protected void setGroupData() {
     switch (type) {
       case CIRCLE_1:
         data = null;

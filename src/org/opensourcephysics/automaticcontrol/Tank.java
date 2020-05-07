@@ -111,9 +111,11 @@ public class Tank extends GroupDrawable  implements InteractionListener {
     movable = _movable;
   }
 
-  public boolean isEnabled () { return interactive; }
+  @Override
+public boolean isEnabled () { return interactive; }
 
-  public void setEnabled (boolean _enabled) {
+  @Override
+public void setEnabled (boolean _enabled) {
     inside.setEnabled(InteractiveElement.TARGET_SIZE,_enabled);
     interactive = _enabled;
   }
@@ -171,7 +173,8 @@ public class Tank extends GroupDrawable  implements InteractionListener {
     showProfiles = _show;
   }
 
-  public void setVisible (boolean _show) {
+  @Override
+public void setVisible (boolean _show) {
     super.setVisible(_show);
     boolean value = _show && showProfiles;
     profileLeft.setVisible(value);
@@ -217,22 +220,26 @@ public class Tank extends GroupDrawable  implements InteractionListener {
 
   // Overwriting methods from parent
 
-  public Object3D[] getObjects3D(DrawingPanel3D _panel) {
+  @Override
+public Object3D[] getObjects3D(DrawingPanel3D _panel) {
     if (hasChanged) updateCoordinates();
     return super.getObjects3D(_panel);
   }
 
-  public void drawQuickly (DrawingPanel3D _panel, java.awt.Graphics2D _g2) {
+  @Override
+public void drawQuickly (DrawingPanel3D _panel, java.awt.Graphics2D _g2) {
     if (hasChanged) updateCoordinates();
     super.drawQuickly(_panel,_g2);
   }
 
-  public void draw (DrawingPanel _panel, java.awt.Graphics _g) {
+  @Override
+public void draw (DrawingPanel _panel, java.awt.Graphics _g) {
     if (hasChanged) updateCoordinates();
     super.draw(_panel,_g);
   }
 
-  public void interactionPerformed(InteractionEvent _event) {
+  @Override
+public void interactionPerformed(InteractionEvent _event) {
     if (_event.getSource()==profileRight && _event.getTarget() instanceof InteractionTargetPoligonPoint) {
       InteractionTargetPoligonPoint polEvent = (InteractionTargetPoligonPoint) _event.getTarget();
       int index = polEvent.getPointIndex();
@@ -306,7 +313,8 @@ public class Tank extends GroupDrawable  implements InteractionListener {
 
   private class DiameterFunction extends Function {
     // returns the diameter of the tank for a given height
-    public double eval (double _y) {
+    @Override
+	public double eval (double _y) {
       if (showProfiles) {
         if (_y>=p1y*height) return width;
         if (_y>=p2y*height) return width + width*(2*p2x-1)*(_y-p1y*height)/((p2y-p1y)*height);

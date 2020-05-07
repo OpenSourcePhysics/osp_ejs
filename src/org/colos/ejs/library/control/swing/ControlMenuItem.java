@@ -31,11 +31,13 @@ public class ControlMenuItem extends ControlSwingElement {
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     menuItem = new JMenuItem ();
     menuItem.addActionListener (
       new java.awt.event.ActionListener() {
-        public void actionPerformed (java.awt.event.ActionEvent _e) { invokeActions (); }
+        @Override
+		public void actionPerformed (java.awt.event.ActionEvent _e) { invokeActions (); }
       }
     );
     return menuItem;
@@ -47,7 +49,8 @@ public class ControlMenuItem extends ControlSwingElement {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("text");
@@ -61,7 +64,8 @@ public class ControlMenuItem extends ControlSwingElement {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("text"))      return "String NotTrimmed TRANSLATABLE";
     if (_property.equals("image"))     return "File|String TRANSLATABLE";
     if (_property.equals("alignment")) return "Alignment|int";
@@ -76,7 +80,8 @@ public class ControlMenuItem extends ControlSwingElement {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 :
         if (!labelString.equals(_value.getString())) {
@@ -100,7 +105,8 @@ public class ControlMenuItem extends ControlSwingElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : menuItem.setText(labelString=""); break;
       case 1 : imageFile = null; menuItem.setIcon(null); break;
@@ -112,7 +118,8 @@ public class ControlMenuItem extends ControlSwingElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "<none>";
@@ -123,7 +130,8 @@ public class ControlMenuItem extends ControlSwingElement {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 :
       case 4 : case 5 :

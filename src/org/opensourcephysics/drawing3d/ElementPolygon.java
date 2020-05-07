@@ -175,11 +175,14 @@ public class ElementPolygon extends Element implements Data {
   protected int datasetID = hashCode();
 //  Dataset dataset = null;
 
-  public void setID(int id) { datasetID = id; }
+  @Override
+public void setID(int id) { datasetID = id; }
 
-  public int getID() { return datasetID; }
+  @Override
+public int getID() { return datasetID; }
   
-  public double[][] getData2D() { 
+  @Override
+public double[][] getData2D() { 
     double[][] data = new double[3][coordinates.length];
     for (int i = 0, n = coordinates.length;i<n;i++) { 
       data[0][i] = coordinates[i][0];
@@ -189,23 +192,29 @@ public class ElementPolygon extends Element implements Data {
     return data;
   }
 
-  public double[][][] getData3D() { return null; }
+  @Override
+public double[][][] getData3D() { return null; }
 
-  public String[] getColumnNames() { return new String[]{"x","y","z"}; }
+  @Override
+public String[] getColumnNames() { return new String[]{"x","y","z"}; }
 
-  public Color[] getLineColors() { 
+  @Override
+public Color[] getLineColors() { 
     return new Color[] { Color.BLACK, Color.BLUE, getStyle().getLineColor()}; 
   }
 
-  public Color[] getFillColors() { 
+  @Override
+public Color[] getFillColors() { 
     Paint fill = getStyle().getFillColor();
     if (fill instanceof Color) return new Color[] { Color.BLACK, Color.BLUE, (Color) fill };
     return new Color[] { Color.BLACK, Color.BLUE, Color.RED };
   }
 
-  public java.util.List<Data> getDataList() { return null; }
+  @Override
+public java.util.List<Data> getDataList() { return null; }
 
-  public java.util.ArrayList<Dataset>  getDatasets() { return null; }
+  @Override
+public java.util.ArrayList<Dataset>  getDatasets() { return null; }
 
 }
 

@@ -11,8 +11,6 @@ import java.util.*;
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.text.Document;
-
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.value.*;
 import org.opensourcephysics.display.DisplayColors;
@@ -113,13 +111,15 @@ public abstract class ControlSwingElement extends ControlElement {
   * Returns the visual component of this <code>ControlElement</code>,
   * the one you can configure graphically.
   */
-  final public Component getVisual() { return myVisual; }
+  @Override
+final public Component getVisual() { return myVisual; }
 
  /**
   * Returns the component of this <code>ControlElement</code>,
   * the one that is added to a container.
   */
-  public Component getComponent() { return myVisual; }
+  @Override
+public Component getComponent() { return myVisual; }
   // This one is not final because, although this is the usual behavior,
   // there are exceptions. F. i., when embedding the visual into a JScrollPane
 
@@ -152,6 +152,7 @@ public abstract class ControlSwingElement extends ControlElement {
      final ControlElement parent = myGroup.getElement(getProperty("parent"));
      if (parent!=null) {
 			OSPRuntime.dispatchEventWait(new Runnable() {
+				@Override
 				public synchronized void run() {
 					((ControlContainer) parent).remove(ControlSwingElement.this);
 				}
@@ -165,6 +166,7 @@ public abstract class ControlSwingElement extends ControlElement {
      mySize = myVisual.getPreferredSize();
      if (parent!=null) {
 			OSPRuntime.dispatchEventWait(new Runnable() {
+				@Override
 				public synchronized void run() {
 					((ControlContainer) parent).add(ControlSwingElement.this);
 					((ControlContainer) parent).adjustSize();
@@ -226,7 +228,8 @@ public abstract class ControlSwingElement extends ControlElement {
   */
   // Important: Order is crucial!!! if you change the order of the properties
   // you must up date the constants at the beginning of this file accordingly!!!
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (myInfoList==null) {
       myInfoList = new ArrayList<String>();
       myInfoList.add("name");
@@ -261,7 +264,8 @@ public abstract class ControlSwingElement extends ControlElement {
   *  </ll>
   */
   // Order in the implementation is irrelevant.
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("name"))       return "String         CONSTANT";
     if (_property.equals("position"))   return "Position       CONSTANT PREVIOUS";
     if (_property.equals("parent"))     return "ControlElement CONSTANT";
@@ -289,7 +293,8 @@ public abstract class ControlSwingElement extends ControlElement {
   * @param     String _property The property name
   * @param     String _value The proposed value for the property
   */
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     Value constantValue;
     if (_propertyType.indexOf("Alignment")>=0) {
@@ -329,7 +334,8 @@ public abstract class ControlSwingElement extends ControlElement {
    * @param _value Value
    * @return String
    */
-  public String toStringValue (Value _value) {
+  @Override
+public String toStringValue (Value _value) {
     if (_value instanceof ObjectValue) {
       ObjectValue obj = (ObjectValue) _value;
       if (obj.value instanceof Point) return ConstantParser.toString((Point) obj.value);
@@ -348,7 +354,8 @@ public abstract class ControlSwingElement extends ControlElement {
   * @param int _index   A keyword index that distinguishes among variables
   * @param Value _value The object holding the value for the variable.
   */
-  public void setValue (int _index, final Value _value) {
+  @Override
+public void setValue (int _index, final Value _value) {
 //    System.out.println (getComponent().getName()+": Setting property #"+_index+" to "+_value.toString());
     switch (_index) {
       case SWING_ELEMENT_NAME :
@@ -358,7 +365,8 @@ public abstract class ControlSwingElement extends ControlElement {
       case POSITION :
         {
           Runnable doIt = new Runnable() {
-            public synchronized void run() {
+            @Override
+			public synchronized void run() {
               ControlElement parent = myGroup.getElement(getProperty("parent"));
               if ((parent!=null) && (parent instanceof ControlContainer) ) ((ControlContainer) parent).remove(ControlSwingElement.this);
               myPropertiesTable.put("position",_value.toString());
@@ -373,7 +381,8 @@ public abstract class ControlSwingElement extends ControlElement {
       case PARENT :
         {
           Runnable doIt = new Runnable() {
-            public synchronized void run() {
+            @Override
+			public synchronized void run() {
               ControlElement parent = myGroup.getElement(getProperty("parent"));
               if ((parent!=null) && (parent instanceof ControlContainer) ) ((ControlContainer) parent).remove(ControlSwingElement.this);
               parent = myGroup.getElement(_value.toString());
@@ -404,7 +413,8 @@ public abstract class ControlSwingElement extends ControlElement {
             return;
           }
           Runnable doIt = new Runnable() {
-            public synchronized void run() {
+            @Override
+			public synchronized void run() {
               Dimension size = (Dimension) _value.getObject();
               if (size.width==mySize.width && size.height==mySize.height) return; // Do not waste time
               getComponent().setPreferredSize(mySize = size);
@@ -441,7 +451,8 @@ public abstract class ControlSwingElement extends ControlElement {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
 //    System.out.println ("Setting default value for property #"+_index);
     switch (_index) {
       case SWING_ELEMENT_NAME :
@@ -466,6 +477,7 @@ public abstract class ControlSwingElement extends ControlElement {
       case VISIBLE : getVisual().setVisible (true); break;
       case SIZE : // Size (getComponent() is necessarily a JComponent)
   		OSPRuntime.dispatchEventWait(new Runnable() {
+				@Override
 				public synchronized void run() {
 					getComponent().setPreferredSize(mySize = myDefaultSize);
 					if (ControlSwingElement.this instanceof ControlContainer)
@@ -490,7 +502,8 @@ public abstract class ControlSwingElement extends ControlElement {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case ENABLED : return "true";
       case VISIBLE : return "true";
@@ -507,7 +520,8 @@ public abstract class ControlSwingElement extends ControlElement {
   * @param int _index   A keyword index that distinguishes among variables
   * @return Value _value The object holding the value for the variable.
   */
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     return null; // None of these properties can be modified by the element
   }
 

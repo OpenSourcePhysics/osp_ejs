@@ -16,14 +16,17 @@ import org.opensourcephysics.drawing2d.*;
 public class ControlSpringSet2D extends ControlSet2D {
   static final private int PROPERTIES_ADDED=5;
   
-  protected int getPropertiesAddedToSet () { return PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesAddedToSet () { return PROPERTIES_ADDED; }
 
-  protected Element createAnElement() {
+  @Override
+protected Element createAnElement() {
     Element el = new ElementSpring();
     return el;
   }
 
-  protected void copyAnElement (Element oldElement, Element newElement) {
+  @Override
+protected void copyAnElement (Element oldElement, Element newElement) {
     super.copyAnElement(oldElement, newElement);
     ((ElementSpring)newElement).setRadius(((ElementSpring)oldElement).getRadius());
     ((ElementSpring)newElement).setSolenoid(((ElementSpring)oldElement).getSolenoid());
@@ -37,7 +40,8 @@ public class ControlSpringSet2D extends ControlSet2D {
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("radius");
@@ -51,7 +55,8 @@ public class ControlSpringSet2D extends ControlSet2D {
   }
 
   
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("radius"))          return "int|double|double[]";
     if (_property.equals("solenoid"))        return "int|double|double[]";
     if (_property.equals("thinExtremes"))    return "boolean|boolean[]";
@@ -65,7 +70,8 @@ public class ControlSpringSet2D extends ControlSet2D {
   //Set and Get the values of the properties
   //------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : 
         if (_value.getObject() instanceof double[]) {
@@ -133,7 +139,8 @@ public class ControlSpringSet2D extends ControlSet2D {
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : for (int i=0; i<elements.length; i++) ((ElementSpring)elements[i]).setRadius(ElementSpring.DEF_RADIUS); break;
       case 1 : for (int i=0; i<elements.length; i++) ((ElementSpring)elements[i]).setSolenoid(0.0); break;
@@ -152,7 +159,8 @@ public class ControlSpringSet2D extends ControlSet2D {
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return Double.toString(ElementSpring.DEF_RADIUS);
       case 1 : return "0.0";
@@ -163,7 +171,8 @@ public class ControlSpringSet2D extends ControlSet2D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 : 
         return null;

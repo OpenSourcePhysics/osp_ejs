@@ -15,16 +15,20 @@ public abstract class AbstractInteractionSource implements InteractionSource {
 
   private List<InteractionListener> listeners = new ArrayList<InteractionListener>();
 
-  public void addListener (InteractionListener _listener) {
+  @Override
+public void addListener (InteractionListener _listener) {
     if (_listener==null || listeners.contains(_listener)) return;
     listeners.add(_listener);
   }
 
-  public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
+  @Override
+public void removeListener (InteractionListener _listener) { listeners.remove(_listener); }
 
-  public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
+  @Override
+public void removeAllListeners () { listeners = new ArrayList<InteractionListener>(); }
 
-  public void invokeActions (InteractionEvent _event) { for (InteractionListener listener : listeners) listener.interactionPerformed (_event); }
+  @Override
+public void invokeActions (InteractionEvent _event) { for (InteractionListener listener : listeners) listener.interactionPerformed (_event); }
 
 }
 

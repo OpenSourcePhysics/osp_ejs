@@ -64,7 +64,8 @@ public class ElementMesh extends Group implements org.opensourcephysics.display.
    * Provides the array of points that conform the tile and its boundary
    * @param points The double[nPoints][3] where nPoints is the number of points in the tile
    */
-  public void setPoints(double[][] points) {
+  @Override
+public void setPoints(double[][] points) {
     mPoints = points;
     addChange(Element.CHANGE_SHAPE);
   }
@@ -74,7 +75,8 @@ public class ElementMesh extends Group implements org.opensourcephysics.display.
    * @param tiles the int[nCells][nPoints] array with the points in each cell.
    * For example,if the first cell is a triangle joining points 0,3,7, one gets: cell[0] = { 0, 3, 7 }; 
    */
-  public void setCells(int[][] cells) {
+  @Override
+public void setCells(int[][] cells) {
     mCellsGeometry = cells;
     addChange(Element.CHANGE_SHAPE);
   }
@@ -83,7 +85,8 @@ public class ElementMesh extends Group implements org.opensourcephysics.display.
    * Provides the field value for each point in the tile
    * @param values The double[nPoints][] array with the value for each mesh vertex
    */
-  public void setFieldAtPoints(double[][] values) {
+  @Override
+public void setFieldAtPoints(double[][] values) {
     mValues = values;
     mDimension = (mValues==null) ? 1 : mValues[0].length;
     mCellValues = null;
@@ -95,7 +98,8 @@ public class ElementMesh extends Group implements org.opensourcephysics.display.
    * Provides the field value for the points in each tile
    * @param values The double[nTiles][nPointsPerTile][] array with the value for each cell vertex
    */
-  public void setFieldAtCells(double[][][] values) {
+  @Override
+public void setFieldAtCells(double[][][] values) {
     mCellValues = values;
     mValues = null;
     mArrowSet.setVisible(mDimension>1);
@@ -110,17 +114,20 @@ public class ElementMesh extends Group implements org.opensourcephysics.display.
     mSize = length;
   }
   
-  public void setBoundary(int[][] boundary) {
+  @Override
+public void setBoundary(int[][] boundary) {
     mBoundaryData = boundary;
     addChange(Element.CHANGE_SHAPE);
   }
   
-  public void setBoundaryLabels(int[] labels) {
+  @Override
+public void setBoundaryLabels(int[] labels) {
     mBoundaryLabels = labels;
     addChange(Element.CHANGE_COLOR);
   }
 
-  public void setBoundaryColors(Color[] colors) {
+  @Override
+public void setBoundaryColors(Color[] colors) {
     mBoundaryColors = colors;
     addChange(Element.CHANGE_COLOR);
   }

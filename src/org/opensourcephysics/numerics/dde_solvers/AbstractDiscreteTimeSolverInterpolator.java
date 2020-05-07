@@ -72,9 +72,11 @@ public abstract class AbstractDiscreteTimeSolverInterpolator implements ODESolve
   // Implementation of ODESolverInterpolator
   //------------------------------------------------
   
-  final public ODE getODE() {	return mODE; }
+  @Override
+final public ODE getODE() {	return mODE; }
 
-  final public void initialize(double stepSize) {
+  @Override
+final public void initialize(double stepSize) {
     mStepSize = stepSize;
     double[] state = mODE.getState();
     if (mInitialState==null || mInitialState.length!=state.length) {
@@ -91,7 +93,8 @@ public abstract class AbstractDiscreteTimeSolverInterpolator implements ODESolve
     reinitialize(state);
   }
 
-  public void reinitialize(double[] state) {
+  @Override
+public void reinitialize(double[] state) {
     mInitialTime = state[mTimeIndex];
     System.arraycopy(state, 0, mInitialState, 0, mDimension);
 
@@ -142,21 +145,29 @@ public abstract class AbstractDiscreteTimeSolverInterpolator implements ODESolve
     mErrorCode = ODEAdaptiveSolver.NO_ERROR;
   }
 
-  public double[] getCurrentRate() { return mInitialRate; }
+  @Override
+public double[] getCurrentRate() { return mInitialRate; }
 
-  final public void setStepSize(double stepSize) { mStepSize = stepSize; }
+  @Override
+final public void setStepSize(double stepSize) { mStepSize = stepSize; }
 
-  public void setMaximumStepSize(double stepSize) { mMaximumStepSize = Math.abs(stepSize); }
+  @Override
+public void setMaximumStepSize(double stepSize) { mMaximumStepSize = Math.abs(stepSize); }
 
-  final public double getStepSize() { return mStepSize; }
+  @Override
+final public double getStepSize() { return mStepSize; }
   
-  final public double getInternalStepSize() { return mFinalTime-mInitialTime; }
+  @Override
+final public double getInternalStepSize() { return mFinalTime-mInitialTime; }
   
-  public void setEstimateFirstStep(boolean _estimate) {}
+  @Override
+public void setEstimateFirstStep(boolean _estimate) {}
   
-  public void setTolerances(double absTol, double relTol) {}
+  @Override
+public void setTolerances(double absTol, double relTol) {}
 
-  final public double getMaximumTime() {
+  @Override
+final public double getMaximumTime() {
     if (mErrorCode!=ODEAdaptiveSolver.NO_ERROR) return Double.NaN;
     if (Double.isNaN(mFinalTime)) {
       if (mDDE==null) computeOneStep(getActualStepSize(),Double.POSITIVE_INFINITY);
@@ -171,7 +182,8 @@ public abstract class AbstractDiscreteTimeSolverInterpolator implements ODESolve
     return mFinalTime; 
   }
 
-  final public double internalStep() {
+  @Override
+final public double internalStep() {
     mInitialTime = mFinalTime;
     mErrorCode = ODEAdaptiveSolver.NO_ERROR;
     System.arraycopy(mFinalState, 0, mInitialState, 0, mDimension);
@@ -190,25 +202,30 @@ public abstract class AbstractDiscreteTimeSolverInterpolator implements ODESolve
     return mFinalTime;  // the final time that was computed
   }
 
-  final public long getCounter()  { return mAccumulatedEvaluations; }
+  @Override
+final public long getCounter()  { return mAccumulatedEvaluations; }
   
-  final public void setMemoryLength(double length) {
+  @Override
+final public void setMemoryLength(double length) {
     length = Math.abs(length);
     if (mDDE!=null) mStateMemoryLength = Math.max(length,Math.abs(mDDE.getMaximumDelay()));
     else mStateMemoryLength = length;
     if (mStateMemoryLength==0) mStateMemory.clearAll();
   }
   
-  public StateMemory getStateMemory() { return mStateMemory; }
+  @Override
+public StateMemory getStateMemory() { return mStateMemory; }
 
-  public double[] interpolate(double time, boolean useLeftApproximation, double[] state) {
+  @Override
+public double[] interpolate(double time, boolean useLeftApproximation, double[] state) {
     return mStateMemory.interpolate(time, useLeftApproximation, state);
   }
 
   /*
    * Provides 'brute-force' interpolation by re-stepping from the initial time every time
    */
-  public double[] bestInterpolate(double time, double[] state) {
+  @Override
+public double[] bestInterpolate(double time, double[] state) {
     if (Double.isNaN(mFinalTime)) return null;
     if (time==mFinalTime) {
       System.arraycopy(mFinalState, 0, state, 0, mDimension);
@@ -340,9 +357,11 @@ public abstract class AbstractDiscreteTimeSolverInterpolator implements ODESolve
     
     public WrapperODE(ODE ode) { mODE = ode; }
     
-    public void prepareStep (double time, double[] delays) { } // Does nothing
+    @Override
+	public void prepareStep (double time, double[] delays) { } // Does nothing
     
-    public void evaluateRate(double[] state, double[] rate) { mODE.getRate(state, rate); }
+    @Override
+	public void evaluateRate(double[] state, double[] rate) { mODE.getRate(state, rate); }
   }
   
   static public class WrapperDDE implements Wrapper {
@@ -356,12 +375,14 @@ public abstract class AbstractDiscreteTimeSolverInterpolator implements ODESolve
       mIntervals = new IntervalData[dde.getDelays(state).length];
     }
     
-    public void prepareStep (double time, double[] delays) {
+    @Override
+	public void prepareStep (double time, double[] delays) {
 //      if (delays.length!=mIntervals.length) mIntervals = new IntervalData[delays.length];
       for (int i=0; i<delays.length; i++) mIntervals[i] = mSolver.mStateMemory.findInterval(time-delays[i], false);
     }
     
-    public void evaluateRate(double[] state, double[] rate) {
+    @Override
+	public void evaluateRate(double[] state, double[] rate) {
       mDDE.getRate(state, mIntervals,rate);
     }
     

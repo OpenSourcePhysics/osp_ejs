@@ -19,11 +19,14 @@ public class ControlSpring3D extends ControlElement3D {
 
   private ElementSpring spring;
 
-  public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSpring"; }
+  @Override
+public String getObjectClassname () { return "org.opensourcephysics.drawing3d.ElementSpring"; }
 
-  protected Element createElement () { return spring = new ElementSpring(); }
+  @Override
+protected Element createElement () { return spring = new ElementSpring(); }
 
-  protected int getPropertiesDisplacement () { return SPRING3D_PROPERTIES_ADDED; }
+  @Override
+protected int getPropertiesDisplacement () { return SPRING3D_PROPERTIES_ADDED; }
 
 // ------------------------------------------------
 // Definition of Properties
@@ -31,7 +34,8 @@ public class ControlSpring3D extends ControlElement3D {
 
   static java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("radius");
@@ -44,7 +48,8 @@ public class ControlSpring3D extends ControlElement3D {
     return infoList;
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("radius"))          return "int|double";
     if (_property.equals("solenoid"))        return "int|double";
     if (_property.equals("thinExtremes"))    return "boolean";
@@ -58,7 +63,8 @@ public class ControlSpring3D extends ControlElement3D {
 // Set and Get the values of the properties
 // ------------------------------------------------
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : spring.setRadius(_value.getDouble()); break;
       case 1 : spring.setSolenoid(_value.getDouble()); break;
@@ -70,7 +76,8 @@ public class ControlSpring3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
       case 0 : spring.setRadius(ElementSpring.DEF_RADIUS); break;
       case 1 : spring.setSolenoid(0.0); break;
@@ -82,7 +89,8 @@ public class ControlSpring3D extends ControlElement3D {
     if (isUnderEjs) updatePanel();
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return Double.toString(ElementSpring.DEF_RADIUS);
       case 1 : return "0.0";
@@ -93,7 +101,8 @@ public class ControlSpring3D extends ControlElement3D {
     }
   }
 
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case 0 : case 1 : case 2 : case 3 : case 4 : 
         return null;

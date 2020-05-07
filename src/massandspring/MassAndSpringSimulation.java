@@ -4,8 +4,6 @@
  */ 
 package massandspring;
 
-import org.colos.ejs.library._EjsConstants;
-
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
 
@@ -26,18 +24,21 @@ class MassAndSpringSimulation extends org.colos.ejs.library.Simulation {
     else { reset(); setAutoplay(false); }
   }
 
-  public java.util.List<String> getWindowsList() {
+  @Override
+public java.util.List<String> getWindowsList() {
     java.util.List<String> windowList = new java.util.ArrayList<String>();
     windowList.add("frame");
     windowList.add("dialog");
     return windowList;
   }
 
-  public String getMainWindow() {
+  @Override
+public String getMainWindow() {
     return "frame";
   }
 
-  protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
+  @Override
+protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
     mMainView.getConfigurableElement("frame")
       .setProperty("title","Mass and Spring")
       .setProperty("size","383,330");

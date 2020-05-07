@@ -65,7 +65,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
 // Visual component
 // ------------------------------------------------
 
-  protected java.awt.Component createVisual () {
+  @Override
+protected java.awt.Component createVisual () {
     plottingPanel = new PlottingPanel2D ("", "", "");
     plottingPanel.enableInspector(false);
     plottingPanel.setSquareAspect (false);
@@ -121,14 +122,16 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
 
     plottingPanel.addKeyListener (
       new java.awt.event.KeyAdapter() {
-        public void keyPressed  (java.awt.event.KeyEvent _e) {
+        @Override
+		public void keyPressed  (java.awt.event.KeyEvent _e) {
           keyPressedValue.value = _e.getKeyCode();
           if (reportKey) {
             variableChanged (KEY_INDEX,keyPressedValue);
             invokeActions (ControlSwingElement.KEY_ACTION);
           }
         }
-        public void keyReleased (java.awt.event.KeyEvent _e) {
+        @Override
+		public void keyReleased (java.awt.event.KeyEvent _e) {
 //          keyPressedValue.value = -1;
           if (reportKey) variableChanged (KEY_INDEX,keyPressedValue);
         }
@@ -140,12 +143,14 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
 
   protected int[] getPosIndex () { return posIndex; } // in case it should be overriden
 
-  protected List<Object> getExtraMenuOptions() {
+  @Override
+protected List<Object> getExtraMenuOptions() {
     
     JMenu fontMenu = new JMenu(DisplayRes.getString("DrawingFrame.Font_menu_title")); //$NON-NLS-1$
     JMenuItem sizeUpItem = new JMenuItem(DisplayRes.getString("DrawingFrame.IncreaseFontSize_menu_item")); //$NON-NLS-1$
     sizeUpItem.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      @Override
+	public void actionPerformed(ActionEvent e) {
         fontFactor += 0.2;
         axes.resizeFonts(fontFactor, plottingPanel);
         plottingPanel.setFontFactor(fontFactor);
@@ -156,7 +161,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
     fontMenu.add(sizeUpItem);
     final JMenuItem sizeDownItem = new JMenuItem(DisplayRes.getString("DrawingFrame.DecreaseFontSize_menu_item")); //$NON-NLS-1$
     sizeDownItem.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+      @Override
+	public void actionPerformed(ActionEvent e) {
         fontFactor -= 0.2;
         if (fontFactor<0.1) fontFactor = 0.1;
         axes.resizeFonts(fontFactor, plottingPanel);
@@ -178,7 +184,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
 
   static private java.util.List<String> infoList=null;
 
-  public java.util.List<String> getPropertyList() {
+  @Override
+public java.util.List<String> getPropertyList() {
     if (infoList==null) {
       infoList = new java.util.ArrayList<String> ();
       infoList.add ("title");
@@ -245,7 +252,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
     return infoList;
   }
 
-  public String getPropertyCommonName(String _property) {
+  @Override
+public String getPropertyCommonName(String _property) {
     if (_property.equals("pressaction")) return "pressAction";
     if (_property.equals("dragaction"))  return "dragAction";
     if (_property.equals("action"))      return "releaseAction";
@@ -253,7 +261,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
     return super.getPropertyCommonName(_property);
   }
 
-  public String getPropertyInfo(String _property) {
+  @Override
+public String getPropertyInfo(String _property) {
     if (_property.equals("title"))          return "String TRANSLATABLE";
     if (_property.equals("titleFont"))      return "Font|Object";
 
@@ -316,7 +325,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
     return super.getPropertyInfo(_property);
   }
 
-  public Value parseConstant (String _propertyType, String _value) {
+  @Override
+public Value parseConstant (String _propertyType, String _value) {
     if (_value==null) return null;
     if (_propertyType.indexOf("CartesianAxisType")>=0) {
       _value = _value.trim().toLowerCase();
@@ -336,7 +346,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
   }
 
   // Backwards compatibility
-  public ControlElement setProperty(String _property, String _value) {
+  @Override
+public ControlElement setProperty(String _property, String _value) {
     _property = _property.trim();
     if (_property.equals("x") || _property.equals("y") || _property.equals("dragaction")) {
       if (_value!=null) {
@@ -360,7 +371,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
 // ------------------------------------------------
 
 
-  public void setValue (int _index, Value _value) {
+  @Override
+public void setValue (int _index, Value _value) {
     switch (_index) {
       case 0 : plottingPanel.setTitle(title=_value.getString(),titleFontname); break;
       case 1 :
@@ -576,7 +588,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
     }
   }
 
-  public void setDefaultValue (int _index) {
+  @Override
+public void setDefaultValue (int _index) {
     switch (_index) {
 
       case 0 : plottingPanel.setTitle(title="",titleFontname); break;
@@ -677,7 +690,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
     }
   }
 
-  public String getDefaultValueString (int _index) {
+  @Override
+public String getDefaultValueString (int _index) {
     switch (_index) {
       case 0 : return "<none>";
       case 1 : return "Helvetica-BOLD-14";
@@ -716,7 +730,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
     }
   }
   
-  public Value getValue (int _index) {
+  @Override
+public Value getValue (int _index) {
     switch (_index) {
       case  0 : case  1 : case  2 : case  3 : case  4 : case  5 :
       case  6 : case  7 : case  8 : case  9 : case 10 : case 11 :
@@ -742,7 +757,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
   private InteractionSource sourceLingered=null;
   private org.opensourcephysics.drawing2d.interaction.InteractionTarget target2D=null, target2DEntered=null;
 
-  public  ControlDrawable getSelectedDrawable() {
+  @Override
+public  ControlDrawable getSelectedDrawable() {
     if (targetHit!=null && (targetHit.getSource() instanceof HasDataObjectInterface) ) {
       Object data = ((HasDataObjectInterface) targetHit.getSource()).getDataObject();
       if (data instanceof ControlDrawable) return (ControlDrawable) data;
@@ -760,7 +776,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
         _target2D.getActionCommand(),_target2D, _evt));
   }
   
-  public void handleMouseAction(final InteractivePanel _panel, MouseEvent _evt) {
+  @Override
+public void handleMouseAction(final InteractivePanel _panel, MouseEvent _evt) {
     switch (_panel.getMouseAction ()) {
       case InteractivePanel.MOUSE_PRESSED :
         Interactive interactiveDrawable=_panel.getInteractive ();
@@ -905,7 +922,8 @@ public class ControlPlottingPanel extends ControlDrawablesParent implements Inte
   /*
    * used as listener by CartesianInteractive axes 
    */
-  public void actionPerformed(ActionEvent evt) {
+  @Override
+public void actionPerformed(ActionEvent evt) {
     isZoomed = true;
     invokeActions (ControlSwingElement.AXIS_DRAGGED_ACTION);
   }
