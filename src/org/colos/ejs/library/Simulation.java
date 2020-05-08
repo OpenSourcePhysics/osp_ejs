@@ -44,7 +44,7 @@ import org.opensourcephysics.desktop.OSPDesktop;
  */
 
 public abstract class Simulation extends Animation {
-  static public ResourceBundle ejsRes = ResourceBundle.getBundle("org.colos.ejs.library.resources.ejs_res", Locale.getDefault());
+  static public ResourceBundle ejsRes = ResourceLoader.getBundle("org.colos.ejs.library.resources.ejs_res");
 
   static private final String DEFAULT_STATE_FILENAME = "DefaultState.out";
   
