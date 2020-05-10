@@ -101,7 +101,6 @@ public void read() {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("x".equals(_variable)) {
       _model.x = getDouble("x"); // Variables.Dynamical Vars:1
@@ -172,7 +171,6 @@ public void propagateValues () {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("x".equals(_variable)) __x_canBeChanged__ = false; // Variables.Dynamical Vars:1
     if ("vx".equals(_variable)) __vx_canBeChanged__ = false; // Variables.Dynamical Vars:2

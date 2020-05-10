@@ -104,7 +104,6 @@ public void read() {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("vx0".equals(_variable)) {
       _model.vx0 = getDouble("vx0"); // Variables.Initial Conditions:1
@@ -180,7 +179,6 @@ public void propagateValues () {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("vx0".equals(_variable)) __vx0_canBeChanged__ = false; // Variables.Initial Conditions:1
     if ("vy0".equals(_variable)) __vy0_canBeChanged__ = false; // Variables.Initial Conditions:2

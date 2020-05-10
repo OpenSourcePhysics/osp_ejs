@@ -24,7 +24,7 @@ public class ControlComboBox extends ControlSwingElement {
 //  static private final int BACKGROUND  = ControlSwingElement.BACKGROUND+COMBOBOX_ADDED;
   static private final int COMBO_FOREGROUND1  = ControlSwingElement.FOREGROUND+COMBOBOX_ADDED;
 
-  protected JComboBox combo;
+  protected JComboBox<String> combo;
   private java.awt.Component editorComponent;
   private String optionsString;
   private StringValue internalValue;
@@ -38,7 +38,7 @@ public class ControlComboBox extends ControlSwingElement {
 
   @Override
 protected java.awt.Component createVisual () {
-    combo = new JComboBox();
+    combo = new JComboBox<>();
     defaultEditable = combo.isEditable();
     combo.addActionListener (new MyActionListener());
     editorComponent = combo.getEditor().getEditorComponent();

@@ -181,7 +181,6 @@ public void read() {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("N10".equals(_variable)) {
       _model.N10 = getInt("N10"); // Variables.Stochastic Vars:1
@@ -362,7 +361,6 @@ public void propagateValues () {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("N10".equals(_variable)) __N10_canBeChanged__ = false; // Variables.Stochastic Vars:1
     if ("N20".equals(_variable)) __N20_canBeChanged__ = false; // Variables.Stochastic Vars:2

@@ -128,7 +128,6 @@ public void read() {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("msg".equals(_variable)) {
       _model.msg = getString("msg"); // Variables.Aux vars:1
@@ -269,7 +268,6 @@ public void propagateValues () {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("msg".equals(_variable)) __msg_canBeChanged__ = false; // Variables.Aux vars:1
     if ("componentB".equals(_variable)) __componentB_canBeChanged__ = false; // Variables.Aux vars:2

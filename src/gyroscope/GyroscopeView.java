@@ -182,7 +182,6 @@ public void read() {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("q".equals(_variable)) {
       double[] _data = (double[]) getValue("q").getObject();
@@ -383,7 +382,6 @@ public void propagateValues () {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("q".equals(_variable)) __q_canBeChanged__ = false; // Variables.Dynamic Vars:1
     if ("qDot".equals(_variable)) __qDot_canBeChanged__ = false; // Variables.Dynamic Vars:2

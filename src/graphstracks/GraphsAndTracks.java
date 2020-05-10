@@ -128,7 +128,7 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
       System.exit(-1);
     }
 
-    GraphsAndTracks __theModel = new GraphsAndTracks (_args);
+    new GraphsAndTracks (_args);
   }
 
   static public javax.swing.JComponent getModelPane(String[] _args, javax.swing.JFrame _parentFrame) {
@@ -642,7 +642,8 @@ public void _freeMemory () {
     @Override
 	public double[] getState () { return __state; }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
 	public void getRate (double[] __aState, double[] __aRate) {
       __aRate[__aRate.length-1] = 0.0; // In case the prelim code returns
       int __index=-1; // so that it can be used in preliminary code
@@ -680,7 +681,8 @@ public void _freeMemory () {
       @Override
 	public double getTolerance () { return tol; }
 
-      @Override
+      @SuppressWarnings("unused")
+	@Override
 	public double evaluate (double[] __aState) { 
       // Extract our variables from __aState
       int __cOut=0;
@@ -745,7 +747,8 @@ public void _freeMemory () {
       @Override
 	public double getTolerance () { return tol; }
 
-      @Override
+      @SuppressWarnings("unused")
+	@Override
 	public double evaluate (double[] __aState) { 
       // Extract our variables from __aState
       int __cOut=0;

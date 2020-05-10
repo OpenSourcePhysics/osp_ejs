@@ -434,7 +434,6 @@ public void read() {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void read(String _variable) {
     if ("x0".equals(_variable)) {
       _model.x0 = getDouble("x0"); // Variables.Constants:1
@@ -914,7 +913,6 @@ public void propagateValues () {
   }
 
   @Override
-@SuppressWarnings("unchecked")
   public void blockVariable(String _variable) {
     if ("x0".equals(_variable)) __x0_canBeChanged__ = false; // Variables.Constants:1
     if ("v0".equals(_variable)) __v0_canBeChanged__ = false; // Variables.Constants:2
