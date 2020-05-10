@@ -33,8 +33,6 @@ public class ElementText extends Element {
   private double[] pixel = new double[3]; // The output of all projections
   private TextLine textLine = (useDrawableTL ? new DrawableTextLine("", 0, 0) : new TextLine());
   private AffineTransform trAlign = new AffineTransform();
-private double xAlign;
-private double yAlign;
 
   {
     setSizeXY(0.4,0.4);
@@ -122,8 +120,6 @@ private double yAlign;
         case Style.SOUTH_EAST : x1 = -1.0; y1 =  0.0; break;
         case Style.SOUTH_WEST : x1 =  0.0; y1 =  0.0; break;
       }
-      xAlign = x1;
-      yAlign = y1;
       trAlign = AffineTransform.getTranslateInstance(x1, y1);
     }
   }
