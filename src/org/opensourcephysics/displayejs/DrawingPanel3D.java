@@ -899,7 +899,7 @@ public boolean isFocusable () { return true; }
     iad=null;
     targetHit=null;
     showTrackers(false);
-    blMessageBox.setText(null);
+    messages.setMessage(null,0);
     repaint();
   }
 
@@ -1100,10 +1100,10 @@ public void handleMouseAction(InteractivePanel _panel, java.awt.event.MouseEvent
 
   private void displayPosition (double x, double y, double z) {
     switch (displayMode) {
-      case DISPLAY_PLANAR_XY : blMessageBox.setText (xFormat.format(x) + " " + yFormat.format(y)); break;
-      case DISPLAY_PLANAR_XZ : blMessageBox.setText (xFormat.format(x) + " " + zFormat.format(z)); break;
-      case DISPLAY_PLANAR_YZ : blMessageBox.setText (yFormat.format(y) + " " + zFormat.format(z)); break;
-      default : /* 3D */       blMessageBox.setText (xFormat.format(x) + " " + yFormat.format(y) + " " + zFormat.format(z)); break;
+      case DISPLAY_PLANAR_XY : messages.setMessage(xFormat.format(x) + " " + yFormat.format(y),0); break;
+      case DISPLAY_PLANAR_XZ : messages.setMessage(xFormat.format(x) + " " + zFormat.format(z),0); break;
+      case DISPLAY_PLANAR_YZ : messages.setMessage(yFormat.format(y) + " " + zFormat.format(z),0); break;
+      default : /* 3D */       messages.setMessage(xFormat.format(x) + " " + yFormat.format(y) + " " + zFormat.format(z),0); break;
     }
   }
 

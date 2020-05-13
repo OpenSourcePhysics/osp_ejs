@@ -8,6 +8,7 @@
 package org.opensourcephysics.drawing3d.simple3d;
 
 import java.util.*;
+import java.lang.reflect.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
@@ -16,7 +17,6 @@ import java.awt.print.*;
 import javax.swing.*;
 
 import org.opensourcephysics.display.MessageDrawable;
-import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.drawing3d.*;
 import org.opensourcephysics.drawing3d.utils.*;
 import org.opensourcephysics.tools.ResourceLoader;
@@ -31,7 +31,7 @@ import org.opensourcephysics.tools.ResourceLoader;
  * @author Wolfgang Christian
  * @version August 2009
  */
-public class SimpleDrawingPanel3D extends javax.swing.JPanel implements ImplementingPanel, Printable, ActionListener {
+public class SimpleDrawingPanel3DWC extends javax.swing.JPanel implements ImplementingPanel, Printable, ActionListener {
 
   // Implementation variables
    private boolean fastRedraw = false;
@@ -48,15 +48,14 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
    
    private DrawingPanel3D panel3D;
    
-   protected MessageDrawable messages = new MessageDrawable();
+ 	 protected MessageDrawable messages = new MessageDrawable();
 
-   public SimpleDrawingPanel3D(DrawingPanel3D _panel) {
+   public SimpleDrawingPanel3DWC(DrawingPanel3D _panel) {
      this.panel3D = _panel;
      super.setBackground(panel3D.getVisualizationHints().getBackgroundColor());
      setLayout(new BorderLayout());
      addComponentListener(new java.awt.event.ComponentAdapter() {
-       @Override
-	public void componentResized(java.awt.event.ComponentEvent e) {
+       public void componentResized(java.awt.event.ComponentEvent e) {
          needResize = true;
          dirtyImage = true;
        }
@@ -67,35 +66,29 @@ public class SimpleDrawingPanel3D extends javax.swing.JPanel implements Implemen
    // Implementation of ImplementingPanel
    // ------------------------------------
 
-   @Override
-	public void cameraChanged(int howItChanged) {} // Does nothing
-   
-   @Override
-public Component getComponent() { return this; }
+   public Component getComponent() { return this; }
 
-   @Override
-public void forceRefresh() { 
+   public void forceRefresh() { 
      needsToRecompute = true;
      dirtyImage = true;
    }
 
-   @Override
-public void update() {
+   public void update() {
      dirtyImage = true;
      updatePanel();
    }
 
-   @Override
-public void setFastRedraw(boolean fast) {
+   public void setFastRedraw(boolean fast) {
      fastRedraw = fast;
    }
+   
+   public void cameraChanged(int howItChanged) {} // Does nothing
    
    public void setMessage(String msg) { 
   	 messages.setMessage(msg);
    }
 
-   @Override
-	public void setMessage(String msg, int location) { 
+   public void setMessage(String msg, int location) { 
   	 messages.setMessage(msg,location);
    }
 
@@ -103,16 +96,15 @@ public void setFastRedraw(boolean fast) {
    // Implementation of Renderable
    // ------------------------------------
 
-   @Override
    public BufferedImage render(BufferedImage image) {
      Graphics g = image.getGraphics();
      paintEverything(g, image.getWidth(null), image.getHeight(null));
+     Rectangle thisViewRect = this.viewRect; // reference for thread safety
      g.dispose(); // Disposes of the graphics context and releases any system resources that it is using.
      return image;
    }
 
-   @Override
-public BufferedImage render() {
+   public BufferedImage render() {
       if (!isShowing()||isIconified()) { // don't render if panel cannot be seen
          needsToRecompute = true;       // make sure we recompute later when we are showing
          return null;                   // no need to render if the frame is not visible
@@ -131,12 +123,17 @@ public BufferedImage render() {
       }
       // the offscreenImage is now ready to be copied to the screen
       // always update a Swing component from the event thread
-		OSPRuntime.dispatchEventWait(new Runnable() {
-			@Override
-			public void run() {
-				paintImmediately(getVisibleRect());
-			}
-		});
+      if(SwingUtilities.isEventDispatchThread()) {
+        paintImmediately(getVisibleRect()); // we are already within the event thread so DO IT!
+      } 
+      else {                               // paint within the event thread
+        Runnable doNow = new Runnable() {   // runnable object will be called by invokeAndWait
+          public void run() { paintImmediately(getVisibleRect()); }
+        };
+        try {  SwingUtilities.invokeAndWait(doNow); } // wait for the paint operation to finish; should be fast
+        catch(InvocationTargetException ex) {}
+        catch(InterruptedException ex) {}
+      }
       org.opensourcephysics.tools.VideoTool vidCap = panel3D.getVideoTool();
       if (vidCap!=null && offscreenImage!=null && vidCap.isRecording()) { // buffered image should exists so use it.
         vidCap.addFrame(offscreenImage);
@@ -152,8 +149,7 @@ public BufferedImage render() {
     * Performs an action for the update timer by rendering a new background image
     * @param  evt
     */
-   @Override
-public void actionPerformed(ActionEvent evt) { // render a new image if the current image is dirty
+   public void actionPerformed(ActionEvent evt) { // render a new image if the current image is dirty
       if (dirtyImage || needsUpdate()) render(); // renders the scene from within the timer thread
    }
 
@@ -289,6 +285,7 @@ public void actionPerformed(ActionEvent evt) { // render a new image if the curr
         g.fillRect(0, 0, width, height); // fill the component with the background color
       }
       paintDrawableList(g, tempList);
+      messages.drawOn3D(this, g);
    }
 
    private void paintDrawableList(Graphics g, java.util.List<Element> tempList) {
@@ -328,8 +325,7 @@ public void actionPerformed(ActionEvent evt) { // render a new image if the curr
    // Printable interface
    // ----------------------------------------------------
    
-   @Override
-public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
+   public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws PrinterException {
       if(pageIndex>=1) {
          return Printable.NO_SUCH_PAGE;
       }
@@ -346,8 +342,7 @@ public int print(Graphics g, PageFormat pageFormat, int pageIndex) throws Printe
       return Printable.PAGE_EXISTS;
    }
 
-   @Override
-public void visualizationChanged(int _change){
+   public void visualizationChanged(int _change){
      switch(_change){
        case VisualizationHints.HINT_BACKGROUND_IMAGE:
          if (panel3D.getVisualizationHints().getBackgroundImageFilename()!=null) {
@@ -363,8 +358,7 @@ public void visualizationChanged(int _change){
    /***************************************************Andres*******************************************************
     * DO nothing with simple3D
     **************************************************************************************************************/
-   @Override
-public void setEyeDistance(double d) {
+   public void setEyeDistance(double d) {
      // do nothing   
    }
    //*************************************************************************************************************+
