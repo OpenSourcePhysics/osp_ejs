@@ -583,7 +583,7 @@ public class EjsControl {
   	}
 	  Object object = element.getObject();
     if      (object instanceof Frame) setOwnerFrame((Frame) object); // Frames become automatically ownerFrames for subsequent Dialogs
-    else if (object instanceof Dialog && ownerFrame!=null) element.replaceVisual(ownerFrame); // Use ownerFrame for Dialogs, if there is any
+    else if (object instanceof JDialog && ownerFrame!=null) element.replaceVisual(ownerFrame); // Use ownerFrame for Dialogs, if there is any
     else if (object instanceof JTextArea)  messageArea = (JTextArea) object;
     element.setGroup(this);
     element.setProperty("name", name);
@@ -1226,7 +1226,7 @@ public class EjsControl {
     if (_child==null) return null;
     JDialog dialog;
     if (_owner instanceof Frame) dialog = new JDialog((Frame) _owner);
-    else if (_owner instanceof Dialog) dialog = new JDialog((Dialog) _owner);
+    else if (_owner instanceof JDialog) dialog = new JDialog((JDialog) _owner);
     else dialog = new JDialog();
     // This code is 1.6 dependent
 //    Window windowOwner=null;
