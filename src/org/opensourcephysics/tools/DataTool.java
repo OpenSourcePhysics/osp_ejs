@@ -1490,7 +1490,8 @@ public void propertyChange(PropertyChangeEvent e) {
       column.setMarkerColor(source.getFillColor(), source.getLineColor());
       column.setID(source.getID());
       column.setColumnID(i);
-      column.setPoints((i==0) ? source.getXPoints() : source.getYPoints());
+      column.setPoints(i==0 ? source.getXPointsRaw() 
+    		  : source.isShifted() ? source.getYPoints() : source.getYPointsRaw(), source.getIndex());
       column.setXColumnVisible(false);
       columns.add(column);
     }
@@ -1528,7 +1529,7 @@ public void propertyChange(PropertyChangeEvent e) {
     }
     column.setID(source.getID());
     column.setColumnID(columnID);
-    column.setPoints(data);
+    column.setPoints(data, data.length);
     return column;
   }
 
