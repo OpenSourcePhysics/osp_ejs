@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.awt.print.*;
 import javax.swing.*;
 
+import org.opensourcephysics.display.DrawingPanel;
 import org.opensourcephysics.display.MessageDrawable;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.drawing3d.*;
@@ -90,14 +91,38 @@ public void setFastRedraw(boolean fast) {
      fastRedraw = fast;
    }
    
-   public void setMessage(String msg) { 
-  	 messages.setMessage(msg);
-   }
+	/**
+	 * Shows a message in a yellow text box in the lower right hand corner.
+	 *
+	 * @param msg
+	 */
+	@Override
+	public void setMessage(String msg) {
+		setMessage(msg, DrawingPanel.BOTTOM_RIGHT);
+	}
 
-   @Override
-	public void setMessage(String msg, int location) { 
-  	 messages.setMessage(msg,location);
-   }
+	
+	private String[] lastMessage = new String[4];
+	/**
+	 * Shows a message in a yellow text box.
+	 *
+	 * location 0=bottom left location 1=bottom right location 2=top right location
+	 * 3=top left
+	 *
+	 * @param msg
+	 * @param location
+	 */
+	@Override
+	public void setMessage(String msg, int location) {
+		if (msg != null && msg.length() == 0)
+			msg = null;
+		messages.setMessage(msg, location);
+		if (msg == null ? lastMessage == null : msg.equals(lastMessage[location])) {
+			return;
+		}
+		lastMessage[location] = msg;
+		repaint();
+	}
 
    // ------------------------------------
    // Implementation of Renderable
