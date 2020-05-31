@@ -564,7 +564,8 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
    * @throws RemoteException
    */
   @Override
-public void send(Job job, Tool replyTo) throws RemoteException {
+public void send(Job job, Tool replyTo) //throws RemoteException 
+  {
     XMLControlElement control = new XMLControlElement(job.getXML());
     if(control.failedToRead()||(control.getObjectClass()==Object.class)) {
       return;
