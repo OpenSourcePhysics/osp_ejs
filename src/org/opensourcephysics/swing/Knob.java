@@ -5,6 +5,8 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.RectangularShape;
 
+import org.opensourcephysics.display.OSPRuntime;
+
 public class Knob extends javax.swing.JPanel {
   static private Dimension DEFAULT_SIZE = new Dimension(20,20);
   
@@ -157,7 +159,8 @@ public class Knob extends javax.swing.JPanel {
     super.paintComponent(_g);
     preparePaint();
     Graphics2D g2 = (Graphics2D) _g;
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    if (OSPRuntime.setRenderingHints)	
+    	g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
     // Paint outer shade
     g2.setPaint(outerPaint);
     g2.fill(outerCircle);
