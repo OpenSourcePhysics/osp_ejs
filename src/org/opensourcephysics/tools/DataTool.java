@@ -75,6 +75,7 @@ import org.opensourcephysics.controls.XMLTreeChooser;
 import org.opensourcephysics.desktop.OSPDesktop;
 import org.opensourcephysics.display.Data;
 import org.opensourcephysics.display.DataFunction;
+import org.opensourcephysics.display.DataTable;
 import org.opensourcephysics.display.Dataset;
 import org.opensourcephysics.display.DatasetManager;
 import org.opensourcephysics.display.DisplayColors;
@@ -642,7 +643,7 @@ public void propertyChange(PropertyChangeEvent e) {
       DataToolTab tab = getSelectedTab();
       if(tab!=null) {
         tab.tabChanged(true);
-        tab.dataTable.refreshTable();
+        tab.dataTable.refreshTable(DataTable.MODE_FUNCTION);
         tab.statsTable.refreshStatistics();
         if(e.getNewValue() instanceof DataFunction) { // new function has been created
           String funcName = e.getNewValue().toString();
@@ -2233,7 +2234,7 @@ public void setDefaultCloseOperation(int operation) {
         final DataToolTab tab = getSelectedTab();
         if(tab!=null) {
         	tab.refreshData();
-          tab.dataTable.refreshTable();
+          tab.dataTable.refreshTable(DataTable.MODE_TAB);
           tab.statsTable.refreshStatistics();
           tab.propsTable.refreshTable();
           tab.refreshPlot();
