@@ -11,6 +11,7 @@ import java.util.*;
 import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
 import org.colos.ejs.library.control.swing.ControlWindow;
+import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.js.JSUtil;
 
 import javajs.async.SwingJSUtils;
@@ -313,31 +314,40 @@ public void run() {
   }
 
   /**
-   * Stops the simulation and frees memory
-   */
-  public void onExit() {
-    animationThread = null;
-    isPlaying = false;
-    abortSPDLoop = true;
-    checkMethodsInvokedByView();
-    for (ControlElement element : view.getElements()) {
-      if (element instanceof ControlWindow) ControlWindow.removeFromWindowList((ControlWindow) element);
-    }
+	 * Stops the simulation and frees memory
+	 */
+	public void onExit() {
+		animationThread = null;
+		isPlaying = false;
+		abortSPDLoop = true;
+		checkMethodsInvokedByView();
+		for (ControlElement element : view.getElements()) {
+			if (element instanceof ControlWindow)
+				ControlWindow.removeFromWindowList((ControlWindow) element);
+		}
 
-    if(JSUtil.isJS) return;
-      Thread onExitThread = new Thread(sEJSThreadGroup,new Runnable() {
-        @Override
-		public void run() {
-          view.onExit();
-          model._freeMemory();
-        }
-      });
-      onExitThread.setPriority(Thread.NORM_PRIORITY);
-      onExitThread.setDaemon(true);
-      onExitThread.start(); // start the animation
-      try { Thread.sleep(500); } 
-      catch(InterruptedException ie) {} 
-  }
+		if (JSUtil.isJS) return;
+		
+		if (OSPRuntime.isApplet) {
+			view.onExit();
+			model._freeMemory();
+		} else {
+			Thread onExitThread = new Thread(sEJSThreadGroup, new Runnable() {
+				@Override
+				public void run() {
+					view.onExit();
+					model._freeMemory();
+				}
+			});
+			onExitThread.setPriority(Thread.NORM_PRIORITY);
+			onExitThread.setDaemon(true);
+			onExitThread.start(); // start the animation
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException ie) {
+			}
+		}
+	}
 
 // ------------------------------------
 // Simulation logic based on the model
