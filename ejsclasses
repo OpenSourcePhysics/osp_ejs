@@ -687,7 +687,6 @@ org/opensourcephysics/display/LogMeasurable.js
 org/opensourcephysics/display/Measurable.js
 org/opensourcephysics/display/MessageDrawable.js
 org/opensourcephysics/display/OSPFrame.js
-org/opensourcephysics/display/OSPLayout.js
 org/opensourcephysics/display/OSPRuntime.js
 org/opensourcephysics/display/PlottingPanel.js
 org/opensourcephysics/display/Renderable.js
@@ -748,7 +747,6 @@ org/opensourcephysics/drawing3d/MultiTrail.js
 org/opensourcephysics/drawing3d/interaction/InteractionListener.js
 org/opensourcephysics/drawing3d/interaction/InteractionSource.js
 org/opensourcephysics/drawing3d/interaction/InteractionTarget.js
-org/opensourcephysics/drawing3d/simple3d/MessagesPanel.js
 org/opensourcephysics/drawing3d/simple3d/Object3D.js
 org/opensourcephysics/drawing3d/simple3d/SimpleAbstractTile.js
 org/opensourcephysics/drawing3d/simple3d/SimpleDrawingPanel3D.js
@@ -823,8 +821,6 @@ org/opensourcephysics/resources/display/display_res_en_US.js
 org/opensourcephysics/resources/tools/tools.js
 org/opensourcephysics/resources/tools/tools_en.js
 org/opensourcephysics/resources/tools/tools_en_US.js
-org/opensourcephysics/resources/tools/xuggle.js
-org/opensourcephysics/resources/tools/xuggle_en.js
 org/opensourcephysics/tools/DataTool.js
 org/opensourcephysics/tools/EjsTool.js
 org/opensourcephysics/tools/ExportTool.js
@@ -836,7 +832,6 @@ org/opensourcephysics/tools/Tool.js
 org/opensourcephysics/tools/ToolForData.js
 org/opensourcephysics/tools/ToolForDataFull.js
 org/opensourcephysics/tools/ToolsRes.js
-org/opensourcephysics/tools/XuggleRes.js
 sun/awt/AWTAutoShutdown.js
 sun/awt/AppContext.js
 sun/awt/CausedFocusEvent.js
