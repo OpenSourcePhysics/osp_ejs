@@ -112,6 +112,7 @@ public void update() {
           for (int i=columnFormats.length,n=input.length; i<n; i++) dataPanel.setColumnFormat(i,columnFormats[columnFormats.length-1]);
         }
       }
+      dataPanel.refreshTable(null);
     }
   }
   
