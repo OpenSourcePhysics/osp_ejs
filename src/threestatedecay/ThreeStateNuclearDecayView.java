@@ -33,7 +33,7 @@ class ThreeStateNuclearDecayView extends org.colos.ejs.library.control.EjsContro
   public javax.swing.JPanel n3Panel;
   public javax.swing.JLabel n3Label;
   public javax.swing.JTextField n3Field;
-  public org.opensourcephysics.drawing2d.DrawingPanel2D sampleDraingPanel;
+  public org.opensourcephysics.drawing2d.DrawingPanel2D sampleDrawingPanel;
   public org.opensourcephysics.drawing2d.Set sampleShapeSet;
   public javax.swing.JPanel controlPanel;
   public javax.swing.JPanel buttonPanel;
@@ -561,8 +561,8 @@ public void propagateValues () {
       .setProperty("size","40,24")
       .setProperty("tooltip","Lower state particle number.")
       .getObject();
-    sampleDraingPanel = (org.opensourcephysics.drawing2d.DrawingPanel2D)
-      addElement(new org.colos.ejs.library.control.swing.ControlDrawingPanel(),"sampleDraingPanel")
+    sampleDrawingPanel = (org.opensourcephysics.drawing2d.DrawingPanel2D)
+      addElement(new org.colos.ejs.library.control.swing.ControlDrawingPanel(),"sampleDrawingPanel")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
       .setProperty("parent","mainFrame")
@@ -577,7 +577,7 @@ public void propagateValues () {
     sampleShapeSet = (org.opensourcephysics.drawing2d.Set)
       addElement(new org.colos.ejs.library.control.drawing2d.ControlShapeSet2D(),"sampleShapeSet")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
-      .setProperty("parent","sampleDraingPanel")
+      .setProperty("parent","sampleDrawingPanel")
       .setProperty("x","x")
       .setProperty("y","y")
       .setProperty("sizeX","particleDiameter")
@@ -1053,7 +1053,7 @@ public void reset() {
       .setProperty("columns","4")
       .setProperty("size","40,24")
       .setProperty("tooltip","Lower state particle number.");
-    getElement("sampleDraingPanel")
+    getElement("sampleDrawingPanel")
       .setProperty("autoscaleX","false")
       .setProperty("autoscaleY","false")
       .setProperty("minimumX","0")

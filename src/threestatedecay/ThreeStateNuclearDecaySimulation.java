@@ -85,7 +85,7 @@ protected void setViewLocale() { // Overwrite its parent's dummy method with rea
       .setProperty("format","0")
       .setProperty("size","40,24")
       .setProperty("tooltip","Lower state particle number.");
-    mMainView.getConfigurableElement("sampleDraingPanel");
+    mMainView.getConfigurableElement("sampleDrawingPanel");
     mMainView.getConfigurableElement("sampleShapeSet");
     mMainView.getConfigurableElement("controlPanel");
     mMainView.getConfigurableElement("buttonPanel")

@@ -39,14 +39,14 @@ public class ControlFrame extends ControlWindow {
 // ------------------------------------------------
 // Visual component
 // ------------------------------------------------
-  
-  @Override
-protected java.awt.Component createVisual () {
-    startingup = true;
-    frame = new JFrame(EjsControl.getDefaultGraphicsConfiguration());
-    
-    frame.getContentPane().setLayout (new java.awt.BorderLayout());
-    String path = org.colos.ejs.library.Simulation.getPathToLibrary();
+
+	@Override
+	protected java.awt.Component createVisual() {
+		startingup = true;
+		frame = new JFrame(EjsControl.getDefaultGraphicsConfiguration());
+
+		frame.getContentPane().setLayout(new java.awt.BorderLayout());
+		String path = org.colos.ejs.library.Simulation.getPathToLibrary();
 //    System.err.println ("Path is "+path);
     if (!path.endsWith("/")) path += "/";
     java.awt.Image image = ResourceLoader.getImage(path+"_ejs_library/images/EjsMainIcon.gif");
@@ -54,32 +54,32 @@ protected java.awt.Component createVisual () {
 //    java.awt.Image image = ResourceLoader.getImage("data/icons/EjsFrameIcon.gif");
 //    if (image==null) image = ResourceLoader.getImage(org.colos.ejs.library.Simulation.getPathToLibrary()+"_ejs_library/images/EjsMainIcon.gif");
 //    if (image!=null) frame.setIconImage(image);
-    frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-    internalValue = new BooleanValue (true);
-    frame.getContentPane().addKeyListener (
-        new java.awt.event.KeyAdapter() {
-          @Override
-		public void keyPressed  (java.awt.event.KeyEvent _e) {
-            if (_e.isControlDown() && getSimulation()!=null) {
-              if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_M) getPopupMenu(0,0);
-              else if (_e.getKeyCode()==java.awt.event.KeyEvent.VK_P) printScreen();
-            }
-          }
-        }
-        
-    );
-    frame.getContentPane().addMouseListener (
-        new MouseAdapter() {
-          @Override
-		public void mousePressed  (MouseEvent _evt) {
-            if (getSimulation()!=null && OSPRuntime.isPopupTrigger(_evt)) { //) {SwingUtilities.isRightMouseButton(_evt) 
-              getPopupMenu(_evt.getX(),_evt.getY());
-            }
-          }
-        }
-    );
-    return frame.getContentPane();
-  }
+		frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		internalValue = new BooleanValue(true);
+		frame.getContentPane().addKeyListener(new java.awt.event.KeyAdapter() {
+			@Override
+			public void keyPressed(java.awt.event.KeyEvent _e) {
+				if (_e.isControlDown() && getSimulation() != null) {
+					if (_e.getKeyCode() == java.awt.event.KeyEvent.VK_M)
+						getPopupMenu(0, 0);
+					else if (_e.getKeyCode() == java.awt.event.KeyEvent.VK_P)
+						printScreen();
+				}
+			}
+		}
+
+		);
+		frame.getContentPane().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent _evt) {
+				if (getSimulation() != null && OSPRuntime.isPopupTrigger(_evt)) { // )
+																					// {SwingUtilities.isRightMouseButton(_evt)
+					getPopupMenu(_evt.getX(), _evt.getY());
+				}
+			}
+		});
+		return frame.getContentPane();
+	}
 
   @Override
 public String getObjectClassname () { return "java.awt.Component"; }
