@@ -373,9 +373,7 @@ public void setValue (int _index, final Value _value) {
               if ((parent!=null) && (parent instanceof ControlContainer) ) ((ControlContainer) parent).add(ControlSwingElement.this);
             }
           };
-          if (javax.swing.SwingUtilities.isEventDispatchThread()) doIt.run();
-          else try { javax.swing.SwingUtilities.invokeAndWait(doIt); }
-          catch(Exception exc) { doIt.run(); }
+          OSPRuntime.dispatchEventWait(doIt);
         }
         break;
       case PARENT :

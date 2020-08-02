@@ -14,6 +14,7 @@ import org.opensourcephysics.display.OSPRuntime;
 
 import java.awt.Color;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.text.Document;
 
 import java.text.DecimalFormat;
@@ -94,18 +95,15 @@ public void reset() {
     }
   }
 
-  private void setTheValue (double _value) {
-    if (_value!=internalValue.value) {
-      internalValue.value = _value;		
-      OSPRuntime.postEvent(new Runnable() {
-				@Override
-				public void run() {
-					textfield.setText(format.format(_value));
-					getVisual().setBackground(defaultColor);
-				}
-      });
-    }
-  }
+	private void setTheValue(double _value) {
+		if (_value != internalValue.value) {
+			internalValue.value = _value;
+			SwingUtilities.invokeLater(() -> {
+				textfield.setText(format.format(_value));
+				getVisual().setBackground(defaultColor);
+			});
+		}
+	}
 
   protected void setInternalValue (double _value) {
     internalValue.value = _value;
@@ -201,12 +199,8 @@ public String getPropertyInfo(String _property) {
 			 * (format.parse(textfield.getText()).doubleValue()); } catch (Exception exc) {}
 			 * setActive (true);
 			 */
-			OSPRuntime.postEvent(new Runnable() {
-
-				@Override
-				public synchronized void run() {
-					textfield.setText(format.format(internalValue.value));
-				}
+			SwingUtilities.invokeLater(() -> {
+				textfield.setText(format.format(internalValue.value));
 			});
 		}
 		break;
@@ -251,43 +245,49 @@ public String getDefaultValueString (int _index) {
     }
   }
 
-  @Override
-public void setDefaultValue (int _index) {
-    switch (_index) {
-      case VARIABLE : break;  // Do nothing
-      case 1 : defaultValueSet = false; break;
-      case 2 : 
-        textfield.setEditable(true); 
-        if (!foregroundSet) textfield.setForeground(Color.BLACK);
+	@Override
+	public void setDefaultValue(int _index) {
+		switch (_index) {
+		case VARIABLE:
+			break; // Do nothing
+		case 1:
+			defaultValueSet = false;
+			break;
+		case 2:
+			textfield.setEditable(true);
+			if (!foregroundSet)
+				textfield.setForeground(Color.BLACK);
 //        setColor(defaultColor);
-        break;
-      case 3 :
-        format = defaultFormat;
-        formatStr=null;
-			OSPRuntime.postEvent(new Runnable() {
-				@Override
-				public synchronized void run() {
-					textfield.setText(format.format(internalValue.value));
-				}
+			break;
+		case 3:
+			format = defaultFormat;
+			formatStr = null;
+			SwingUtilities.invokeLater(() -> {
+				textfield.setText(format.format(internalValue.value));
 			});
-        break;
-      case 4 : removeAction (ControlElement.VARIABLE_CHANGED,getProperty("action")); break;
-      case 5 : 
-        textfield.setColumns(defaultColumns); 
-        if (textfield.getParent()!=null) textfield.getParent().validate();
-        break;
-      case FIELD_BACKGROUND :
-        super.setDefaultValue (ControlSwingElement.BACKGROUND);
-        decideColors (getVisual().getBackground());
-        setColor(defaultColor);
-        break;
-      case FIELD_FOREGROUND :
-        super.setDefaultValue (ControlSwingElement.FOREGROUND);
-        foregroundSet = false;
-        break;
-      default: super.setDefaultValue(_index-NUMBER_FIELD_ADDED); break;
-    }
-  }
+			break;
+		case 4:
+			removeAction(ControlElement.VARIABLE_CHANGED, getProperty("action"));
+			break;
+		case 5:
+			textfield.setColumns(defaultColumns);
+			if (textfield.getParent() != null)
+				textfield.getParent().validate();
+			break;
+		case FIELD_BACKGROUND:
+			super.setDefaultValue(ControlSwingElement.BACKGROUND);
+			decideColors(getVisual().getBackground());
+			setColor(defaultColor);
+			break;
+		case FIELD_FOREGROUND:
+			super.setDefaultValue(ControlSwingElement.FOREGROUND);
+			foregroundSet = false;
+			break;
+		default:
+			super.setDefaultValue(_index - NUMBER_FIELD_ADDED);
+			break;
+		}
+	}
   
   @Override
 public Value getValue (int _index) {
