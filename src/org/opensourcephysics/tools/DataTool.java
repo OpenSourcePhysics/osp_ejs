@@ -42,6 +42,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Consumer;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
@@ -2137,25 +2138,6 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 	}
 
 	/**
-	 * Pastes from the clipboard and returns the pasted string.
-	 *
-	 * @return the pasted string, or null if none
-	 */
-	public static String paste() {
-		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-		Transferable data = clipboard.getContents(null);
-		if ((data != null) && data.isDataFlavorSupported(DataFlavor.stringFlavor)) {
-			try {
-				String text = (String) data.getTransferData(DataFlavor.stringFlavor);
-				return text;
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Shows the DataTool help.
 	 */
 	protected static void showHelp() {
@@ -2543,9 +2525,12 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 					redoItem.setEnabled(tab.undoManager.canRedo());
 				}
 				// enable paste menu if clipboard contains pastable data
-				boolean enabled = hasPastableData();
-				emptyPasteMenu.setEnabled(enabled);
-				pasteMenu.setEnabled(enabled);
+				emptyPasteMenu.setEnabled(false);
+				pasteMenu.setEnabled(false);
+				hasPastableData(() -> {
+					emptyPasteMenu.setEnabled(true);
+					pasteMenu.setEnabled(true);
+				});
 				// prepare copy menu
 				copyMenu.removeAll();
 				if (tab != null) {
@@ -2662,8 +2647,8 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 		pasteTabItem.setAction(new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				OSPRuntime.paste((dataString) -> {
 				boolean failed = false;
-				String dataString = paste();
 				if (dataString != null) {
 					if (!dataString.startsWith("<?xml")) { //$NON-NLS-1$
 						// pasted string is not xml, so parse to import Data //$NON-NLS-1$
@@ -2722,8 +2707,8 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 							ToolsRes.getString("Tool.Dialog.NoData.Title"), //$NON-NLS-1$
 							JOptionPane.WARNING_MESSAGE);
 				}
+			});
 			}
-
 		});
 		pasteMenu.add(pasteTabItem);
 		pasteColumnsItem = new JMenuItem();
@@ -2973,33 +2958,35 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 	 *
 	 * @return true if data is pastable
 	 */
-	protected boolean hasPastableData() {
+	protected void hasPastableData(Runnable r) {
 		controlContainsData = false;
-		String dataString = paste();
-		boolean hasData = dataString != null;
-		if (hasData) {
-			if (!dataString.startsWith("<?xml")) { //$NON-NLS-1$
-				addableData = parseData(dataString, null);
-				hasData = addableData != null;
-			} else {
-				control = new XMLControlElement();
-				control.readXML(dataString);
-				Class<?> type = control.getObjectClass();
-				if (Data.class.isAssignableFrom(type)) {
-					addableData = (Data) control.loadObject(null);
-				} else if (!DataToolTab.class.isAssignableFrom(type)) {
-					// find all Data objects in the control
-					XMLTree tree = new XMLTree(control);
-					tree.setHighlightedClass(Data.class);
-					tree.selectHighlightedProperties();
-					if (!tree.getSelectedProperties().isEmpty()) {
-						controlContainsData = true;
+		OSPRuntime.paste((dataString) -> {
+			boolean hasData = dataString != null;
+			if (hasData) {
+				if (!dataString.startsWith("<?xml")) { //$NON-NLS-1$
+					addableData = parseData(dataString, null);
+					hasData = addableData != null;
+				} else {
+					control = new XMLControlElement();
+					control.readXML(dataString);
+					Class<?> type = control.getObjectClass();
+					if (Data.class.isAssignableFrom(type)) {
+						addableData = (Data) control.loadObject(null);
+					} else if (!DataToolTab.class.isAssignableFrom(type)) {
+						// find all Data objects in the control
+						XMLTree tree = new XMLTree(control);
+						tree.setHighlightedClass(Data.class);
+						tree.selectHighlightedProperties();
+						if (!tree.getSelectedProperties().isEmpty()) {
+							controlContainsData = true;
+						}
 					}
+					hasData = (addableData != null) || DataToolTab.class.isAssignableFrom(type) || controlContainsData;
 				}
-				hasData = (addableData != null) || DataToolTab.class.isAssignableFrom(type) || controlContainsData;
 			}
-		}
-		return hasData;
+			if (hasData)
+				r.run();
+		});
 	}
 
 	/**
