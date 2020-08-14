@@ -49,7 +49,13 @@ import org.opensourcephysics.desktop.OSPDesktop;
  */
 
 public abstract class Simulation extends Animation {
-	static public Bundle ejsRes = ResourceLoader.getBundle("org.colos.ejs.library.resources.ejs_res");
+	// WC change: use osp-assets archive rather than ejs.library
+  private static String BUNDLE_NAME = "org.opensourcephysics.resources.ejs.ejs_res"; //$NON-NLS-1$
+  public static org.opensourcephysics.tools.ResourceLoader.Bundle ejsRes = org.opensourcephysics.tools.ResourceLoader.getBundle(BUNDLE_NAME);
+  //ejsRes = org.opensourcephysics.tools.ResourceLoader.getBundle(BUNDLE_NAME, locale);
+	
+	//static public Bundle ejsRes = ResourceLoader.getBundle("org.colos.ejs.library.resources.ejs_res");
+	
 
 	static private final String DEFAULT_STATE_FILENAME = "DefaultState.out";
 

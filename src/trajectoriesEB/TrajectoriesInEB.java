@@ -10,6 +10,8 @@ package trajectoriesEB;
 
 import javax.swing.*;
 
+import org.opensourcephysics.display.OSPRuntime;
+
 public class TrajectoriesInEB extends org.colos.ejs.library.Model {
 
   static {
@@ -147,9 +149,13 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
     }
     _simulation = new TrajectoriesInEBSimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
     _simulation.processArguments(_args);
-    if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);
+    if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);  
+    //OSPRuntime.setAppClass(this._getView().getComponent("mainFrame"));
+    OSPRuntime.setAppClass(this);
+    //this._getView().getComponent("mainFrame").setName("mainFrame");
   }
 
+  
  // -------------------------------------------
  // Abstract part of Model 
  // -------------------------------------------

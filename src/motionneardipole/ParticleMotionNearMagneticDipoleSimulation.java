@@ -25,18 +25,18 @@ class ParticleMotionNearMagneticDipoleSimulation extends org.colos.ejs.library.S
   @Override
 public java.util.List<String> getWindowsList() {
     java.util.List<String> windowList = new java.util.ArrayList<String>();
-    windowList.add("frame");
+    windowList.add("mainFrame");
     return windowList;
   }
 
   @Override
 public String getMainWindow() {
-    return "frame";
+    return "mainFrame";
   }
 
   @Override
 protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
-    mMainView.getConfigurableElement("frame")
+    mMainView.getConfigurableElement("mainFrame")
       .setProperty("title","Charged Particle Motion Near a Magnetic Dipole")
       .setProperty("size","579,685");
     mMainView.getConfigurableElement("drawingPanel3D");

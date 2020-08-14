@@ -6,7 +6,10 @@
 
 package org.colos.ejs.library;
 
+import java.awt.Dimension;
 import java.awt.GraphicsConfiguration;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.*;
 
 import javax.swing.JOptionPane;
@@ -83,6 +86,72 @@ public abstract class Model { //implements ExternalClient {
 //   */
 //  public String _getStringProperty(String _property, String _default) { return __translatorUtil.translateString(_property,_default); }
 
+  
+  //--------------------------------------------------------
+  // Implement OSP JavaScript embedding API
+  //--------------------------------------------------------
+  
+	/**
+	 * Gets the OSPFrame that contains the control. The main frame will usually exit
+	 * program when it is closed.
+	 *
+	 * @j2sAlias getMainFrame
+	 *
+	 * @return
+	 */
+  
+  public javax.swing.JFrame  getMainFrame() {
+  	return (javax.swing.JFrame)this._getView().getComponent("mainFrame");
+  }
+  
+  /**
+   * Gets the Main Frame size. 
+   * 
+   * @j2sAlias getMainFrameSize
+   * 
+   */
+  public int[] getMainFrameSize(){
+ 	 Dimension d= getMainFrame().getSize();
+ 	 return new int[] {d.width,d.height};
+  }
+  
+	protected String action=null;
+	protected ComponentAdapter adapter=null;
+  
+  /**
+   * Sets the window resize action for JavaScript implementation. 
+   * 
+   * @j2sAlias setResizeAction
+   * 
+   */
+		public void setResizeAction(String o) {
+			javax.swing.JFrame myFrame= getMainFrame();
+			if(myFrame==null) return;
+			if( o==null && adapter!=null){ // remove existing adapter if o=null
+				myFrame.removeComponentListener(adapter);
+				action = o;
+				return;
+			}
+			if(o.equals(action)) return;  // no change in action
+			myFrame.removeComponentListener(adapter); //action changed so remove old adapter
+			action =o;
+			myFrame.addComponentListener(adapter=new ComponentAdapter() {
+				@Override
+				public void componentResized(ComponentEvent e) {
+					// This is called when the user resized the main frame
+					/**
+					* @j2sNative
+					*
+					* // find object
+					* var fn = window[o];
+					* // is object a function?
+					* if (typeof fn === "function") fn();
+					*/
+					//System.out.println("componentResized action="+action);  // for debugging
+				}
+			});
+		}
+  
   //--------------------------------------------------------
   // Abstract methods
   //--------------------------------------------------------

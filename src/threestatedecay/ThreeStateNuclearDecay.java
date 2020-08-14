@@ -144,6 +144,7 @@ static public void main (String[] _args) {
     _simulation = new ThreeStateNuclearDecaySimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
     _simulation.processArguments(_args);
     if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);
+    OSPRuntime.setAppClass(this);
   }
 
  // -------------------------------------------

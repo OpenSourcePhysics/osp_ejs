@@ -126,8 +126,8 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
 
   static public javax.swing.JComponent getModelPane(String[] _args, javax.swing.JFrame _parentFrame) {
     if (!_common_initialization(_args)) return null;
-    MassAndSpring __theModel = new MassAndSpring ("frame",_parentFrame,null,null,_args,true);
-    return (javax.swing.JComponent) __theModel._getView().getComponent("frame");
+    MassAndSpring __theModel = new MassAndSpring ("mainFrame",_parentFrame,null,null,_args,true);
+    return (javax.swing.JComponent) __theModel._getView().getComponent("mainFrame");
   }
 
   public MassAndSpring () { this (null, null, null,null,null,false); } // slave application
@@ -144,6 +144,9 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
     _simulation = new MassAndSpringSimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
     _simulation.processArguments(_args);
     if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);
+    //System.out.println("frame="+_model.getMainFrame());   
+    this.getView().getComponent("dialog").setLocation(10, 100);
+    OSPRuntime.setAppClass(this);
   }
 
  // -------------------------------------------

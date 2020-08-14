@@ -27,19 +27,19 @@ class MassAndSpringSimulation extends org.colos.ejs.library.Simulation {
   @Override
 public java.util.List<String> getWindowsList() {
     java.util.List<String> windowList = new java.util.ArrayList<String>();
-    windowList.add("frame");
+    windowList.add("mainFrame");
     windowList.add("dialog");
     return windowList;
   }
 
   @Override
 public String getMainWindow() {
-    return "frame";
+    return "mainFrame";
   }
 
   @Override
 protected void setViewLocale() { // Overwrite its parent's dummy method with real actions 
-    mMainView.getConfigurableElement("frame")
+    mMainView.getConfigurableElement("mainFrame")
       .setProperty("title","Mass and Spring")
       .setProperty("size","383,330");
     mMainView.getConfigurableElement("drawingPanel");
