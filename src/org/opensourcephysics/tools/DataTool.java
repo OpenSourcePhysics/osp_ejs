@@ -80,6 +80,7 @@ import org.opensourcephysics.display.DataTable;
 import org.opensourcephysics.display.Dataset;
 import org.opensourcephysics.display.DatasetManager;
 import org.opensourcephysics.display.DisplayColors;
+import org.opensourcephysics.display.GUIUtils;
 import org.opensourcephysics.display.OSPFrame;
 import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.display.TeXParser;
@@ -143,6 +144,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 	protected JMenu pasteMenu;
 	protected JMenuItem pasteTabItem;
 	protected JMenuItem pasteColumnsItem;
+	protected JMenuItem editDataItem;
 	protected JMenu displayMenu;
 	protected JMenu languageMenu;
 	protected JMenuItem[] languageItems;
@@ -2255,16 +2257,16 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 						public void actionPerformed(ActionEvent e) {
 							DataToolTab tab = getTab(index);
 							String name = tab.getName();
-							Object input = JOptionPane.showInputDialog(DataTool.this,
+							String input = GUIUtils.showInputDialog(DataTool.this,
 									ToolsRes.getString("DataTool.Dialog.Name.Message"), //$NON-NLS-1$
 									ToolsRes.getString("DataTool.Dialog.Name.Title"), //$NON-NLS-1$
-									JOptionPane.QUESTION_MESSAGE, null, null, name);
+									JOptionPane.QUESTION_MESSAGE, name);
 							if (input == null) {
 								return;
 							}
 							// hide tab name so getUniqueTabName() not confused
 							tab.setName(""); //$NON-NLS-1$
-							tab.setName(getUniqueTabName(input.toString()));
+							tab.setName(getUniqueTabName(input));
 							tab.tabChanged(true);
 							refreshTabTitles();
 							refreshDataBuilder();
@@ -2514,47 +2516,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// ignore until menu is displayed
-				if (!editMenu.isPopupMenuVisible() && !emptyEditMenu.isPopupMenuVisible()) {
-					return;
-				}
-				DataToolTab tab = getSelectedTab();
-				// undo and redo items
-				if (tab != null) {
-					undoItem.setEnabled(tab.undoManager.canUndo());
-					redoItem.setEnabled(tab.undoManager.canRedo());
-				}
-				// enable paste menu if clipboard contains pastable data
-				emptyPasteMenu.setEnabled(false);
-				pasteMenu.setEnabled(false);
-				hasPastableData(() -> {
-					emptyPasteMenu.setEnabled(true);
-					pasteMenu.setEnabled(true);
-				});
-				// prepare copy menu
-				copyMenu.removeAll();
-				if (tab != null) {
-					ArrayList<Dataset> list = tab.dataManager.getDatasets();
-					copyDataItem.setEnabled(!list.isEmpty());
-					if (!list.isEmpty()) {
-						copyTabItem.setText(ToolsRes.getString("DataTool.MenuItem.CopyTab")); //$NON-NLS-1$
-						copyMenu.add(copyTabItem);
-						copyMenu.addSeparator();
-						String s = ToolsRes.getString("DataTool.MenuItem.CopyData"); //$NON-NLS-1$
-						int[] selectedRows = getSelectedTab().dataTable.getSelectedRows();
-						int endRow = getSelectedTab().dataTable.getRowCount() - 1;
-						boolean emptySelection = (selectedRows.length == 1) && (selectedRows[0] == endRow)
-								&& getSelectedTab().dataTable.isEmptyRow(endRow);
-						if ((selectedRows.length > 0) && !emptySelection) {
-							s = ToolsRes.getString("DataTool.MenuItem.CopySelectedData"); //$NON-NLS-1$
-						}
-						copyDataItem.setText(s);
-						copyMenu.add(copyDataItem);
-						copyMenu.addSeparator();
-					}
-				}
-				copyMenu.add(copyImageItem);
-				FontSizer.setFonts(copyMenu, FontSizer.getLevel());
+				copyMenuCheck();
 			}
 
 		};
@@ -2648,66 +2610,8 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				OSPRuntime.paste((dataString) -> {
-				boolean failed = false;
-				if (dataString != null) {
-					if (!dataString.startsWith("<?xml")) { //$NON-NLS-1$
-						// pasted string is not xml, so parse to import Data //$NON-NLS-1$
-						Data importedData = parseData(dataString, null);
-						if (importedData != null) {
-							if (e.getSource() == pasteTabItem || e.getSource() == emptyPasteTabItem) {
-								OSPLog.finest("pasting imported clipboard data into new tab"); //$NON-NLS-1$
-								DataToolTab tab = createTab(importedData);
-								tab.userEditable = true;
-								addTab(tab);
-								tab.refreshGUI();
-							}
-							refreshDataBuilder();
-							return;
-						}
-						failed = true;
-					}
-					// pasted string is xml, so load into XMLControl
-					if (!failed) {
-						control = new XMLControlElement();
-						control.readXML(dataString);
-						if (control.failedToRead()) {
-							failed = true;
-						}
-					}
-					// we now have a valid XMLControl
-					if (!failed) {
-						OSPLog.finest("pasting clipboard XML into new tabs"); //$NON-NLS-1$
-						if (Data.class.isAssignableFrom(control.getObjectClass())) {
-							Data data = (Data) control.loadObject(null, true, true);
-							if (data == null) {
-								failed = true;
-							} else {
-								for (Data next : getSelfContainedData(data)) {
-									DataToolTab tab = createTab(next);
-									addTab(tab);
-								}
-								int i = getTabCount() - 1;
-								tabbedPane.setSelectedIndex(i);
-							}
-						} else {
-							ArrayList<DataToolTab> tabs = addTabs(control);
-							for (DataToolTab tab : tabs) {
-								tab.setUserEditable(true);
-							}
-							int i = getTabCount() - 1;
-							tabbedPane.setSelectedIndex(i);
-						}
-					}
-					if (!failed) {
-						refreshDataBuilder();
-					}
-				}
-				if (failed) {
-					JOptionPane.showMessageDialog(DataTool.this, ToolsRes.getString("Tool.Dialog.NoData.Message"), //$NON-NLS-1$
-							ToolsRes.getString("Tool.Dialog.NoData.Title"), //$NON-NLS-1$
-							JOptionPane.WARNING_MESSAGE);
-				}
-			});
+					pasteAction(dataString, e.getSource() == pasteTabItem || e.getSource() == emptyPasteTabItem);
+				});
 			}
 		});
 		pasteMenu.add(pasteTabItem);
@@ -2735,7 +2639,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 			}
 
 		});
-		pasteMenu.add(pasteColumnsItem);
+		pasteMenu.add(pasteColumnsItem);		
 		displayMenu = new JMenu();
 		menubar.add(displayMenu);
 		languageMenu = new JMenu();
@@ -2895,6 +2799,112 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 		setLocation(x, y);
 	}
 
+	protected void copyMenuCheck() {
+		// ignore until menu is displayed
+		if (!editMenu.isPopupMenuVisible() && !emptyEditMenu.isPopupMenuVisible()) {
+			return;
+		}
+		DataToolTab tab = getSelectedTab();
+		// undo and redo items
+		if (tab != null) {
+			undoItem.setEnabled(tab.undoManager.canUndo());
+			redoItem.setEnabled(tab.undoManager.canRedo());
+		}
+		// enable paste menu if clipboard contains pastable data
+		emptyPasteMenu.setEnabled(false);
+		pasteMenu.setEnabled(false);
+		hasPastableData(() -> {
+			emptyPasteMenu.setEnabled(true);
+			pasteMenu.setEnabled(true);
+		});
+		// prepare copy menu
+		copyMenu.removeAll();
+		if (tab != null) {
+			ArrayList<Dataset> list = tab.dataManager.getDatasets();
+			copyDataItem.setEnabled(!list.isEmpty());
+			if (!list.isEmpty()) {
+				copyTabItem.setText(ToolsRes.getString("DataTool.MenuItem.CopyTab")); //$NON-NLS-1$
+				copyMenu.add(copyTabItem);
+				copyMenu.addSeparator();
+				String s = ToolsRes.getString("DataTool.MenuItem.CopyData"); //$NON-NLS-1$
+				int[] selectedRows = getSelectedTab().dataTable.getSelectedRows();
+				int endRow = getSelectedTab().dataTable.getRowCount() - 1;
+				boolean emptySelection = (selectedRows.length == 1) && (selectedRows[0] == endRow)
+						&& getSelectedTab().dataTable.isEmptyRow(endRow);
+				if ((selectedRows.length > 0) && !emptySelection) {
+					s = ToolsRes.getString("DataTool.MenuItem.CopySelectedData"); //$NON-NLS-1$
+				}
+				copyDataItem.setText(s);
+				copyMenu.add(copyDataItem);
+				copyMenu.addSeparator();
+			}
+		}
+		copyMenu.add(copyImageItem);
+		FontSizer.setFonts(copyMenu, FontSizer.getLevel());
+	}
+
+	protected void pasteAction(String dataString, boolean isPasteItem) {
+		boolean failed = false;
+		if (dataString != null) {
+			if (!dataString.startsWith("<?xml")) { //$NON-NLS-1$
+				// pasted string is not xml, so parse to import Data //$NON-NLS-1$
+				Data importedData = parseData(dataString, null);
+				if (importedData != null) {
+					if (isPasteItem) {
+						OSPLog.finest("pasting imported clipboard data into new tab"); //$NON-NLS-1$
+						DataToolTab tab = createTab(importedData);
+						tab.userEditable = true;
+						addTab(tab);
+						tab.refreshGUI();
+					}
+					refreshDataBuilder();
+					return;
+				}
+				failed = true;
+			}
+			// pasted string is xml, so load into XMLControl
+			if (!failed) {
+				control = new XMLControlElement();
+				control.readXML(dataString);
+				if (control.failedToRead()) {
+					failed = true;
+				}
+			}
+			// we now have a valid XMLControl
+			if (!failed) {
+				OSPLog.finest("pasting clipboard XML into new tabs"); //$NON-NLS-1$
+				if (Data.class.isAssignableFrom(control.getObjectClass())) {
+					Data data = (Data) control.loadObject(null, true, true);
+					if (data == null) {
+						failed = true;
+					} else {
+						for (Data next : getSelfContainedData(data)) {
+							DataToolTab tab = createTab(next);
+							addTab(tab);
+						}
+						int i = getTabCount() - 1;
+						tabbedPane.setSelectedIndex(i);
+					}
+				} else {
+					ArrayList<DataToolTab> tabs = addTabs(control);
+					for (DataToolTab tab : tabs) {
+						tab.setUserEditable(true);
+					}
+					int i = getTabCount() - 1;
+					tabbedPane.setSelectedIndex(i);
+				}
+			}
+			if (!failed) {
+				refreshDataBuilder();
+			}
+		}
+		if (failed) {
+			JOptionPane.showMessageDialog(DataTool.this, ToolsRes.getString("Tool.Dialog.NoData.Message"), //$NON-NLS-1$
+					ToolsRes.getString("Tool.Dialog.NoData.Title"), //$NON-NLS-1$
+					JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
 	/**
 	 * Refreshes the GUI.
 	 */
@@ -2926,6 +2936,8 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 		copyMenu.setText(ToolsRes.getString("DataTool.Menu.Copy")); //$NON-NLS-1$
 		copyImageItem.setText(ToolsRes.getString("DataTool.MenuItem.CopyImage")); //$NON-NLS-1$
 		pasteMenu.setText(ToolsRes.getString("MenuItem.Paste")); //$NON-NLS-1$
+
+		editDataItem.setText("Edit Data");
 		pasteTabItem.setText(ToolsRes.getString("DataTool.MenuItem.PasteNewTab")); //$NON-NLS-1$
 		pasteColumnsItem.setText(ToolsRes.getString("DataTool.MenuItem.PasteNewColumns")); //$NON-NLS-1$
 		displayMenu.setText(ToolsRes.getString("Tool.Menu.Display")); //$NON-NLS-1$

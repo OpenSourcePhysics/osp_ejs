@@ -112,6 +112,13 @@ public class Input extends Memory {
        }
      }
 
+     /**
+      * JOptionPane will not work in JavaScript this way
+      * @param message
+      * @param options
+      * @return
+      */
+     @Deprecated
      public int selectOption(String message,String options){
       String[] optionListArray;
       optionListArray=options.split(",");
