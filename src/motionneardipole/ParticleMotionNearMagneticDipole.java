@@ -7,6 +7,8 @@ package motionneardipole;
 
 import javax.swing.JApplet;
 
+import org.opensourcephysics.display.OSPRuntime;
+
 public class ParticleMotionNearMagneticDipole extends org.colos.ejs.library.Model {
 
   static {
@@ -131,8 +133,8 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
 
   static public javax.swing.JComponent getModelPane(String[] _args, javax.swing.JFrame _parentFrame) {
     if (!_common_initialization(_args)) return null;
-    ParticleMotionNearMagneticDipole __theModel = new ParticleMotionNearMagneticDipole ("frame",_parentFrame,null,null,_args,true);
-    return (javax.swing.JComponent) __theModel._getView().getComponent("frame");
+    ParticleMotionNearMagneticDipole __theModel = new ParticleMotionNearMagneticDipole ("mainFrame",_parentFrame,null,null,_args,true);
+    return (javax.swing.JComponent) __theModel._getView().getComponent("mainFrame");
   }
 
   public ParticleMotionNearMagneticDipole () { this (null, null, null,null,null,false); } // slave application
@@ -149,6 +151,8 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
     _simulation = new ParticleMotionNearMagneticDipoleSimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
     _simulation.processArguments(_args);
     if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);
+    this.getMainFrame().setSize(500, 500);
+    OSPRuntime.setAppClass(this);
   }
 
  // -------------------------------------------

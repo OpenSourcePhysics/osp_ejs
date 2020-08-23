@@ -203,7 +203,7 @@ public void propagateValues () {
       .setProperty("background","green")
       .setProperty("size","100,100");
     frame = (java.awt.Component)
-      addElement(new org.colos.ejs.library.control.swing.ControlFrame(),"frame")
+      addElement(new org.colos.ejs.library.control.swing.ControlFrame(),"mainFrame")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("exit","true")
       .setProperty("waitForReset","true")
@@ -217,7 +217,7 @@ public void propagateValues () {
       addElement(new org.colos.ejs.library.control.drawing3d.ControlDrawingPanel3D(),"drawingPanel3D")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
-      .setProperty("parent","frame")
+      .setProperty("parent","mainFrame")
       .setProperty("minimumX","%_model._method_for_drawingPanel3D_minimumX()%" )
       .setProperty("maximumX","size")
       .setProperty("minimumY","%_model._method_for_drawingPanel3D_minimumY()%" )
@@ -258,7 +258,7 @@ public void propagateValues () {
       addElement(new org.colos.ejs.library.control.swing.ControlPanel(),"controlPanel")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","south")
-      .setProperty("parent","frame")
+      .setProperty("parent","mainFrame")
       .setProperty("layout","BORDER:0,0")
       .setProperty("borderType","LOWERED_ETCHED")
       .getObject();
@@ -374,7 +374,7 @@ public void propagateValues () {
       addElement(new org.colos.ejs.library.control.swing.ControlPanel(),"upperPanel")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","north")
-      .setProperty("parent","frame")
+      .setProperty("parent","mainFrame")
       .setProperty("layout","FLOW:center,8,0")
       .setProperty("borderType","LOWERED_ETCHED")
       .getObject();
@@ -456,7 +456,7 @@ public void propagateValues () {
 
   @Override
 public void reset() {
-    getElement("frame")
+    getElement("mainFrame")
       .setProperty("title","Charged Particle Motion Near a Magnetic Dipole")
       .setProperty("visible","true");
     getElement("drawingPanel3D")

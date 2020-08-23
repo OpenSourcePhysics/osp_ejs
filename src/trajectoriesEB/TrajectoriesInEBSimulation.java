@@ -33,7 +33,7 @@ public java.util.List<String> getWindowsList() {
   }
 
   @Override
-public String getMainWindow() {
+  public String getMainWindow() {
     return "mainFrame";
   }
 

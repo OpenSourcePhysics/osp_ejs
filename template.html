@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SwingJS test _NAME_</title><meta charset="utf-8" />
+<title>SwingJS test _NAME_</title>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="./swingJS.css" />
 <script src="swingjs/swingjs2.js"></script>
 <script>
 if (!self.SwingJS)alert('swingjs2.js was not found. It needs to be in swingjs folder in the same directory as ' + document.location.href)
+
+ function initApp() {
+			//if (!Chaos.app) alert('App not found.');
+			//Chaos.app.getMainFrame().setResizeAction('changeSize');
+			changeSize();
+  }
+  
+  changeSize = function () {
+	  //let dim = Chaos.app.getMainFrameSize();
+	  //document.getElementById("controlFrame-div").style.width = dim[0] + "px";
+	  //document.getElementById("controlFrame-div").style.height = dim[1] + "px";
+  }
+
 Info = {
   code: _CODE_,
   main: _MAIN_,
-  core: "NONE",
+	core: "_ejsapps",
+	resourceZip: "misc-assets.zip",
+	assets: "DEFAULT",
 	width: 850,
 	height: 550,
-  readyFunction: null,
+  readyFunction: initApp,
 	serverURL: 'https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php',
 	j2sPath: 'swingjs/j2s',
 	console:'sysoutdiv',
@@ -26,7 +43,7 @@ getClassList = function(){J2S._saveFile('_j2sclasslist.txt', Clazz.ClassFilesLoa
 </script>
 <div style="position:absolute;left:900px;top:30px;width:600px;height:300px;">
 <div id="sysoutdiv" contentEditable="true" style="border:1px solid green;width:100%;height:95%;overflow:auto"></div>
-This is System.out. <a href="javascript:testApplet._clearConsole()">clear it</a> <br>Add ?j2snocore to URL to see full class list; ?j2sdebug to use uncompressed j2s/core files <br><a href="javascript:getClassList()">get _j2sClassList.txt</a>
+This is System.out. <a href="javascript:testApplet._clearConsole()">clear it</a>  <a href='javascript:J2S.getProfile()'>start/stop profiling</a><br>see <a href=___j2sflags.htm>___j2sflags.htm</a> for SwingJS URL command-line options<br><a href="javascript:getClassList()">get _j2sClassList.txt</a>
 </div>
 </body>
 </html>

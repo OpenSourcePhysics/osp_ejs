@@ -196,7 +196,7 @@ public void propagateValues () {
       .setProperty("background","green")
       .setProperty("size","100,100");
     frame = (java.awt.Component)
-      addElement(new org.colos.ejs.library.control.swing.ControlFrame(),"frame")
+      addElement(new org.colos.ejs.library.control.swing.ControlFrame(),"mainFrame")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("exit","true")
       .setProperty("waitForReset","true")
@@ -210,7 +210,7 @@ public void propagateValues () {
       addElement(new org.colos.ejs.library.control.swing.ControlDrawingPanel(),"drawingPanel")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","center")
-      .setProperty("parent","frame")
+      .setProperty("parent","mainFrame")
       .setProperty("autoscaleX","false")
       .setProperty("autoscaleY","false")
       .setProperty("minimumX","0")
@@ -261,7 +261,7 @@ public void propagateValues () {
       addElement(new org.colos.ejs.library.control.swing.ControlPanel(),"controlPanel")
       .setProperty("_ejs_SecondAction_","updateAfterModelAction()")
       .setProperty("position","south")
-      .setProperty("parent","frame")
+      .setProperty("parent","mainFrame")
       .setProperty("layout","border:0,0")
       .setProperty("borderType","LOWERED_ETCHED")
       .getObject();
@@ -385,7 +385,7 @@ public void propagateValues () {
 
   @Override
 public void reset() {
-    getElement("frame")
+    getElement("mainFrame")
       .setProperty("title","Mass and Spring")
       .setProperty("visible","true");
     getElement("drawingPanel")

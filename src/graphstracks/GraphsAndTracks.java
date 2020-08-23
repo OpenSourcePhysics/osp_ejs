@@ -151,6 +151,11 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
     _simulation = new GraphsAndTracksSimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
     _simulation.processArguments(_args);
     if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);
+    this.getMainFrame().setSize(600, 400);
+    
+    //System.out.println("custom"+this.getView().getComponent("customizationFrame"));
+    this.getView().getComponent("customizationFrame").setLocation(150, 50);
+    OSPRuntime.setAppClass(this);
   }
 
  // -------------------------------------------

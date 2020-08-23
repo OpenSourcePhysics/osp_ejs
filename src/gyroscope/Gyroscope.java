@@ -5,6 +5,7 @@
 
 package gyroscope;
 
+import org.opensourcephysics.display.OSPRuntime;
 import org.opensourcephysics.numerics.*;
 // Imports suggested by Model Elements:
 // End of imports from Model Elements
@@ -155,6 +156,7 @@ public org.colos.ejs.library.utils.HtmlPageInfo _getHtmlPageInfo(String _pageNam
     _simulation = new GyroscopeSimulation (this,_replaceName,_replaceOwnerFrame,_codebase,_allowAutoplay);
     _simulation.processArguments(_args);
     if (_sSwingView)       org.colos.ejs.library.control.swing.ControlWindow.setKeepHidden(false);
+    OSPRuntime.setAppClass(this);
   }
 
  // -------------------------------------------
