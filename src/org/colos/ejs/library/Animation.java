@@ -12,7 +12,6 @@ import org.colos.ejs.library.control.ControlElement;
 import org.colos.ejs.library.control.EjsControl;
 import org.colos.ejs.library.control.swing.ControlWindow;
 import org.opensourcephysics.display.OSPRuntime;
-import org.opensourcephysics.js.JSUtil;
 
 import javajs.async.SwingJSUtils;
 import javajs.async.SwingJSUtils.StateHelper;
@@ -206,7 +205,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
        slave._getSimulation().isPlaying = false;
        slave._getSimulation().abortSPDLoop = true;
      }
-     if(JSUtil.isJS) return;
+     if(OSPRuntime.isJS2) return;
      if(Thread.currentThread()==tempThread) return; // cannot join with own thread so return
      // another thread has called this method in order to stop the animation thread
      try {                      // guard against an exception in applet mode
@@ -274,7 +273,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
    */
   @Override
 public void run() {
-  	if(JSUtil.isJS) {
+  	if(OSPRuntime.isJS2) {
   		stateHelper = new SwingJSUtils.StateHelper(this);
   		stateHelper.setState(STATE_INIT);
   		stateHelper.sleep(0);
@@ -326,7 +325,7 @@ public void run() {
 				ControlWindow.removeFromWindowList((ControlWindow) element);
 		}
 
-		if (JSUtil.isJS) return;
+		if (OSPRuntime.isJS2) return;
 		
 		if (OSPRuntime.isApplet) {
 			view.onExit();

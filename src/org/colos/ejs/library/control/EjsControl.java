@@ -20,7 +20,6 @@ import org.colos.ejs.library.utils.LocaleItem;
 import org.opensourcephysics.tools.*;
 import org.opensourcephysics.desktop.OSPDesktop;
 import org.opensourcephysics.display.OSPRuntime;
-import org.opensourcephysics.js.JSUtil;
 
 /**
  * A base class to group several ControlElements, connect them
@@ -132,7 +131,7 @@ public class EjsControl {
   public EjsControl () {
     setValue (ControlElement.METHOD_TRIGGER,Value.VALUE_FALSE); // AMAVP
     methodTriggerVariable = variableTable.get(ControlElement.METHOD_TRIGGER); // AMAVP
-    if(JSUtil.isJS)System.setProperty("jnlp.codebase","file://./");
+    if(OSPRuntime.isJS2)System.setProperty("jnlp.codebase","file://./");
   }
 
  /**
