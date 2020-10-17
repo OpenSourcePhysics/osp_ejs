@@ -1168,7 +1168,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 						dataList.add(nextData);
 						// remove any previously added Datasets within DatasetManagers
 						if (nextData instanceof DatasetManager) {
-							for (Dataset dataset : nextData.getDatasets()) {
+							for (Dataset dataset : ((DatasetManager)nextData).getDatasetsRaw()) {
 								dataList.remove(dataset);
 								id = Integer.valueOf(dataset.getID());
 								IDs.add(id);
@@ -1237,7 +1237,8 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 	 */
 	public static ArrayList<Dataset> getDatasets(Data source) {
 		// if the source supplies datasets, return them
-		ArrayList<Dataset> datasets = source.getDatasets();
+		ArrayList<Dataset> datasets = (source instanceof DatasetManager ? 
+				((DatasetManager)source).getDatasetsRaw() : source.getDatasets());
 		if (datasets != null) {
 			return datasets;
 		}
@@ -1317,7 +1318,8 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 		}
 		ArrayList<DataColumn> columns = new ArrayList<DataColumn>();
 		// look for datasets in Data
-		ArrayList<Dataset> datasetList = source.getDatasets();
+		ArrayList<Dataset> datasetList = (source instanceof DatasetManager ?
+				((DatasetManager) source).getDatasetsRaw() : source.getDatasets());
 		if (datasetList != null) {
 			for (Dataset next : datasetList) {
 				// get new columns from next dataset
@@ -2273,7 +2275,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 						}
 
 					});
-					if (!getTab(index).dataManager.getDatasets().isEmpty()) {
+					if (!getTab(index).dataManager.getDatasetsRaw().isEmpty()) {
 						popup.addSeparator();
 						item = new JMenuItem(ToolsRes.getString("DataTool.MenuItem.NewTab")); //$NON-NLS-1$
 						item.addActionListener(new ActionListener() {
@@ -2315,7 +2317,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 								cloneTabItem.doClick(0);
 								DataToolTab tab = getTab(getTabCount() - 1);
 								tab.setUserEditable(false);
-								for (Dataset next : tab.dataManager.getDatasets()) {
+								for (Dataset next : tab.dataManager.getDatasetsRaw()) {
 									if (next instanceof DataColumn) {
 										((DataColumn) next).deletable = false;
 									}
@@ -2820,9 +2822,9 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 		// prepare copy menu
 		copyMenu.removeAll();
 		if (tab != null) {
-			ArrayList<Dataset> list = tab.dataManager.getDatasets();
-			copyDataItem.setEnabled(!list.isEmpty());
-			if (!list.isEmpty()) {
+			boolean isEmpty = tab.dataManager.getDatasetsRaw().isEmpty();
+			copyDataItem.setEnabled(!isEmpty);
+			if (!isEmpty) {
 				copyTabItem.setText(ToolsRes.getString("DataTool.MenuItem.CopyTab")); //$NON-NLS-1$
 				copyMenu.add(copyTabItem);
 				copyMenu.addSeparator();
@@ -3013,7 +3015,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 		if (addableData != null) {
 			// columns are pastable if tab name is different or tab is empty
 			String dataName = addableData.getName();
-			if (tab.dataManager.getDatasets().isEmpty() || ((dataName != null) && !dataName.equals(tab.getName()))) {
+			if (tab.dataManager.getDatasetsRaw().isEmpty() || ((dataName != null) && !dataName.equals(tab.getName()))) {
 				pastable = true;
 			}
 		}
