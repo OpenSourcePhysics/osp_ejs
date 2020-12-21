@@ -391,14 +391,14 @@ public abstract class Simulation extends Animation {
 //---------------------------------------------------
 
 	public boolean hasDefaultState() {
-		if (OSPRuntime.isJS2)
+		if (OSPRuntime.isJS)
 			return false; // Otherwise, loading the applet takes ages!
 		Resource res = ResourceLoader.getResource(DEFAULT_STATE_FILENAME);
 		return res != null;
 	}
 
 	public boolean readDefaultState() {
-		if (OSPRuntime.isJS2)
+		if (OSPRuntime.isJS)
 			return false; // Otherwise, loading the applet takes ages!
 		else if (hasDefaultState())
 			return readVariables(DEFAULT_STATE_FILENAME, (List<String>) null);
@@ -420,7 +420,7 @@ public abstract class Simulation extends Animation {
 	 */
 	@Override
 	protected void userDefinedReset() {
-		if (OSPRuntime.isJS2)
+		if (OSPRuntime.isJS)
 			return;
 	}
 
@@ -738,7 +738,7 @@ public abstract class Simulation extends Animation {
 	 * @param _height
 	 */
 	public void addDescriptionPage(String _htmlPage, int _width, int _height, boolean _visible) {
-		if (OSPRuntime.isJS2)
+		if (OSPRuntime.isJS)
 			return;
 		HtmlPageInfo pageInfo = model._getHtmlPageInfo(_htmlPage, currentLocaleItem);
 		if (pageInfo == null) {
@@ -855,7 +855,7 @@ public abstract class Simulation extends Animation {
 	 * @return
 	 */
 	public URL getDescriptionPageURL(String _htmlPage) {
-		if (OSPRuntime.isJS2)
+		if (OSPRuntime.isJS)
 			return null;
 		HtmlPageInfo pageInfo = model._getHtmlPageInfo(_htmlPage, currentLocaleItem);
 		if (pageInfo == null)
@@ -868,7 +868,7 @@ public abstract class Simulation extends Animation {
 	 * browser
 	 */
 	public boolean openDescriptionPagesInBrowser() {
-		if (OSPRuntime.isJS2)
+		if (OSPRuntime.isJS)
 			return true;
 		File tempDir = extractResources();
 		if (tempDir == null)
@@ -891,7 +891,7 @@ public abstract class Simulation extends Animation {
 	 * browser
 	 */
 	public boolean openDescriptionPageInBrowser(String _name) {
-		if (OSPRuntime.isJS2)
+		if (OSPRuntime.isJS)
 			return false;
 		File tempDir = extractResources();
 		if (tempDir == null) {

@@ -131,7 +131,7 @@ public class EjsControl {
   public EjsControl () {
     setValue (ControlElement.METHOD_TRIGGER,Value.VALUE_FALSE); // AMAVP
     methodTriggerVariable = variableTable.get(ControlElement.METHOD_TRIGGER); // AMAVP
-    if(OSPRuntime.isJS2)System.setProperty("jnlp.codebase","file://./");
+    if(OSPRuntime.isJS)System.setProperty("jnlp.codebase","file://./");
   }
 
  /**
