@@ -205,7 +205,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
        slave._getSimulation().isPlaying = false;
        slave._getSimulation().abortSPDLoop = true;
      }
-     if(OSPRuntime.isJS2) return;
+     if(OSPRuntime.isJS) return;
      if(Thread.currentThread()==tempThread) return; // cannot join with own thread so return
      // another thread has called this method in order to stop the animation thread
      try {                      // guard against an exception in applet mode
@@ -273,7 +273,7 @@ public abstract class Animation implements java.lang.Runnable, StateMachine {
    */
   @Override
 public void run() {
-  	if(OSPRuntime.isJS2) {
+  	if(OSPRuntime.isJS) {
   		stateHelper = new SwingJSUtils.StateHelper(this);
   		stateHelper.setState(STATE_INIT);
   		stateHelper.sleep(0);
@@ -325,7 +325,7 @@ public void run() {
 				ControlWindow.removeFromWindowList((ControlWindow) element);
 		}
 
-		if (OSPRuntime.isJS2) return;
+		if (OSPRuntime.isJS) return;
 		
 		if (OSPRuntime.isApplet) {
 			view.onExit();
