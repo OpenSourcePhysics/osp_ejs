@@ -14,9 +14,7 @@ import java.awt.Frame;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -42,7 +40,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.function.Consumer;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractButton;
@@ -2451,7 +2448,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 			exportItem.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					getSelectedTab().saveTableDataToFile();
+					getSelectedTab().saveTableDataToFile(false);
 				}
 
 			});
@@ -2572,7 +2569,7 @@ public class DataTool extends OSPFrame implements Tool, PropertyChangeListener {
 		copyDataItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getSelectedTab().copyTableDataToClipboard();
+				getSelectedTab().copyTableDataToClipboard(true);
 			}
 
 		});
